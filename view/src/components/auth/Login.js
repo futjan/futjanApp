@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import history from "../../history";
+
 // action
 import { loginUser } from "../actions/authAction";
 const Login = (props) => {
@@ -14,7 +16,7 @@ const Login = (props) => {
       email: email.toLowerCase(),
       password,
     };
-    dispatch(loginUser(obj, props.history, clearState));
+    dispatch(loginUser(obj, history, clearState));
   };
   const clearState = () => {
     setEmail("");

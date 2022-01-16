@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -14,6 +19,7 @@ import Footer from "./components/layout/Footer";
 import PrivateRoute from "./utils/privateRoute";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
+import history from "./history";
 // action
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
 // Check for token
@@ -33,10 +39,11 @@ if (localStorage.jwtToken) {
 }
 
 function App(props) {
+  console.log(history);
   return (
     <div className="App">
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <header id="header" className=" typeheader-1">
             <Header />
             <Navbar />
