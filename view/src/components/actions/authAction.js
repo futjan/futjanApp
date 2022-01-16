@@ -73,11 +73,15 @@ export const loginUser = (userData, history, clearState) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(clearLoading());
-
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
-      });
+      //   if (err.response.data.message === "jwt expired") {
+      //     dispatch(logoutUser());
+      //   }
+      if (err && err.response) {
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        });
+      }
       // }
     });
 };
