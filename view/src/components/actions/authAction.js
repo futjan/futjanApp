@@ -73,9 +73,7 @@ export const loginUser = (userData, history, clearState) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(clearLoading());
-      if (err.response.data.message === "jwt expired") {
-        dispatch(logoutUser());
-      }
+
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data,
