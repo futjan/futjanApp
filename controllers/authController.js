@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const AppError = require("../utils/appError");
 const crypto = require("crypto");
 const { promisify } = require("util");
 const sendEmail = require("../utils/email");
@@ -30,14 +31,13 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   // 1) check if email and password exist
   if (!email || !password) {
-    return res.status(400).send("email and password is required!");
+    return next(new AppError("email and password is required!", 400));
   }
   // 2) check if user exist and password is correct
   const user = await User.findOne({ email }).select("+password");
 
   if (!user || !user.correctPassword(password, user.password)) {
-    console.log(user);
-    return res.status(400).send("username or password incorrect!");
+    return next(new AppError("username or password incorrect!", 400));
   }
   // 3) if everything OK then send token to user
   const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -68,14 +68,14 @@ exports.protect = async (req, res, next) => {
   // 3) check user still exist
   const currentUser = await User.findById(decode.id);
   if (!currentUser) {
-    return res.status(404).send("User not exist");
+    return next(new AppError("User not exist", 404));
   }
   // 4) check password does'nt change after the token issued
 
   if (currentUser.changedPassword(decode.iat)) {
-    return res
-      .status(401)
-      .send("user recently changed password Please login again");
+    return next(
+      new AppError("user recently changed password Please login again", 400)
+    );
   }
 
   // grant access to protected routes

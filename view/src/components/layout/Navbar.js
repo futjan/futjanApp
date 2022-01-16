@@ -1,6 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const Navbar = (props) => {
+  // show side navbar
+  const showSideNavBar = () => {
+    const humburgerMenuIcon =
+      document.getElementsByClassName("megamenu-wrapper")[0];
+    if (humburgerMenuIcon) {
+      humburgerMenuIcon.classList.toggle("so-megamenu-active");
+    }
+  };
+  // close side navBar onclick on cross icon
+  const closeSideNavBar = () => {
+    const humburgerMenuIcon =
+      document.getElementsByClassName("megamenu-wrapper")[0];
+    if (humburgerMenuIcon) {
+      humburgerMenuIcon.classList.remove("so-megamenu-active");
+    }
+  };
   return (
     <div className="header-center">
       <div className="container">
@@ -17,6 +33,7 @@ const Navbar = (props) => {
                         id="show-megamenu"
                         data-toggle="collapse"
                         className="navbar-toggle"
+                        onClick={() => showSideNavBar()}
                       >
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
@@ -24,7 +41,11 @@ const Navbar = (props) => {
                       </button>
                     </div>
                     <div className="megamenu-wrapper">
-                      <span id="remove-megamenu" className="fa fa-times"></span>
+                      <span
+                        id="remove-megamenu"
+                        className="fa fa-times"
+                        onClick={() => closeSideNavBar()}
+                      ></span>
                       <div className="megamenu-pattern">
                         <div className="container">
                           <ul
@@ -35,7 +56,11 @@ const Navbar = (props) => {
                             <li className="full-width menu-home with-sub-menu hover">
                               <p className="close-menu"></p>
 
-                              <Link className="clearfix" to="/">
+                              <Link
+                                className="clearfix"
+                                to="/"
+                                onClick={() => closeSideNavBar()}
+                              >
                                 <strong>Home</strong>
                               </Link>
                               {/* <b className="caret"></b> */}
@@ -43,7 +68,11 @@ const Navbar = (props) => {
                             <li className="full-width menu-home with-sub-menu hover">
                               <p className="close-menu"></p>
 
-                              <Link className="clearfix" to="/login">
+                              <Link
+                                className="clearfix"
+                                to="/login"
+                                onClick={() => closeSideNavBar()}
+                              >
                                 <strong>Login</strong>
                               </Link>
                               {/* <b className="caret"></b> */}
@@ -51,7 +80,11 @@ const Navbar = (props) => {
                             <li className="full-width option2 with-sub-menu hover">
                               <p className="close-menu"></p>
 
-                              <Link to="/about-us" className="clearfix">
+                              <Link
+                                to="/about-us"
+                                className="clearfix"
+                                onClick={() => closeSideNavBar()}
+                              >
                                 <strong>About us</strong>
                               </Link>
                               <span className="labelopencart"></span>
@@ -59,7 +92,11 @@ const Navbar = (props) => {
                             </li>
                             <li className="full-width option2 with-sub-menu hover">
                               <p className="close-menu"></p>
-                              <Link to="/contact-us" className="clearfix">
+                              <Link
+                                to="/contact-us"
+                                className="clearfix"
+                                onClick={() => closeSideNavBar()}
+                              >
                                 <strong>Contact us</strong>
                                 <span className="labelopencart"></span>
                               </Link>
@@ -72,12 +109,6 @@ const Navbar = (props) => {
                                 <strong>
                                   {/* <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! */}
                                 </strong>
-                              </a>
-                            </li>
-                            <li className="deal-h5 hidden">
-                              <p className="close-menu"></p>
-                              <a href="#" className="clearfix">
-                                <strong>Today Deals</strong>
                               </a>
                             </li>
                           </ul>

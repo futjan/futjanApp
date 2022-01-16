@@ -1,6 +1,25 @@
-import React from "react";
-
-const Login = () => {
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+// action
+import { loginUser } from "../actions/authAction";
+const Login = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // initialize useDispatch
+  const dispatch = useDispatch();
+  // login function
+  const login_Func = (e) => {
+    e.preventDefault();
+    const obj = {
+      email: email.toLowerCase(),
+      password,
+    };
+    dispatch(loginUser(obj, props.history, clearState));
+  };
+  const clearState = () => {
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="account-login account res layout-1">
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -57,7 +76,8 @@ const Login = () => {
                         <input
                           type="text"
                           name="email"
-                          value=""
+                          onChange={(e) => setEmail(e.target.value)}
+                          value={email}
                           placeholder="E-Mail Address"
                           id="input-email"
                           className="form-control"
@@ -73,7 +93,8 @@ const Login = () => {
                         <input
                           type="password"
                           name="password"
-                          value=""
+                          onChange={(e) => setPassword(e.target.value)}
+                          value={password}
                           placeholder="Password"
                           id="input-password"
                           className="form-control"
@@ -85,6 +106,7 @@ const Login = () => {
                         type="submit"
                         value="Login"
                         className="btn btn-primary pull-left"
+                        onClick={(e) => login_Func(e)}
                       />
                     </form>
                     <column id="column-login" className="col-sm-8 pull-right">

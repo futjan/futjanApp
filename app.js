@@ -26,11 +26,7 @@ app.use(xss());
 // prevent parameter pollution
 app.use(hpp());
 // 2) Routes
-app.get("/test", authController.protect, (req, res) => {
-  res.send("Test Route");
-});
-
-app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/users", userRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
