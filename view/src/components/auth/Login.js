@@ -6,6 +6,7 @@ import Loader from "../../utils/Loader";
 
 // action
 import { loginUser } from "../actions/authAction";
+import { CLEAR_ERRORS } from "../actions/types";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -130,7 +131,16 @@ const Login = (props) => {
                           id="input-password"
                           className="form-control"
                         />
-                        <Link to="/forget-password">Forgotten Password</Link>
+                        <Link
+                          to="/forget-password"
+                          onClick={() =>
+                            dispatch({
+                              type: CLEAR_ERRORS,
+                            })
+                          }
+                        >
+                          Forgotten Password
+                        </Link>
                       </div>
 
                       <input

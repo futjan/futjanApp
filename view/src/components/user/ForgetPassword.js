@@ -16,6 +16,9 @@ const ForgetPassword = () => {
 
   // useEffect
   useEffect(() => {
+    setErrors({});
+  }, []);
+  useEffect(() => {
     setErrors(errorStore);
   }, [errorStore]);
 

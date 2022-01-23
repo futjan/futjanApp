@@ -7,7 +7,6 @@ const handleCastErrorDB = (err) => {
 
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  console.log(value);
 
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
@@ -39,13 +38,9 @@ const sendErrorDev = (err, res) => {
 
 const sendErrorProd = (err, res) => {
   // Operational, trusted error: send message to client
+
   if (err.isOperational) {
-    const errorObj = {};
-    if (err.status) errorObj.status = err.status;
-    if (err.message) errorObj.message = err.message;
-    if (err.validation !== undefined || err.validation)
-      errorObj.validation = err.validation;
-    res.status(err.statusCode).json(errorObj);
+    res.status(err.statusCode).json(err);
 
     // Programming or other unknown error: don't leak error details
   } else {
@@ -69,15 +64,22 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === "production") {
-    let error = { ...err };
+    let errorObj = { ...err };
 
-    if (error.name === "CastError") error = handleCastErrorDB(error);
-    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-    if (error.name === "ValidationError")
-      error = handleValidationErrorDB(error);
-    if (error.name === "JsonWebTokenError") error = handleJWTError();
-    if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
+    if (err.isOperational) errorObj.isOperational = err.isOperational;
+    if (err.status) errorObj.status = err.status;
+    if (err.message) errorObj.message = err.message;
+    if (err.validation !== undefined || err.validation)
+      errorObj.validation = err.validation;
 
-    sendErrorProd(error, res);
+    if (errorObj.name === "CastError") errorObj = handleCastErrorDB(errorObj);
+    if (errorObj.code === 11000) errorObj = handleDuplicateFieldsDB(errorObj);
+    if (errorObj.name === "ValidationError")
+      errorObj = handleValidationErrorDB(error);
+    if (errorObj.name === "JsonWebTokenError") errorObj = handleJWTError();
+    if (errorObj.name === "TokenExpiredError")
+      errorObj = handleJWTExpiredError();
+
+    sendErrorProd(errorObj, res);
   }
 };
