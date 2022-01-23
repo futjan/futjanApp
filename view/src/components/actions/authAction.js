@@ -116,6 +116,9 @@ export const forgetPassword = (data, clearState) => (dispatch) => {
     .then((res) => {
       clearState();
       dispatch(clearLoading());
+      dispatch({
+        type: CLEAR_ERRORS,
+      });
     })
     .catch((err) => {
       dispatch(clearLoading());
@@ -137,6 +140,9 @@ export const resetPassword = (userData, token, clearState) => (dispatch) => {
     .then((res) => {
       clearState();
       dispatch(clearLoading());
+      dispatch({
+        type: CLEAR_ERRORS,
+      });
     })
     .catch((err) => {
       dispatch(clearLoading());
