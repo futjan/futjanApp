@@ -28,6 +28,9 @@ export const registerUser = (userData, clearState) => (dispatch) => {
     .then((res) => {
       clearState();
       dispatch(clearLoading());
+      dispatch({
+        type: CLEAR_ERRORS,
+      });
     })
     .catch((err) => {
       if (err.response.data.message === "jwt expired") {

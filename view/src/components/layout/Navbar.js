@@ -1,8 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../actions/authAction";
 const Navbar = (props) => {
   // initialize Hooks
+  const dispatch = useDispatch();
+  // get state from store
   const auth = useSelector((state) => state.auth);
   // show side navbar
   const showSideNavBar = () => {
@@ -25,7 +28,7 @@ const Navbar = (props) => {
       <div className="container">
         <div className="row">
           {/* <!-- Menuhome --> */}
-          <div className="col-lg-8 col-md-8 col-sm-1 col-xs-3 header-menu">
+          <div className="col-lg-6 col-md-6 col-sm-1 col-xs-3 header-menu">
             <div className="megamenu-style-dev megamenu-dev">
               <div className="responsive">
                 <nav className="navbar-default">
@@ -94,8 +97,47 @@ const Navbar = (props) => {
                                 </Link>
                               </li>
                             ) : null}
+                            {auth.isAuthenticated === true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
 
-                            <li className="full-width option2 with-sub-menu hover">
+                                <Link
+                                  className="clearfix"
+                                  to="/jobs"
+                                  onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>JOBS</strong>
+                                </Link>
+                              </li>
+                            ) : null}
+                            {auth.isAuthenticated === true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <Link
+                                  className="clearfix"
+                                  to="/jobs"
+                                  onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>Surplus</strong>
+                                </Link>
+                              </li>
+                            ) : null}
+                            {auth.isAuthenticated === true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <Link
+                                  className="clearfix"
+                                  to="/jobs"
+                                  onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>Business</strong>
+                                </Link>
+                              </li>
+                            ) : null}
+
+                            {/* <li className="full-width option2 with-sub-menu hover">
                               <p className="close-menu"></p>
 
                               <Link
@@ -106,8 +148,8 @@ const Navbar = (props) => {
                                 <strong>About us</strong>
                               </Link>
                               <span className="labelopencart"></span>
-                              {/* <b className="caret"></b> */}
-                            </li>
+                              
+                            </li> */}
                             <li className="full-width option2 with-sub-menu hover">
                               <p className="close-menu"></p>
                               <Link
@@ -118,8 +160,20 @@ const Navbar = (props) => {
                                 <strong>Contact us</strong>
                                 <span className="labelopencart"></span>
                               </Link>
-                              {/* <b className="caret"></b> */}
                             </li>
+                            {auth.isAuthenticated === true ? (
+                              <li className="full-width option2 with-sub-menu hover hidden logout-btn-show">
+                                <p className="close-menu"></p>
+                                <Link
+                                  to="/"
+                                  className="clearfix"
+                                  onClick={() => dispatch(logoutUser())}
+                                >
+                                  <strong>LOGOUT</strong>
+                                  <span className="labelopencart"></span>
+                                </Link>
+                              </li>
+                            ) : null}
 
                             {/* <li className="deal-h5 hidden">
                               <p className="close-menu"></p>
@@ -139,7 +193,7 @@ const Navbar = (props) => {
             </div>
           </div>
           {/* <!--Searchhome-->  */}
-          <div className="col-lg-4 col-md-4 col-sm-11 col-xs-9 header-search">
+          <div className="col-lg-3 col-md-4 col-sm-11 col-xs-9 header-search">
             <div id="sosearchpro" className="sosearchpro-wrapper so-search ">
               <form method="GET" action="index.php">
                 <div id="search0" className="search input-group form-group">
@@ -361,6 +415,13 @@ const Navbar = (props) => {
                 <input type="hidden" name="route" value="product/search" />
               </form>
             </div>
+          </div>
+          <div className="col-lg-1" style={{ padding: "0" }}>
+            {auth.isAuthenticated === true ? (
+              <p className="logout-btn" onClick={() => dispatch(logoutUser())}>
+                LOGOUT
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

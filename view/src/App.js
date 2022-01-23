@@ -11,6 +11,8 @@ import Index from "./components//index/index";
 import Navbar from "./components/layout/Navbar";
 import Aboutus from "./components/about us/Aboutus";
 import Contactus from "./components/contact us/Contactus";
+import Job from "./components/jobs/Jobs";
+import JobDetail from "./components/jobs/JobDetail";
 import Footer from "./components/layout/Footer";
 import ForgetPassword from "./components/user/ForgetPassword";
 import ResetPassword from "./components/user/ResetPassword";
@@ -58,6 +60,8 @@ function App(props) {
             <Route path="/:token" exact element={<ResetPassword />} />
             <Route path="/about-us" exact element={<Aboutus />} />
             <Route path="/contact-us" exact element={<Contactus />} />
+            <Route path="/jobs" exact element={<Job />} />
+            <Route path="/details" exact element={<JobDetail />} />
           </Routes>
           <Footer />
         </Provider>

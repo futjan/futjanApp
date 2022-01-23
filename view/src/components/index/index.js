@@ -526,7 +526,7 @@ const Index = (props) => {
                       <div class="modcontent">
                         <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
                           <div
-                            class="category-slider-inner products-list yt-content-slider"
+                            class="category-slider-inner products-list yt-content-slider row"
                             data-rtl="yes"
                             data-autoplay="yes"
                             data-autoheight="no"
@@ -545,7 +545,7 @@ const Index = (props) => {
                             data-loop="yes"
                             data-hoverpause="yes"
                           >
-                            <div class="item">
+                            <div class="item col-md-4 col-sm-6 col-xs-12">
                               <div class="transition product-layout">
                                 <div class="product-item-container ">
                                   <div class="left-block so-quickview">
@@ -649,7 +649,7 @@ const Index = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <div class="item">
+                            <div class="item col-md-4 col-sm-6 col-xs-12">
                               <div class="transition product-layout">
                                 <div class="product-item-container ">
                                   <div class="left-block so-quickview">
@@ -788,7 +788,7 @@ const Index = (props) => {
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
                     <div class="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
                       <div class="head-title font-ct">
-                        <h2 class="modtitle">Spa &amp; Massage</h2>
+                        <h2 class="modtitle">JOBS</h2>
                       </div>
                       <div class="modcontent">
                         <div
@@ -857,8 +857,8 @@ const Index = (props) => {
                                 class="ltabs-items ltabs-items-selected items-category-1 ltabs-process"
                                 data-total="16"
                               >
-                                <div class="ltabs-items-inner ltabs-slider">
-                                  <div class="ltabs-item">
+                                <div class="ltabs-items-inner ltabs-slider row">
+                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
                                     <div class="item-inner product-layout transition product-grid">
                                       <div class="product-item-container">
                                         <div class="left-block">
@@ -1068,7 +1068,7 @@ const Index = (props) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="ltabs-item">
+                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
                                     <div class="item-inner product-layout transition product-grid">
                                       <div class="product-item-container">
                                         <div class="left-block">
@@ -1278,7 +1278,7 @@ const Index = (props) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="ltabs-item">
+                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
                                     <div class="item-inner product-layout transition product-grid">
                                       <div class="product-item-container">
                                         <div class="left-block">
@@ -1488,7 +1488,7 @@ const Index = (props) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="ltabs-item">
+                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
                                     <div class="item-inner product-layout transition product-grid">
                                       <div class="product-item-container">
                                         <div class="left-block">
@@ -1700,17 +1700,1799 @@ const Index = (props) => {
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                class="ltabs-items items-category-2 grid ltabs-process"
-                                data-total="16"
-                              >
-                                <div class="ltabs-loading"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="box-link3" class="section-style">
+              <div class="container page-builder-ltr">
+                <div class="row row-style row_a3">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_nvxr  block block_6 title_neo3">
+                    <div class="module so-listing-tabs-ltr home1-lt-style2 default-nav clearfix img-float home-lt1">
+                      <div class="head-title font-ct">
+                        <h2 class="modtitle">SURPLUX</h2>
+                      </div>
+                      <div class="modcontent">
+                        <div
+                          id="so_listing_tabs_2"
+                          class="so-listing-tabs first-load"
+                        >
+                          <div class="ltabs-wrap">
+                            <div
+                              class="ltabs-tabs-container"
+                              data-delay="300"
+                              data-duration="600"
+                              data-effect="starwars"
+                              data-ajaxurl=""
+                              data-type_source="0"
+                              data-lg="3"
+                              data-md="3"
+                              data-sm="3"
+                              data-xs="2"
+                              data-margin="0"
+                            >
+                              <div class="ltabs-tabs-wrap">
+                                <span class="ltabs-tab-selected">
+                                  Best sellers
+                                </span>
+                                <span class="ltabs-tab-arrow">▼</span>
+                                <div class="item-sub-cat">
+                                  <ul class="ltabs-tabs cf">
+                                    <li
+                                      class="ltabs-tab tab-sel"
+                                      data-category-id="4"
+                                      data-active-content=".items-category-4"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        Best sellers
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="ltabs-tab"
+                                      data-category-id="5"
+                                      data-active-content=".items-category-5"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        New Arrivals
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="ltabs-tab"
+                                      data-category-id="6"
+                                      data-active-content=".items-category-6"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        Most Rating
+                                      </span>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div>
-                              <div
-                                class="ltabs-items  items-category-3 grid ltabs-process"
-                                data-total="16"
-                              >
-                                <div class="ltabs-loading"></div>
+                            </div>
+                            <div class="wap-listing-tabs products-list grid">
+                              {/* <div class="item-cat-image banners">
+                                <div>
+                                  <a
+                                    href="product.html"
+                                    title=""
+                                    target="_self"
+                                  >
+                                    <img
+                                      src={spa1}
+                                      alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                    />
+                                  </a>
+                                </div>
+                              </div> */}
+                              <div class="ltabs-items-container">
+                                <div
+                                  class="ltabs-items ltabs-items-selected items-category-4"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-items-inner ltabs-slider row">
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Amazing Yoga Sport Poses Most People Wouldn't Dream "
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Amazing Yoga Sport Poses Most People Wouldn't Dream "
+                                                  target="_self"
+                                                >
+                                                  Amazing Yoga Sport Poses Most
+                                                  People Wouldn't Dre..
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $108.80
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -11%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Amazing Yoga Sport Poses Most People Wouldn't Dream "
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                  target="_self"
+                                                >
+                                                  Est Officia Including Shoes
+                                                  Beautiful Pieces Canaz
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $62.00
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $337.99
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -82%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Girly Summer Outfit Ideas To Upgrade Your Wardrobe"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Girly Summer Outfit Ideas To Upgrade Your Wardrobe"
+                                                  target="_self"
+                                                >
+                                                  Girly Summer Outfit Ideas To
+                                                  Upgrade Your Wardrob..
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $128.80
+                                                  </span>
+                                                  <span class="price-old"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Girly Summer Outfit Ideas To Upgrade Your Wardrobe"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Cras idrisusiopsa quo voluptas nulla pariatur shoprer"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Cras idrisusiopsa quo voluptas nulla pariatur shoprer"
+                                                  target="_self"
+                                                >
+                                                  Cras idrisusiopsa quo voluptas
+                                                  nulla par...
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $242.00
+                                                  </span>
+                                                  <span class="price-old"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Cras idrisusiopsa quo voluptas nulla pariatur shoprer"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Invisible Hidden Spy Earphone Micro Wireless"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Invisible Hidden Spy Earphone Micro Wireless"
+                                                  target="_self"
+                                                >
+                                                  Invisible Hidden Spy Earphone
+                                                  Micro Wireless
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $122.00
+                                                  </span>
+                                                  <span class="price-old"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Invisible Hidden Spy Earphone Micro Wireless"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                  target="_self"
+                                                >
+                                                  Est Officia Including Shoes
+                                                  Beautiful Pieces Canaz
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $98.00
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -20%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Invisible Hidden Spy Earphone Micro Wireless"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Invisible Hidden Spy Earphone Micro Wireless"
+                                                  target="_self"
+                                                >
+                                                  Invisible Hidden Spy Earphone
+                                                  Micro Wireless
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $122.00
+                                                  </span>
+                                                  <span class="price-old"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Invisible Hidden Spy Earphone Micro Wireless"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                  target="_self"
+                                                >
+                                                  Est Officia Including Shoes
+                                                  Beautiful Pieces Canaz
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $98.00
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -20%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Est Officia Including Shoes Beautiful Pieces Canaz"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="ltabs-items  items-category-5 grid"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-loading"></div>
+                                </div>
+                                <div
+                                  class="ltabs-items  items-category-6 grid"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-loading"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="box-link4" class="section-style">
+              <div class="container page-builder-ltr">
+                <div class="row row-style row_a4">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_mfpr  block block_7 title_neo4">
+                    <div class="module so-listing-tabs-ltr home1-lt-style3 default-nav clearfix img-float home-lt1">
+                      <div class="head-title font-ct">
+                        <h2 class="modtitle">BUSINESS</h2>
+                      </div>
+                      <div class="modcontent">
+                        <div
+                          id="so_listing_tabs_3"
+                          class="so-listing-tabs first-load"
+                        >
+                          <div class="ltabs-wrap">
+                            <div
+                              class="ltabs-tabs-container"
+                              data-delay="300"
+                              data-duration="600"
+                              data-effect="starwars"
+                              data-ajaxurl=""
+                              data-type_source="0"
+                              data-lg="3"
+                              data-md="3"
+                              data-sm="3"
+                              data-xs="2"
+                              data-margin="0"
+                            >
+                              <div class="ltabs-tabs-wrap">
+                                <span class="ltabs-tab-selected">
+                                  Best sellers
+                                </span>
+                                <span class="ltabs-tab-arrow">▼</span>
+                                <div class="item-sub-cat">
+                                  <ul class="ltabs-tabs cf">
+                                    <li
+                                      class="ltabs-tab tab-sel"
+                                      data-category-id="4"
+                                      data-active-content=".items-category-4"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        Best sellers
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="ltabs-tab"
+                                      data-category-id="7"
+                                      data-active-content=".items-category-7"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        New Arrivals
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="ltabs-tab"
+                                      data-category-id="8"
+                                      data-active-content=".items-category-8"
+                                    >
+                                      <span class="ltabs-tab-label">
+                                        Most Rating
+                                      </span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="wap-listing-tabs products-list grid">
+                              {/* <div class="item-cat-image banners">
+												<div>
+													<a href="product.html" title="" target="_self">
+													<img class="categories-loadimage" title="" alt="" src="image/catalog/demo/banners/home1/md-banner-2.jpg">
+													</a>
+												</div>
+											</div> */}
+                              <div class="ltabs-items-container">
+                                <div
+                                  class="ltabs-items ltabs-items-selected items-category-4"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-items-inner ltabs-slider row">
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"
+                                                  target="_self"
+                                                >
+                                                  Bougainvilleas On Lombard
+                                                  Street, San Francisco, Tokyo
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $108.80
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -11%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Philipin Tour Group Manila/ Pattaya / Mactan "
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Philipin Tour Group Manila/ Pattaya / Mactan "
+                                                  target="_self"
+                                                >
+                                                  Philipin Tour Group Manila/
+                                                  Pattaya / Mactan{" "}
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $74.00
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -40%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Philipin Tour Group Manila/ Pattaya / Mactan "
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Burger King Japan debuts Monster Baby, Double, Canada"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Burger King Japan debuts Monster Baby, Double, Canada"
+                                                  target="_self"
+                                                >
+                                                  Burger King Japan debuts
+                                                  Monster Baby, Double, Canada
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $1,202.00
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Burger King Japan debuts Monster Baby, Double, Canada"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Thailand Group Departure / Pattaya / Bangkok"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Thailand Group Departure / Pattaya / Bangkok"
+                                                  target="_self"
+                                                >
+                                                  Thailand Group Departure /
+                                                  Pattaya / Bangkok
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Thailand Group Departure / Pattaya / Bangkok"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Chicago Tour Departure / Pattaya / Solimania..."
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
+                                                  target="_self"
+                                                >
+                                                  Chicago Tour Departure /
+                                                  Pattaya / Solimania...
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $108.80
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -11%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                                  target="_self"
+                                                >
+                                                  Tokyo Temple on Elevated Area
+                                                  Under Blue Sky and White
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Chicago Tour Departure / Pattaya / Solimania..."
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                            <div class="box-label">
+                                              <span class="label-product label-sale">
+                                                Sale
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
+                                                  target="_self"
+                                                >
+                                                  Chicago Tour Departure /
+                                                  Pattaya / Solimania...
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $108.80
+                                                  </span>
+                                                  <span class="price-old">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                                <div class="price-sale price-right">
+                                                  <span class="discount 123">
+                                                    -11%<strong>OFF</strong>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="item-inner product-layout transition product-grid">
+                                        <div class="product-item-container">
+                                          <div class="left-block">
+                                            <div class="image product-image-container ">
+                                              <a
+                                                class="lt-image"
+                                                href="#"
+                                                target="_self"
+                                                title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                              >
+                                                <img
+                                                  src={spa1}
+                                                  alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                />
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="right-block">
+                                            <div class="caption">
+                                              <h4>
+                                                <a
+                                                  href="product.html"
+                                                  title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                                  target="_self"
+                                                >
+                                                  Tokyo Temple on Elevated Area
+                                                  Under Blue Sky and White
+                                                </a>
+                                              </h4>
+                                              <div class="total-price clearfix">
+                                                <div class="price price-left">
+                                                  <span class="price-new">
+                                                    $122.00
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="button-group">
+                                              <div class="button-inner so-quickview">
+                                                <a
+                                                  class="lt-image hidden"
+                                                  href="#"
+                                                  target="_self"
+                                                  title="Tokyo Temple on Elevated Area Under Blue Sky and White"
+                                                ></a>
+                                                <a
+                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  href="quickview.html"
+                                                  title="Quick View"
+                                                  data-title="Quick View"
+                                                  data-fancybox-type="iframe"
+                                                >
+                                                  <i class="fa fa-search"></i>
+                                                </a>
+                                                <button
+                                                  class="wishlist btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="wishlist.add('28');"
+                                                  data-original-title="Add to Wish List"
+                                                >
+                                                  <i class="fa fa-heart"></i>
+                                                </button>
+                                                <button
+                                                  class="compare btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="compare.add('28');"
+                                                  data-original-title="Compare this Product"
+                                                >
+                                                  <i class="fa fa-exchange"></i>
+                                                </button>
+                                                <button
+                                                  class="addToCart btn-button"
+                                                  type="button"
+                                                  data-toggle="tooltip"
+                                                  title=""
+                                                  onclick="cart.add('28');"
+                                                  data-original-title="Add to cart"
+                                                >
+                                                  <span class="hidden">
+                                                    Add to cart
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="ltabs-items  items-category-7 grid"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-loading"></div>
+                                </div>
+                                <div
+                                  class="ltabs-items  items-category-8 grid"
+                                  data-total="16"
+                                >
+                                  <div class="ltabs-loading"></div>
+                                </div>
                               </div>
                             </div>
                           </div>

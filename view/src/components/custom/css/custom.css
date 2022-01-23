@@ -52,3 +52,28 @@
 }
 
 /* Loader End*/
+/* LOGOUT BTN */
+.logout-btn {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  padding: 11px 10px;
+  text-transform: uppercase;
+  text-shadow: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+.logout-btn:hover {
+  background-color: #cc4b00 !important;
+}
+@media screen and (max-width: 992px) {
+  .logout-btn {
+    display: none;
+  }
+  .logout-btn-show {
+    display: block !important;
+  }
+}
+/* LOGOUT BTN */
