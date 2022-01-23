@@ -32,15 +32,12 @@ const Job = () => {
                     <div className="itemBlogImg left-block">
                       <div className="article-image banners">
                         <div>
-                          <a
-                            className="popup-gallery"
-                            href="image/catalog/demo/blog/5.jpg"
-                          >
+                          <Link className="popup-gallery" to="/details">
                             <img
                               src={jobSkeleton}
                               alt="Baby Came Back! Missed Out? Grab Your"
                             />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -91,15 +88,12 @@ const Job = () => {
                     <div className="itemBlogImg left-block">
                       <div className="article-image banners">
                         <div>
-                          <a
-                            className="popup-gallery"
-                            href="image/catalog/demo/blog/5.jpg"
-                          >
+                          <Link className="popup-gallery" to="/details">
                             <img
                               src={jobSkeleton}
                               alt="Baby Came Back! Missed Out? Grab Your"
                             />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -150,15 +144,12 @@ const Job = () => {
                     <div className="itemBlogImg left-block">
                       <div className="article-image banners">
                         <div>
-                          <a
-                            className="popup-gallery"
-                            href="image/catalog/demo/blog/5.jpg"
-                          >
+                          <Link className="popup-gallery" to="/details">
                             <img
                               src={jobSkeleton}
                               alt="Baby Came Back! Missed Out? Grab Your"
                             />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -209,15 +200,12 @@ const Job = () => {
                     <div className="itemBlogImg left-block">
                       <div className="article-image banners">
                         <div>
-                          <a
-                            className="popup-gallery"
-                            href="image/catalog/demo/blog/5.jpg"
-                          >
+                          <Link className="popup-gallery" to="/details">
                             <img
                               src={jobSkeleton}
                               alt="Baby Came Back! Missed Out? Grab Your"
                             />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
