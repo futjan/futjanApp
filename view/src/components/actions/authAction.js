@@ -118,6 +118,7 @@ export const forgetPassword = (data, clearState) => (dispatch) => {
       dispatch(clearLoading());
     })
     .catch((err) => {
+      dispatch(clearLoading());
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data,
@@ -138,6 +139,7 @@ export const resetPassword = (userData, token, clearState) => (dispatch) => {
       dispatch(clearLoading());
     })
     .catch((err) => {
+      dispatch(clearLoading());
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data,
