@@ -13,23 +13,21 @@ import {
 // @route   POST /api/v1/users/signup
 // @desc    create new user
 // @access  Public
-export const registerUser = (userData, file, clearState) => (dispatch) => {
-  const formData = new FormData();
-  formData.append("fileUpload", file);
-  formData.append("user", JSON.stringify(userData));
-  const config = {
-    headers: {
-      "content-type": "multipart/form-data",
-    },
-  };
+export const registerUser = (userData, clearState) => (dispatch) => {
+  // const formData = new FormData();
+  // formData.append("fileUpload", file);
+  // formData.append("user", JSON.stringify(userData));
+  // const config = {
+  //   headers: {
+  //     "content-type": "multipart/form-data",
+  //   },
+  // };
   dispatch(setLoading());
   axios
-    .post("/api/v1/users/signup", formData, config)
+    .post("/api/v1/users/signup", userData)
     .then((res) => {
       clearState();
-      dispatch({
-        type: CLEAR_USER_LOADING,
-      });
+      dispatch(clearLoading());
     })
     .catch((err) => {
       if (err.response.data.message === "jwt expired") {
@@ -48,7 +46,7 @@ export const registerUser = (userData, file, clearState) => (dispatch) => {
 // @route   POST /api/v1/users/login
 // @desc    Login in to get token
 // @access  Public
-export const loginUser = (userData, history, clearState) => (dispatch) => {
+export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
   console.log(userData);
   dispatch({
     type: CLEAR_ERRORS,
@@ -57,7 +55,6 @@ export const loginUser = (userData, history, clearState) => (dispatch) => {
   axios
     .post("/api/v1/users/login", userData)
     .then((res) => {
-      history.push("/");
       clearState();
 
       // Save to localStorage
@@ -72,6 +69,7 @@ export const loginUser = (userData, history, clearState) => (dispatch) => {
       // Set current user
       dispatch(setCurrentUser(decoded));
       dispatch(clearLoading());
+      pushToIndex();
     })
     .catch((err) => {
       dispatch(clearLoading());
@@ -105,6 +103,46 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// @route   POST /api/v1/users/forgetpassword
+// @desc    forget password
+// @access  Public
+export const forgetPassword = (data, clearState) => (dispatch) => {
+  dispatch(setLoading());
+
+  axios
+    .post("/api/v1/users/forgetPassword", data)
+    .then((res) => {
+      clearState();
+      dispatch(clearLoading());
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+// @route   POST /api/v1/users/resetPassword/:token
+// @desc    reset password
+// @access  Public
+export const resetPassword = (userData, token, clearState) => (dispatch) => {
+  dispatch(setLoading());
+
+  axios
+    .post(`/api/v1/users/resetPassword/${token}`, userData)
+    .then((res) => {
+      clearState();
+      dispatch(clearLoading());
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+    });
 };
 
 const setLoading = () => {

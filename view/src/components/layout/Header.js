@@ -1,6 +1,7 @@
 import React from "react";
-import homeIcon from "../image/catalog/demo/product/travel/10-54x54.jpg";
+import { Link } from "react-router-dom";
 import homeIcon2 from "../image/catalog/demo/product/travel/2.jpg";
+import LOGO from "../image/Logo.png";
 const Header = (props) => {
   return (
     <div className="header-top hidden-compact">
@@ -8,14 +9,14 @@ const Header = (props) => {
         <div className="row">
           <div className="col-lg-3 col-xs-6 header-logo ">
             <div className="navbar-logo">
-              <a href="#">
+              <Link to="/">
                 <img
                   alt="Your Store"
-                  width="110"
-                  height="27"
+                  style={{ width: "230px", height: "43px" }}
                   title="Your Store"
+                  src={LOGO}
                 />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-lg-7 header-sevices">

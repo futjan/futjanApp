@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Navbar = (props) => {
+  // initialize Hooks
+  const auth = useSelector((state) => state.auth);
   // show side navbar
   const showSideNavBar = () => {
     const humburgerMenuIcon =
@@ -65,18 +68,33 @@ const Navbar = (props) => {
                               </Link>
                               {/* <b className="caret"></b> */}
                             </li>
-                            <li className="full-width menu-home with-sub-menu hover">
-                              <p className="close-menu"></p>
+                            {auth.isAuthenticated !== true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
 
-                              <Link
-                                className="clearfix"
-                                to="/login"
-                                onClick={() => closeSideNavBar()}
-                              >
-                                <strong>Login</strong>
-                              </Link>
-                              {/* <b className="caret"></b> */}
-                            </li>
+                                <Link
+                                  className="clearfix"
+                                  to="/login"
+                                  onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>Login</strong>
+                                </Link>
+                              </li>
+                            ) : null}
+                            {auth.isAuthenticated !== true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <Link
+                                  className="clearfix"
+                                  to="/signup"
+                                  onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>Register</strong>
+                                </Link>
+                              </li>
+                            ) : null}
+
                             <li className="full-width option2 with-sub-menu hover">
                               <p className="close-menu"></p>
 
@@ -103,14 +121,14 @@ const Navbar = (props) => {
                               {/* <b className="caret"></b> */}
                             </li>
 
-                            <li className="deal-h5 hidden">
+                            {/* <li className="deal-h5 hidden">
                               <p className="close-menu"></p>
                               <a href="#" className="clearfix">
                                 <strong>
-                                  {/* <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! */}
+                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
                                 </strong>
                               </a>
-                            </li>
+                            </li> */}
                           </ul>
                         </div>
                       </div>

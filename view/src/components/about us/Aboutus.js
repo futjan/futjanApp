@@ -1,20 +1,20 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Aboutus() {
   return (
     <div id="wrapper" class="wrapper-fluid banners-effect-5">
       <div class="main-container container">
         <ul class="breadcrumb">
           <li>
-            <a href="#">
+            <Link to="/">
               <i class="fa fa-home"></i>
-            </a>
+            </Link>
           </li>
+
           <li>
-            <a href="#">Page</a>
-          </li>
-          <li>
-            <a href="#">About Us</a>
+            <Link to="/about-us" href="#">
+              About Us
+            </Link>
           </li>
         </ul>
 

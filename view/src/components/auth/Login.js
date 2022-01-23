@@ -1,14 +1,28 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import history from "../../history";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../utils/Loader";
 
 // action
 import { loginUser } from "../actions/authAction";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  // initialize navigation
+  const navigate = useNavigate();
   // initialize useDispatch
   const dispatch = useDispatch();
+  // get state from store
+  const errorStore = useSelector((state) => state.error);
+  const auth = useSelector((state) => state.auth);
+
+  // useEffect
+  useEffect(() => {
+    setErrors(errorStore);
+  }, [errorStore]);
+
   // login function
   const login_Func = (e) => {
     e.preventDefault();
@@ -16,14 +30,20 @@ const Login = (props) => {
       email: email.toLowerCase(),
       password,
     };
-    dispatch(loginUser(obj, history, clearState));
+    dispatch(loginUser(obj, pushToIndex, clearState));
   };
   const clearState = () => {
     setEmail("");
     setPassword("");
   };
+  const pushToIndex = () => {
+    navigate("/");
+  };
   return (
-    <div className="account-login account res layout-1">
+    <div
+      className="account-login account res layout-1"
+      style={{ position: "relative" }}
+    >
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
         {/* Main Container   */}
 
@@ -31,13 +51,13 @@ const Login = (props) => {
           <div className="row">
             <ul className="breadcrumb">
               <li>
-                <a href="#">
+                <Link to="/">
                   <i className="fa fa-home"></i>
-                </a>
+                </Link>
               </li>
-              <li>
+              {/* <li>
                 <a href="#">Account</a>
-              </li>
+              </li> */}
               <li>
                 <a href="#">Login</a>
               </li>
@@ -55,9 +75,9 @@ const Login = (props) => {
                       up to date on an order's status, and keep track of the
                       orders you have previously made.
                     </p>
-                    <a href="register.html" className="btn btn-primary">
+                    <Link to="/signup" className="btn btn-primary">
                       Continue
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-sm-6">
@@ -71,6 +91,15 @@ const Login = (props) => {
                       method="post"
                       encType="multipart/form-data"
                     >
+                      <div className="form-group">
+                        {errors && errors.message && (
+                          <div className="col-sm-12" style={{ padding: "0" }}>
+                            <div class="alert alert-danger" role="alert">
+                              {errors.message}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                       <div className="form-group">
                         <label className="control-label" htmlFor="input-email">
                           E-Mail Address
@@ -101,7 +130,7 @@ const Login = (props) => {
                           id="input-password"
                           className="form-control"
                         />
-                        <a href="#">Forgotten Password</a>
+                        <Link to="/forget-password">Forgotten Password</Link>
                       </div>
 
                       <input
@@ -219,6 +248,7 @@ const Login = (props) => {
 
         {/* Main Container */}
       </div>
+      {auth.loading === true ? <Loader /> : null}
     </div>
   );
 };

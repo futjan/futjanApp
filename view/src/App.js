@@ -1,25 +1,26 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 // component
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Header from "./components/layout/Header";
 import Index from "./components//index/index";
 import Navbar from "./components/layout/Navbar";
 import Aboutus from "./components/about us/Aboutus";
 import Contactus from "./components/contact us/Contactus";
 import Footer from "./components/layout/Footer";
+import ForgetPassword from "./components/user/ForgetPassword";
+import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
+
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
-import history from "./history";
+// stylesheet
+import "./components/custom/css/custom.css";
+// import history from "./history";
 // action
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
 // Check for token
@@ -39,11 +40,10 @@ if (localStorage.jwtToken) {
 }
 
 function App(props) {
-  console.log(history);
   return (
     <div className="App">
-      <Provider store={store}>
-        <Router history={history}>
+      <Router>
+        <Provider store={store}>
           <header id="header" className=" typeheader-1">
             <Header />
             <Navbar />
@@ -53,12 +53,15 @@ function App(props) {
               <Route path="/" exact element={<Index />} />
             </Route>
             <Route path="/login" exact element={<Login />} />
+            <Route path="/signup" exact element={<Register />} />
+            <Route path="/forget-password" exact element={<ForgetPassword />} />
+            <Route path="/:token" exact element={<ResetPassword />} />
             <Route path="/about-us" exact element={<Aboutus />} />
             <Route path="/contact-us" exact element={<Contactus />} />
           </Routes>
           <Footer />
-        </Router>
-      </Provider>
+        </Provider>
+      </Router>
     </div>
   );
 }
