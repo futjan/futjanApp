@@ -190,16 +190,15 @@ const Header = (props) => {
                               </li>
                             ) : null}
                             {auth.isAuthenticated === true ? (
-                              <li className="full-width option2 with-sub-menu hover hidden logout-btn-show">
+                              <li className="full-width menu-home with-sub-menu hover">
                                 <p className="close-menu"></p>
-                                <NavLink
-                                  to="/"
+                                <a
                                   className="clearfix"
-                                  // onClick={() => dispatch(logoutUser())}
+                                  onClick={() => dispatch(logoutUser())}
                                 >
                                   <strong>LOGOUT</strong>
                                   <span className="labelopencart"></span>
-                                </NavLink>
+                                </a>
                               </li>
                             ) : null}
 
