@@ -1,3 +1,6 @@
+.d-block {
+  display: block !important;
+}
 .invalid-feedback {
   display: block;
   width: 100%;
@@ -68,6 +71,38 @@
 .logout-btn:hover {
   background-color: #cc4b00 !important;
 }
+/*  Hide Arrows From Input Number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/*  Hide Arrows From Input Number */
+/* Surpluses */
+.products-list.list-masonry
+  .product-layout
+  .product-item-container
+  .right-block
+  .caption
+  h4,
+.products-list.grid
+  .product-layout
+  .product-item-container
+  .right-block
+  .caption
+  h4 {
+  height: 47px !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+/* Surpluses */
 @media screen and (max-width: 992px) {
   .logout-btn {
     display: none;
@@ -77,3 +112,30 @@
   }
 }
 /* LOGOUT BTN */
+
+@media screen and (max-width: 1024px) {
+  .header-top ul.megamenu {
+    display: block !important;
+  }
+  .megamenu-style-dev
+    .navbar-default
+    .horizontal
+    .megamenu-wrapper
+    ul.megamenu
+    > li
+    > a {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .typeheader-1
+    .megamenu-style-dev
+    .horizontal
+    ul.megamenu
+    > li:hover
+    > a::after,
+  .typeheader-1 .megamenu-style-dev .horizontal ul.megamenu > li > a.active {
+    display: none !important;
+  }
+}

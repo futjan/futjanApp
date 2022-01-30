@@ -82,9 +82,10 @@ exports.protect = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
+  } else {
+    return next(new AppError("unauthorized user", 401, undefined));
   }
   // 2) verify token
-
   const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   // 3) check user still exist

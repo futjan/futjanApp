@@ -1,13 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import homeIcon2 from "../image/catalog/demo/product/travel/2.jpg";
 import LOGO from "../image/Logo.png";
 const Header = (props) => {
+  // get state from store
+  const auth = useSelector((state) => state.auth);
+
+  // show side navbar
+  const showSideNavBar = () => {
+    const humburgerMenuIcon =
+      document.getElementsByClassName("megamenu-wrapper")[0];
+    if (humburgerMenuIcon) {
+      humburgerMenuIcon.classList.toggle("so-megamenu-active");
+    }
+  };
+  // close side navBar onclick on cross icon
+  const closeSideNavBar = () => {
+    const humburgerMenuIcon =
+      document.getElementsByClassName("megamenu-wrapper")[0];
+    if (humburgerMenuIcon) {
+      humburgerMenuIcon.classList.remove("so-megamenu-active");
+    }
+  };
+
+  // show sub menu
+  const showSubMenu = (id, id2) => {
+    if (document.getElementById(`${id}`) && document.getElementById(`${id2}`)) {
+      document.getElementById(`${id}`).classList.toggle("d-block");
+      document.getElementById(`${id2}`).classList.toggle("d-block");
+    }
+  };
   return (
     <div className="header-top hidden-compact">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-xs-6 header-logo ">
+          <div className="col-md-6 col-lg-6 col-xs-6 header-logo ">
             <div className="navbar-logo">
               <Link to="/">
                 <img
@@ -19,8 +47,179 @@ const Header = (props) => {
               </Link>
             </div>
           </div>
-          <div className="col-lg-7 header-sevices">
-            <div className="module html--sevices ">
+          <div
+            className="col-md-6 col-xs-6 col-lg-6"
+            style={{ display: "flex", justifyContent: "end" }}
+          >
+            <div className="megamenu-style-dev megamenu-dev">
+              <div className="responsive">
+                <nav className="navbar-default">
+                  <div className="container-megamenu horizontal">
+                    <div className="navbar-header">
+                      <button
+                        type="button"
+                        id="show-megamenu"
+                        data-toggle="collapse"
+                        className="navbar-toggle"
+                        onClick={() => showSideNavBar()}
+                      >
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                      </button>
+                    </div>
+                    <div className="megamenu-wrapper">
+                      <span
+                        id="remove-megamenu"
+                        className="fa fa-times"
+                        onClick={() => closeSideNavBar()}
+                      ></span>
+                      <div className="megamenu-pattern">
+                        <div className="container">
+                          <ul
+                            className="megamenu"
+                            data-transition="slide"
+                            data-animationtime="500"
+                          >
+                            <li className="full-width menu-home with-sub-menu hover">
+                              <p className="close-menu"></p>
+
+                              <NavLink
+                                to="/"
+                                exact={true}
+                                // activeClassName="active"
+                                className="clearfix"
+
+                                // onClick={() => closeSideNavBar()}
+                              >
+                                <strong>Home</strong>
+                              </NavLink>
+                              {/* <b className="caret"></b> */}
+                            </li>
+                            <li className="full-width menu-home with-sub-menu hover">
+                              <p className="close-menu"></p>
+
+                              <NavLink
+                                className="clearfix"
+                                to="/jobs"
+                                // onClick={() => closeSideNavBar()}
+                              >
+                                <strong>JOBS</strong>
+                              </NavLink>
+                            </li>
+                            {auth.isAuthenticated !== true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <NavLink
+                                  className="clearfix"
+                                  to="/surplus"
+                                  // onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>SURPLUS</strong>
+                                </NavLink>
+                              </li>
+                            ) : (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <a
+                                  className="clearfix"
+                                  href="#"
+                                  onClick={() =>
+                                    showSubMenu(
+                                      "surplus-sub-menu",
+                                      "suplus-content"
+                                    )
+                                  }
+                                >
+                                  <strong>Surplus</strong>
+                                  <b class="caret"></b>
+                                </a>
+                                <div
+                                  class="sub-menu"
+                                  id="surplus-sub-menu"
+                                  style={{ width: "40%" }}
+                                >
+                                  <div class="content" id="suplus-content">
+                                    <ul class="row-list">
+                                      <li>
+                                        <NavLink
+                                          class="subcategory_item"
+                                          to="/surplus"
+                                        >
+                                          Surplus
+                                        </NavLink>
+                                      </li>
+                                      <li>
+                                        <NavLink
+                                          class="subcategory_item"
+                                          to="/add-surplus"
+                                        >
+                                          Add Surplus
+                                        </NavLink>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </li>
+                            )}
+
+                            <li className="full-width menu-home with-sub-menu hover">
+                              <p className="close-menu"></p>
+
+                              <NavLink
+                                className="clearfix"
+                                to="/business"
+                                // onClick={() => closeSideNavBar()}
+                              >
+                                <strong>Business</strong>
+                              </NavLink>
+                            </li>
+                            {auth.isAuthenticated !== true ? (
+                              <li className="full-width menu-home with-sub-menu hover">
+                                <p className="close-menu"></p>
+
+                                <NavLink
+                                  className="clearfix"
+                                  to="/login"
+                                  // onClick={() => closeSideNavBar()}
+                                >
+                                  <strong>Login</strong>
+                                </NavLink>
+                              </li>
+                            ) : null}
+                            {auth.isAuthenticated === true ? (
+                              <li className="full-width option2 with-sub-menu hover hidden logout-btn-show">
+                                <p className="close-menu"></p>
+                                <NavLink
+                                  to="/"
+                                  className="clearfix"
+                                  // onClick={() => dispatch(logoutUser())}
+                                >
+                                  <strong>LOGOUT</strong>
+                                  <span className="labelopencart"></span>
+                                </NavLink>
+                              </li>
+                            ) : null}
+
+                            {/* <li className="deal-h5 hidden">
+                              <p className="close-menu"></p>
+                              <a href="#" className="clearfix">
+                                <strong>
+                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
+                                </strong>
+                              </a>
+                            </li> */}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            {/* <div className="module html--sevices ">
               <div className="clearfix sevices-menu">
                 <ul>
                   <li className="col-md-4 item home">
@@ -54,9 +253,24 @@ const Header = (props) => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className="col-lg-2 col-xs-6 header-cart">
+          {/* <div className="col-xs-6">
+            <div className="navbar-header ">
+              <button
+                type="button"
+                id="show-megamenu"
+                data-toggle="collapse"
+                className="navbar-toggle"
+                onClick={() => showSideNavBar()}
+              >
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+            </div>
+          </div> */}
+          {/* <div className="col-lg-2 col-xs-6 header-cart">
             <div className="shopping_cart">
               <div id="cart" className="btn-shopping-cart">
                 <a
@@ -171,7 +385,7 @@ const Header = (props) => {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

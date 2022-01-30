@@ -17,6 +17,33 @@ import Footer from "./components/layout/Footer";
 import ForgetPassword from "./components/user/ForgetPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
+import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
+import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
+import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
+
+// css
+
+import "./css/bootstrap/css/bootstrap.min.css";
+import "./css/font-awesome/css/font-awesome.min.css";
+// import "./js/datetimepicker/bootstrap-datetimepicker.min.css";
+// import "./js/owl-carousel/owl.carousel.css";
+import "./css/themecss/lib.css";
+// import "./js/jquery-ui/jquery-ui.min.css";
+// import "./js/minicolors/miniColors.css";
+import "./css/themecss/so_sociallogin.css";
+import "./css/themecss/so_searchpro.css";
+import "./css/themecss/so_megamenu.css";
+
+import "./css/themecss/so_megamenu.css";
+import "./css/themecss/so-categories.css";
+import "./css/themecss/so-listing-tabs.css";
+import "./css/themecss/so-category-slider.css";
+import "./css/themecss/so-newletter-popup.css";
+import "./css/footer/footer1.css";
+import "./css/header/header1.css";
+import "./css/theme.css";
+import "./css/responsive.css";
+// import "./css/quickview/quickview.css";
 
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
@@ -48,12 +75,12 @@ function App(props) {
         <Provider store={store}>
           <header id="header" className=" typeheader-1">
             <Header />
-            <Navbar />
+            {/* <Navbar /> */}
           </header>
           <Routes>
-            <Route path="/" exact element={<PrivateRoute />}>
-              <Route path="/" exact element={<Index />} />
-            </Route>
+            {/* <Route path="/" exact element={<PrivateRoute />}>
+            </Route> */}
+            <Route path="/" exact element={<Index />} />
             <Route path="/login" exact element={<Login />} />
             <Route path="/signup" exact element={<Register />} />
             <Route path="/forget-password" exact element={<ForgetPassword />} />
@@ -61,7 +88,16 @@ function App(props) {
             <Route path="/about-us" exact element={<Aboutus />} />
             <Route path="/contact-us" exact element={<Contactus />} />
             <Route path="/jobs" exact element={<Job />} />
+            <Route path="/business" exact element={<Job />} />
             <Route path="/details" exact element={<JobDetail />} />
+            <Route path="/add-surplus" exact element={<AddSurplusBusiness />} />
+            <Route path="/surplus" exact element={<SurplusBusinesses />} />
+
+            <Route
+              path="/surplus-detail/:id"
+              exact
+              element={<DetailSurplus />}
+            />
           </Routes>
           <Footer />
         </Provider>

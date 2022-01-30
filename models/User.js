@@ -39,6 +39,10 @@ const userSchema = Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 // encrpt the password

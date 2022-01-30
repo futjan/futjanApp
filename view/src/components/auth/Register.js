@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../actions/authAction";
 
 import Loader from "../../utils/Loader";
@@ -55,15 +55,15 @@ const Register = () => {
     <div class="main-container container" style={{ position: "relative" }}>
       <ul class="breadcrumb">
         <li>
-          <a href="#">
+          <Link to="/">
             <i class="fa fa-home"></i>
-          </a>
+          </Link>
         </li>
         {/* <li>
           <a href="#">Account</a>
         </li> */}
         <li>
-          <a href="#">Register</a>
+          <Link to="/signup">Register</Link>
         </li>
       </ul>
 
@@ -72,7 +72,7 @@ const Register = () => {
           <h2 class="title">Register Account</h2>
           <p>
             If you already have an account with us, please login at the{" "}
-            <a href="#">login page</a>.
+            <Link to="/login">login page</Link>.
           </p>
           <form
             action=""

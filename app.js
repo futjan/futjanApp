@@ -6,8 +6,9 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const app = express();
-const authController = require("./controllers/authController");
 const userRoutes = require("./routes/userRoutes");
+const surplusRoutes = require("./routes/surplusRoutes");
+const businessTypeRoutes = require("./routes/businessTypeRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
@@ -27,6 +28,8 @@ app.use(xss());
 app.use(hpp());
 // 2) Routes
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/surplus", surplusRoutes);
+app.use("/api/v1/businesstype", businessTypeRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
