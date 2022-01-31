@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
-import { getSurpluses } from "../actions/surplusAction";
+import { getSurpluses, getSurplusNames } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
+import cities from "../../utils/cities";
 import { Link } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import $ from "jquery";
 
 import "./skeleton.css";
@@ -15,7 +17,9 @@ const SurplusBusinesses = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("");
-  const [surpluses, setSurpluses] = useState([]);
+  const [name, setName] = useState("");
+  const [suggustion, setSuggustion] = useState([]);
+  const [suggustionCities, setSuggustionCities] = useState([]);
   // const [lessThanPrice, setLessThanPrice] = useState("");
   // const [greaterThanPrice, setGreaterThanPrice] = useState("");
 
@@ -25,7 +29,13 @@ const SurplusBusinesses = () => {
   const surplusFromStore = useSelector((state) => state.surplus);
   // useEffect
   useEffect(() => {
-    dispatch(getSurpluses(page, limit, sort, businessType, category));
+    dispatch(
+      getSurpluses(page, limit, sort, businessType, category, name, city)
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(getSurplusNames());
   }, []);
 
   // useEffect to run jquery
@@ -65,7 +75,9 @@ const SurplusBusinesses = () => {
 
   // call getSurplusesAction
   const callSurplusesAPI = (page, lim, sortBy) => {
-    dispatch(getSurpluses(page, lim, sortBy, businessType, category));
+    dispatch(
+      getSurpluses(page, lim, sortBy, businessType, category, name, city)
+    );
   };
   // clear State
   const clearState = () => {
@@ -79,6 +91,77 @@ const SurplusBusinesses = () => {
   while (paginationUI.length <= surplusFromStore.totalDocs / limit) {
     paginationUI.push("");
   }
+
+  // autoComplete function
+  const onChangeAutoFieldCities = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = cities.sort().filter((v) => regex.test(v));
+    }
+    setCity(value);
+    setSuggustionCities([...suggustions]);
+  };
+  const onChangeAutoFieldName = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      if (surplusFromStore.names.length > 0) {
+        suggustions = surplusFromStore.names
+
+          .map((v) => v.name)
+          .sort()
+          .filter((v) => regex.test(v));
+      }
+    }
+    setName(value);
+
+    setSuggustion([...suggustions]);
+  };
+  const renderNameSuggustion = () => {
+    if (suggustion.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
+        {suggustion.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setName(co);
+              setSuggustion([]);
+            }}
+            style={{ display: "block", width: "100%" }}
+          >
+            {co}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  const renderCitySuggustion = () => {
+    if (suggustionCities.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
+        {suggustionCities.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCity(co);
+              setSuggustionCities([]);
+            }}
+            style={{ display: "block", width: "100%" }}
+          >
+            {co}
+          </li>
+        ))}
+      </ul>
+    );
+  };
   return (
     <div className="res layout-1" style={{ marginTop: "30px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -92,6 +175,68 @@ const SurplusBusinesses = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
+                    <li class="so-filter-options" data-option="search">
+                      <div class="so-filter-heading">
+                        <div class="so-filter-heading-text">
+                          <span>Name</span>
+                        </div>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div class="so-filter-content-opts">
+                        <div class="so-filter-content-opts-container">
+                          <div class="so-filter-option" data-type="search">
+                            <div class="so-option-container">
+                              <div
+                                class="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="text_search"
+                                  id="text_search"
+                                  value={name}
+                                  onChange={(e) => onChangeAutoFieldName(e)}
+                                />
+                                {renderNameSuggustion()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="so-filter-options" data-option="search">
+                      <div class="so-filter-heading">
+                        <div class="so-filter-heading-text">
+                          <span>City</span>
+                        </div>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div class="so-filter-content-opts">
+                        <div class="so-filter-content-opts-container">
+                          <div class="so-filter-option" data-type="search">
+                            <div class="so-option-container">
+                              <div
+                                class="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="text_search"
+                                  id="text_search"
+                                  value={city}
+                                  onChange={(e) => onChangeAutoFieldCities(e)}
+                                />
+                                {renderCitySuggustion()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -185,6 +330,7 @@ const SurplusBusinesses = () => {
                         </div>
                       </div>
                     </li>
+
                     {/* <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -308,8 +454,15 @@ const SurplusBusinesses = () => {
               </div>
               <div className="products-category">
                 <div className="product-filter filters-panel">
-                  <div className="row">
-                    <div className="col-sm-2 view-mode hidden-sm hidden-xs">
+                  <div
+                    className="row"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <div className="col-sm-3 view-mode hidden-sm hidden-xs">
+                      <h4 style={{ margin: "0", fontWeight: "100" }}>
+                        Category :{" "}
+                        <span>{category.length > 0 ? category : "All"}</span>
+                      </h4>
                       {/* <div className="list-view">
                         <button
                           className="btn btn-default grid active"
@@ -330,7 +483,7 @@ const SurplusBusinesses = () => {
                       </div> */}
                     </div>
 
-                    <div className="short-by-show form-inline text-right col-md-10 col-sm-12">
+                    <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
                         <label className="control-label" for="input-sort">
                           Sort By:

@@ -11,13 +11,11 @@ function DetailSurplus() {
   // initialize hooks
   const dispatch = useDispatch();
   const surplusFromStore = useSelector((state) => state.surplus);
-  console.log(surplusFromStore.surplus);
   // useEffect
   useEffect(() => {
     dispatch(getSurplusById(params.id));
   }, []);
   const params = useParams();
-  console.log(params.id);
   return (
     <div class="container product-detail" style={{ marginTop: "30px" }}>
       <div class="row">
@@ -111,27 +109,46 @@ function DetailSurplus() {
                     itemscope=""
                     itemtype="http://data-vocabulary.org/Offer"
                   >
-                    <span class="price-new">
+                    {surplusFromStore.surplus.originalPrice &&
+                    surplusFromStore.surplus.offeredPrice > 0 ? (
+                      <span
+                        class="price-old"
+                        id="price-old"
+                        style={{ fontWeight: "100" }}
+                      >
+                        ₹{surplusFromStore.surplus.originalPrice}
+                      </span>
+                    ) : null}
+                    <span
+                      class="price-new"
+                      style={{
+                        margin: "0 5px",
+                        color: "#494949",
+                        fontWeight: "100",
+                      }}
+                    >
                       {surplusFromStore.surplus.originalPrice &&
                       surplusFromStore.surplus.offeredPrice > 0 ? (
                         <span id="price-special">
-                          ${surplusFromStore.surplus.offeredPrice}
+                          ₹ {surplusFromStore.surplus.offeredPrice}
                         </span>
                       ) : (
                         <span id="price-special">
-                          ${surplusFromStore.surplus.originalPrice}
+                          ₹ {surplusFromStore.surplus.originalPrice}
                         </span>
                       )}
                     </span>
-                    {surplusFromStore.surplus.originalPrice &&
-                    surplusFromStore.surplus.offeredPrice > 0 ? (
-                      <span class="price-old" id="price-old">
-                        ${surplusFromStore.surplus.originalPrice}
+                    {"  "}
+                    {surplusFromStore.surplus &&
+                    surplusFromStore.surplus.discount &&
+                    surplusFromStore.surplus.discount > 0 ? (
+                      <span id="price-special" style={{ fontWeight: "100" }}>
+                        {surplusFromStore.surplus.discount} % OFF
                       </span>
                     ) : null}
-                    <div class="price-tax">
-                      <span>Ex Tax:</span> $70.00
-                    </div>
+                    {/* <div class="price-tax">
+                      <span>Ex Tax:</span> ₹ 70.00
+                    </div> */}
                   </div>
                   <div class="product-box-desc">
                     <div class="inner-box-desc">
@@ -150,11 +167,11 @@ function DetailSurplus() {
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.company}
                       </div>
-                      <div class="model">
+                      {/* <div class="model">
                         <span>Product Code: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.postCode}
-                      </div>
+                      </div> */}
                       <div class="model">
                         <span>City: </span>{" "}
                         {surplusFromStore.surplus &&
@@ -169,6 +186,14 @@ function DetailSurplus() {
                         <span>Contact: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.contact}
+                      </div>
+                      <div class="model">
+                        <span>Description: </span>{" "}
+                        {surplusFromStore.surplus &&
+                          surplusFromStore.surplus.description}
+                      </div>
+                      <div class="model">
+                        <span>For Collection/Delivery contact seller </span>{" "}
                       </div>
 
                       {/* <div class="stock">

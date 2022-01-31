@@ -4,6 +4,7 @@ const initialState = {
   surplus: {},
   loading: false,
   totalDocs: 0,
+  names: [],
   result: 0,
 };
 
@@ -54,6 +55,11 @@ export default function SurplusReducer(state = initialState, action) {
           (surplus) => surplus._id !== action.payload._id
         ),
         loading: false,
+      };
+    case Types.GET_SURPLUS_NAMES:
+      return {
+        ...state,
+        names: action.payload,
       };
     default:
       return state;

@@ -5,12 +5,13 @@ import axios from "axios";
 // @desc                    get all surpluses
 // @access                  Private
 export const getSurpluses =
-  (page, limit, sort, businessType, category) => async (dispatch) => {
+  (page, limit, sort, businessType, category, name, city) =>
+  async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&page=${page}&limit=${limit}&sort=${sort}`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&name=${name}&city=${city}&page=${page}&limit=${limit}&sort=${sort}`
       );
       if (res.data) {
         dispatch({
@@ -37,7 +38,6 @@ export const createSurplus = (surplus, clearState) => async (dispatch) => {
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
-  console.log(surplus);
   try {
     const res = await axios.post("/api/v1/surplus", surplus);
     if (res) {
@@ -136,6 +136,30 @@ export const deleteSurplus = (id) => async (dispatch) => {
         payload: err.response.data,
       });
     }
+  }
+};
+
+// @route                   GET /api/v1/surplus/name
+// @desc                    get surplus names
+// @access                  public
+export const getSurplusNames = () => async (dispatch) => {
+  dispatch({
+    type: Types.CLEAR_ERRORS,
+  });
+  try {
+    const res = await axios.get("/api/v1/surplus/name");
+
+    if (res) {
+      dispatch({
+        type: Types.GET_SURPLUS_NAMES,
+        payload: res.data.name,
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: Types.GET_ERRORS,
+      payload: err.response.data,
+    });
   }
 };
 

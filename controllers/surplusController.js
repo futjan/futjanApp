@@ -69,7 +69,6 @@ exports.getSurplus = async (req, res, next) => {
 // @route                   DELETE /api/v1/surplus/:id
 // @desc                    delete surplux
 // @access                  Private
-
 exports.deleteSurplus = async (req, res, next) => {
   const surplus = await SurplusBusiness.findByIdAndDelete(req.params.id);
   // check surplux exist or not
@@ -101,5 +100,21 @@ exports.updateSurplus = async (req, res, next) => {
   res.status(200).json({
     status: "success",
     surplus,
+  });
+};
+
+// @route                   GET /api/v1/surplus/name
+// @desc                    get surplus name
+// @access                  Public
+exports.surplusNames = async (req, res, next) => {
+  const surplusName = await SurplusBusiness.find({}).select("name");
+
+  if (!surplusName) {
+    return next(new AppError("Not Found ", 404, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+    name: surplusName,
   });
 };

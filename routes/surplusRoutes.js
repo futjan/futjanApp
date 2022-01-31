@@ -10,7 +10,10 @@ router
   .post(authController.protect, surplusController.createSurplus)
   .get(surplusController.getAllSurplus)
   .patch(authController.protect, surplusController.updateSurplus);
+// get surplus name
+router.route("/name").get(surplusController.surplusNames);
 // delete and find one
+
 router
   .route("/:id")
   .get(surplusController.getSurplus)

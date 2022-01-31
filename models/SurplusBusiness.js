@@ -8,7 +8,6 @@ const surplusBusiness = Schmea({
   },
   company: {
     type: String,
-    required: [true, "Company name is required"],
   },
   contact: {
     type: String,
@@ -51,7 +50,6 @@ const surplusBusiness = Schmea({
   },
   weeklySchedule: {
     type: [String],
-    required: [true, "Weekly schedule is required"],
   },
   website: String,
 

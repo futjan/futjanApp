@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import countryList from "../../utils/countriesList";
+import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import { createSurplus } from "../actions/surplusAction";
 const Days = [
@@ -29,6 +31,8 @@ const AddSurplusBusiness = () => {
   const [originalPrice, setOriginalPrice] = useState(0);
   const [offeredPrice, setOfferedPrice] = useState(0);
   const [errors, setErrors] = useState({});
+  const [suggustion, setSuggustion] = useState([]);
+  const [suggustionCities, setSuggustionCities] = useState([]);
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -41,6 +45,68 @@ const AddSurplusBusiness = () => {
     setErrors(errorState);
   }, [errorState]);
 
+  // handle onChange AutoComplete field
+  const onChangeAutoField = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = countryList.sort().filter((v) => regex.test(v));
+    }
+    setCountry(value);
+    setSuggustion([...suggustions]);
+  };
+  const onChangeAutoFieldCities = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = cities.sort().filter((v) => regex.test(v));
+    }
+    setCity(value);
+    setSuggustionCities([...suggustions]);
+  };
+  // render suggustion
+  const renderSuggustion = () => {
+    if (suggustion.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul">
+        {suggustion.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCountry(co);
+              setSuggustion([]);
+            }}
+          >
+            {co}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  const renderCitySuggustion = () => {
+    if (suggustionCities.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul">
+        {suggustionCities.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCity(co);
+              setSuggustionCities([]);
+            }}
+          >
+            {co}
+          </li>
+        ))}
+      </ul>
+    );
+  };
   // handle check box
   const handleCheckBox = (checked, value) => {
     if (checked !== true) {
@@ -101,8 +167,6 @@ const AddSurplusBusiness = () => {
     setOfferedPrice(0);
     setOriginalPrice(0);
   };
-
-  console.log(weeklySchedule);
   return (
     // <!-- Main Container  -->
     <div
@@ -174,7 +238,7 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" htmlFor="input-company">
                   Company
                 </label>
@@ -287,7 +351,8 @@ const AddSurplusBusiness = () => {
                     type="text"
                     name="city"
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    // onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => onChangeAutoFieldCities(e)}
                     placeholder="City"
                     id="input-city"
                     className={
@@ -296,6 +361,7 @@ const AddSurplusBusiness = () => {
                         : "form-control"
                     }
                   />
+                  {renderCitySuggustion()}
                   {errors && errors.validation && errors.validation.city && (
                     <div className="invalid-feedback">
                       {errors.validation.city}
@@ -355,12 +421,13 @@ const AddSurplusBusiness = () => {
                 <label class="col-sm-2 control-label" htmlFor="input-country">
                   Country
                 </label>
-                <div class="col-sm-10">
+                <div class="col-sm-10" style={{ position: "relative" }}>
                   <input
                     type="text"
                     name="city"
                     value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    // onChange={(e) => setCountry(e.target.value)}
+                    onChange={(e) => onChangeAutoField(e)}
                     placeholder="Country"
                     id="input-country"
                     className={
@@ -374,6 +441,7 @@ const AddSurplusBusiness = () => {
                       {errors.validation.country}
                     </div>
                   )}
+                  {renderSuggustion()}
                 </div>
               </div>
               <div class="form-group required">
@@ -439,7 +507,7 @@ const AddSurplusBusiness = () => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" htmlFor="input-website">
                   website
                 </label>
@@ -489,7 +557,7 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" htmlFor="input-website">
                   Offered Price
                 </label>
@@ -514,7 +582,7 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label class="col-sm-2 control-label" htmlFor="input-website">
                   Weekly Schedule
                 </label>

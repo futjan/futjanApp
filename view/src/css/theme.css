@@ -14059,7 +14059,7 @@ body .block-popup-login .action.login:hover {
 
 header.typeheader-1 .megamenu-style-dev .horizontal ul.megamenu > li.active > a,
 header.typeheader-1 .megamenu-style-dev .horizontal ul.megamenu > li:hover > a {
-  background: #cc4b00 ;
+  background: #cc4b00;
   color: #fff;
 }
 
@@ -16570,7 +16570,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
 .so_filter_wrap .modcontent .so-filter-content-opts-container {
   padding: 10px;
   display: block;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .so_filter_wrap .modcontent .so-filter-content-opts-container ul li {
