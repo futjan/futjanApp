@@ -39,7 +39,7 @@ const Header = (props) => {
     <div className="header-top hidden-compact">
       <div className="container">
         <div className="row">
-          <div className="col-md-6 col-lg-6 col-xs-6 header-logo ">
+          <div className="col-md-5 col-lg-5 col-xs-6 header-logo ">
             <div className="navbar-logo">
               <Link to="/">
                 <img
@@ -52,7 +52,7 @@ const Header = (props) => {
             </div>
           </div>
           <div
-            className="col-md-6 col-xs-6 col-lg-6"
+            className="col-md-7 col-xs-6 col-lg-7"
             style={{ display: "flex", justifyContent: "end" }}
           >
             <div className="megamenu-style-dev megamenu-dev">
@@ -111,63 +111,29 @@ const Header = (props) => {
                                 <strong>JOBS</strong>
                               </NavLink>
                             </li>
-                            {auth.isAuthenticated !== true ? (
-                              <li className="full-width menu-home with-sub-menu hover">
-                                <p className="close-menu"></p>
 
-                                <NavLink
-                                  className="clearfix"
-                                  to="/surplus"
-                                  // onClick={() => closeSideNavBar()}
-                                >
-                                  <strong>SURPLUS</strong>
-                                </NavLink>
-                              </li>
-                            ) : (
-                              <li className="full-width menu-home with-sub-menu hover">
-                                <p className="close-menu"></p>
+                            <li className="full-width menu-home with-sub-menu hover">
+                              <p className="close-menu"></p>
 
-                                <a
-                                  className="clearfix"
-                                  href="#"
-                                  onClick={() =>
-                                    showSubMenu(
-                                      "surplus-sub-menu",
-                                      "suplus-content"
-                                    )
-                                  }
-                                >
-                                  <strong>Surplus</strong>
-                                  <b class="caret"></b>
-                                </a>
-                                <div
-                                  class="sub-menu"
-                                  id="surplus-sub-menu"
-                                  style={{ width: "40%" }}
-                                >
-                                  <div class="content" id="suplus-content">
-                                    <ul class="row-list">
-                                      <li>
-                                        <NavLink
-                                          class="subcategory_item"
-                                          to="/surplus"
-                                        >
-                                          Surplus
-                                        </NavLink>
-                                      </li>
-                                      <li>
-                                        <NavLink
-                                          class="subcategory_item"
-                                          to="/add-surplus"
-                                        >
-                                          Add Surplus
-                                        </NavLink>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </li>
-                            )}
+                              <NavLink
+                                className="clearfix"
+                                to="/surplus"
+                                // onClick={() => closeSideNavBar()}
+                              >
+                                <strong>SURPLUS</strong>
+                              </NavLink>
+                            </li>
+                            <li className="full-width menu-home with-sub-menu hover">
+                              <p className="close-menu"></p>
+
+                              <NavLink
+                                className="clearfix"
+                                to="/user-panel"
+                                // onClick={() => closeSideNavBar()}
+                              >
+                                <strong>Add Post</strong>
+                              </NavLink>
+                            </li>
 
                             <li className="full-width menu-home with-sub-menu hover">
                               <p className="close-menu"></p>

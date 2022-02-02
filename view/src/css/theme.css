@@ -9189,12 +9189,12 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
 .product-detail .producttab .tab-content ul,
 .product-detail .producttab .tab-content ol {
   display: block;
-  list-style-type: disc;
+  /* list-style-type: disc;
   -webkit-margin-before: 1em;
   -webkit-margin-after: 1em;
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
-  -webkit-padding-start: 40px;
+  -webkit-padding-start: 40px; */
 }
 .product-detail .best-seller {
   margin-bottom: 30px;
@@ -9747,6 +9747,8 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
 }
 .product-attribute .form-horizontal .buttons {
   visibility: visible !important;
+  border-top: 1px solid #e5e5e5;
+  padding: 15px;
 }
 
 #product {
@@ -10076,9 +10078,9 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
 .producttab .tabsslider .nav-tabs li {
   margin-bottom: 0;
 }
-.producttab .tabsslider .nav-tabs li a {
+.producttab .tabsslider .nav-tabs li .tab {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   border-radius: 0px;
   margin: 0px;
@@ -10089,13 +10091,14 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   position: relative;
   background: #fff;
   color: #666;
+  cursor: pointer;
 }
-.producttab .tabsslider .nav-tabs li.active a,
-.producttab .tabsslider .nav-tabs li:hover a {
+.producttab .tabsslider .nav-tabs li.active .tabb,
+.producttab .tabsslider .nav-tabs li:hover .tab {
   border-top-color: #ff5e00;
 }
-.producttab .tabsslider .nav-tabs li.active a:before,
-.producttab .tabsslider .nav-tabs li:hover a:before {
+.producttab .tabsslider .nav-tabs li.active .tab:before,
+.producttab .tabsslider .nav-tabs li:hover .tab:before {
   content: "";
   width: 100%;
   height: 3px;
@@ -10108,8 +10111,8 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   transition: all 0.3s ease-in-out 0s;
   z-index: 9;
 }
-.producttab .tabsslider .nav-tabs li.active a:after,
-.producttab .tabsslider .nav-tabs li:hover a:after {
+.producttab .tabsslider .nav-tabs li.active .tab:after,
+.producttab .tabsslider .nav-tabs li:hover .tab:after {
   content: "";
   width: 100%;
   height: 1px;
@@ -17062,15 +17065,39 @@ checkout-cart .btn-block input {
   min-width: 40px;
   text-align: center;
 }
-
+.btn-light {
+  color: #212529 !important;
+  background-color: #f8f9fa !important;
+  border-color: #f8f9fa !important;
+}
+.btn-success {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+.btn-success:hover,
+.btn-success:focus
+ {
+  color: #fff !important;
+  background-color: #218838 !important;
+  border-color: #1e7e34 !important;
+}
+.btn-light:hover,
+.btn-light:focus {
+  color: #212529 !important;
+  background-color: #e2e6ea !important;
+  border-color: #dae0e5 !important;
+}
 .button,
 .btn {
   background: #555;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 3px !important;
   border: none;
-  background: #ff5e00;
-  border-color: #ff5e00;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
 }
 .button:hover,
 .btn:hover {

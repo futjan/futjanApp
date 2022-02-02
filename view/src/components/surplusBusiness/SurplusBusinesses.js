@@ -30,7 +30,15 @@ const SurplusBusinesses = () => {
   // useEffect
   useEffect(() => {
     dispatch(
-      getSurpluses(page, limit, sort, businessType, category, name, city)
+      getSurpluses(
+        page,
+        limit,
+        sort,
+        businessType.toLowerCase(),
+        category.toLowerCase(),
+        name.toLowerCase(),
+        city.toLowerCase()
+      )
     );
   }, []);
 
@@ -76,7 +84,15 @@ const SurplusBusinesses = () => {
   // call getSurplusesAction
   const callSurplusesAPI = (page, lim, sortBy) => {
     dispatch(
-      getSurpluses(page, lim, sortBy, businessType, category, name, city)
+      getSurpluses(
+        page,
+        lim,
+        sortBy,
+        businessType.toLowerCase(),
+        category.toLowerCase(),
+        name.toLowerCase(),
+        city.toLowerCase()
+      )
     );
   };
   // clear State

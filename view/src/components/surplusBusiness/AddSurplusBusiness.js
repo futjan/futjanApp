@@ -143,9 +143,10 @@ const AddSurplusBusiness = () => {
       weeklySchedule,
       originalPrice: (originalPrice * 1).toFixed(2),
       offeredPrice: (offeredPrice * 1).toFixed(2),
-      discount: Math.round(
-        ((originalPrice - offeredPrice) / originalPrice) * 100
-      ),
+      discount:
+        offeredPrice > 0
+          ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
+          : 0,
     };
     dispatch(createSurplus(obj, clearState));
   };
@@ -173,20 +174,6 @@ const AddSurplusBusiness = () => {
       class="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
-      <ul class="breadcrumb">
-        <li>
-          <Link to="/">
-            <i class="fa fa-home"></i>
-          </Link>
-        </li>
-        {/* <li>
-        <a href="#">Account</a>
-      </li> */}
-        <li>
-          <Link to="/add-surplus-business">Add Surplus Business</Link>
-        </li>
-      </ul>
-
       <div class="row">
         <div id="content" class="col-md-9">
           <h2 class="title">Add Surplus Business</h2>

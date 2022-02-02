@@ -1027,8 +1027,9 @@
   .deals_module_wrapper .title-product {
     margin-top: 20px;
   }
-  .producttab .tabsslider .nav-tabs li {
-    float: none;
+  .producttab .tabsslider .nav-tabs li span {
+    /* float: none; */
+    display: none;
   }
   .product-view .content-product-right {
     margin-top: 20px;

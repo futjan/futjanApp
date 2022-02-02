@@ -12,11 +12,19 @@ router
   .patch(authController.protect, surplusController.updateSurplus);
 // get surplus name
 router.route("/name").get(surplusController.surplusNames);
+// surplus belongs to current user
+router
+  .route("/current-user-surplus")
+  .get(authController.protect, surplusController.getAllCurrentUserSurplus);
+router.patch(
+  "/activate",
+  authController.protect,
+  surplusController.surplusActivate
+);
 // delete and find one
 
 router
   .route("/:id")
   .get(surplusController.getSurplus)
   .delete(authController.protect, surplusController.deleteSurplus);
-
 module.exports = router;

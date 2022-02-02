@@ -18,6 +18,7 @@ import ForgetPassword from "./components/user/ForgetPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
 import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
+import UserPanel from "./components/user panel/index";
 import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
 import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
 
@@ -78,8 +79,6 @@ function App(props) {
             {/* <Navbar /> */}
           </header>
           <Routes>
-            {/* <Route path="/" exact element={<PrivateRoute />}>
-            </Route> */}
             <Route path="/" exact element={<Index />} />
             <Route path="/login" exact element={<Login />} />
             <Route path="/signup" exact element={<Register />} />
@@ -90,8 +89,11 @@ function App(props) {
             <Route path="/jobs" exact element={<Job />} />
             <Route path="/business" exact element={<Job />} />
             <Route path="/details" exact element={<JobDetail />} />
-            <Route path="/add-surplus" exact element={<AddSurplusBusiness />} />
+            {/* <Route path="/add-surplus" exact element={<AddSurplusBusiness />} /> */}
             <Route path="/surplus" exact element={<SurplusBusinesses />} />
+            <Route path="/user-panel" exact element={<PrivateRoute />}>
+              <Route path="/user-panel" exact element={<UserPanel />} />
+            </Route>
 
             <Route
               path="/surplus-detail/:id"
