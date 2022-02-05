@@ -72,7 +72,6 @@ if (localStorage.jwtToken) {
 }
 
 const App = (props) => {
-  console.log(props);
   return (
     <div className="App">
       <div className="common-home res layout-4">

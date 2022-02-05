@@ -237,7 +237,7 @@ export const createReview = (review, clearState) => async (dispatch) => {
       type: Types.CLEAR_ERRORS,
     });
     const res = await axios.post("/api/v1/review", review);
-    console.log(res.data);
+
     if (res) {
       dispatch({
         type: Types.GET_SURPLUS,

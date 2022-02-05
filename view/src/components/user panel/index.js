@@ -15,7 +15,7 @@ const Index = (props) => {
   useEffect(() => {
     setTab(active);
   }, [active]);
-  console.log(active);
+
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   return (

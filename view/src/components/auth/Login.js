@@ -14,7 +14,7 @@ const Login = (props) => {
   // initialize navigation
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+
   // initialize useDispatch
   const dispatch = useDispatch();
   // get state from store

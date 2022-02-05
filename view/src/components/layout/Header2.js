@@ -65,7 +65,7 @@ const Header2 = () => {
 
     setSuggustion([...suggustions]);
   };
-  console.log(suggustion);
+
   const renderNameSuggustion = () => {
     if (suggustion.length === 0) {
       return null;
