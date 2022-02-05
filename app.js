@@ -9,6 +9,7 @@ const app = express();
 const userRoutes = require("./routes/userRoutes");
 const surplusRoutes = require("./routes/surplusRoutes");
 const businessTypeRoutes = require("./routes/businessTypeRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
@@ -30,6 +31,7 @@ app.use(hpp());
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/surplus", surplusRoutes);
 app.use("/api/v1/businesstype", businessTypeRoutes);
+app.use("/api/v1/review", reviewRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder

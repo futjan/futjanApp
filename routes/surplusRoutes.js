@@ -8,12 +8,23 @@ const surplusController = require("../controllers/surplusController");
 router
   .route("/")
   .post(authController.protect, surplusController.createSurplus)
-  .get(authController.protect, surplusController.getAllSurplus)
+  .get(surplusController.getAllSurplus)
   .patch(authController.protect, surplusController.updateSurplus);
+// get surplus name
+router.route("/keyword").get(surplusController.surplusKeyword);
+// surplus belongs to current user
+router
+  .route("/current-user-surplus")
+  .get(authController.protect, surplusController.getAllCurrentUserSurplus);
+router.patch(
+  "/activate",
+  authController.protect,
+  surplusController.surplusActivate
+);
 // delete and find one
+
 router
   .route("/:id")
-  .get(authController.protect, surplusController.getSurplus)
+  .get(surplusController.getSurplus)
   .delete(authController.protect, surplusController.deleteSurplus);
-
 module.exports = router;

@@ -50,7 +50,6 @@ export const registerUser = (userData, clearState) => (dispatch) => {
 // @desc    Login in to get token
 // @access  Public
 export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
-  console.log(userData);
   dispatch({
     type: CLEAR_ERRORS,
   });
@@ -76,7 +75,6 @@ export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(clearLoading());
-      console.log(err);
       if (err.response.data.message === "jwt expired") {
         dispatch(logoutUser());
       }
