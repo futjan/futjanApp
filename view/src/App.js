@@ -79,10 +79,7 @@ const App = (props) => {
           <Router>
             <Provider store={store}>
               <Header2 />
-              {/* <header id="header" className=" typeheader-1">
-                <Header />
-                
-              </header> */}
+
               <Routes>
                 <Route path="/" exact element={<Index />} />
                 <Route path="/login" exact element={<Login />} />
