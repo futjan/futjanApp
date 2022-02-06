@@ -2738,6 +2738,7 @@ input[type="search"] {
   margin-bottom: 0;
   font-weight: 400;
   cursor: pointer;
+  font-size: 15px;
 }
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"],
@@ -3075,7 +3076,7 @@ textarea.input-lg {
   .form-horizontal .control-label {
     padding-top: 7px;
     margin-bottom: 0;
-    text-align: right;
+    text-align: left;
   }
 }
 .form-horizontal .has-feedback .form-control-feedback {

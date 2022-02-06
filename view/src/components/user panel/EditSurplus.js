@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import countryList from "../../utils/countriesList";
 import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
-import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
+import { updateSurplus, getSurplusById } from "../actions/surplusAction";
+
 const Days = [
   "MONDAY",
   "TUESDAY",
@@ -13,13 +14,15 @@ const Days = [
   "SATURADAY",
   "SUNDAY",
 ];
+
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddSurplusBusiness = () => {
+
+const EditSurplus = (props) => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
@@ -36,12 +39,10 @@ const AddSurplusBusiness = () => {
   const [offeredPrice, setOfferedPrice] = useState(0);
   const [errors, setErrors] = useState({});
   const [suggustion, setSuggustion] = useState([]);
-
   const [suggustionCities, setSuggustionCities] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
-
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -54,8 +55,33 @@ const AddSurplusBusiness = () => {
     setErrors(errorState);
   }, [errorState]);
   useEffect(() => {
-    dispatch(getSurplusKeywords());
+    if (surplus.surplus._id) {
+      setName(surplus.surplus.name);
+      setCompany(surplus.surplus.company);
+      setContact(surplus.surplus.contact);
+      setAddress(surplus.surplus.address);
+      setPostCode(surplus.surplus.postCode);
+      setCity(surplus.surplus.city);
+      setBusinessType(surplus.surplus.businessType);
+      setCountry(surplus.surplus.country);
+      setCategory(surplus.surplus.category);
+      setDescription(surplus.surplus.description);
+      setWebsite(surplus.surplus.website);
+
+      setWeeklySchedule(surplus.surplus.weeklySchedule);
+      setOfferedPrice(surplus.surplus.offeredPrice);
+      setOriginalPrice(surplus.surplus.originalPrice);
+      setKeyword(surplus.surplus.keyword);
+      if (surplus.surplus.promoteType) {
+        setPromoteType(surplus.surplus.promoteType);
+      }
+    }
+  }, [surplus.surplus && surplus.surplus._id]);
+
+  useEffect(() => {
+    dispatch(getSurplusById(props.id));
   }, []);
+
   // handle onChange AutoComplete field
   const onChangeAutoField = (e) => {
     const value = e.target.value;
@@ -161,6 +187,7 @@ const AddSurplusBusiness = () => {
       </ul>
     );
   };
+
   // handle check box
   const handleCheckBox = (checked, value) => {
     if (checked !== true) {
@@ -214,30 +241,33 @@ const AddSurplusBusiness = () => {
     e.preventDefault();
 
     const obj = {
-      name: name.toLowerCase(),
-      company: company.toLowerCase(),
-      contact,
-      address,
-      postCode,
-      city: city.toLowerCase(),
-      businessType: businessType.toLowerCase(),
-      description,
-      category: category.toLowerCase(),
-      country: country.toLowerCase(),
-      keyword: keyword.toLowerCase(),
-      website,
-      promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-      weeklySchedule,
-      originalPrice: (originalPrice * 1).toFixed(2),
-      offeredPrice: (offeredPrice * 1).toFixed(2),
-      discount:
-        offeredPrice > 0
-          ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
-          : 0,
+      id: props.id,
+      surplus: {
+        name: name.toLowerCase(),
+        company: company.toLowerCase(),
+        contact,
+        address,
+        postCode,
+        city: city.toLowerCase(),
+        businessType: businessType.toLowerCase(),
+        description,
+        category: category.toLowerCase(),
+        country: country.toLowerCase(),
+        website,
+        keyword: keyword.toLowerCase(),
+        weeklySchedule,
+        promoteType: promoteType.filter((type) => type.promote !== "ALL"),
+        originalPrice: (originalPrice * 1).toFixed(2),
+        offeredPrice: (offeredPrice * 1).toFixed(2),
+        discount:
+          offeredPrice > 0
+            ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
+            : 0,
+      },
     };
-
-    dispatch(createSurplus(obj, clearState));
+    dispatch(updateSurplus(obj, clearState));
   };
+  // clear state function
 
   // clear state function
   const clearState = () => {
@@ -258,17 +288,17 @@ const AddSurplusBusiness = () => {
     setOriginalPrice(0);
     setKeyword("");
     setPromoteType([]);
+
+    props.setTab("SURPLUS");
   };
   return (
-    // <!-- Main Container  -->
     <div
       class="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
       <div class="row">
-        <div id="content" class="col-md-11">
-          <h2 class="title">Add Surplus business with us</h2>
-
+        <div id="content" class="col-md-9">
+          <h2 class="title">Edit Surplus Business</h2>
           <form
             action=""
             method="post"
@@ -833,7 +863,7 @@ const AddSurplusBusiness = () => {
               <div class="pull-right">
                 <input
                   type="button"
-                  value="Post my ad"
+                  value="Update"
                   class="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
                 />
@@ -846,4 +876,4 @@ const AddSurplusBusiness = () => {
     </div>
   );
 };
-export default AddSurplusBusiness;
+export default EditSurplus;

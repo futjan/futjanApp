@@ -3,6 +3,10 @@ const Schmea = mongoose.Schema;
 
 const surplusBusiness = Schmea(
   {
+    keyword: {
+      type: String,
+      required: [true, "keyword is required"],
+    },
     name: {
       type: String,
       required: [true, "Name is required"],
@@ -58,6 +62,14 @@ const surplusBusiness = Schmea(
       type: Date,
       default: Date.now(),
       select: false,
+    },
+    promoteType: {
+      type: [
+        {
+          promote: String,
+          numberSort: Number,
+        },
+      ],
     },
     user: {
       type: mongoose.Schema.ObjectId,

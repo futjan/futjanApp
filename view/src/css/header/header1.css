@@ -711,7 +711,7 @@
 }
 ul.megamenu > li:hover .sub-menu,
 ul.megamenu > li:hover .sub-menu .content {
-  display: block !important;
+  display: block;
 }
 .typeheader-1 .megamenu-style-dev .horizontal ul.megamenu > li > .sub-menu {
   text-align: left;

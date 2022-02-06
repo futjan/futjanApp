@@ -113,14 +113,6 @@ ul.megamenu > li > a strong {
   font-weight: 400;
 }
 
-ul.megamenu > li > a:hover,
-ul.megamenu > li.active > a,
-ul.megamenu > li.home > a,
-ul.megamenu > li:hover > a {
-  background-color: #ddd; /* Old browsers */
-  color: #444;
-}
-
 ul.megamenu > li > a > .icon-home {
   display: block;
   font-size: 23px;
@@ -202,7 +194,7 @@ ul.megamenu > li.active > a span:after {
 
 ul.megamenu li .sub-menu .content {
   display: none;
-  padding: 20px;
+  /* padding: 20px; */
   background: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 2px;
@@ -694,7 +686,7 @@ ul.megamenu > li span.labelhot {
     float: none !important;
     width: auto;
     background: none;
-    border-top: 1px solid #e6e6e6;
+    /* border-top: 1px solid #e6e6e6; */
     position: relative;
     margin: 0px -1px;
   }

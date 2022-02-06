@@ -7,7 +7,8 @@ import {
   deleteSurplus,
   surplusActivate,
 } from "../actions/surplusAction";
-const Surplus = () => {
+import Loader from "../../utils/Loader";
+const Surplus = (props) => {
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -102,6 +103,10 @@ const Surplus = () => {
                             type="button"
                             style={{ margin: "0 8px" }}
                             className="btn btn-primary"
+                            onClick={() => {
+                              props.setTab("EDIT");
+                              props.setId(surplus._id);
+                            }}
                           >
                             EDIT
                           </button>
@@ -127,6 +132,7 @@ const Surplus = () => {
           </div>
         </div>
       </div>
+      {surplusFromStore.loading === true ? <Loader /> : null}
     </div>
   );
 };

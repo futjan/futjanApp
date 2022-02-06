@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
-import { getSurpluses, getSurplusNames } from "../actions/surplusAction";
+import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import cities from "../../utils/cities";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import $ from "jquery";
@@ -14,10 +15,11 @@ const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
+  const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("");
-  const [name, setName] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
   const [suggustionCities, setSuggustionCities] = useState([]);
   // const [lessThanPrice, setLessThanPrice] = useState("");
@@ -25,6 +27,7 @@ const SurplusBusinesses = () => {
 
   // initialize hooks
   const dispatch = useDispatch();
+  const state = useLocation().state;
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   // useEffect
@@ -36,14 +39,34 @@ const SurplusBusinesses = () => {
         sort,
         businessType.toLowerCase(),
         category.toLowerCase(),
-        name.toLowerCase(),
-        city.toLowerCase()
+        keyword.toLowerCase(),
+        city.toLowerCase(),
+        setSearchedCategory
       )
     );
   }, []);
+  useEffect(() => {
+    if (state && state.keyword) {
+      dispatch(
+        getSurpluses(
+          page,
+          limit,
+          sort,
+          businessType.toLowerCase(),
+          category.toLowerCase(),
+          state && state.keyword
+            ? state.keyword.toLowerCase()
+            : keyword.toLowerCase(),
+          city.toLowerCase(),
+          setSearchedCategory
+        )
+      );
+      setKeyword(state.keyword);
+    }
+  }, [state && state.keyword]);
 
   useEffect(() => {
-    dispatch(getSurplusNames());
+    dispatch(getSurplusKeywords());
   }, []);
 
   // useEffect to run jquery
@@ -90,8 +113,9 @@ const SurplusBusinesses = () => {
         sortBy,
         businessType.toLowerCase(),
         category.toLowerCase(),
-        name.toLowerCase(),
-        city.toLowerCase()
+        keyword.toLowerCase(),
+        city.toLowerCase(),
+        setSearchedCategory
       )
     );
   };
@@ -100,6 +124,7 @@ const SurplusBusinesses = () => {
     setCity("");
     setBusinessType("");
     setCategory("");
+    setKeyword("");
   };
 
   // pagination UI
@@ -124,15 +149,18 @@ const SurplusBusinesses = () => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      if (surplusFromStore.names.length > 0) {
-        suggustions = surplusFromStore.names
+      if (surplusFromStore.keywords.length > 0) {
+        suggustions = surplusFromStore.keywords
 
-          .map((v) => v.name)
+          .map((v) => v.keyword)
+          .filter(
+            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+          )
           .sort()
           .filter((v) => regex.test(v));
       }
     }
-    setName(value);
+    setKeyword(value);
 
     setSuggustion([...suggustions]);
   };
@@ -146,7 +174,7 @@ const SurplusBusinesses = () => {
           <li
             className="autoComplete-li"
             onClick={() => {
-              setName(co);
+              setKeyword(co);
               setSuggustion([]);
             }}
             style={{ display: "block", width: "100%" }}
@@ -194,7 +222,7 @@ const SurplusBusinesses = () => {
                     <li class="so-filter-options" data-option="search">
                       <div class="so-filter-heading">
                         <div class="so-filter-heading-text">
-                          <span>Name</span>
+                          <span>Keyword</span>
                         </div>
                         <i class="fa fa-chevron-down"></i>
                       </div>
@@ -212,7 +240,7 @@ const SurplusBusinesses = () => {
                                   class="form-control"
                                   name="text_search"
                                   id="text_search"
-                                  value={name}
+                                  value={keyword}
                                   onChange={(e) => onChangeAutoFieldName(e)}
                                 />
                                 {renderNameSuggustion()}
@@ -466,7 +494,38 @@ const SurplusBusinesses = () => {
               style={{ padding: "0" }}
             >
               <div className="form-group clearfix">
-                <h3 className="title-category ">Surplus</h3>
+                <h3
+                  className="title-category "
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Surplus</span>
+                  <Link
+                    className="clearfix"
+                    to="/user-panel"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      fontSize: "14px",
+                      fontWeight: "100",
+                    }}
+                  >
+                    <i
+                      className="fa fa-thumb-tack"
+                      style={{
+                        fontSize: "20px",
+                        padding: "0",
+                        marginBottom: "3px",
+                      }}
+                    ></i>
+                    Post Ad
+                  </Link>
+                </h3>
               </div>
               <div className="products-category">
                 <div className="product-filter filters-panel">
@@ -477,7 +536,11 @@ const SurplusBusinesses = () => {
                     <div className="col-sm-3 view-mode hidden-sm hidden-xs">
                       <h4 style={{ margin: "0", fontWeight: "100" }}>
                         Category :{" "}
-                        <span>{category.length > 0 ? category : "All"}</span>
+                        <span>
+                          {searchedCategory.length > 0
+                            ? searchedCategory.toUpperCase()
+                            : "All"}
+                        </span>
                       </h4>
                       {/* <div className="list-view">
                         <button
@@ -518,23 +581,23 @@ const SurplusBusinesses = () => {
                           </option>
 
                           <option value="originalPrice">
-                            Original Price (Low &gt; High)
+                            Original Price (Low to High)
                           </option>
                           <option value="-originalPrice">
-                            Original Price (High &gt; Low)
+                            Original Price (High to Low)
                           </option>
 
                           <option value="offeredPrice">
-                            Offered Price (Low &gt; High)
+                            Offered Price (Low to High)
                           </option>
                           <option value="-offeredPrice">
-                            Offered Price (High &gt; Low)
+                            Offered Price (High to Low)
                           </option>
                           <option value="discount">
-                            Discount (Low &gt; High)
+                            Discount (Low to High)
                           </option>
                           <option value="-discount">
-                            Discount (High &gt; Low)
+                            Discount (High to Low)
                           </option>
                         </select>
                       </div>
@@ -605,15 +668,32 @@ const SurplusBusinesses = () => {
                     ))}
                   </div>
                 ) : null}
+                <div className="show-result-info">
+                  <i className="fa fa-rss"></i>
+                  <p>
+                    {surplusFromStore.totalDocs} results found{" "}
+                    {/* {surplusFromStore.totalDocs > 0
+                      ? `for ${name.length > 0 ? `"${name}"` : ""}  ${
+                          category.length > 0 ? `"${category}"` : ""
+                        }  ${
+                          businessType.length > 0 ? `"${businessType}"` : ""
+                        } ${city.length > 0 ? `"${city}"` : ""}`
+                      : ""} */}
+                  </p>
+                </div>
+
                 <div className="products-list grid row number-col-3 so-filter-gird">
                   {surplusFromStore.surpluses.length > 0
                     ? surplusFromStore.surpluses.map((sur) => (
                         <div className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
                           <div className="product-item-container">
                             <div className="left-block">
-                              <div className="product-image-container  second_img  ">
-                                <a
-                                  href="#"
+                              <div
+                                className="product-image-container  second_img  "
+                                style={{ position: "relative" }}
+                              >
+                                <Link
+                                  to={`/surplus-detail/${sur._id}`}
                                   title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                 >
                                   <img
@@ -628,7 +708,19 @@ const SurplusBusinesses = () => {
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-2 img-responsive"
                                   />
-                                </a>
+                                  {sur.promoteType &&
+                                  sur.promoteType.length > 0 ? (
+                                    <div className="ad-promote-type-container">
+                                      {sur.promoteType.map((promote) => (
+                                        <div
+                                          className={`ad-promote-type ${promote.promote}`}
+                                        >
+                                          {promote.promote}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : null}
+                                </Link>
                               </div>
                               {/* <div className="countdown_box">
                                 <div className="countdown_inner"></div>
@@ -646,10 +738,9 @@ const SurplusBusinesses = () => {
                               <div className="caption">
                                 <h4>
                                   <Link to={`/surplus-detail/${sur._id}`}>
-                                    {sur.description &&
-                                    sur.description.length > 50
-                                      ? sur.description.substring(0, 50) + "..."
-                                      : sur.description}
+                                    {sur.name && sur.name.length > 50
+                                      ? sur.name.substring(0, 50) + "..."
+                                      : sur.name}
                                   </Link>
                                 </h4>
                                 <div className="total-price">

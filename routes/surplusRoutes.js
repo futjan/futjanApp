@@ -11,7 +11,7 @@ router
   .get(surplusController.getAllSurplus)
   .patch(authController.protect, surplusController.updateSurplus);
 // get surplus name
-router.route("/name").get(surplusController.surplusNames);
+router.route("/keyword").get(surplusController.surplusKeyword);
 // surplus belongs to current user
 router
   .route("/current-user-surplus")

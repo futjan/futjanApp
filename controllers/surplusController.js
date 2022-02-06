@@ -30,6 +30,8 @@ exports.createSurplus = async (req, res, next) => {
     originalPrice: req.body.originalPrice,
     offeredPrice: req.body.offeredPrice,
     discount: req.body.discount,
+    keyword: req.body.keyword,
+    promoteType: req.body.promoteType,
   });
   // send response to client
   res.status(201).json({
@@ -48,10 +50,22 @@ exports.getAllSurplus = async (req, res, next) => {
     .sort()
     .limitField()
     .pagination();
+
+  // filtering extra fields and empty fields
+  const queryObj = { ...req.query };
+  const excludeFields = ["page", "sort", "limit", "fields"];
+  excludeFields.forEach((el) => delete queryObj[el]);
+  const excludeEmptyField = Object.keys(queryObj);
+  excludeEmptyField.forEach((el) => {
+    if (!queryObj[el] || queryObj[el].length === 0 || queryObj[el] == 0) {
+      delete queryObj[el];
+    }
+  });
+
   const surpluses = await features.query;
   const totalDoc = await SurplusBusiness.find({
     active: true,
-  }).countDocuments();
+  }).countDocuments(queryObj);
 
   // check surplus exist or not
   if (!surpluses) {
@@ -176,18 +190,18 @@ exports.surplusActivate = async (req, res, next) => {
   });
 };
 
-// @route                   GET /api/v1/surplus/name
-// @desc                    get surplus name
+// @route                   GET /api/v1/surplus/keyword
+// @desc                    get surplus keyword
 // @access                  Public
-exports.surplusNames = async (req, res, next) => {
-  const surplusName = await SurplusBusiness.find({}).select("name");
+exports.surplusKeyword = async (req, res, next) => {
+  const keywords = await SurplusBusiness.find({}).select("keyword");
 
-  if (!surplusName) {
+  if (!keywords) {
     return next(new AppError("Not Found ", 404, undefined));
   }
 
   res.status(200).json({
     status: "success",
-    name: surplusName,
+    keywords: keywords,
   });
 };

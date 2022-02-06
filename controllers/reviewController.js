@@ -1,6 +1,6 @@
 const Review = require("../models/Review");
+const SurplusBusiness = require("../models/SurplusBusiness");
 const AppError = require("../utils/appError");
-const mongoose = require("mongoose");
 
 // @route                   POST /api/v1/review
 // @desc                    create review
@@ -30,12 +30,19 @@ exports.create = async (req, res, next) => {
       )
     );
   }
+  const surplus = await SurplusBusiness.findById(req.body.surplus).populate(
+    "reviews"
+  );
 
-  res.status(201).json({
+  // check surplux exist or not
+  if (!surplus) {
+    return next(new AppError("Surplus not found", 404, undefined));
+  }
+
+  // send response to client
+  res.status(200).json({
     status: "success",
-    data: {
-      review,
-    },
+    surplus,
   });
 };
 

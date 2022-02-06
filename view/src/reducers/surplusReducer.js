@@ -5,7 +5,7 @@ const initialState = {
   surplus: {},
   loading: false,
   totalDocs: 0,
-  names: [],
+  keywords: [],
   result: 0,
 };
 
@@ -55,6 +55,9 @@ export default function SurplusReducer(state = initialState, action) {
         surpluses: state.surpluses.map((surplus) =>
           surplus._id === action.payload._id ? action.payload : surplus
         ),
+        privateSurpluses: state.privateSurpluses.map((surplus) =>
+          surplus._id === action.payload._id ? action.payload : surplus
+        ),
         loading: false,
       };
     case Types.ACTIVATE_SURPLUS:
@@ -76,10 +79,10 @@ export default function SurplusReducer(state = initialState, action) {
         ),
         loading: false,
       };
-    case Types.GET_SURPLUS_NAMES:
+    case Types.GET_SURPLUS_KEYWORDS:
       return {
         ...state,
-        names: action.payload,
+        keywords: action.payload,
       };
     default:
       return state;

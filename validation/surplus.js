@@ -13,9 +13,13 @@ module.exports = function validateSurplus(data) {
   data.country = !isEmpty(data.country) ? data.country : "";
   data.category = !isEmpty(data.category) ? data.category : "";
   data.description = !isEmpty(data.description) ? data.description : "";
+  data.keyword = !isEmpty(data.keyword) ? data.keyword : "";
 
   if (Validator.isEmpty(data.name)) {
     errors.name = "Name is required";
+  }
+  if (Validator.isEmpty(data.keyword)) {
+    errors.keyword = "keyword is required";
   }
 
   if (Validator.isEmpty(data.contact)) {

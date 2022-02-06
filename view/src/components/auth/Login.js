@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
 
@@ -13,6 +13,8 @@ const Login = (props) => {
   const [errors, setErrors] = useState({});
   // initialize navigation
   const navigate = useNavigate();
+  const location = useLocation();
+
   // initialize useDispatch
   const dispatch = useDispatch();
   // get state from store

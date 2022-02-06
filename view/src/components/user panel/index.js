@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 import Surplus from "./Surplus";
-import Loader from "../../utils/Loader";
-const Index = () => {
+import EditSurplus from "./EditSurplus";
+const Index = (props) => {
   const [tab, setTab] = useState("ADD");
+  const [id, setId] = useState("");
+  // initialize hooks
+  const state = useLocation().state;
+
+  // useEffect
+  useEffect(() => {
+    if (state && state.active) {
+      setTab(state.active);
+    }
+  }, [state && state.active]);
 
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
@@ -29,20 +40,46 @@ const Index = () => {
                     onClick={() => setTab("SURPLUS")}
                   >
                     <div className="tab">
-                      <i className="fa fa-folder-open"></i>
+                      <i className="fa fa-archive"></i>
                       <span>Surplus</span>
                     </div>
                   </li>
-                  {/* <li>
-                    <a href="#tab-tags" data-toggle="tab">
-                      Tags
-                    </a>
+                  <li
+                    className={tab === "ALERT" ? "active" : ""}
+                    onClick={() => setTab("ALERT")}
+                  >
+                    <div className="tab">
+                      <i className="fa fa-bell"></i>
+                      <span>Alert</span>
+                    </div>
                   </li>
-                  <li>
-                    <a href="#tab-ctab" data-toggle="tab">
-                      Custom tab
-                    </a>
-                  </li> */}
+                  <li
+                    className={tab === "MESSAGE" ? "active" : ""}
+                    onClick={() => setTab("MESSAGE")}
+                  >
+                    <div className="tab">
+                      <i className="fa fa-envelope"></i>
+                      <span>Message</span>
+                    </div>
+                  </li>
+                  <li
+                    className={tab === "FAVOURITE" ? "active" : ""}
+                    onClick={() => setTab("FAVOURITE")}
+                  >
+                    <div className="tab">
+                      <i className="fa fa-heart"></i>
+                      <span>Favourite</span>
+                    </div>
+                  </li>
+                  <li
+                    className={tab === "ACCOUNT" ? "active" : ""}
+                    onClick={() => setTab("ACCOUNT")}
+                  >
+                    <div className="tab">
+                      <i className="fa fa-user"></i>
+                      <span>Account</span>
+                    </div>
+                  </li>
                 </ul>
                 {tab === "ADD" ? (
                   <div className="tab-content ">
@@ -58,7 +95,16 @@ const Index = () => {
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
                       <div>
-                        <Surplus />
+                        <Surplus setTab={setTab} setId={setId} />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "EDIT" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <div>
+                        <EditSurplus id={id} setTab={setTab} />
                       </div>
                     </div>
                   </div>
@@ -68,7 +114,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-      {surplusFromStore.loading === true ? <Loader /> : null}
     </div>
   );
 };

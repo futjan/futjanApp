@@ -5,19 +5,25 @@ import axios from "axios";
 // @desc                    get all surpluses
 // @access                  Public
 export const getSurpluses =
-  (page, limit, sort, businessType, category, name, city) =>
+  (page, limit, sort, businessType, category, keyword, city, setCategory) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&name=${name}&city=${city}&page=${page}&limit=${limit}&sort=${sort}&fields=description,originalPrice,offeredPrice,discount`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,originalPrice,offeredPrice,discount,promoteType`
       );
       if (res.data) {
         dispatch({
           type: Types.GET_SURPLUSES,
           payload: res.data,
         });
+        if (category && category.length > 0) {
+          setCategory(category);
+        }
+        if (category.length === 0) {
+          setCategory("");
+        }
       }
     } catch (err) {
       dispatch(clearLoading());
@@ -115,7 +121,7 @@ export const getSurplusById = (id) => async (dispatch) => {
 // @route                   PATCH /api/v1/surplus
 // @desc                    update surplus by id
 // @access                  Private
-export const updateSurplus = (data) => async (dispatch) => {
+export const updateSurplus = (data, clearState) => async (dispatch) => {
   dispatch(setLoading());
   dispatch({
     type: Types.CLEAR_ERRORS,
@@ -126,6 +132,11 @@ export const updateSurplus = (data) => async (dispatch) => {
       dispatch({
         type: Types.UPDATE_SURPLUS,
         payload: res.data.surplus,
+      });
+      clearState();
+      dispatch({
+        type: Types.GET_SURPLUS,
+        payload: {},
       });
     }
   } catch (err) {
@@ -192,21 +203,47 @@ export const deleteSurplus = (id) => async (dispatch) => {
   }
 };
 
-// @route                   GET /api/v1/surplus/name
-// @desc                    get surplus names
+// @route                   GET /api/v1/surplus/keyword
+// @desc                    get surplus keyword
 // @access                  public
-export const getSurplusNames = () => async (dispatch) => {
+// export const getSurplusNames = () => async (dispatch) => {
+export const getSurplusKeywords = () => async (dispatch) => {
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
   try {
-    const res = await axios.get("/api/v1/surplus/name");
+    const res = await axios.get("/api/v1/surplus/keyword");
 
     if (res) {
       dispatch({
-        type: Types.GET_SURPLUS_NAMES,
-        payload: res.data.name,
+        type: Types.GET_SURPLUS_KEYWORDS,
+        payload: res.data.keywords,
       });
+    }
+  } catch (err) {
+    dispatch({
+      type: Types.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+
+// @route                   CREATE /api/v1/review
+// @desc                    create review
+// @access                  Private
+export const createReview = (review, clearState) => async (dispatch) => {
+  try {
+    dispatch({
+      type: Types.CLEAR_ERRORS,
+    });
+    const res = await axios.post("/api/v1/review", review);
+
+    if (res) {
+      dispatch({
+        type: Types.GET_SURPLUS,
+        payload: res.data.surplus,
+      });
+      clearState();
     }
   } catch (err) {
     dispatch({

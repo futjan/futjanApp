@@ -2,20 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
-import { getSurplusById } from "../actions/surplusAction";
+import { getSurplusById, createReview } from "../actions/surplusAction";
+import profileThumbNail from "../image/profile-thumbnail.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./skeleton.css";
 
 function DetailSurplus() {
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState();
   // initialize hooks
+  const params = useParams();
   const dispatch = useDispatch();
+  // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
+  const auth = useSelector((state) => state.auth);
   // useEffect
   useEffect(() => {
     dispatch(getSurplusById(params.id));
   }, []);
-  const params = useParams();
+
+  // create review
+  const createReviewFunc = () => {
+    const obj = {
+      review,
+      rating: rating * 1,
+      surplus: surplusFromStore.surplus._id,
+    };
+    dispatch(createReview(obj, clearState));
+  };
+  // clear state function
+  const clearState = () => {
+    setRating();
+    setReview("");
+  };
   return (
     <div class="container product-detail" style={{ marginTop: "30px" }}>
       <div class="row">
@@ -92,13 +112,18 @@ function DetailSurplus() {
                     </div>
                     <a
                       class="reviews_button"
+                      href="#review"
                       // onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"
                     >
-                      0 reviews
+                      {surplusFromStore.surplus &&
+                        surplusFromStore.surplus.reviews &&
+                        surplusFromStore.surplus.reviews.length}{" "}
+                      reviews
                     </a>{" "}
                     /{" "}
                     <a
                       class="write_review_button"
+                      href="#review"
                       // onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"
                     >
                       Write a review
@@ -177,11 +202,7 @@ function DetailSurplus() {
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.city}
                       </div>
-                      <div class="model">
-                        <span>Country: </span>{" "}
-                        {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.country}
-                      </div>
+
                       <div class="model">
                         <span>Contact: </span>{" "}
                         {surplusFromStore.surplus &&
@@ -226,9 +247,14 @@ function DetailSurplus() {
                                   <i class="fa fa-heart"></i>
                                 </a>
                               </li>
-                              <li class="compare">
+                              <li class="compare wishlist">
                                 <a onclick="compare.add(108);">
                                   <i class="fa fa-random"></i>
+                                </a>
+                              </li>
+                              <li class="compare">
+                                <a onclick="compare.add(108);">
+                                  <i class="fa fa-ban"></i>
                                 </a>
                               </li>
                             </ul>
@@ -240,6 +266,157 @@ function DetailSurplus() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+          <div class="product-attribute module">
+            <div class="row content-product-midde clearfix">
+              <div class="col-xs-12">
+                <div class="producttab ">
+                  <div class="tabsslider  ">
+                    <ul class="nav nav-tabs font-sn">
+                      <li class="active">
+                        <div className="tab">
+                          Review (
+                          {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.reviews &&
+                            surplusFromStore.surplus.reviews.length}
+                          )
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="review">
+                      <div class="tab-pane active" id="tab-review">
+                        <form class="form-horizontal" id="form-review">
+                          <div id="review" style={{ margin: "30px 0" }}>
+                            {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.reviews &&
+                            surplusFromStore.surplus.reviews.length > 0 ? (
+                              surplusFromStore.surplus.reviews.map((review) => (
+                                <div
+                                  className="row"
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    width: "100%",
+                                    margin: "30px 0",
+                                  }}
+                                >
+                                  <div className="col-xs-2 col-sm-1">
+                                    <img
+                                      src={profileThumbNail}
+                                      width={70}
+                                      alt="profile"
+                                    />
+                                  </div>
+                                  <div className="col" style={{ padding: "0" }}>
+                                    <p style={{ margin: "0" }}>
+                                      <strong>
+                                        {review.user && review.user.name}
+                                      </strong>
+                                    </p>
+                                    <p style={{ margin: "0" }}>
+                                      {review.review}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <p>There are no reviews for this product.</p>
+                            )}
+                          </div>
+                          {auth.isAuthenticated === true ? (
+                            <>
+                              <h2>Write a review</h2>
+                              <div class="form-group required">
+                                <div class="col-sm-12">
+                                  <label
+                                    class="control-label"
+                                    for="input-review"
+                                  >
+                                    Your Review
+                                  </label>
+                                  <textarea
+                                    name="text"
+                                    rows="5"
+                                    id="input-review"
+                                    class="form-control"
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                  ></textarea>
+                                  <div class="help-block">
+                                    <span class="text-danger">Note:</span> HTML
+                                    is not translated!
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group required">
+                                <div class="col-sm-12">
+                                  <label class="control-label">Rating</label>
+                                  &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                                  <input
+                                    type="radio"
+                                    name="rating"
+                                    value="1"
+                                    onClick={() => setRating(1)}
+                                  />
+                                  &nbsp;
+                                  <input
+                                    type="radio"
+                                    name="rating"
+                                    value="2"
+                                    onClick={() => setRating(2)}
+                                  />
+                                  &nbsp;
+                                  <input
+                                    type="radio"
+                                    name="rating"
+                                    value="3"
+                                    onClick={() => setRating(3)}
+                                  />
+                                  &nbsp;
+                                  <input
+                                    type="radio"
+                                    name="rating"
+                                    value="4"
+                                    onClick={() => setRating(4)}
+                                  />
+                                  &nbsp;
+                                  <input
+                                    type="radio"
+                                    name="rating"
+                                    value="5"
+                                    onClick={() => setRating(5)}
+                                  />
+                                  &nbsp;Good
+                                </div>
+                              </div>
+                              <div
+                                class="buttons clearfix"
+                                style={{
+                                  visibility: "hidden",
+                                  display: "block",
+                                }}
+                              >
+                                <div class="pull-right">
+                                  <button
+                                    type="button"
+                                    id="button-review"
+                                    data-loading-text="Loading..."
+                                    class="btn btn-primary"
+                                    onClick={() => createReviewFunc()}
+                                  >
+                                    Continue
+                                  </button>
+                                </div>
+                              </div>
+                            </>
+                          ) : null}
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
