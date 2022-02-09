@@ -1380,7 +1380,7 @@
   header.typeheader-4 #sosearchpro.so-search .select_category {
     display: block;
     float: left;
-    width: 35% !important;
+    /* width: 35% !important; */
   }
   .typeheader-4 #sosearchpro.so-search .autosearch-input {
     width: 100% !important;
@@ -2402,7 +2402,7 @@
     cursor: pointer;
     padding: 11.5px 10px;
     border-radius: 3px;
-    margin-top: 5px !important;
+    margin-top: 5px;
   }
   .megamenu-style-dev .navbar-default .horizontal .navbar-toggle .icon-bar {
     background: #fff !important;

@@ -5,6 +5,7 @@ import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import cities from "../../utils/cities";
+import { City } from "country-state-city";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -46,7 +47,7 @@ const SurplusBusinesses = () => {
     );
   }, []);
   useEffect(() => {
-    if (state && state.keyword) {
+    if (state.keyword || state.city) {
       dispatch(
         getSurpluses(
           page,
@@ -54,16 +55,19 @@ const SurplusBusinesses = () => {
           sort,
           businessType.toLowerCase(),
           category.toLowerCase(),
-          state && state.keyword
+          state && state.keyword && state.keyword.length > 0
             ? state.keyword.toLowerCase()
             : keyword.toLowerCase(),
-          city.toLowerCase(),
+          state && state.city && state.city.length > 0
+            ? state.city.toLowerCase()
+            : city.toLowerCase(),
           setSearchedCategory
         )
       );
       setKeyword(state.keyword);
+      setCity(state.city);
     }
-  }, [state && state.keyword]);
+  }, [state || state.keyword || state.city]);
 
   useEffect(() => {
     dispatch(getSurplusKeywords());
@@ -139,7 +143,12 @@ const SurplusBusinesses = () => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = cities.sort().filter((v) => regex.test(v));
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
     }
     setCity(value);
     setSuggustionCities([...suggustions]);
@@ -195,12 +204,12 @@ const SurplusBusinesses = () => {
           <li
             className="autoComplete-li"
             onClick={() => {
-              setCity(co);
+              setCity(co.name);
               setSuggustionCities([]);
             }}
             style={{ display: "block", width: "100%" }}
           >
-            {co}
+            {co.name}
           </li>
         ))}
       </ul>
@@ -654,7 +663,8 @@ const SurplusBusinesses = () => {
                     </div>
                   </div>
                 </div>
-                {surplusFromStore.loading === true ? (
+                {surplusFromStore.loading === true &&
+                surplusFromStore.surpluses.length === 0 ? (
                   <div className="row">
                     {["", "", "", "", "", ""].map((num) => (
                       <div

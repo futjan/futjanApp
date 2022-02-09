@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import countryList from "../../utils/countriesList";
-import cities from "../../utils/cities";
+// import countryList from "../../utils/countriesList";
+// import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
 import { Country, City, State } from "country-state-city";
@@ -45,11 +45,9 @@ const AddSurplusBusiness = () => {
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
-  const [countries, setCountories] = useState([]);
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
-  console.log(State.getAllStates());
   const errorState = useSelector((state) => state.error);
   const surplus = useSelector((state) => state.surplus);
 

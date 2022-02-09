@@ -19,8 +19,8 @@ import ForgetPassword from "./components/user/ForgetPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
 import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
-import UserPanel from "./components/user panel/index";
-import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
+// import UserPanel from "./components/user panel/index";
+// import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
 import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
 
 // css
@@ -47,7 +47,6 @@ import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";
 // import "./css/quickview/quickview.css";
-import ErrorBoundary from "./components/Error boundaries/ErrorBoundary";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 // stylesheet
@@ -77,53 +76,47 @@ const App = (props) => {
     <div className="App">
       <div className="common-home res layout-4">
         <div id="wrapper" class="wrapper-fluid banners-effect-3">
-          <ErrorBoundary>
-            <Router>
-              <Provider store={store}>
-                <Header2 />
-                {/* <header id="header" className=" typeheader-1">
+          <Router>
+            <Provider store={store}>
+              <Header2 />
+              {/* <header id="header" className=" typeheader-1">
                 <Header />
                 
               </header> */}
-                <Routes>
-                  <Route path="/" exact element={<Index />} />
-                  <Route path="/login" exact element={<Login />} />
-                  <Route path="/signup" exact element={<Register />} />
-                  <Route
-                    path="/forget-password"
-                    exact
-                    element={<ForgetPassword />}
-                  />
-                  <Route path="/:token" exact element={<ResetPassword />} />
-                  <Route path="/about-us" exact element={<Aboutus />} />
-                  <Route path="/contact-us" exact element={<Contactus />} />
-                  <Route path="/jobs" exact element={<Job />} />
-                  <Route path="/business" exact element={<Job />} />
-                  <Route path="/details" exact element={<JobDetail />} />
-                  <Route
+              <Routes>
+                <Route path="/" exact element={<Index />} />
+                <Route path="/login" exact element={<Login />} />
+                <Route path="/signup" exact element={<Register />} />
+                <Route
+                  path="/forget-password"
+                  exact
+                  element={<ForgetPassword />}
+                />
+                <Route path="/:token" exact element={<ResetPassword />} />
+                <Route path="/about-us" exact element={<Aboutus />} />
+                <Route path="/contact-us" exact element={<Contactus />} />
+                <Route path="/jobs" exact element={<Job />} />
+                <Route path="/business" exact element={<Job />} />
+                <Route path="/details" exact element={<JobDetail />} />
+                {/* <Route
                     path="/add-surplus"
                     exact
                     element={<AddSurplusBusiness />}
-                  />
-                  <Route
-                    path="/surplus"
-                    exact
-                    element={<SurplusBusinesses />}
-                  />
-                  {/* <Route path="/user-panel" exact element={<PrivateRoute />}>
+                  /> */}
+                <Route path="/surplus" exact element={<SurplusBusinesses />} />
+                {/* <Route path="/user-panel" exact element={<PrivateRoute />}>
                   <Route path="/user-panel" exact element={<UserPanel />} />
                 </Route> */}
 
-                  <Route
-                    path="/surplus-detail/:id"
-                    exact
-                    element={<DetailSurplus />}
-                  />
-                </Routes>
-                <Footer />
-              </Provider>
-            </Router>
-          </ErrorBoundary>
+                <Route
+                  path="/surplus-detail/:id"
+                  exact
+                  element={<DetailSurplus />}
+                />
+              </Routes>
+              <Footer />
+            </Provider>
+          </Router>
         </div>
       </div>
     </div>

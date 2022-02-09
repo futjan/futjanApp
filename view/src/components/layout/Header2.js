@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import LOGO from "../image/logo2.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { City } from "country-state-city";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
 
 const Header2 = () => {
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
+  const [city, setCity] = useState("");
+  const [suggustionCities, setSuggustionCities] = useState([]);
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -18,18 +20,17 @@ const Header2 = () => {
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
+
   // show side navbar
-  const showSideNavBar = () => {
-    const humburgerMenuIcon =
-      document.getElementsByClassName("megamenu-wrapper")[0];
+  const showSideNavBar = (id) => {
+    const humburgerMenuIcon = document.getElementById(`${id}`);
     if (humburgerMenuIcon) {
       humburgerMenuIcon.classList.toggle("so-megamenu-active");
     }
   };
   // close side navBar onclick on cross icon
-  const closeSideNavBar = () => {
-    const humburgerMenuIcon =
-      document.getElementsByClassName("megamenu-wrapper")[0];
+  const closeSideNavBar = (id) => {
+    const humburgerMenuIcon = document.getElementById(`${id}`);
     if (humburgerMenuIcon) {
       humburgerMenuIcon.classList.remove("so-megamenu-active");
     }
@@ -45,6 +46,46 @@ const Header2 = () => {
     document.getElementById("sub-menu-content").classList.toggle("d-none");
   };
 
+  // cities
+  const onChangeAutoFieldCities = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
+    }
+    setCity(value);
+    setSuggustionCities([...suggustions]);
+  };
+  const renderCitySuggustion = () => {
+    if (suggustionCities.length === 0) {
+      return null;
+    }
+    return (
+      <ul
+        className="autoComplete-ul"
+        style={{ top: "40px", left: "0", width: "100%" }}
+      >
+        {suggustionCities.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCity(co.name);
+              setSuggustionCities([]);
+            }}
+          >
+            {co.name}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  // keyword
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -345,11 +386,14 @@ const Header2 = () => {
                 </h3>
               </Link>
             </div>
-            <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-10">
+            <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-11">
               <div class="header_search">
                 <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
                   <form method="GET" action="#">
-                    <div id="search0" class="search input-group form-group">
+                    <div
+                      id="search0"
+                      class="search d-grid input-group form-group"
+                    >
                       <input
                         class="autosearch-input form-control"
                         type="text"
@@ -360,35 +404,31 @@ const Header2 = () => {
                         name="search"
                       />
                       {renderNameSuggustion()}
-                      {/* <div
+                      <div
                         class="select_category filter_type  icon-select"
-                        style={{ display: "none" }}
+                        // style={{ display: "none" }}
                       >
-                        <select class="no-border" name="category_id">
-                          <option value="0">All Categories </option>
-                          <option value="82 ">Book Stationery </option>
-                          <option value="65">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Girls New{" "}
-                          </option>
-                          <option value="56">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kitchen{" "}
-                          </option>
-                          <option value="61">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pearl mens{" "}
-                          </option>
-                          <option value="38 ">Laptop &amp; Notebook </option>
-                          <option value="52 ">Spa &amp; Massage </option>
-                          <option value="44">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Latenge mange{" "}
-                          </option>
-                        </select>
-                      </div> */}
+                        <input
+                          className="form-control no-border"
+                          name="category_id"
+                          placeholder="Location"
+                          onChange={(e) => onChangeAutoFieldCities(e)}
+                          value={city}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            background: "#fff",
+                            paddingLeft: "0",
+                          }}
+                        />
+                        {renderCitySuggustion()}
+                      </div>
                       <span class="input-group-btn">
                         <Link
                           to="/surplus"
                           class="button-search btn btn-default btn-lg"
                           name="submit_search"
-                          state={{ keyword }}
+                          state={{ keyword, city }}
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -399,6 +439,274 @@ const Header2 = () => {
                           <span class="hidden">Search</span>
                         </Link>
                       </span>
+                      <div
+                        className="megamenu-style-dev megamenu-dev mobile-burger-menu-show"
+                        style={{ display: "none" }}
+                      >
+                        <div className="responsive">
+                          <nav className="navbar-default">
+                            <div className="container-megamenu horizontal">
+                              <div className="navbar-header">
+                                <button
+                                  type="button"
+                                  id="show-megamenu"
+                                  data-toggle="collapse"
+                                  className="navbar-toggle"
+                                  onClick={() =>
+                                    showSideNavBar("megamenu-wrapper-1")
+                                  }
+                                >
+                                  <span className="icon-bar"></span>
+                                  <span className="icon-bar"></span>
+                                  <span className="icon-bar"></span>
+                                </button>
+                              </div>
+                              <div
+                                className="megamenu-wrapper"
+                                id="megamenu-wrapper-1"
+                              >
+                                <span
+                                  id="remove-megamenu"
+                                  className="fa fa-times"
+                                  onClick={() =>
+                                    closeSideNavBar("megamenu-wrapper-1")
+                                  }
+                                ></span>
+                                <div className="megamenu-pattern">
+                                  <div className="container">
+                                    <ul
+                                      className="megamenu"
+                                      data-transition="slide"
+                                      data-animationtime="500"
+                                    >
+                                      <li className="full-width menu-home with-sub-menu hover">
+                                        <p className="close-menu"></p>
+
+                                        <NavLink
+                                          className="clearfix"
+                                          to="/user-panel"
+                                          state={{ active: "ADD" }}
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            flexDirection: "column",
+                                          }}
+                                        >
+                                          <i
+                                            className="fa fa-thumb-tack"
+                                            style={{
+                                              fontSize: "20px",
+                                              padding: "0",
+                                            }}
+                                          ></i>
+                                          <strong>Post Ad</strong>
+                                        </NavLink>
+                                      </li>
+                                      {auth.isAuthenticated !== true ? (
+                                        <li className="full-width menu-home with-sub-menu hover">
+                                          <p className="close-menu"></p>
+
+                                          <NavLink
+                                            className="clearfix"
+                                            to="/login"
+                                            style={{
+                                              display: "flex",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              flexDirection: "column",
+                                            }}
+                                            // onClick={() => closeSideNavBar()}
+                                          >
+                                            {" "}
+                                            <i
+                                              className="fa fa-user"
+                                              style={{
+                                                fontSize: "20px",
+                                                padding: "0",
+                                              }}
+                                            ></i>
+                                            <strong>Login</strong>
+                                          </NavLink>
+                                        </li>
+                                      ) : null}
+                                      {auth.isAuthenticated === true ? (
+                                        <li className="full-width menu-home with-sub-menu hover menu-link">
+                                          <p className="close-menu"></p>
+
+                                          <div
+                                            className="clearfix"
+                                            style={{
+                                              display: "flex",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              flexDirection: "column",
+                                            }}
+                                            onClick={() => subMenu()}
+                                          >
+                                            {" "}
+                                            <i
+                                              className="fa fa-bars"
+                                              style={{
+                                                fontSize: "20px",
+                                                padding: "0",
+                                              }}
+                                            ></i>
+                                            <strong>Menu</strong>
+                                            <b class="caret"></b>
+                                          </div>
+                                          <div
+                                            class="sub-menu"
+                                            style={{ width: "100%" }}
+                                            id="sub-menu"
+                                          >
+                                            <div
+                                              class="content"
+                                              id="sub-menu-content"
+                                            >
+                                              <div>
+                                                <ul class="row-list">
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "ACCOUNT",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-user"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      My Account
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "SURPLUS",
+                                                      }}
+                                                    >
+                                                      <i className="fa fa-archive"></i>{" "}
+                                                      My Ad
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{ active: "ADD" }}
+                                                    >
+                                                      <i className="fa fa-archive"></i>{" "}
+                                                      Post ad
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "MESSAGE",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-envelope"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      Message
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "ALERT",
+                                                      }}
+                                                    >
+                                                      <i className="fa fa-bell"></i>
+                                                      My Alerts
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "FAVOURITE",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-heart"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      My Favourites
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/user-panel"
+                                                    >
+                                                      <i
+                                                        className="fa fa-question-circle"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      Help
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      class="subcategory_item"
+                                                      to="/"
+                                                      onClick={() =>
+                                                        dispatch(logoutUser())
+                                                      }
+                                                    >
+                                                      <i
+                                                        className="fa fa-power-off"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>
+                                                      Logout
+                                                    </Link>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>
+                                      ) : null}
+                                      {/* {auth.isAuthenticated === true ? (
+                                <li className="full-width menu-home with-sub-menu hover">
+                                  <p className="close-menu"></p>
+                                  <a
+                                    className="clearfix"
+                                   
+                                  >
+                                    <strong>LOGOUT</strong>
+                                    <span className="labelopencart"></span>
+                                  </a>
+                                </li>
+                              ) : null} */}
+
+                                      {/* <li className="deal-h5 hidden">
+                              <p className="close-menu"></p>
+                              <a href="#" className="clearfix">
+                                <strong>
+                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
+                                </strong>
+                              </a>
+                            </li> */}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </nav>
+                        </div>
+                      </div>
                     </div>
                     <input type="hidden" name="route" value="product/search" />
                   </form>
@@ -406,7 +714,7 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              class="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-2"
+              class="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
               style={{ display: "flex", justifyContent: "end", margin: "0" }}
             >
               <div className="megamenu-style-dev megamenu-dev">
@@ -419,18 +727,18 @@ const Header2 = () => {
                           id="show-megamenu"
                           data-toggle="collapse"
                           className="navbar-toggle"
-                          onClick={() => showSideNavBar()}
+                          onClick={() => showSideNavBar("megamenu-wrapper-2")}
                         >
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                         </button>
                       </div>
-                      <div className="megamenu-wrapper">
+                      <div className="megamenu-wrapper" id="megamenu-wrapper-2">
                         <span
                           id="remove-megamenu"
                           className="fa fa-times"
-                          onClick={() => closeSideNavBar()}
+                          onClick={() => closeSideNavBar("megamenu-wrapper-2")}
                         ></span>
                         <div className="megamenu-pattern">
                           <div className="container">
