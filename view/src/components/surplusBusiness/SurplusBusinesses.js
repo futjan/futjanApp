@@ -47,7 +47,7 @@ const SurplusBusinesses = () => {
     );
   }, []);
   useEffect(() => {
-    if (state.keyword || state.city) {
+    if ((state && state.keyword) || (state && state.city)) {
       dispatch(
         getSurpluses(
           page,
@@ -67,7 +67,7 @@ const SurplusBusinesses = () => {
       setKeyword(state.keyword);
       setCity(state.city);
     }
-  }, [state || state.keyword || state.city]);
+  }, [state || (state && state.keyword) || (state && state.city)]);
 
   useEffect(() => {
     dispatch(getSurplusKeywords());

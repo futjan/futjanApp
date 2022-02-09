@@ -76,7 +76,7 @@ const ReportModal = () => {
                       //     ? "form-control is-invalid"
                       //     : "form-control"
                       // }
-                      defaultValue="adasdj"
+                      // defaultValue=""
 
                       // value={description}
                       // onChange={(e) => setDescription(e.target.value)}
