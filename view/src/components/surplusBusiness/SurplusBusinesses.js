@@ -64,8 +64,11 @@ const SurplusBusinesses = () => {
           setSearchedCategory
         )
       );
-      setKeyword(state.keyword);
-      setCity(state.city);
+
+      setKeyword(
+        state && state.keyword && state.keyword.length > 0 ? state.keyword : ""
+      );
+      setCity(state && state.city && state.city.length > 0 ? state.city : "");
     }
   }, [state || (state && state.keyword) || (state && state.city)]);
 
