@@ -253,7 +253,7 @@ const SurplusBusinesses = () => {
                     <li class="so-filter-options" data-option="search">
                       <div class="so-filter-heading">
                         <div class="so-filter-heading-text">
-                          <span>City</span>
+                          <span>Location</span>
                         </div>
                         <i class="fa fa-chevron-down"></i>
                       </div>
@@ -284,7 +284,7 @@ const SurplusBusinesses = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Type</span>
+                          <span>Business Type</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>

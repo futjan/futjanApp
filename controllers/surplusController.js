@@ -31,6 +31,7 @@ exports.createSurplus = async (req, res, next) => {
     offeredPrice: req.body.offeredPrice,
     discount: req.body.discount,
     keyword: req.body.keyword,
+    county: req.body.county,
     promoteType: req.body.promoteType,
   });
   // send response to client

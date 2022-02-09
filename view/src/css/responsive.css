@@ -1163,10 +1163,11 @@
     margin: 35px -15px 0 !important;
   }
 
-  ..module.home1_deals .cslider-item-timer .product_time_maxprice {
+  .module.home1_deals .cslider-item-timer .product_time_maxprice {
     padding: 5px 10px 5px 15px;
   }
 }
+
 /************************************************************************************************
  BLOCK HEADER  
  ************************************************************************************************ */

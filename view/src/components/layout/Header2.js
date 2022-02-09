@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import LOGO from "../image/Logo.png";
+import LOGO from "../image/logo2.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -326,13 +326,23 @@ const Header2 = () => {
         <div class="container">
           <div class="row">
             <div class="navbar-logo col-lg-3 col-md-2 col-xs-12 col-sm-3">
-              <Link to="/">
+              <Link
+                to="/"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <img
                   alt="Your Store"
-                  style={{ width: "230px", height: "43px" }}
+                  style={{ width: "30px", height: "40px" }}
                   title="Your Store"
                   src={LOGO}
                 />
+                <h3 className="logo-heading">
+                  FUTJ<span>AN</span>
+                </h3>
               </Link>
             </div>
             <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-10">
@@ -346,7 +356,7 @@ const Header2 = () => {
                         value={keyword}
                         onChange={(e) => onChangeAutoFieldName(e)}
                         autocomplete="off"
-                        placeholder="Search"
+                        placeholder="eg Restaurant, Jobs, Business, Stock "
                         name="search"
                       />
                       {renderNameSuggustion()}
@@ -641,93 +651,38 @@ const Header2 = () => {
       </div>
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}
+
       <div
-        class="header-bottom hidden-compact"
-        style={{ borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd" }}
+        style={{
+          position: "relative",
+          background: "#fff",
+          padding: "30px 0",
+          borderBottom: "1px solid #ddd",
+        }}
       >
-        <div class="container">
-          <div class="header-bottom-inner">
-            <div class="row">
-              {/* <!-- Menuhome --> */}
-              <div class="header-bottom-right col-md-12 col-sm-12 col-xs-12">
-                <div class="header-menu">
-                  <div class="megamenu-style-dev megamenu-dev">
-                    <div class="responsive">
-                      <nav class="navbar-default">
-                        <div class="container-megamenu horizontal">
-                          {/* <div class="megamenu-wrapper"> */}
-                          <div>
-                            {/* <span
-                              id="remove-megamenu"
-                              class="fa fa-times"
-                            ></span> */}
-                            <div class="megamenu-pattern">
-                              <div class="container">
-                                <ul
-                                  class="megamenu row"
-                                  data-transition="slide"
-                                  data-animationtime="500"
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/jobs">
-                                      <strong>JOBS</strong>
-                                    </NavLink>
-                                  </li>
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/surplus">
-                                      <strong>SURPLUS</strong>
-                                    </NavLink>
-                                  </li>
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      // borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/jobs">
-                                      <strong>BUSINESS</strong>
-                                    </NavLink>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </nav>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="container">
+          <ul className="new-design-ul">
+            <li>
+              <NavLink to="/jobs">
+                <i className="fa fa-briefcase"></i>
+                JOBS
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/jobs">
+                <i className="fa fa-handshake-o"></i>
+                BUSINESS
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/surplus">
+                <i className="fa fa-th-large"></i>
+                SURPLUS
+              </NavLink>
+            </li>
+          </ul>
         </div>
+        <hr className="new-design-hr" />
       </div>
     </header>
   );

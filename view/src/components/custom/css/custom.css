@@ -1,4 +1,31 @@
 /* Global */
+.logo-heading {
+  position: relative;
+  letter-spacing: 5px;
+  color: #3b5998;
+}
+/* .logo-heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  left: 0;
+  background: #ff5e00;
+  width: 75px;
+} */
+.logo-heading span {
+  position: relative;
+  color: #ff5e00;
+}
+/* .logo-heading span::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  left: -5px;
+  background: #3b5998;
+  width: 45px;
+} */
 .container {
   height: 100%;
 }
@@ -262,6 +289,72 @@ input[type="number"] {
   background: #52a744;
 }
 /* CUSTOM CHECKBOX */
+/* CUSTOM RADIO */
+.container-radio {
+  display: block !important;
+  position: relative !important;
+  padding-left: 30px !important;
+  margin-bottom: 15px !important;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.container-radio .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container-radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container-radio input:checked ~ .checkmark {
+  background-color: #3b5998;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.container-radio .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container-radio .checkmark:after {
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+/* CUSTOM RADIO */
 /* The container */
 .container-checkbox.border-bottom {
   border-bottom: 1px solid #ddd;
@@ -343,6 +436,57 @@ input[type="number"] {
 /* CUSTOM CHECKBOX */
 
 /* POST AD */
+
+/* DESIGNING */
+.new-design-ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.new-design-ul li {
+  margin-right: 20px;
+  z-index: 2;
+}
+.new-design-ul li a {
+  width: 120px !important;
+  height: 110px !important;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: #3b5998;
+  color: #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(59 89 152 / 40%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  flex-direction: column;
+}
+.new-design-ul li i {
+  font-size: 25px !important;
+}
+.new-design-ul li a:hover,
+.new-design-ul li a.active {
+  background: #363f48 !important;
+  color: #ddd !important;
+  box-shadow: 0 0 10px rgb(59 89 152 / 60%) !important;
+}
+.new-design-ul li:last-child {
+  margin-right: 0;
+}
+.new-design-hr {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ddd;
+  border: none !important;
+  height: 0.1px;
+  z-index: 1;
+  width: 100%;
+}
+/* DESIGNING */
 @media screen and (max-width: 992px) {
   .logout-btn {
     display: none;
@@ -352,7 +496,16 @@ input[type="number"] {
   }
 }
 /* LOGOUT BTN */
-
+@media (max-width: 500px) {
+  .new-design-ul li a {
+    width: 85px !important;
+    height: 80px !important;
+    font-size: 13px !important;
+  }
+  .new-design-ul li i {
+    font-size: 20px !important;
+  }
+}
 @media screen and (max-width: 1024px) {
   .header-top ul.megamenu {
     display: block !important;

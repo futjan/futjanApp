@@ -8305,7 +8305,6 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   width: 30%;
   text-align: right;
 }
-
 .price-right .discount {
   background: #ff5e00;
   color: #fff;
@@ -9643,23 +9642,24 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   .add-to-links
   li.wishlist
   a {
-  margin-right: 5px;
+  margin-right: 8px;
 }
 .product-view .content-product-right .box-info-product .add-to-links ul li a {
-  height: 35px;
-  width: 35px;
-  line-height: 33px;
+  /* height: 35px; */
+  width: 117px;
+  /* line-height: 33px; */
   text-align: center;
-  padding: 0;
-  border-radius: 50%;
-  font-size: 14px;
+  padding: 5px 15px;
+  border-radius: 3px;
+  font-size: 15px;
   border: 1px solid #ff5e00;
   display: inline-block;
   background-color: #fff;
   color: #ff5e00;
 }
 .product-view .content-product-right .box-info-product .add-to-links ul li a i {
-  line-height: 35px;
+  /* line-height: 35px; */
+  margin-right: 7px;
 }
 .product-view
   .content-product-right
@@ -11212,6 +11212,7 @@ select {
   font-size: 1.2rem;
   box-shadow: none !important;
   transition: all 0.3s ease;
+  outline: none !important;
 }
 
 .btn-xs,
@@ -14521,10 +14522,10 @@ div#content .col-lg-2:nth-child(6n + 1),
   /*Style 4*/
 }
 .module.home-lt1 .head-title {
-  border-color: #e9597e;
+  border-color: #3b5998;
 }
 .module.home-lt1 h2.modtitle {
-  background: #e9597e;
+  background: #3b5998;
   padding: 10px 20px 10px 50px;
 }
 .module.home-lt1 h2.modtitle:before {
@@ -14594,7 +14595,7 @@ div#content .col-lg-2:nth-child(6n + 1),
   display: none;
   top: -4px;
   border-right: 5px solid transparent;
-  border-top: 5px solid #e9597e;
+  border-top: 5px solid #3b5998;
   border-left: 5px solid transparent;
   border-bottom: 5px solid transparent;
   left: 40%;
@@ -14626,7 +14627,7 @@ div#content .col-lg-2:nth-child(6n + 1),
   .ltabs-tabs
   li.tab-sel
   > span {
-  color: #e9597e;
+  color: #3b5998;
 }
 .module.home-lt1
   .so-listing-tabs
@@ -16158,7 +16159,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
 }
 .module.so_filter_wrap .modcontent .so-filter-heading .so-filter-heading-text {
   float: left;
-  font-size: 13px;
+  font-size: 14px;
   color: #222;
   padding: 11px 0 10px;
   font-weight: 700;
@@ -17094,17 +17095,20 @@ checkout-cart .btn-block input {
 .button,
 .btn {
   background: #555;
-  color: #fff;
+  color: #ddd;
   border-radius: 3px !important;
   border: none;
   padding: 10px 15px;
   text-transform: uppercase;
   transition: all 0.2s ease;
+  outline: none !important;
 }
 .button:hover,
 .btn:hover {
   background: #555;
-  border-color: #555;
+  border-color: #ddd;
+  outline: none !important;
+  color: #ddd;
 }
 
 .btn-warning {
@@ -17122,9 +17126,13 @@ checkout-cart .btn-block input {
 }
 
 .btn-primary {
-  background: #999;
+  background: #3b5998;
   border-radius: 0;
   text-transform: uppercase;
+  color: #ddd;
+}
+.btn-primary:hover {
+  background: #363f48 !important;
 }
 
 .btn-danger {

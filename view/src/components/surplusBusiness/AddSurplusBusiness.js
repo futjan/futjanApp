@@ -4,6 +4,8 @@ import countryList from "../../utils/countriesList";
 import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
+import { Country, City, State } from "country-state-city";
+
 const Days = [
   "MONDAY",
   "TUESDAY",
@@ -26,6 +28,7 @@ const AddSurplusBusiness = () => {
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
   const [city, setCity] = useState("");
+  const [county, setCounty] = useState("");
   const [businessType, setBusinessType] = useState("");
   const [country, setCountry] = useState("");
   const [category, setCategory] = useState("");
@@ -38,14 +41,15 @@ const AddSurplusBusiness = () => {
   const [suggustion, setSuggustion] = useState([]);
 
   const [suggustionCities, setSuggustionCities] = useState([]);
+  const [suggustionState, setSuggustionState] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
-
+  const [countries, setCountories] = useState([]);
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
-
+  console.log(State.getAllStates());
   const errorState = useSelector((state) => state.error);
   const surplus = useSelector((state) => state.surplus);
 
@@ -56,26 +60,58 @@ const AddSurplusBusiness = () => {
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
+  // useEffect(() => {
+
+  // }, []);
   // handle onChange AutoComplete field
   const onChangeAutoField = (e) => {
     const value = e.target.value;
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = countryList.sort().filter((v) => regex.test(v));
+      suggustions = Country.getAllCountries()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((count) => {
+          return { name: count.name, isoCode: count.isoCode };
+        });
     }
     setCountry(value);
     setSuggustion([...suggustions]);
   };
+
   const onChangeAutoFieldCities = (e) => {
     const value = e.target.value;
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = cities.sort().filter((v) => regex.test(v));
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
     }
     setCity(value);
     setSuggustionCities([...suggustions]);
+  };
+  const onChangeAutoFieldState = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = State.getAllStates()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((state) => {
+          return { name: state.name, countryCode: state.countryCode };
+        })
+        .filter(
+          (state, index, stateArray) => stateArray.indexOf(state) === index
+        );
+    }
+    setCounty(value);
+    setSuggustionState([...suggustions]);
   };
   // render suggustion
   const renderSuggustion = () => {
@@ -88,11 +124,11 @@ const AddSurplusBusiness = () => {
           <li
             className="autoComplete-li"
             onClick={() => {
-              setCountry(co);
+              setCountry(co.name);
               setSuggustion([]);
             }}
           >
-            {co}
+            {co.name}
           </li>
         ))}
       </ul>
@@ -108,11 +144,31 @@ const AddSurplusBusiness = () => {
           <li
             className="autoComplete-li"
             onClick={() => {
-              setCity(co);
+              setCity(co.name);
               setSuggustionCities([]);
             }}
           >
-            {co}
+            {co.name}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  const renderStateSuggustion = () => {
+    if (suggustionState.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul">
+        {suggustionState.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCounty(co.name);
+              setSuggustionState([]);
+            }}
+          >
+            {co.name}
           </li>
         ))}
       </ul>
@@ -223,6 +279,7 @@ const AddSurplusBusiness = () => {
       businessType: businessType.toLowerCase(),
       description,
       category: category.toLowerCase(),
+      county: county.toLowerCase(),
       country: country.toLowerCase(),
       keyword: keyword.toLowerCase(),
       website,
@@ -257,23 +314,26 @@ const AddSurplusBusiness = () => {
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
+    setCounty("");
     setPromoteType([]);
   };
   return (
     // <!-- Main Container  -->
     <div
-      class="main-container container"
+      className="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
-      <div class="row">
-        <div id="content" class="col-md-11">
-          <h2 class="title">Add Surplus business with us</h2>
+      <div className="row">
+        <div id="content" className="col-md-11">
+          <h2 className="title" style={{ marginTop: "35px" }}>
+            Add Surplus business with us
+          </h2>
 
           <form
             action=""
             method="post"
             enctype="multipart/form-data"
-            class="form-horizontal account-register clearfix"
+            className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
               <h4 className="post-ad-heading">Surplus Business Details</h4>
@@ -282,18 +342,21 @@ const AddSurplusBusiness = () => {
                 {/* <div className="col-sm-2"></div> */}
                 {errors && errors.message && (
                   <div className="col-sm-12">
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                       {errors.message}
                     </div>
                   </div>
                 )}
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-company">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-company"
+                >
                   Company
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="company"
@@ -315,11 +378,14 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-telephone">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-telephone"
+                >
                   Contact
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="tel"
                     name="telephone"
@@ -341,11 +407,14 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-address">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-address"
+                >
                   Address
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="address"
@@ -366,11 +435,14 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-postCode">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-postCode"
+                >
                   Post Code
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="postcode"
@@ -393,38 +465,14 @@ const AddSurplusBusiness = () => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-city">
-                  City
-                </label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    name="city"
-                    value={city}
-                    // onChange={(e) => setCity(e.target.value)}
-                    onChange={(e) => onChangeAutoFieldCities(e)}
-                    placeholder="City"
-                    id="input-city"
-                    className={
-                      errors && errors.validation && errors.validation.city
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {renderCitySuggustion()}
-                  {errors && errors.validation && errors.validation.city && (
-                    <div className="invalid-feedback">
-                      {errors.validation.city}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-country">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-country"
+                >
                   Country
                 </label>
-                <div class="col-sm-10" style={{ position: "relative" }}>
+                <div className="col-sm-10" style={{ position: "relative" }}>
                   <input
                     type="text"
                     name="city"
@@ -447,14 +495,69 @@ const AddSurplusBusiness = () => {
                   {renderSuggustion()}
                 </div>
               </div>
-              <div class="form-group required">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="city"
+                    value={city}
+                    // onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => onChangeAutoFieldCities(e)}
+                    placeholder="City"
+                    id="input-city"
+                    className={
+                      errors && errors.validation && errors.validation.city
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {renderCitySuggustion()}
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
+                  State / County
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="city"
+                    value={county}
+                    // onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => onChangeAutoFieldState(e)}
+                    placeholder="State"
+                    id="input-city"
+                    className={
+                      errors && errors.validation && errors.validation.county
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {renderStateSuggustion()}
+                  {errors && errors.validation && errors.validation.county && (
+                    <div className="invalid-feedback">
+                      {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="form-group required">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
                   htmlFor="input-businessType"
                 >
                   Business Type
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors &&
@@ -496,12 +599,15 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-category">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-category"
+                >
                   Category
                 </label>
 
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors && errors.validation && errors.validation.category
@@ -528,11 +634,14 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   website
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="url"
                     name="city"
@@ -555,11 +664,14 @@ const AddSurplusBusiness = () => {
               </div>
 
               <div className="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Weekly Schedule
                 </label>
-                <div class="col-sm-10">
-                  <div class="checkout-content confirm-section">
+                <div className="col-sm-10">
+                  <div className="checkout-content confirm-section">
                     {Days.map((day, i) => (
                       <div class="checkbox check-newsletter">
                         <label htmlFor={day} className="container-checkbox">
@@ -576,7 +688,7 @@ const AddSurplusBusiness = () => {
                             }
                           />{" "}
                           {day}
-                          <span class="checkmark"></span>
+                          <span className="checkmark"></span>
                         </label>
                       </div>
                     ))}
@@ -591,17 +703,17 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
               <h4 className="post-ad-heading">Surplus Details</h4>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-name">
-                  Name
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Title Name
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
+                    placeholder="Title Name"
                     id="input-name"
                     className={
                       errors && errors.validation && errors.validation.name
@@ -616,21 +728,20 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div className="form-group required">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
                   htmlFor="input-description"
                 >
                   Description
                 </label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
+                <div className="col-sm-10">
+                  <textarea
                     name="city"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="description"
                     id="input-description"
+                    rows="5"
+                    id="input-review"
+                    placeholder="Description"
                     className={
                       errors &&
                       errors.validation &&
@@ -638,7 +749,9 @@ const AddSurplusBusiness = () => {
                         ? "form-control is-invalid"
                         : "form-control"
                     }
-                  />
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
                   {errors &&
                     errors.validation &&
                     errors.validation.description && (
@@ -648,11 +761,14 @@ const AddSurplusBusiness = () => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Keyword
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="url"
                     name="city"
@@ -674,11 +790,14 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Original Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -699,11 +818,14 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Offered Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -726,7 +848,7 @@ const AddSurplusBusiness = () => {
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
-                <div class="col-sm-11">
+                <div className="col-sm-11">
                   <label
                     className="control-label"
                     style={{
@@ -750,9 +872,9 @@ const AddSurplusBusiness = () => {
                   >
                     Select an option to promote your ad
                   </label>
-                  <div class="checkout-content confirm-section">
+                  <div className="checkout-content confirm-section">
                     {/* {Days.map((day, i) => ( */}
-                    <div class="checkbox check-newsletter">
+                    <div className="checkbox check-newsletter">
                       {adpromotionType.map((type) => (
                         <label
                           htmlFor={type.promote}
@@ -762,7 +884,6 @@ const AddSurplusBusiness = () => {
                             type="checkbox"
                             name="featured"
                             value={type.promote}
-                            defaultValue={type.promote}
                             checked={
                               promoteType.filter(
                                 (promote) => promote.promote === type.promote
@@ -797,7 +918,7 @@ const AddSurplusBusiness = () => {
                             : type.promote === "SPOTLIGHT"
                             ? "Have your Ad seen on the Gumtree homepage!"
                             : "SELECT ALL"}
-                          <span class="checkmark"></span>
+                          <span className="checkmark"></span>
                         </label>
                       ))}
                     </div>
@@ -829,12 +950,12 @@ const AddSurplusBusiness = () => {
               </div>
             </fieldset>
 
-            <div class="buttons">
-              <div class="pull-right">
+            <div className="buttons">
+              <div className="pull-right">
                 <input
                   type="button"
                   value="Post my ad"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

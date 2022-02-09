@@ -47,7 +47,7 @@ import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";
 // import "./css/quickview/quickview.css";
-
+import ErrorBoundary from "./components/Error boundaries/ErrorBoundary";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 // stylesheet
@@ -77,43 +77,53 @@ const App = (props) => {
     <div className="App">
       <div className="common-home res layout-4">
         <div id="wrapper" class="wrapper-fluid banners-effect-3">
-          <Router>
-            <Provider store={store}>
-              <Header2 />
-              {/* <header id="header" className=" typeheader-1">
+          <ErrorBoundary>
+            <Router>
+              <Provider store={store}>
+                <Header2 />
+                {/* <header id="header" className=" typeheader-1">
                 <Header />
                 
               </header> */}
-              <Routes>
-                <Route path="/" exact element={<Index />} />
-                <Route path="/login" exact element={<Login />} />
-                <Route path="/signup" exact element={<Register />} />
-                <Route
-                  path="/forget-password"
-                  exact
-                  element={<ForgetPassword />}
-                />
-                <Route path="/:token" exact element={<ResetPassword />} />
-                <Route path="/about-us" exact element={<Aboutus />} />
-                <Route path="/contact-us" exact element={<Contactus />} />
-                <Route path="/jobs" exact element={<Job />} />
-                <Route path="/business" exact element={<Job />} />
-                <Route path="/details" exact element={<JobDetail />} />
-                {/* <Route path="/add-surplus" exact element={<AddSurplusBusiness />} /> */}
-                <Route path="/surplus" exact element={<SurplusBusinesses />} />
-                <Route path="/user-panel" exact element={<PrivateRoute />}>
+                <Routes>
+                  <Route path="/" exact element={<Index />} />
+                  <Route path="/login" exact element={<Login />} />
+                  <Route path="/signup" exact element={<Register />} />
+                  <Route
+                    path="/forget-password"
+                    exact
+                    element={<ForgetPassword />}
+                  />
+                  <Route path="/:token" exact element={<ResetPassword />} />
+                  <Route path="/about-us" exact element={<Aboutus />} />
+                  <Route path="/contact-us" exact element={<Contactus />} />
+                  <Route path="/jobs" exact element={<Job />} />
+                  <Route path="/business" exact element={<Job />} />
+                  <Route path="/details" exact element={<JobDetail />} />
+                  <Route
+                    path="/add-surplus"
+                    exact
+                    element={<AddSurplusBusiness />}
+                  />
+                  <Route
+                    path="/surplus"
+                    exact
+                    element={<SurplusBusinesses />}
+                  />
+                  {/* <Route path="/user-panel" exact element={<PrivateRoute />}>
                   <Route path="/user-panel" exact element={<UserPanel />} />
-                </Route>
+                </Route> */}
 
-                <Route
-                  path="/surplus-detail/:id"
-                  exact
-                  element={<DetailSurplus />}
-                />
-              </Routes>
-              <Footer />
-            </Provider>
-          </Router>
+                  <Route
+                    path="/surplus-detail/:id"
+                    exact
+                    element={<DetailSurplus />}
+                  />
+                </Routes>
+                <Footer />
+              </Provider>
+            </Router>
+          </ErrorBoundary>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurplusById, createReview } from "../actions/surplusAction";
+import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -11,6 +12,8 @@ import "./skeleton.css";
 function DetailSurplus() {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState();
+  const [tab, setTab] = useState("DESCRIPTION");
+  const [modal, setModal] = useState(false);
   // initialize hooks
   const params = useParams();
   const dispatch = useDispatch();
@@ -36,8 +39,21 @@ function DetailSurplus() {
     setRating();
     setReview("");
   };
+  // close report modal
+  const closeReportModal = (e) => {
+    e.preventDefault();
+    if (
+      document.getElementById("so_sociallogin") &&
+      e.target !== document.getElementById("block-popup-login")
+    ) {
+      document.getElementById("so_sociallogin").classList.add("in");
+      document.getElementById("so_sociallogin").classList.add("d-block");
+      // document.getElementsByTagName("body")[0].classList.add("modal-open");
+    }
+  };
   return (
     <div class="container product-detail" style={{ marginTop: "30px" }}>
+      <ReportModal />
       <div class="row">
         <div id="content" class="col-md-12 col-sm-12 col-xs-12">
           <div class="product-view product-detail">
@@ -171,9 +187,6 @@ function DetailSurplus() {
                         {surplusFromStore.surplus.discount} % OFF
                       </span>
                     ) : null}
-                    {/* <div class="price-tax">
-                      <span>Ex Tax:</span> ₹ 70.00
-                    </div> */}
                   </div>
                   <div class="product-box-desc">
                     <div class="inner-box-desc">
@@ -192,11 +205,7 @@ function DetailSurplus() {
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.company}
                       </div>
-                      {/* <div class="model">
-                        <span>Product Code: </span>{" "}
-                        {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.postCode}
-                      </div> */}
+
                       <div class="model">
                         <span>City: </span>{" "}
                         {surplusFromStore.surplus &&
@@ -208,19 +217,10 @@ function DetailSurplus() {
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.contact}
                       </div>
-                      <div class="model">
-                        <span>Description: </span>{" "}
-                        {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.description}
-                      </div>
+
                       <div class="model">
                         <span>For Collection/Delivery contact seller </span>{" "}
                       </div>
-
-                      {/* <div class="stock">
-                     <span>Availability:</span>{" "}
-                     <i class="fa fa-check-square-o"></i>In Stock
-                   </div> */}
                     </div>
                   </div>
                   <div class="short_description form-group">
@@ -230,31 +230,22 @@ function DetailSurplus() {
                     <div class="box-cart clearfix">
                       <div class="form-group box-info-product">
                         <div class="option quantity">
-                          {/* <div class="input-group quantity-control" unselectable="on" style="user-select: none;">
-               <input class="form-control" type="text" name="quantity" value="1">
-               <input type="hidden" name="product_id" value="108">
-               <span class="input-group-addon product_quantity_down fa fa-caret-down"></span>
-               <span class="input-group-addon product_quantity_up fa fa-caret-up"></span>
-              </div>
-             </div> */}
-                          {/* <div class="cart">
-              <input type="button" value="Add to Cart" class="addToCart btn btn-mega btn-lg " data-toggle="tooltip" title="" onclick="cart.add('30');" data-original-title="Add to cart"/>
-             </div> */}
                           <div class="add-to-links wish_comp">
                             <ul class="blank">
                               <li class="wishlist">
                                 <a onclick="wishlist.add(108);">
                                   <i class="fa fa-heart"></i>
+                                  Favourite
                                 </a>
                               </li>
-                              <li class="compare wishlist">
+
+                              <li
+                                class="compare"
+                                onClick={(e) => closeReportModal(e)}
+                              >
                                 <a onclick="compare.add(108);">
-                                  <i class="fa fa-random"></i>
-                                </a>
-                              </li>
-                              <li class="compare">
-                                <a onclick="compare.add(108);">
-                                  <i class="fa fa-ban"></i>
+                                  <i class="fa fa-exclamation-triangle"></i>
+                                  Report
                                 </a>
                               </li>
                             </ul>
@@ -274,7 +265,16 @@ function DetailSurplus() {
                 <div class="producttab ">
                   <div class="tabsslider  ">
                     <ul class="nav nav-tabs font-sn">
-                      <li class="active">
+                      <li
+                        onClick={() => setTab("DESCRIPTION")}
+                        className={tab === "DESCRIPTION" ? "active" : ""}
+                      >
+                        <div className="tab">Description</div>
+                      </li>
+                      <li
+                        onClick={() => setTab("REVIEW")}
+                        className={tab === "REVIEW" ? "active" : ""}
+                      >
                         <div className="tab">
                           Review (
                           {surplusFromStore.surplus &&
@@ -284,8 +284,35 @@ function DetailSurplus() {
                         </div>
                       </li>
                     </ul>
+
                     <div class="tab-content" id="review">
-                      <div class="tab-pane active" id="tab-review">
+                      <div
+                        class={
+                          tab === "DESCRIPTION" ? "tab-pane active" : "tab-pane"
+                        }
+                        id="tab-description"
+                      >
+                        <div style={{ margin: "30px 0" }}>
+                          {surplusFromStore.loading === true ? (
+                            <>
+                              <Skeleton count={1} className="skeleton-p" />
+                              <Skeleton count={1} className="skeleton-p" />
+                              <Skeleton count={1} className="skeleton-p" />
+                            </>
+                          ) : null}
+
+                          {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.description && (
+                              <p>{surplusFromStore.surplus.description}</p>
+                            )}
+                        </div>
+                      </div>
+                      <div
+                        class={
+                          tab === "REVIEW" ? "tab-pane active" : "tab-pane"
+                        }
+                        id="tab-review"
+                      >
                         <form class="form-horizontal" id="form-review">
                           <div id="review" style={{ margin: "30px 0" }}>
                             {surplusFromStore.surplus &&

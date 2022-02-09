@@ -421,10 +421,10 @@ footer.typefooter-1
   .form-inline
   .form-group
   button {
-  color: #fff;
+  color: #ddd;
   height: 41px;
   top: -1px;
-  background: #ff5e00;
+  background: #3b5998;
   bottom: -1px;
   width: auto;
   padding: 0 20px;
@@ -435,6 +435,7 @@ footer.typefooter-1
   text-align: center;
   font-size: 12px;
   right: -1px;
+  line-height: 0;
 }
 footer.typefooter-1
   .footer--top
@@ -443,7 +444,7 @@ footer.typefooter-1
   .form-inline
   .form-group
   button:hover {
-  background: #cc4b00;
+  background: #363f48 !important;
 }
 @media (min-width: 1200px) {
   footer.typefooter-1 .footer--top .block--newletter {
