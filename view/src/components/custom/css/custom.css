@@ -4,6 +4,40 @@
   letter-spacing: 5px;
   color: #3b5998;
 }
+/* SLider css */
+.react-multi-carousel-track {
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  min-width: 25px !important;
+  min-height: 25px !important;
+}
+.react-multiple-carousel__arrow::before {
+  font-size: 15px !important;
+}
+.react-multi-carousel-track {
+  background: transparent !important;
+}
+.detail-page-slide {
+  border: 2px solid transparent;
+  transition: border 0.3s ease-in-out;
+  cursor: pointer;
+}
+.detail-page-slide:hover,
+.detail-page-slide.active {
+  border: 2px solid #ff5e00 !important;
+}
+/* SLider css */
+/* modal opacity*/
+.modal-opacity-0 {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-opacity-1 {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+/* modal opacity*/
 /* .logo-heading::after {
   content: "";
   position: absolute;
@@ -582,6 +616,7 @@ input[type="number"] {
     grid-gap: 10px 20px;
     grid-template-columns: 60% 10% 18%;
   }
+
   .header-center .container .row {
     display: flex;
     justify-content: center;

@@ -84,28 +84,44 @@ const App = (props) => {
                 
               </header> */}
               <Routes>
-                <Route path="/" exact element={<Index />} />
-                <Route path="/login" exact element={<Login />} />
-                <Route path="/signup" exact element={<Register />} />
+                <Route path="/" exact={true} element={<Index />} />
+                <Route path="/login" exact={true} element={<Login />} />
+                <Route path="/signup" exact={true} element={<Register />} />
                 <Route
                   path="/forget-password"
-                  exact
+                  exact={true}
                   element={<ForgetPassword />}
                 />
-                <Route path="/:token" exact element={<ResetPassword />} />
-                <Route path="/about-us" exact element={<Aboutus />} />
-                <Route path="/contact-us" exact element={<Contactus />} />
-                <Route path="/jobs" exact element={<Job />} />
-                <Route path="/business" exact element={<Job />} />
-                <Route path="/details" exact element={<JobDetail />} />
+                <Route
+                  path="/:token"
+                  exact={true}
+                  element={<ResetPassword />}
+                />
+                <Route path="/about-us" exact={true} element={<Aboutus />} />
+                <Route
+                  path="/contact-us"
+                  exact={true}
+                  element={<Contactus />}
+                />
+                <Route path="/jobs" exact={true} element={<Job />} />
+                <Route path="/business" exact={true} element={<Job />} />
+                <Route path="/details" exact={true} element={<JobDetail />} />
                 {/* <Route
                     path="/add-surplus"
                     exact
                     element={<AddSurplusBusiness />}
                   /> */}
                 <Route path="/surplus" exact element={<SurplusBusinesses />} />
-                <Route path="/user-panel" exact element={<PrivateRoute />}>
-                  <Route path="/user-panel" exact element={<UserPanel />} />
+                <Route
+                  path="/user-panel"
+                  exact={true}
+                  element={<PrivateRoute />}
+                >
+                  <Route
+                    path="/user-panel"
+                    exact={true}
+                    element={<UserPanel />}
+                  />
                 </Route>
 
                 <Route

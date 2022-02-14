@@ -20,6 +20,7 @@ if (process.env.NODE_ENV === "development") {
 }
 // express body-parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // data sanitization  against NoSQL query injection
 app.use(mongoSanitize());

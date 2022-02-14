@@ -50,6 +50,13 @@ module.exports = function validateSurplus(data) {
   if (Validator.isEmpty(data.description)) {
     errors.description = "description is required";
   }
+  if (
+    data.files.length === 0 ||
+    data.files === undefined ||
+    data.files === null
+  ) {
+    errors.files = "image is required";
+  }
 
   if (
     data.originalPrice === 0 &&

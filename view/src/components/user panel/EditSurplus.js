@@ -43,6 +43,9 @@ const EditSurplus = (props) => {
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
+  const [files, setFiles] = useState([]);
+
+  const [file, setFile] = useState({});
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -67,7 +70,6 @@ const EditSurplus = (props) => {
       setCategory(surplus.surplus.category);
       setDescription(surplus.surplus.description);
       setWebsite(surplus.surplus.website);
-
       setWeeklySchedule(surplus.surplus.weeklySchedule);
       setOfferedPrice(surplus.surplus.offeredPrice);
       setOriginalPrice(surplus.surplus.originalPrice);
@@ -242,6 +244,7 @@ const EditSurplus = (props) => {
 
     const obj = {
       id: props.id,
+      files,
       surplus: {
         name: name.toLowerCase(),
         company: company.toLowerCase(),
@@ -259,6 +262,7 @@ const EditSurplus = (props) => {
         promoteType: promoteType.filter((type) => type.promote !== "ALL"),
         originalPrice: (originalPrice * 1).toFixed(2),
         offeredPrice: (offeredPrice * 1).toFixed(2),
+
         discount:
           offeredPrice > 0
             ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
@@ -267,10 +271,27 @@ const EditSurplus = (props) => {
     };
     dispatch(updateSurplus(obj, clearState));
   };
-  // clear state function
 
+  // fileUploadHandler
+  const uploadFilesHandler = (e) => {
+    if (files.length < 5) {
+      const tempFiles = [...files];
+      tempFiles.push(e.target.files[0]);
+      setFiles([
+        ...tempFiles.filter(
+          (file, i, filesArray) => filesArray.indexOf(file) === i
+        ),
+      ]);
+    }
+  };
+
+  // deleteFileHandler
+  const deleteFileHandler = (index) => {
+    setFiles([...files.filter((file, i) => i !== index)]);
+  };
   // clear state function
   const clearState = () => {
+    setFile("");
     setName("");
     setCompany("");
     setContact("");
@@ -739,6 +760,75 @@ const EditSurplus = (props) => {
                     name="city"
                     value={offeredPrice}
                     onChange={(e) => setOfferedPrice(e.target.value)}
+                    placeholder="Offered Price"
+                    id="input-website"
+                    className={
+                      errors && errors.validation && errors.validation.website
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.website && (
+                    <div className="invalid-feedback">
+                      {errors.validation.website}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" htmlFor="input-website">
+                  Upload image
+                </label>
+                <div class="col-sm-10">
+                  <div
+                    className="form-control"
+                    style={{
+                      minHeight: "200px",
+                      width: "100%",
+                      marginBottom: "10px",
+                      display: "flex",
+                      // alignItems: "center",
+                      justifyContent: "start",
+                      gap: "10px",
+                    }}
+                  >
+                    {files.length > 0
+                      ? files.map((file, i) => (
+                          <div
+                            style={{
+                              width: "100px ",
+                              height: "100px",
+
+                              position: "relative",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <i
+                              className="fa fa-times-circle"
+                              style={{
+                                position: "absolute",
+                                top: "2px",
+                                right: "6px",
+                                color: "#c82333",
+                                fontSize: "23px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteFileHandler(i)}
+                            ></i>
+                            <img
+                              width={100}
+                              src={URL.createObjectURL(file)}
+                              alt={`uploaded-image-${i}`}
+                            />
+                          </div>
+                        ))
+                      : null}
+                  </div>
+                  <input
+                    type="file"
+                    name="photo"
+                    value=""
+                    onChange={(e) => uploadFilesHandler(e)}
                     placeholder="Offered Price"
                     id="input-website"
                     className={

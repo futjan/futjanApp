@@ -6269,6 +6269,18 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0;
   background-color: rgba(1, 1, 1, 0.4);
+  animation-name: modalAnimation;
+  animation-iteration-count: 1;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+}
+@keyframes modalAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .modal.fade .modal-dialog {
   -webkit-transition: -webkit-transform 0.3s ease-out;

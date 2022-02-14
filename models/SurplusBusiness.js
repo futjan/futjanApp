@@ -61,6 +61,7 @@ const surplusBusiness = Schmea(
       type: [String],
     },
     website: String,
+    images: [String],
 
     createdAt: {
       type: Date,

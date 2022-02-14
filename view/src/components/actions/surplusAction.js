@@ -11,7 +11,7 @@ export const getSurpluses =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,originalPrice,offeredPrice,discount,promoteType`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,images,originalPrice,offeredPrice,discount,promoteType`
       );
       if (res.data) {
         dispatch({
@@ -67,12 +67,21 @@ export const getSurplusesPrivate = () => async (dispatch) => {
 // @desc                    create new surplus
 // @access                  Private
 export const createSurplus = (surplus, clearState) => async (dispatch) => {
+  let formDate = new FormData();
+  surplus.files.forEach((file) => formDate.append("photo", file));
+
+  formDate.append("surplus", JSON.stringify(surplus));
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
   dispatch(setLoading());
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
   try {
-    const res = await axios.post("/api/v1/surplus", surplus);
+    const res = await axios.post("/api/v1/surplus", formDate, config);
     if (res) {
       dispatch({
         type: Types.CREATE_SURPLUS,
@@ -122,23 +131,36 @@ export const getSurplusById = (id) => async (dispatch) => {
 // @desc                    update surplus by id
 // @access                  Private
 export const updateSurplus = (data, clearState) => async (dispatch) => {
+  let formDate = new FormData();
+  data.files.forEach((file) => formDate.append("photo", file));
+
+  formDate.append("surplus", data.surplus);
+  formDate.append("id", data.id);
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
   dispatch(setLoading());
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
   try {
-    const res = await axios.patch("/api/v1/surplus", data);
-    if (res) {
-      dispatch({
-        type: Types.UPDATE_SURPLUS,
-        payload: res.data.surplus,
-      });
-      clearState();
-      dispatch({
-        type: Types.GET_SURPLUS,
-        payload: {},
-      });
-    }
+    const res = await axios.patch("/api/v1/surplus", formDate, config);
+    console.log(res.data);
+    dispatch(clearLoading());
+
+    // if (res) {
+    //   dispatch({
+    //     type: Types.UPDATE_SURPLUS,
+    //     payload: res.data.surplus,
+    //   });
+    //   clearState();
+    //   dispatch({
+    //     type: Types.GET_SURPLUS,
+    //     payload: {},
+    //   });
+    // }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {

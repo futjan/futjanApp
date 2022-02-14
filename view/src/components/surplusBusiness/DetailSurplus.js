@@ -1,19 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurplusById, createReview } from "../actions/surplusAction";
+// import $ from "jquery";
+import Carousel from "react-multi-carousel";
+
+import "react-multi-carousel/lib/styles.css";
+// import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
+import fileURL from "../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
+
 import "react-loading-skeleton/dist/skeleton.css";
 import "./skeleton.css";
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 3,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 3,
+  },
+};
 
 function DetailSurplus() {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState();
   const [tab, setTab] = useState("DESCRIPTION");
   const [modal, setModal] = useState(false);
+  const [zoomModal, setZoomModal] = useState(false);
+  const [zoomImage, setZoomImage] = useState("");
+  const [activeImage, setActiveImage] = useState(0);
   // initialize hooks
   const params = useParams();
   const dispatch = useDispatch();
@@ -51,6 +80,7 @@ function DetailSurplus() {
       // document.getElementsByTagName("body")[0].classList.add("modal-open");
     }
   };
+  console.log(surplusFromStore.surplus && surplusFromStore.surplus.images);
   return (
     <div class="container product-detail" style={{ marginTop: "30px" }}>
       <ReportModal />
@@ -64,15 +94,70 @@ function DetailSurplus() {
                 </div>
               ) : (
                 <div class="content-product-left  col-md-5 col-sm-6 col-xs-12">
-                  <div class="large-image  class-honizol">
+                  <div
+                    class="large-image  class-honizol"
+                    style={{
+                      padding: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <div class="box-label"></div>
                     <img
                       class="product-image-zoom"
-                      src={surplusImageSkeleton}
+                      src={fileURL(
+                        surplusFromStore.surplus.images &&
+                          surplusFromStore.surplus.images[activeImage]
+                      )}
                       data-zoom-image="image/catalog/demo/product/electronic/27.jpg"
                       title="Canada Travel One or Two European Facials at  Studio"
                       alt="Canada Travel One or Two European Facials at  Studio"
                     />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "5px",
+                        right: "5px",
+                        padding: "3px 25px",
+                        cursor: "pointer",
+                        borderRadius: "3px",
+                        background: "rgba(0,0,0,0.6)",
+                      }}
+                      onClick={() => {
+                        setZoomImage(
+                          surplusFromStore.surplus.images[activeImage]
+                        );
+                        setZoomModal(true);
+                      }}
+                    >
+                      <i
+                        class="fa fa-search-plus"
+                        style={{ color: "#fff", fontSize: "18px" }}
+                      ></i>
+                    </div>
+                  </div>
+                  <div
+                    id="thumb-slider"
+                    class="full_slider category-slider-inner products-list yt-content-slider"
+                  >
+                    <Carousel responsive={responsive}>
+                      {surplusFromStore.surplus.images &&
+                        surplusFromStore.surplus.images.map((image, i) => (
+                          <div class="owl2-item " style={{ padding: "4px" }}>
+                            <img
+                              src={fileURL(image)}
+                              className={
+                                i === activeImage
+                                  ? "detail-page-slide active"
+                                  : "detail-page-slide"
+                              }
+                              onClick={() => setActiveImage(i)}
+                              alt={image}
+                            />
+                          </div>
+                        ))}
+                    </Carousel>
                   </div>
                 </div>
               )}
@@ -448,6 +533,36 @@ function DetailSurplus() {
           </div>
         </div>
       </div>
+
+      {zoomModal === true ? (
+        <div
+          className={
+            zoomImage === true
+              ? "modal modal-opacity-0"
+              : "modal modal-opacity-1"
+          }
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "10px",
+          }}
+        >
+          <i
+            className="fa fa-times"
+            style={{
+              position: "absolute",
+              top: "15px",
+              right: "15px",
+              color: "#fff",
+              fontSize: "20px",
+              cursor: "pointer",
+            }}
+            onClick={() => setZoomModal(false)}
+          ></i>
+          <img src={fileURL(zoomImage)} alt={zoomImage} />
+        </div>
+      ) : null}
     </div>
   );
 }

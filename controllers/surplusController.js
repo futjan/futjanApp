@@ -7,11 +7,20 @@ const AppError = require("../utils/appError");
 // @desc                    create surplux
 // @access                  Private
 exports.createSurplus = async (req, res, next) => {
-  const { errors, isValid } = validateSurplus(req.body);
+  const { errors, isValid } = validateSurplus(JSON.parse(req.body.surplus));
   // check validation
   if (!isValid) {
     return next(new AppError("Fields required", 400, errors));
   }
+  let images = [];
+  if (req.files.length > 0) {
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+  }
+  console.log(images);
+  req.body = JSON.parse(req.body.surplus);
+
   // create surplus
   const surplus = await SurplusBusiness.create({
     user: req.user._id.toString(),
@@ -33,6 +42,7 @@ exports.createSurplus = async (req, res, next) => {
     keyword: req.body.keyword,
     county: req.body.county,
     promoteType: req.body.promoteType,
+    images,
   });
   // send response to client
   res.status(201).json({
@@ -154,20 +164,30 @@ exports.deleteSurplus = async (req, res, next) => {
 // @desc                    update surplux
 // @access                  Private
 exports.updateSurplus = async (req, res, next) => {
-  const surplus = await SurplusBusiness.findByIdAndUpdate(
-    req.body.id,
-    req.body.surplus,
-    { new: true, runValidators: true }
-  );
-  // check surplus exist or not
-  if (!surplus) {
-    return next(new AppError("Surplus not found", 404, undefined));
+  console.log(req.files);
+  if (req.files.length > 0) {
+    let images = [];
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+    req.body.images = images;
   }
-  // send response to client
-  res.status(200).json({
-    status: "success",
-    surplus,
-  });
+
+  // const surplus = await SurplusBusiness.findByIdAndUpdate(
+  //   req.body.id,
+  //   req.body.surplus,
+  //   { new: true, runValidators: true }
+  // );
+  // // check surplus exist or not
+  // if (!surplus) {
+  //   return next(new AppError("Surplus not found", 404, undefined));
+  // }
+  // // send response to client
+  // res.status(200).json({
+  //   status: "success",
+  //   surplus:"",
+  // });
+  res.end();
 };
 
 // @route                   GET /api/v1/surplus/activate

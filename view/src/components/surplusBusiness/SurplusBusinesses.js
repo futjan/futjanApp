@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import fileURL from "../../utils/fileURL";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
@@ -666,6 +666,19 @@ const SurplusBusinesses = () => {
                     </div>
                   </div>
                 </div>
+                <div className="show-result-info">
+                  <i className="fa fa-rss"></i>
+                  <p>
+                    {surplusFromStore.totalDocs} results found{" "}
+                    {/* {surplusFromStore.totalDocs > 0
+                      ? `for ${name.length > 0 ? `"${name}"` : ""}  ${
+                          category.length > 0 ? `"${category}"` : ""
+                        }  ${
+                          businessType.length > 0 ? `"${businessType}"` : ""
+                        } ${city.length > 0 ? `"${city}"` : ""}`
+                      : ""} */}
+                  </p>
+                </div>
                 {surplusFromStore.loading === true &&
                 surplusFromStore.surpluses.length === 0 ? (
                   <div className="row">
@@ -681,19 +694,6 @@ const SurplusBusinesses = () => {
                     ))}
                   </div>
                 ) : null}
-                <div className="show-result-info">
-                  <i className="fa fa-rss"></i>
-                  <p>
-                    {surplusFromStore.totalDocs} results found{" "}
-                    {/* {surplusFromStore.totalDocs > 0
-                      ? `for ${name.length > 0 ? `"${name}"` : ""}  ${
-                          category.length > 0 ? `"${category}"` : ""
-                        }  ${
-                          businessType.length > 0 ? `"${businessType}"` : ""
-                        } ${city.length > 0 ? `"${city}"` : ""}`
-                      : ""} */}
-                  </p>
-                </div>
 
                 <div className="products-list grid row number-col-3 so-filter-gird">
                   {surplusFromStore.surpluses.length > 0
@@ -710,13 +710,13 @@ const SurplusBusinesses = () => {
                                   title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                 >
                                   <img
-                                    src={surplusImageSkeleton}
+                                    src={fileURL(sur.images && sur.images[0])}
                                     alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-1 img-responsive"
                                   />
                                   <img
-                                    src={surplusImageSkeleton}
+                                    src={fileURL(sur.images && sur.images[0])}
                                     alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-2 img-responsive"
