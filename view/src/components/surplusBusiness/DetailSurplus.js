@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSurplusById, createReview } from "../actions/surplusAction";
 // import $ from "jquery";
-import Carousel from "react-multi-carousel";
+// import Carousel from "react-multi-carousel";
 
-import "react-multi-carousel/lib/styles.css";
+// import "react-multi-carousel/lib/styles.css";
 // import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
@@ -137,7 +137,7 @@ function DetailSurplus() {
                       ></i>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     id="thumb-slider"
                     className="full_slider category-slider-inner products-list yt-content-slider"
                   >
@@ -162,7 +162,7 @@ function DetailSurplus() {
                           </div>
                         ))}
                     </Carousel>
-                  </div>
+                  </div> */}
                 </div>
               )}
 
