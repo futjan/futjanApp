@@ -13,7 +13,16 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": ["'self'", "https://futjan.s3.ap-south-1.amazonaws.com/"],
+      },
+    },
+  })
+);
 // Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
