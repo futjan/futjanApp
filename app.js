@@ -19,7 +19,7 @@ app.use(
     directives: {
       "default-src": ["'self'"],
 
-      "img-src": ["'self'", "futjan.s3.ap-south-1.amazonaws.com"],
+      "img-src": ["'self' data:", "futjan.s3.ap-south-1.amazonaws.com"],
     },
   })
 );
