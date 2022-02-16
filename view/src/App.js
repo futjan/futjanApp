@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -90,67 +90,73 @@ if (localStorage.jwtToken) {
 const App = (props) => {
   return (
     <div className="App">
-      <div className="common-home res layout-4">
-        <div id="wrapper" className="wrapper-fluid banners-effect-3">
-          <Router>
-            <Provider store={store}>
-              <Header2 />
-              {/* <header id="header" className=" typeheader-1">
+      <Suspense fallback={<div></div>}>
+        <div className="common-home res layout-4">
+          <div id="wrapper" className="wrapper-fluid banners-effect-3">
+            <Router>
+              <Provider store={store}>
+                <Header2 />
+                {/* <header id="header" className=" typeheader-1">
                 <Header />
                 
               </header> */}
-              <Routes>
-                <Route path="/" exact={true} element={<Index />} />
-                <Route path="/login" exact={true} element={<Login />} />
-                <Route path="/signup" exact={true} element={<Register />} />
-                <Route
-                  path="/forget-password"
-                  exact={true}
-                  element={<ForgetPassword />}
-                />
-                <Route
-                  path="/:token"
-                  exact={true}
-                  element={<ResetPassword />}
-                />
-                <Route path="/about-us" exact={true} element={<Aboutus />} />
-                <Route
-                  path="/contact-us"
-                  exact={true}
-                  element={<Contactus />}
-                />
-                <Route path="/jobs" exact={true} element={<Job />} />
-                <Route path="/business" exact={true} element={<Job />} />
-                <Route path="/details" exact={true} element={<JobDetail />} />
-                {/* <Route
+                <Routes>
+                  <Route path="/" exact={true} element={<Index />} />
+                  <Route path="/login" exact={true} element={<Login />} />
+                  <Route path="/signup" exact={true} element={<Register />} />
+                  <Route
+                    path="/forget-password"
+                    exact={true}
+                    element={<ForgetPassword />}
+                  />
+                  <Route
+                    path="/:token"
+                    exact={true}
+                    element={<ResetPassword />}
+                  />
+                  <Route path="/about-us" exact={true} element={<Aboutus />} />
+                  <Route
+                    path="/contact-us"
+                    exact={true}
+                    element={<Contactus />}
+                  />
+                  <Route path="/jobs" exact={true} element={<Job />} />
+                  <Route path="/business" exact={true} element={<Job />} />
+                  <Route path="/details" exact={true} element={<JobDetail />} />
+                  {/* <Route
                     path="/add-surplus"
                     exact
                     element={<AddSurplusBusiness />}
                   /> */}
-                <Route path="/surplus" exact element={<SurplusBusinesses />} />
-                <Route
-                  path="/user-panel"
-                  exact={true}
-                  element={<PrivateRoute />}
-                >
+                  <Route
+                    path="/surplus"
+                    exact
+                    element={<SurplusBusinesses />}
+                  />
                   <Route
                     path="/user-panel"
                     exact={true}
-                    element={<UserPanel />}
-                  />
-                </Route>
+                    element={<PrivateRoute />}
+                  >
+                    <Route
+                      path="/user-panel"
+                      exact={true}
+                      element={<UserPanel />}
+                    />
+                  </Route>
 
-                <Route
-                  path="/surplus-detail/:id"
-                  exact
-                  element={<DetailSurplus />}
-                />
-              </Routes>
-              <Footer />
-            </Provider>
-          </Router>
+                  <Route
+                    path="/surplus-detail/:id"
+                    exact
+                    element={<DetailSurplus />}
+                  />
+                </Routes>
+                <Footer />
+              </Provider>
+            </Router>
+          </div>
         </div>
-      </div>
+      </Suspense>
     </div>
   );
 };
