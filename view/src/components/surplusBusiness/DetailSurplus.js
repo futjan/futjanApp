@@ -318,7 +318,7 @@ function DetailSurplus() {
                           <div className="add-to-links wish_comp">
                             <ul className="blank">
                               <li className="wishlist">
-                                <a onClick="wishlist.add(108);">
+                                <a>
                                   <i className="fa fa-heart"></i>
                                   Favourite
                                 </a>
@@ -328,7 +328,7 @@ function DetailSurplus() {
                                 className="compare"
                                 onClick={(e) => closeReportModal(e)}
                               >
-                                <a onclick="compare.add(108);">
+                                <a>
                                   <i className="fa fa-exclamation-triangle"></i>
                                   Report
                                 </a>

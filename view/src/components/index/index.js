@@ -589,7 +589,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onClick="wishlist.add('35');"
+                                          
                                           data-original-title="Add to Wish List"
                                         >
                                           <i className="fa fa-heart"></i>
@@ -599,7 +599,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="compare.add('35');"
+                                          
                                           data-original-title="Compare this Product"
                                         >
                                           <i className="fa fa-exchange"></i>
@@ -609,7 +609,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onClick="cart.add('35');"
+                                          
                                           data-original-title="Add to Cart"
                                         >
                                           {" "}
@@ -697,7 +697,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onClick="wishlist.add('35');"
+                                          
                                           data-original-title="Add to Wish List"
                                         >
                                           <i className="fa fa-heart"></i>
@@ -707,7 +707,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onClick="compare.add('35');"
+                                          
                                           data-original-title="Compare this Product"
                                         >
                                           <i className="fa fa-exchange"></i>
@@ -717,7 +717,7 @@ const Index = (props) => {
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onClick="cart.add('35');"
+                                        
                                           data-original-title="Add to Cart"
                                         >
                                           {" "}
@@ -939,7 +939,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -949,7 +949,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -959,7 +959,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1043,7 +1043,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1053,7 +1053,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1063,7 +1063,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1149,7 +1149,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1159,7 +1159,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1169,7 +1169,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1253,7 +1253,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1263,7 +1263,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1273,7 +1273,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1359,7 +1359,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1369,7 +1369,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1379,7 +1379,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1463,7 +1463,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1473,7 +1473,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1483,7 +1483,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1569,7 +1569,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1579,7 +1579,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1589,7 +1589,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1673,7 +1673,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="wishlist.add('114');"
+                                                
                                                 data-original-title="Add to Wish List"
                                               >
                                                 <i className="fa fa-heart"></i>
@@ -1683,7 +1683,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="compare.add('114');"
+                                                
                                                 data-original-title="Compare this Product"
                                               >
                                                 <i className="fa fa-exchange"></i>
@@ -1693,7 +1693,7 @@ const Index = (props) => {
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onClick="cart.add('114');"
+                                                
                                                 data-original-title="Add to cart"
                                               >
                                                 <span className="hidden">
@@ -1876,7 +1876,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -1886,7 +1886,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -1896,7 +1896,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -1980,7 +1980,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                  
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -1990,7 +1990,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                  
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2000,7 +2000,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                  
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2074,7 +2074,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2084,7 +2084,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2094,7 +2094,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2166,7 +2166,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2176,7 +2176,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2186,7 +2186,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2260,7 +2260,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2270,7 +2270,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2280,7 +2280,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2364,7 +2364,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2374,7 +2374,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2384,7 +2384,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2458,7 +2458,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2468,7 +2468,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2478,7 +2478,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2562,7 +2562,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2572,7 +2572,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2582,7 +2582,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2772,7 +2772,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2782,7 +2782,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2792,7 +2792,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2876,7 +2876,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2886,7 +2886,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2896,7 +2896,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -2969,7 +2969,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -2979,7 +2979,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -2989,7 +2989,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -3060,7 +3060,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -3070,7 +3070,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -3080,7 +3080,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -3166,7 +3166,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -3176,7 +3176,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -3186,7 +3186,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -3257,7 +3257,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -3267,7 +3267,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -3277,7 +3277,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -3363,7 +3363,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -3373,7 +3373,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -3383,7 +3383,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">
@@ -3454,7 +3454,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="wishlist.add('28');"
+                                                 
                                                   data-original-title="Add to Wish List"
                                                 >
                                                   <i className="fa fa-heart"></i>
@@ -3464,7 +3464,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="compare.add('28');"
+                                                 
                                                   data-original-title="Compare this Product"
                                                 >
                                                   <i className="fa fa-exchange"></i>
@@ -3474,7 +3474,7 @@ const Index = (props) => {
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onClick="cart.add('28');"
+                                                 
                                                   data-original-title="Add to cart"
                                                 >
                                                   <span className="hidden">

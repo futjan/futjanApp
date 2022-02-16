@@ -1,27 +1,27 @@
-import React from "react";
+import React, { lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 // component
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Header from "./components/layout/Header";
+
+// import Login from "./components/auth/Login";
+// import Register from "./components/auth/Register";
+
 import Header2 from "./components/layout/Header2";
 import Index from "./components//index/index";
-import Navbar from "./components/layout/Navbar";
-import Aboutus from "./components/about us/Aboutus";
-import Contactus from "./components/contact us/Contactus";
-import Job from "./components/jobs/Jobs";
-import JobDetail from "./components/jobs/JobDetail";
+// import Aboutus from "./components/about us/Aboutus";
+// import Contactus from "./components/contact us/Contactus";
+// import Job from "./components/jobs/Jobs";
+// import JobDetail from "./components/jobs/JobDetail";
 import Footer from "./components/layout/Footer";
-import ForgetPassword from "./components/user/ForgetPassword";
-import ResetPassword from "./components/user/ResetPassword";
+// import ForgetPassword from "./components/user/ForgetPassword";
+// import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
-import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
-import UserPanel from "./components/user panel/index";
+// import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
+// import UserPanel from "./components/user panel/index";
 // import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
-import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
+// import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
 
 // css
 
@@ -54,6 +54,23 @@ import "./components/custom/css/custom.css";
 // import history from "./history";
 // action
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
+// lazy loading component
+const Login = lazy(() => import("./components/auth/Login"));
+const Register = lazy(() => import("./components/auth/Register"));
+// const Header2 = lazy(()=> import("./components/layout/Header2"))
+const Aboutus = lazy(() => import("./components/about us/Aboutus"));
+const Contactus = lazy(() => import("./components/contact us/Contactus"));
+const Job = lazy(() => import("./components/jobs/Jobs"));
+const JobDetail = lazy(() => import("./components/jobs/JobDetail"));
+const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
+const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
+const SurplusBusinesses = lazy(() =>
+  import("./components/surplusBusiness/SurplusBusinesses")
+);
+const UserPanel = lazy(() => import("./components/user panel/index"));
+const DetailSurplus = lazy(() =>
+  import("./components/surplusBusiness/DetailSurplus")
+);
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth

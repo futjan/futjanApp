@@ -66,7 +66,6 @@ const JobDetail = () => {
                               className="fa fa-times-circle fa-lg"
                               id="reply-remove"
                               style={{ display: "none", cursor: "pointer" }}
-                              onClick="removeCommentId();"
                             ></i>
                           </h2>
                           <input
