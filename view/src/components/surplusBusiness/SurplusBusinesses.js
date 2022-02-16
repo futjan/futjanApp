@@ -182,7 +182,7 @@ const SurplusBusinesses = () => {
     }
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co) => (
+        {suggustion.map((co, i) => (
           <li
             className="autoComplete-li"
             onClick={() => {
@@ -190,6 +190,7 @@ const SurplusBusinesses = () => {
               setSuggustion([]);
             }}
             style={{ display: "block", width: "100%" }}
+            key={i}
           >
             {co}
           </li>
@@ -203,7 +204,7 @@ const SurplusBusinesses = () => {
     }
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustionCities.map((co) => (
+        {suggustionCities.map((co, i) => (
           <li
             className="autoComplete-li"
             onClick={() => {
@@ -211,6 +212,7 @@ const SurplusBusinesses = () => {
               setSuggustionCities([]);
             }}
             style={{ display: "block", width: "100%" }}
+            key={i}
           >
             {co.name}
           </li>
@@ -231,25 +233,25 @@ const SurplusBusinesses = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
-                    <li class="so-filter-options" data-option="search">
-                      <div class="so-filter-heading">
-                        <div class="so-filter-heading-text">
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
                           <span>Keyword</span>
                         </div>
-                        <i class="fa fa-chevron-down"></i>
+                        <i className="fa fa-chevron-down"></i>
                       </div>
 
-                      <div class="so-filter-content-opts">
-                        <div class="so-filter-content-opts-container">
-                          <div class="so-filter-option" data-type="search">
-                            <div class="so-option-container">
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
                               <div
-                                class="input-group"
+                                className="input-group"
                                 style={{ width: "100%" }}
                               >
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="text_search"
                                   id="text_search"
                                   value={keyword}
@@ -262,25 +264,25 @@ const SurplusBusinesses = () => {
                         </div>
                       </div>
                     </li>
-                    <li class="so-filter-options" data-option="search">
-                      <div class="so-filter-heading">
-                        <div class="so-filter-heading-text">
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
                           <span>Location</span>
                         </div>
-                        <i class="fa fa-chevron-down"></i>
+                        <i className="fa fa-chevron-down"></i>
                       </div>
 
-                      <div class="so-filter-content-opts">
-                        <div class="so-filter-content-opts-container">
-                          <div class="so-filter-option" data-type="search">
-                            <div class="so-option-container">
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
                               <div
-                                class="input-group"
+                                className="input-group"
                                 style={{ width: "100%" }}
                               >
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="text_search"
                                   id="text_search"
                                   value={city}
@@ -467,7 +469,7 @@ const SurplusBusinesses = () => {
                   </ul>
                   <div className="clear_filter">
                     <a
-                      href="javascript:;"
+                      href="#"
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => callSurplusesAPI(page, limit, sort)}
@@ -480,7 +482,7 @@ const SurplusBusinesses = () => {
                     </a>
 
                     <a
-                      href="javascript:;"
+                      href="#"
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => clearState()}
@@ -497,9 +499,9 @@ const SurplusBusinesses = () => {
             </aside>
             <a
               href="javascript:void(0)"
-              class="open-sidebar hidden-lg hidden-md"
+              className="open-sidebar hidden-lg hidden-md"
             >
-              <i class="fa fa-bars"></i>Sidebar
+              <i className="fa fa-bars"></i>Sidebar
             </a>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
@@ -576,7 +578,7 @@ const SurplusBusinesses = () => {
 
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
-                        <label className="control-label" for="input-sort">
+                        <label className="control-label" htmlFor="input-sort">
                           Sort By:
                         </label>
                         <select
@@ -614,7 +616,7 @@ const SurplusBusinesses = () => {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label className="control-label" for="input-limit">
+                        <label className="control-label" htmlFor="input-limit">
                           Show:
                         </label>
                         <select
@@ -682,10 +684,11 @@ const SurplusBusinesses = () => {
                 {surplusFromStore.loading === true &&
                 surplusFromStore.surpluses.length === 0 ? (
                   <div className="row">
-                    {["", "", "", "", "", ""].map((num) => (
+                    {["", "", "", "", "", ""].map((num, i) => (
                       <div
                         className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
                         style={{ margin: "20px 0" }}
+                        key={i}
                       >
                         <Skeleton count={1} className="skeleton-card" />
                         <Skeleton count={1} className="skeleton-p" />
@@ -698,7 +701,10 @@ const SurplusBusinesses = () => {
                 <div className="products-list grid row number-col-3 so-filter-gird">
                   {surplusFromStore.surpluses.length > 0
                     ? surplusFromStore.surpluses.map((sur) => (
-                        <div className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <div
+                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
+                          key={sur._id}
+                        >
                           <div className="product-item-container">
                             <div className="left-block">
                               <div
@@ -724,9 +730,10 @@ const SurplusBusinesses = () => {
                                   {sur.promoteType &&
                                   sur.promoteType.length > 0 ? (
                                     <div className="ad-promote-type-container">
-                                      {sur.promoteType.map((promote) => (
+                                      {sur.promoteType.map((promote, i) => (
                                         <div
                                           className={`ad-promote-type ${promote.promote}`}
+                                          key={i}
                                         >
                                           {promote.promote}
                                         </div>
@@ -898,6 +905,7 @@ const SurplusBusinesses = () => {
                                   setPage(i + 1);
                                   callSurplusesAPI(i + 1, limit, sort);
                                 }}
+                                key={i}
                               >
                                 <span>{i + 1}</span>
                               </li>

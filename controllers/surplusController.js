@@ -18,7 +18,7 @@ exports.createSurplus = async (req, res, next) => {
       images.push(file.key);
     });
   }
-  console.log(images);
+
   req.body = JSON.parse(req.body.surplus);
 
   // create surplus
@@ -164,7 +164,6 @@ exports.deleteSurplus = async (req, res, next) => {
 // @desc                    update surplux
 // @access                  Private
 exports.updateSurplus = async (req, res, next) => {
-  console.log(req.files);
   if (req.files.length > 0) {
     let images = [];
     req.files.forEach((file) => {

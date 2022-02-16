@@ -52,11 +52,11 @@ const Register = () => {
   };
   return (
     // <!-- Main Container  -->
-    <div class="main-container container" style={{ position: "relative" }}>
-      <ul class="breadcrumb">
+    <div className="main-container container" style={{ position: "relative" }}>
+      <ul className="breadcrumb">
         <li>
           <Link to="/">
-            <i class="fa fa-home"></i>
+            <i className="fa fa-home"></i>
           </Link>
         </li>
         {/* <li>
@@ -67,9 +67,9 @@ const Register = () => {
         </li>
       </ul>
 
-      <div class="row">
-        <div id="content" class="col-md-9">
-          <h2 class="title">Register Account</h2>
+      <div className="row">
+        <div id="content" className="col-md-9">
+          <h2 className="title">Register Account</h2>
           <p>
             If you already have an account with us, please login at the{" "}
             <Link to="/login">login page</Link>.
@@ -78,7 +78,7 @@ const Register = () => {
             action=""
             method="post"
             enctype="multipart/form-data"
-            class="form-horizontal account-register clearfix"
+            className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
               <legend>Your Personal Details</legend>
@@ -86,17 +86,17 @@ const Register = () => {
                 {/* <div className="col-sm-2"></div> */}
                 {errors && errors.message && (
                   <div className="col-sm-12">
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                       {errors.message}
                     </div>
                   </div>
                 )}
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-name">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
                   Name
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="name"
@@ -118,11 +118,11 @@ const Register = () => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-email">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-email">
                   E-Mail
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="email"
                     name="email"
@@ -143,11 +143,14 @@ const Register = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-telephone">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-telephone"
+                >
                   Contact
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="tel"
                     name="telephone"
@@ -171,11 +174,14 @@ const Register = () => {
             </fieldset>
             <fieldset>
               <legend>Your Password</legend>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-password">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-password"
+                >
                   Password
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="password"
                     name="password"
@@ -198,11 +204,14 @@ const Register = () => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-confirm">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-confirm"
+                >
                   Password Confirm
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="password"
                     name="confirm"
@@ -229,12 +238,12 @@ const Register = () => {
               </div>
             </fieldset>
 
-            <div class="buttons">
-              <div class="pull-right">
+            <div className="buttons">
+              <div className="pull-right">
                 <input
                   type="button"
                   value="Sign up"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={(e) => signUpFunc(e)}
                 />
               </div>

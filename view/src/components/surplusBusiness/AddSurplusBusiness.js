@@ -692,7 +692,7 @@ const AddSurplusBusiness = () => {
                 <div className="col-sm-10">
                   <div className="checkout-content confirm-section">
                     {Days.map((day, i) => (
-                      <div class="checkbox check-newsletter">
+                      <div className="checkbox check-newsletter">
                         <label htmlFor={day} className="container-checkbox">
                           <input
                             type="checkbox"
@@ -865,11 +865,14 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Upload image
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <div
                     className={
                       errors && errors.validation && errors.validation.files

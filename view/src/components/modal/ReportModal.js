@@ -17,50 +17,50 @@ const ReportModal = () => {
   };
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="so_sociallogin"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       onClick={(e) => closeReportModal(e)}
     >
-      <div class="modal-dialog block-popup-login" id="block-popup-login">
-        <div class="tt_popup_login">
+      <div className="modal-dialog block-popup-login" id="block-popup-login">
+        <div className="tt_popup_login">
           <strong>Report</strong>
         </div>
-        <div class="block-content">
-          <div class=" col-reg registered-account">
-            <div class="block-content">
+        <div className="block-content">
+          <div className=" col-reg registered-account">
+            <div className="block-content">
               <form
-                class="form form-login"
+                className="form form-login"
                 action="#"
                 method="post"
                 id="login-form"
               >
                 <fieldset
-                  class="fieldset login"
+                  className="fieldset login"
                   data-hasrequired="* Required Fields"
                 >
                   <div style={{ margin: "20px 0", width: "100%" }}>
                     <label className="container-radio">
                       <input type="radio" checked name="Flat Shipping Rate" />{" "}
                       This is illegal/fraudulent
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                     </label>
                     <label className="container-radio">
                       <input type="radio" name="Flat Shipping Rate" /> This ad
                       is spam
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                     </label>
                     <label className="container-radio">
                       <input type="radio" name="Flat Shipping Rate" /> This ad
                       is in the wrong category
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                     </label>
 
                     <label className="container-radio">
                       <input type="radio" name="Flat Shipping Rate" /> The ad
                       goes against posting rules
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                     </label>
                     <textarea
                       name="city"
@@ -105,11 +105,11 @@ const ReportModal = () => {
                     </div>
                   </div>
 
-                  {/* <div class="actions-toolbar">
-                    <div class="primary">
+                  {/* <div className="actions-toolbar">
+                    <div className="primary">
                       <button
                         type="submit"
-                        class="action login primary"
+                        className="action login primary"
                         name="send"
                         id="send2"
                       >

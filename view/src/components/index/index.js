@@ -507,26 +507,26 @@ const Index = (props) => {
                 </div>
               </div>
             </div>
-            <section id="box-link1" class="section-style">
+            <section id="box-link1" className="section-style">
               <div
-                class="container page-builder-ltr"
+                className="container page-builder-ltr"
                 style={{ marginTop: "20px" }}
               >
-                <div class="row row-style row_a1">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
-                    <div class="module so-deals-1tr home1_deals so-deals">
-                      <div class="head-title">
-                        <h2 class="modtitle font-ct">
+                <div className="row row-style row_a1">
+                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
+                    <div className="module so-deals-1tr home1_deals so-deals">
+                      <div className="head-title">
+                        <h2 className="modtitle font-ct">
                           <span>Hot Deals</span>
                         </h2>
-                        <div class="cs-item-timer">
-                          <div class="Countdown-1"></div>
+                        <div className="cs-item-timer">
+                          <div className="Countdown-1"></div>
                         </div>
                       </div>
-                      <div class="modcontent">
-                        <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
+                      <div className="modcontent">
+                        <div className="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
                           <div
-                            class="category-slider-inner products-list yt-content-slider row"
+                            className="category-slider-inner products-list yt-content-slider row"
                             data-rtl="yes"
                             data-autoplay="yes"
                             data-autoheight="no"
@@ -545,83 +545,83 @@ const Index = (props) => {
                             data-loop="yes"
                             data-hoverpause="yes"
                           >
-                            <div class="item col-md-4 col-sm-6 col-xs-12">
-                              <div class="transition product-layout">
-                                <div class="product-item-container ">
-                                  <div class="left-block so-quickview">
-                                    <div class="image">
+                            <div className="item col-md-4 col-sm-6 col-xs-12">
+                              <div className="transition product-layout">
+                                <div className="product-item-container ">
+                                  <div className="left-block so-quickview">
+                                    <div className="image">
                                       <a href="#" target="_self">
                                         <img
                                           src={travel}
                                           alt="Canada Travel One or Two European Facials at  Studio"
-                                          class="img-responsive"
+                                          className="img-responsive"
                                         />
                                       </a>
-                                      <div class="text-location">
+                                      <div className="text-location">
                                         <span>Ha Lan</span>
                                       </div>
                                     </div>
-                                    <div class="box-label">
-                                      <span class="label-product label-sale">
+                                    <div className="box-label">
+                                      <span className="label-product label-sale">
                                         Sale
                                       </span>
                                     </div>
-                                    <div class="button-group">
-                                      <div class="button-inner so-quickview">
+                                    <div className="button-group">
+                                      <div className="button-inner so-quickview">
                                         <a
-                                          class="lt-image hidden"
+                                          className="lt-image hidden"
                                           data-product="35"
                                           href="#"
                                           target="_self"
                                           title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo"
                                         ></a>
                                         <a
-                                          class="btn-button btn-quickview quickview quickview_handler"
+                                          className="btn-button btn-quickview quickview quickview_handler"
                                           href="quickview.html"
                                           title="Quick View"
                                           data-title="Quick View"
                                           data-fancybox-type="iframe"
                                         >
-                                          <i class="fa fa-search"></i>
+                                          <i className="fa fa-search"></i>
                                         </a>
                                         <button
-                                          class="wishlist btn-button"
+                                          className="wishlist btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="wishlist.add('35');"
+                                          onClick="wishlist.add('35');"
                                           data-original-title="Add to Wish List"
                                         >
-                                          <i class="fa fa-heart"></i>
+                                          <i className="fa fa-heart"></i>
                                         </button>
                                         <button
-                                          class="compare btn-button"
+                                          className="compare btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
                                           onclick="compare.add('35');"
                                           data-original-title="Compare this Product"
                                         >
-                                          <i class="fa fa-exchange"></i>
+                                          <i className="fa fa-exchange"></i>
                                         </button>
                                         <button
-                                          class="addToCart btn-button"
+                                          className="addToCart btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="cart.add('35');"
+                                          onClick="cart.add('35');"
                                           data-original-title="Add to Cart"
                                         >
                                           {" "}
-                                          <span class="hidden">
+                                          <span className="hidden">
                                             Add to Cart
                                           </span>
                                         </button>
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="right-block">
-                                    <div class="caption">
+                                  <div className="right-block">
+                                    <div className="caption">
                                       <h4>
                                         <a
                                           href="product.html"
@@ -632,13 +632,17 @@ const Index = (props) => {
                                           Facials at Studio
                                         </a>
                                       </h4>
-                                      <div class="total-price clearfix">
-                                        <div class="price price-left">
-                                          <span class="price-new">$86.00</span>
-                                          <span class="price-old">$122.00</span>
+                                      <div className="total-price clearfix">
+                                        <div className="price price-left">
+                                          <span className="price-new">
+                                            $86.00
+                                          </span>
+                                          <span className="price-old">
+                                            $122.00
+                                          </span>
                                         </div>
-                                        <div class="price-sale price-right">
-                                          <span class="discount">
+                                        <div className="price-sale price-right">
+                                          <span className="discount">
                                             -30%
                                             <strong>OFF</strong>
                                           </span>
@@ -649,83 +653,83 @@ const Index = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <div class="item col-md-4 col-sm-6 col-xs-12">
-                              <div class="transition product-layout">
-                                <div class="product-item-container ">
-                                  <div class="left-block so-quickview">
-                                    <div class="image">
+                            <div className="item col-md-4 col-sm-6 col-xs-12">
+                              <div className="transition product-layout">
+                                <div className="product-item-container ">
+                                  <div className="left-block so-quickview">
+                                    <div className="image">
                                       <a href="product.html" target="_self">
                                         <img
                                           src={travel5}
                                           alt="Chicago Tour Departure / Pattaya / Solimania..."
-                                          class="img-responsive"
+                                          className="img-responsive"
                                         />
                                       </a>
-                                      <div class="text-location">
+                                      <div className="text-location">
                                         <span>Canada</span>
                                       </div>
                                     </div>
-                                    <div class="box-label">
-                                      <span class="label-product label-sale">
+                                    <div className="box-label">
+                                      <span className="label-product label-sale">
                                         Sale
                                       </span>
                                     </div>
-                                    <div class="button-group">
-                                      <div class="button-inner so-quickview">
+                                    <div className="button-group">
+                                      <div className="button-inner so-quickview">
                                         <a
-                                          class="lt-image hidden"
+                                          className="lt-image hidden"
                                           data-product="35"
                                           href="#"
                                           target="_self"
                                           title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo"
                                         ></a>
                                         <a
-                                          class="btn-button btn-quickview quickview quickview_handler"
+                                          className="btn-button btn-quickview quickview quickview_handler"
                                           href="quickview.html"
                                           title="Quick View"
                                           data-title="Quick View"
                                           data-fancybox-type="iframe"
                                         >
-                                          <i class="fa fa-search"></i>
+                                          <i className="fa fa-search"></i>
                                         </a>
                                         <button
-                                          class="wishlist btn-button"
+                                          className="wishlist btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="wishlist.add('35');"
+                                          onClick="wishlist.add('35');"
                                           data-original-title="Add to Wish List"
                                         >
-                                          <i class="fa fa-heart"></i>
+                                          <i className="fa fa-heart"></i>
                                         </button>
                                         <button
-                                          class="compare btn-button"
+                                          className="compare btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="compare.add('35');"
+                                          onClick="compare.add('35');"
                                           data-original-title="Compare this Product"
                                         >
-                                          <i class="fa fa-exchange"></i>
+                                          <i className="fa fa-exchange"></i>
                                         </button>
                                         <button
-                                          class="addToCart btn-button"
+                                          className="addToCart btn-button"
                                           type="button"
                                           data-toggle="tooltip"
                                           title=""
-                                          onclick="cart.add('35');"
+                                          onClick="cart.add('35');"
                                           data-original-title="Add to Cart"
                                         >
                                           {" "}
-                                          <span class="hidden">
+                                          <span className="hidden">
                                             Add to Cart
                                           </span>
                                         </button>
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="right-block">
-                                    <div class="caption">
+                                  <div className="right-block">
+                                    <div className="caption">
                                       <h4>
                                         <a
                                           href="product.html"
@@ -736,13 +740,17 @@ const Index = (props) => {
                                           Solimania...
                                         </a>
                                       </h4>
-                                      <div class="total-price clearfix">
-                                        <div class="price price-left">
-                                          <span class="price-new">$108.80</span>
-                                          <span class="price-old">$122.00</span>
+                                      <div className="total-price clearfix">
+                                        <div className="price price-left">
+                                          <span className="price-new">
+                                            $108.80
+                                          </span>
+                                          <span className="price-old">
+                                            $122.00
+                                          </span>
                                         </div>
-                                        <div class="price-sale price-right">
-                                          <span class="discount">
+                                        <div className="price-sale price-right">
+                                          <span className="discount">
                                             -11%
                                             <strong>OFF</strong>
                                           </span>
@@ -758,15 +766,15 @@ const Index = (props) => {
                       </div>
                     </div>
                     <div>
-                      <div class="home1-banner-2 clearfix">
-                        <div class="item-1 col-lg-6 col-md-6 col-sm-6 banners">
+                      <div className="home1-banner-2 clearfix">
+                        <div className="item-1 col-lg-6 col-md-6 col-sm-6 banners">
                           <div>
                             <a title="Static Image" href="#">
                               <img src={banner3} alt="Static Image" />
                             </a>
                           </div>
                         </div>
-                        <div class="item-2 col-lg-6 col-md-6 col-sm-6 banners">
+                        <div className="item-2 col-lg-6 col-md-6 col-sm-6 banners">
                           <div>
                             <a title="Static Image" href="#">
                               <img src={banner4} alt="Static Image" />
@@ -779,25 +787,25 @@ const Index = (props) => {
                 </div>
               </div>
             </section>
-            <section id="box-link2" class="section-style">
+            <section id="box-link2" className="section-style">
               <div
-                class="container page-builder-ltr"
+                className="container page-builder-ltr"
                 style={{ marginTop: "20px" }}
               >
-                <div class="row row-style row_a2">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
-                    <div class="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
-                      <div class="head-title font-ct">
-                        <h2 class="modtitle">JOBS</h2>
+                <div className="row row-style row_a2">
+                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
+                    <div className="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
+                      <div className="head-title font-ct">
+                        <h2 className="modtitle">JOBS</h2>
                       </div>
-                      <div class="modcontent">
+                      <div className="modcontent">
                         <div
                           id="so_listing_tabs_1"
-                          class="so-listing-tabs first-load"
+                          className="so-listing-tabs first-load"
                         >
-                          <div class="ltabs-wrap">
+                          <div className="ltabs-wrap">
                             <div
-                              class="ltabs-tabs-container"
+                              className="ltabs-tabs-container"
                               data-delay="300"
                               data-duration="600"
                               data-effect="starwars"
@@ -810,38 +818,38 @@ const Index = (props) => {
                               data-margin="0"
                             >
                               {/* <!--Begin Tabs--> */}
-                              <div class="ltabs-tabs-wrap">
-                                <span class="ltabs-tab-selected"></span>
-                                <span class="ltabs-tab-arrow">▼</span>
-                                <div class="item-sub-cat">
-                                  <ul class="ltabs-tabs cf">
+                              <div className="ltabs-tabs-wrap">
+                                <span className="ltabs-tab-selected"></span>
+                                <span className="ltabs-tab-arrow">▼</span>
+                                <div className="item-sub-cat">
+                                  <ul className="ltabs-tabs cf">
                                     <li
-                                      class="ltabs-tab tab-sel"
+                                      className="ltabs-tab tab-sel"
                                       data-category-id="1"
                                       data-active-content=".items-category-1"
                                     >
                                       {" "}
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Best Seller
                                       </span>{" "}
                                     </li>
                                     <li
-                                      class="ltabs-tab "
+                                      className="ltabs-tab "
                                       data-category-id="2"
                                       data-active-content=".items-category-2"
                                     >
                                       {" "}
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         New Arrivals
                                       </span>{" "}
                                     </li>
                                     <li
-                                      class="ltabs-tab "
+                                      className="ltabs-tab "
                                       data-category-id="3"
                                       data-active-content=".items-category-3"
                                     >
                                       {" "}
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Most Rating
                                       </span>{" "}
                                     </li>
@@ -851,20 +859,20 @@ const Index = (props) => {
                               {/* <!-- End Tabs--> */}
                             </div>
 
-                            <div class="wap-listing-tabs ltabs-items-container products-list grid">
+                            <div className="wap-listing-tabs ltabs-items-container products-list grid">
                               {/* <!--Begin Items--> */}
                               <div
-                                class="ltabs-items ltabs-items-selected items-category-1 ltabs-process"
+                                className="ltabs-items ltabs-items-selected items-category-1 ltabs-process"
                                 data-total="16"
                               >
-                                <div class="ltabs-items-inner ltabs-slider row">
-                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                <div className="ltabs-items-inner ltabs-slider row">
+                                  <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -875,14 +883,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -893,68 +901,68 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
+                                                className="lt-image hidden"
                                                 href="product.html"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -963,12 +971,12 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -979,14 +987,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -997,68 +1005,68 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
+                                                className="lt-image hidden"
                                                 href="#"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -1068,13 +1076,13 @@ const Index = (props) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                  <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -1085,14 +1093,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -1103,68 +1111,68 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
+                                                className="lt-image hidden"
                                                 href="#"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -1173,12 +1181,12 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -1189,14 +1197,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -1207,278 +1215,68 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
+                                                className="lt-image hidden"
                                                 href="#"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
-                                                  Add to cart
-                                                </span>
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
-                                            <a
-                                              class="lt-image"
-                                              href="#"
-                                              target="_self"
-                                              title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                            >
-                                              <img
-                                                src={spa1}
-                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                              />
-                                            </a>
-                                          </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
-                                              Sale
-                                            </span>
-                                          </div>
-                                        </div>
-                                        <div class="right-block">
-                                          <div class="caption">
-                                            <h4>
-                                              <a
-                                                href="product.html"
-                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                                target="_self"
-                                              >
-                                                Anantara Dhigu Resort &amp;amp;
-                                                Spa, Maldives Hair Spa
-                                              </a>
-                                            </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
-                                                  $86.00
-                                                </span>
-                                                <span class="price-old">
-                                                  $98.00
-                                                </span>
-                                              </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
-                                                  -13%<strong>OFF</strong>
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
-                                              <a
-                                                class="lt-image hidden"
-                                                href="#"
-                                                target="_self"
-                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                              ></a>
-                                              <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
-                                                href="quickview.html"
-                                                title="Quick View"
-                                                data-title="Quick View"
-                                                data-fancybox-type="iframe"
-                                              >
-                                                <i class="fa fa-search"></i>
-                                              </a>
-                                              <button
-                                                class="wishlist btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="wishlist.add('114');"
-                                                data-original-title="Add to Wish List"
-                                              >
-                                                <i class="fa fa-heart"></i>
-                                              </button>
-                                              <button
-                                                class="compare btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="compare.add('114');"
-                                                data-original-title="Compare this Product"
-                                              >
-                                                <i class="fa fa-exchange"></i>
-                                              </button>
-                                              <button
-                                                class="addToCart btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="cart.add('114');"
-                                                data-original-title="Add to cart"
-                                              >
-                                                <span class="hidden">
-                                                  Add to cart
-                                                </span>
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
-                                            <a
-                                              class="lt-image"
-                                              href="#"
-                                              target="_self"
-                                              title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                            >
-                                              <img
-                                                src={spa1}
-                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                              />
-                                            </a>
-                                          </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
-                                              Sale
-                                            </span>
-                                          </div>
-                                        </div>
-                                        <div class="right-block">
-                                          <div class="caption">
-                                            <h4>
-                                              <a
-                                                href="product.html"
-                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                                target="_self"
-                                              >
-                                                Anantara Dhigu Resort &amp;amp;
-                                                Spa, Maldives Hair Spa
-                                              </a>
-                                            </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
-                                                  $86.00
-                                                </span>
-                                                <span class="price-old">
-                                                  $98.00
-                                                </span>
-                                              </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
-                                                  -13%<strong>OFF</strong>
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
-                                              <a
-                                                class="lt-image hidden"
-                                                href="#"
-                                                target="_self"
-                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                              ></a>
-                                              <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
-                                                href="quickview.html"
-                                                title="Quick View"
-                                                data-title="Quick View"
-                                                data-fancybox-type="iframe"
-                                              >
-                                                <i class="fa fa-search"></i>
-                                              </a>
-                                              <button
-                                                class="wishlist btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="wishlist.add('114');"
-                                                data-original-title="Add to Wish List"
-                                              >
-                                                <i class="fa fa-heart"></i>
-                                              </button>
-                                              <button
-                                                class="compare btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="compare.add('114');"
-                                                data-original-title="Compare this Product"
-                                              >
-                                                <i class="fa fa-exchange"></i>
-                                              </button>
-                                              <button
-                                                class="addToCart btn-button"
-                                                type="button"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                onclick="cart.add('114');"
-                                                data-original-title="Add to cart"
-                                              >
-                                                <span class="hidden">
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -1488,13 +1286,13 @@ const Index = (props) => {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                  <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -1505,14 +1303,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -1523,68 +1321,68 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
+                                                className="lt-image hidden"
                                                 href="#"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -1593,12 +1391,12 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="item-inner product-layout transition product-grid">
-                                      <div class="product-item-container">
-                                        <div class="left-block">
-                                          <div class="image product-image-container ">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
                                             <a
-                                              class="lt-image"
+                                              className="lt-image"
                                               href="#"
                                               target="_self"
                                               title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
@@ -1609,14 +1407,14 @@ const Index = (props) => {
                                               />
                                             </a>
                                           </div>
-                                          <div class="box-label">
-                                            <span class="label-product label-sale">
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
                                               Sale
                                             </span>
                                           </div>
                                         </div>
-                                        <div class="right-block">
-                                          <div class="caption">
+                                        <div className="right-block">
+                                          <div className="caption">
                                             <h4>
                                               <a
                                                 href="product.html"
@@ -1627,68 +1425,278 @@ const Index = (props) => {
                                                 Spa, Maldives Hair Spa
                                               </a>
                                             </h4>
-                                            <div class="total-price clearfix">
-                                              <div class="price price-left">
-                                                <span class="price-new">
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
                                                   $86.00
                                                 </span>
-                                                <span class="price-old">
+                                                <span className="price-old">
                                                   $98.00
                                                 </span>
                                               </div>
-                                              <div class="price-sale price-right">
-                                                <span class="discount 123">
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
                                                   -13%<strong>OFF</strong>
                                                 </span>
                                               </div>
                                             </div>
                                           </div>
-                                          <div class="button-group">
-                                            <div class="button-inner so-quickview">
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
                                               <a
-                                                class="lt-image hidden"
-                                                href="product.html"
+                                                className="lt-image hidden"
+                                                href="#"
                                                 target="_self"
                                                 title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
                                               ></a>
                                               <a
-                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                className="btn-button btn-quickview quickview quickview_handler"
                                                 href="quickview.html"
                                                 title="Quick View"
                                                 data-title="Quick View"
                                                 data-fancybox-type="iframe"
                                               >
-                                                <i class="fa fa-search"></i>
+                                                <i className="fa fa-search"></i>
                                               </a>
                                               <button
-                                                class="wishlist btn-button"
+                                                className="wishlist btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="wishlist.add('114');"
+                                                onClick="wishlist.add('114');"
                                                 data-original-title="Add to Wish List"
                                               >
-                                                <i class="fa fa-heart"></i>
+                                                <i className="fa fa-heart"></i>
                                               </button>
                                               <button
-                                                class="compare btn-button"
+                                                className="compare btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="compare.add('114');"
+                                                onClick="compare.add('114');"
                                                 data-original-title="Compare this Product"
                                               >
-                                                <i class="fa fa-exchange"></i>
+                                                <i className="fa fa-exchange"></i>
                                               </button>
                                               <button
-                                                class="addToCart btn-button"
+                                                className="addToCart btn-button"
                                                 type="button"
                                                 data-toggle="tooltip"
                                                 title=""
-                                                onclick="cart.add('114');"
+                                                onClick="cart.add('114');"
                                                 data-original-title="Add to cart"
                                               >
-                                                <span class="hidden">
+                                                <span className="hidden">
+                                                  Add to cart
+                                                </span>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
+                                            <a
+                                              className="lt-image"
+                                              href="#"
+                                              target="_self"
+                                              title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                            >
+                                              <img
+                                                src={spa1}
+                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                              />
+                                            </a>
+                                          </div>
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
+                                              Sale
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div className="right-block">
+                                          <div className="caption">
+                                            <h4>
+                                              <a
+                                                href="product.html"
+                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                target="_self"
+                                              >
+                                                Anantara Dhigu Resort &amp;amp;
+                                                Spa, Maldives Hair Spa
+                                              </a>
+                                            </h4>
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
+                                                  $86.00
+                                                </span>
+                                                <span className="price-old">
+                                                  $98.00
+                                                </span>
+                                              </div>
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
+                                                  -13%<strong>OFF</strong>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
+                                              <a
+                                                className="lt-image hidden"
+                                                href="#"
+                                                target="_self"
+                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                              ></a>
+                                              <a
+                                                className="btn-button btn-quickview quickview quickview_handler"
+                                                href="quickview.html"
+                                                title="Quick View"
+                                                data-title="Quick View"
+                                                data-fancybox-type="iframe"
+                                              >
+                                                <i className="fa fa-search"></i>
+                                              </a>
+                                              <button
+                                                className="wishlist btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="wishlist.add('114');"
+                                                data-original-title="Add to Wish List"
+                                              >
+                                                <i className="fa fa-heart"></i>
+                                              </button>
+                                              <button
+                                                className="compare btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="compare.add('114');"
+                                                data-original-title="Compare this Product"
+                                              >
+                                                <i className="fa fa-exchange"></i>
+                                              </button>
+                                              <button
+                                                className="addToCart btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="cart.add('114');"
+                                                data-original-title="Add to cart"
+                                              >
+                                                <span className="hidden">
+                                                  Add to cart
+                                                </span>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="item-inner product-layout transition product-grid">
+                                      <div className="product-item-container">
+                                        <div className="left-block">
+                                          <div className="image product-image-container ">
+                                            <a
+                                              className="lt-image"
+                                              href="#"
+                                              target="_self"
+                                              title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                            >
+                                              <img
+                                                src={spa1}
+                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                              />
+                                            </a>
+                                          </div>
+                                          <div className="box-label">
+                                            <span className="label-product label-sale">
+                                              Sale
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div className="right-block">
+                                          <div className="caption">
+                                            <h4>
+                                              <a
+                                                href="product.html"
+                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                                target="_self"
+                                              >
+                                                Anantara Dhigu Resort &amp;amp;
+                                                Spa, Maldives Hair Spa
+                                              </a>
+                                            </h4>
+                                            <div className="total-price clearfix">
+                                              <div className="price price-left">
+                                                <span className="price-new">
+                                                  $86.00
+                                                </span>
+                                                <span className="price-old">
+                                                  $98.00
+                                                </span>
+                                              </div>
+                                              <div className="price-sale price-right">
+                                                <span className="discount 123">
+                                                  -13%<strong>OFF</strong>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div className="button-group">
+                                            <div className="button-inner so-quickview">
+                                              <a
+                                                className="lt-image hidden"
+                                                href="product.html"
+                                                target="_self"
+                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
+                                              ></a>
+                                              <a
+                                                className="btn-button btn-quickview quickview quickview_handler"
+                                                href="quickview.html"
+                                                title="Quick View"
+                                                data-title="Quick View"
+                                                data-fancybox-type="iframe"
+                                              >
+                                                <i className="fa fa-search"></i>
+                                              </a>
+                                              <button
+                                                className="wishlist btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="wishlist.add('114');"
+                                                data-original-title="Add to Wish List"
+                                              >
+                                                <i className="fa fa-heart"></i>
+                                              </button>
+                                              <button
+                                                className="compare btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="compare.add('114');"
+                                                data-original-title="Compare this Product"
+                                              >
+                                                <i className="fa fa-exchange"></i>
+                                              </button>
+                                              <button
+                                                className="addToCart btn-button"
+                                                type="button"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                onClick="cart.add('114');"
+                                                data-original-title="Add to cart"
+                                              >
+                                                <span className="hidden">
                                                   Add to cart
                                                 </span>
                                               </button>
@@ -1709,22 +1717,22 @@ const Index = (props) => {
                 </div>
               </div>
             </section>
-            <section id="box-link3" class="section-style">
-              <div class="container page-builder-ltr">
-                <div class="row row-style row_a3">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_nvxr  block block_6 title_neo3">
-                    <div class="module so-listing-tabs-ltr home1-lt-style2 default-nav clearfix img-float home-lt1">
-                      <div class="head-title font-ct">
-                        <h2 class="modtitle">SURPLUX</h2>
+            <section id="box-link3" className="section-style">
+              <div className="container page-builder-ltr">
+                <div className="row row-style row_a3">
+                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_nvxr  block block_6 title_neo3">
+                    <div className="module so-listing-tabs-ltr home1-lt-style2 default-nav clearfix img-float home-lt1">
+                      <div className="head-title font-ct">
+                        <h2 className="modtitle">SURPLUX</h2>
                       </div>
-                      <div class="modcontent">
+                      <div className="modcontent">
                         <div
                           id="so_listing_tabs_2"
-                          class="so-listing-tabs first-load"
+                          className="so-listing-tabs first-load"
                         >
-                          <div class="ltabs-wrap">
+                          <div className="ltabs-wrap">
                             <div
-                              class="ltabs-tabs-container"
+                              className="ltabs-tabs-container"
                               data-delay="300"
                               data-duration="600"
                               data-effect="starwars"
@@ -1736,37 +1744,37 @@ const Index = (props) => {
                               data-xs="2"
                               data-margin="0"
                             >
-                              <div class="ltabs-tabs-wrap">
-                                <span class="ltabs-tab-selected">
+                              <div className="ltabs-tabs-wrap">
+                                <span className="ltabs-tab-selected">
                                   Best sellers
                                 </span>
-                                <span class="ltabs-tab-arrow">▼</span>
-                                <div class="item-sub-cat">
-                                  <ul class="ltabs-tabs cf">
+                                <span className="ltabs-tab-arrow">▼</span>
+                                <div className="item-sub-cat">
+                                  <ul className="ltabs-tabs cf">
                                     <li
-                                      class="ltabs-tab tab-sel"
+                                      className="ltabs-tab tab-sel"
                                       data-category-id="4"
                                       data-active-content=".items-category-4"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Best sellers
                                       </span>
                                     </li>
                                     <li
-                                      class="ltabs-tab"
+                                      className="ltabs-tab"
                                       data-category-id="5"
                                       data-active-content=".items-category-5"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         New Arrivals
                                       </span>
                                     </li>
                                     <li
-                                      class="ltabs-tab"
+                                      className="ltabs-tab"
                                       data-category-id="6"
                                       data-active-content=".items-category-6"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Most Rating
                                       </span>
                                     </li>
@@ -1774,8 +1782,8 @@ const Index = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <div class="wap-listing-tabs products-list grid">
-                              {/* <div class="item-cat-image banners">
+                            <div className="wap-listing-tabs products-list grid">
+                              {/* <div className="item-cat-image banners">
                                 <div>
                                   <a
                                     href="product.html"
@@ -1789,19 +1797,19 @@ const Index = (props) => {
                                   </a>
                                 </div>
                               </div> */}
-                              <div class="ltabs-items-container">
+                              <div className="ltabs-items-container">
                                 <div
-                                  class="ltabs-items ltabs-items-selected items-category-4"
+                                  className="ltabs-items ltabs-items-selected items-category-4"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-items-inner ltabs-slider row">
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                  <div className="ltabs-items-inner ltabs-slider row">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Amazing Yoga Sport Poses Most People Wouldn't Dream "
@@ -1812,14 +1820,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -1830,68 +1838,68 @@ const Index = (props) => {
                                                   People Wouldn't Dre..
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $108.80
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -11%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Amazing Yoga Sport Poses Most People Wouldn't Dream "
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -1900,12 +1908,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Est Officia Including Shoes Beautiful Pieces Canaz"
@@ -1916,14 +1924,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -1934,68 +1942,68 @@ const Index = (props) => {
                                                   Beautiful Pieces Canaz
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $62.00
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $337.99
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -82%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Est Officia Including Shoes Beautiful Pieces Canaz"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2005,13 +2013,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Girly Summer Outfit Ideas To Upgrade Your Wardrobe"
@@ -2023,8 +2031,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2035,61 +2043,61 @@ const Index = (props) => {
                                                   Upgrade Your Wardrob..
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $128.80
                                                   </span>
-                                                  <span class="price-old"></span>
+                                                  <span className="price-old"></span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Girly Summer Outfit Ideas To Upgrade Your Wardrobe"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2098,12 +2106,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Cras idrisusiopsa quo voluptas nulla pariatur shoprer"
@@ -2115,8 +2123,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2127,61 +2135,61 @@ const Index = (props) => {
                                                   nulla par...
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $242.00
                                                   </span>
-                                                  <span class="price-old"></span>
+                                                  <span className="price-old"></span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Cras idrisusiopsa quo voluptas nulla pariatur shoprer"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2191,13 +2199,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Invisible Hidden Spy Earphone Micro Wireless"
@@ -2209,8 +2217,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2221,61 +2229,61 @@ const Index = (props) => {
                                                   Micro Wireless
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $122.00
                                                   </span>
-                                                  <span class="price-old"></span>
+                                                  <span className="price-old"></span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Invisible Hidden Spy Earphone Micro Wireless"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2284,12 +2292,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Est Officia Including Shoes Beautiful Pieces Canaz"
@@ -2300,14 +2308,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2318,68 +2326,68 @@ const Index = (props) => {
                                                   Beautiful Pieces Canaz
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $98.00
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -20%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Est Officia Including Shoes Beautiful Pieces Canaz"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2389,13 +2397,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Invisible Hidden Spy Earphone Micro Wireless"
@@ -2407,8 +2415,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2419,61 +2427,61 @@ const Index = (props) => {
                                                   Micro Wireless
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $122.00
                                                   </span>
-                                                  <span class="price-old"></span>
+                                                  <span className="price-old"></span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Invisible Hidden Spy Earphone Micro Wireless"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2482,12 +2490,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Est Officia Including Shoes Beautiful Pieces Canaz"
@@ -2498,14 +2506,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2516,68 +2524,68 @@ const Index = (props) => {
                                                   Beautiful Pieces Canaz
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $98.00
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -20%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Est Officia Including Shoes Beautiful Pieces Canaz"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2590,16 +2598,16 @@ const Index = (props) => {
                                   </div>
                                 </div>
                                 <div
-                                  class="ltabs-items  items-category-5 grid"
+                                  className="ltabs-items  items-category-5 grid"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-loading"></div>
+                                  <div className="ltabs-loading"></div>
                                 </div>
                                 <div
-                                  class="ltabs-items  items-category-6 grid"
+                                  className="ltabs-items  items-category-6 grid"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-loading"></div>
+                                  <div className="ltabs-loading"></div>
                                 </div>
                               </div>
                             </div>
@@ -2612,22 +2620,22 @@ const Index = (props) => {
               </div>
             </section>
 
-            <section id="box-link4" class="section-style">
-              <div class="container page-builder-ltr">
-                <div class="row row-style row_a4">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_mfpr  block block_7 title_neo4">
-                    <div class="module so-listing-tabs-ltr home1-lt-style3 default-nav clearfix img-float home-lt1">
-                      <div class="head-title font-ct">
-                        <h2 class="modtitle">BUSINESS</h2>
+            <section id="box-link4" className="section-style">
+              <div className="container page-builder-ltr">
+                <div className="row row-style row_a4">
+                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_mfpr  block block_7 title_neo4">
+                    <div className="module so-listing-tabs-ltr home1-lt-style3 default-nav clearfix img-float home-lt1">
+                      <div className="head-title font-ct">
+                        <h2 className="modtitle">BUSINESS</h2>
                       </div>
-                      <div class="modcontent">
+                      <div className="modcontent">
                         <div
                           id="so_listing_tabs_3"
-                          class="so-listing-tabs first-load"
+                          className="so-listing-tabs first-load"
                         >
-                          <div class="ltabs-wrap">
+                          <div className="ltabs-wrap">
                             <div
-                              class="ltabs-tabs-container"
+                              className="ltabs-tabs-container"
                               data-delay="300"
                               data-duration="600"
                               data-effect="starwars"
@@ -2639,37 +2647,37 @@ const Index = (props) => {
                               data-xs="2"
                               data-margin="0"
                             >
-                              <div class="ltabs-tabs-wrap">
-                                <span class="ltabs-tab-selected">
+                              <div className="ltabs-tabs-wrap">
+                                <span className="ltabs-tab-selected">
                                   Best sellers
                                 </span>
-                                <span class="ltabs-tab-arrow">▼</span>
-                                <div class="item-sub-cat">
-                                  <ul class="ltabs-tabs cf">
+                                <span className="ltabs-tab-arrow">▼</span>
+                                <div className="item-sub-cat">
+                                  <ul className="ltabs-tabs cf">
                                     <li
-                                      class="ltabs-tab tab-sel"
+                                      className="ltabs-tab tab-sel"
                                       data-category-id="4"
                                       data-active-content=".items-category-4"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Best sellers
                                       </span>
                                     </li>
                                     <li
-                                      class="ltabs-tab"
+                                      className="ltabs-tab"
                                       data-category-id="7"
                                       data-active-content=".items-category-7"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         New Arrivals
                                       </span>
                                     </li>
                                     <li
-                                      class="ltabs-tab"
+                                      className="ltabs-tab"
                                       data-category-id="8"
                                       data-active-content=".items-category-8"
                                     >
-                                      <span class="ltabs-tab-label">
+                                      <span className="ltabs-tab-label">
                                         Most Rating
                                       </span>
                                     </li>
@@ -2677,27 +2685,27 @@ const Index = (props) => {
                                 </div>
                               </div>
                             </div>
-                            <div class="wap-listing-tabs products-list grid">
-                              {/* <div class="item-cat-image banners">
+                            <div className="wap-listing-tabs products-list grid">
+                              {/* <div className="item-cat-image banners">
 												<div>
 													<a href="product.html" title="" target="_self">
-													<img class="categories-loadimage" title="" alt="" src="image/catalog/demo/banners/home1/md-banner-2.jpg">
+													<img className="categories-loadimage" title="" alt="" src="image/catalog/demo/banners/home1/md-banner-2.jpg">
 													</a>
 												</div>
 											</div> */}
-                              <div class="ltabs-items-container">
+                              <div className="ltabs-items-container">
                                 <div
-                                  class="ltabs-items ltabs-items-selected items-category-4"
+                                  className="ltabs-items ltabs-items-selected items-category-4"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-items-inner ltabs-slider row">
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                  <div className="ltabs-items-inner ltabs-slider row">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"
@@ -2708,14 +2716,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2726,68 +2734,68 @@ const Index = (props) => {
                                                   Street, San Francisco, Tokyo
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $108.80
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -11%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2796,12 +2804,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Philipin Tour Group Manila/ Pattaya / Mactan "
@@ -2812,14 +2820,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2830,68 +2838,68 @@ const Index = (props) => {
                                                   Pattaya / Mactan{" "}
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $74.00
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -40%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Philipin Tour Group Manila/ Pattaya / Mactan "
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2901,13 +2909,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Burger King Japan debuts Monster Baby, Double, Canada"
@@ -2919,8 +2927,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -2931,60 +2939,60 @@ const Index = (props) => {
                                                   Monster Baby, Double, Canada
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $1,202.00
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Burger King Japan debuts Monster Baby, Double, Canada"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -2993,12 +3001,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Thailand Group Departure / Pattaya / Bangkok"
@@ -3010,8 +3018,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -3022,60 +3030,60 @@ const Index = (props) => {
                                                   Pattaya / Bangkok
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $122.00
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Thailand Group Departure / Pattaya / Bangkok"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -3085,13 +3093,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Chicago Tour Departure / Pattaya / Solimania..."
@@ -3102,14 +3110,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -3120,68 +3128,68 @@ const Index = (props) => {
                                                   Pattaya / Solimania...
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $108.80
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -11%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -3190,12 +3198,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Tokyo Temple on Elevated Area Under Blue Sky and White"
@@ -3207,8 +3215,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -3219,60 +3227,60 @@ const Index = (props) => {
                                                   Under Blue Sky and White
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $122.00
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Tokyo Temple on Elevated Area Under Blue Sky and White"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -3282,13 +3290,13 @@ const Index = (props) => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="ltabs-item col-md-3 col-sm-6 col-xs-12">
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                    <div className="ltabs-item col-md-3 col-sm-6 col-xs-12">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Chicago Tour Departure / Pattaya / Solimania..."
@@ -3299,14 +3307,14 @@ const Index = (props) => {
                                                 />
                                               </a>
                                             </div>
-                                            <div class="box-label">
-                                              <span class="label-product label-sale">
+                                            <div className="box-label">
+                                              <span className="label-product label-sale">
                                                 Sale
                                               </span>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -3317,68 +3325,68 @@ const Index = (props) => {
                                                   Pattaya / Solimania...
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $108.80
                                                   </span>
-                                                  <span class="price-old">
+                                                  <span className="price-old">
                                                     $122.00
                                                   </span>
                                                 </div>
-                                                <div class="price-sale price-right">
-                                                  <span class="discount 123">
+                                                <div className="price-sale price-right">
+                                                  <span className="discount 123">
                                                     -11%<strong>OFF</strong>
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Chicago Tour Departure / Pattaya / Solimania/ Tokyo/ Canada"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -3387,12 +3395,12 @@ const Index = (props) => {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="item-inner product-layout transition product-grid">
-                                        <div class="product-item-container">
-                                          <div class="left-block">
-                                            <div class="image product-image-container ">
+                                      <div className="item-inner product-layout transition product-grid">
+                                        <div className="product-item-container">
+                                          <div className="left-block">
+                                            <div className="image product-image-container ">
                                               <a
-                                                class="lt-image"
+                                                className="lt-image"
                                                 href="#"
                                                 target="_self"
                                                 title="Tokyo Temple on Elevated Area Under Blue Sky and White"
@@ -3404,8 +3412,8 @@ const Index = (props) => {
                                               </a>
                                             </div>
                                           </div>
-                                          <div class="right-block">
-                                            <div class="caption">
+                                          <div className="right-block">
+                                            <div className="caption">
                                               <h4>
                                                 <a
                                                   href="product.html"
@@ -3416,60 +3424,60 @@ const Index = (props) => {
                                                   Under Blue Sky and White
                                                 </a>
                                               </h4>
-                                              <div class="total-price clearfix">
-                                                <div class="price price-left">
-                                                  <span class="price-new">
+                                              <div className="total-price clearfix">
+                                                <div className="price price-left">
+                                                  <span className="price-new">
                                                     $122.00
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="button-group">
-                                              <div class="button-inner so-quickview">
+                                            <div className="button-group">
+                                              <div className="button-inner so-quickview">
                                                 <a
-                                                  class="lt-image hidden"
+                                                  className="lt-image hidden"
                                                   href="#"
                                                   target="_self"
                                                   title="Tokyo Temple on Elevated Area Under Blue Sky and White"
                                                 ></a>
                                                 <a
-                                                  class="btn-button btn-quickview quickview quickview_handler"
+                                                  className="btn-button btn-quickview quickview quickview_handler"
                                                   href="quickview.html"
                                                   title="Quick View"
                                                   data-title="Quick View"
                                                   data-fancybox-type="iframe"
                                                 >
-                                                  <i class="fa fa-search"></i>
+                                                  <i className="fa fa-search"></i>
                                                 </a>
                                                 <button
-                                                  class="wishlist btn-button"
+                                                  className="wishlist btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="wishlist.add('28');"
+                                                  onClick="wishlist.add('28');"
                                                   data-original-title="Add to Wish List"
                                                 >
-                                                  <i class="fa fa-heart"></i>
+                                                  <i className="fa fa-heart"></i>
                                                 </button>
                                                 <button
-                                                  class="compare btn-button"
+                                                  className="compare btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="compare.add('28');"
+                                                  onClick="compare.add('28');"
                                                   data-original-title="Compare this Product"
                                                 >
-                                                  <i class="fa fa-exchange"></i>
+                                                  <i className="fa fa-exchange"></i>
                                                 </button>
                                                 <button
-                                                  class="addToCart btn-button"
+                                                  className="addToCart btn-button"
                                                   type="button"
                                                   data-toggle="tooltip"
                                                   title=""
-                                                  onclick="cart.add('28');"
+                                                  onClick="cart.add('28');"
                                                   data-original-title="Add to cart"
                                                 >
-                                                  <span class="hidden">
+                                                  <span className="hidden">
                                                     Add to cart
                                                   </span>
                                                 </button>
@@ -3482,16 +3490,16 @@ const Index = (props) => {
                                   </div>
                                 </div>
                                 <div
-                                  class="ltabs-items  items-category-7 grid"
+                                  className="ltabs-items  items-category-7 grid"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-loading"></div>
+                                  <div className="ltabs-loading"></div>
                                 </div>
                                 <div
-                                  class="ltabs-items  items-category-8 grid"
+                                  className="ltabs-items  items-category-8 grid"
                                   data-total="16"
                                 >
-                                  <div class="ltabs-loading"></div>
+                                  <div className="ltabs-loading"></div>
                                 </div>
                               </div>
                             </div>

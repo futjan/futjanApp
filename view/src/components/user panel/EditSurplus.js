@@ -314,17 +314,17 @@ const EditSurplus = (props) => {
   };
   return (
     <div
-      class="main-container container"
+      className="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
-      <div class="row">
-        <div id="content" class="col-md-9">
-          <h2 class="title">Edit Surplus Business</h2>
+      <div className="row">
+        <div id="content" className="col-md-9">
+          <h2 className="title">Edit Surplus Business</h2>
           <form
             action=""
             method="post"
             enctype="multipart/form-data"
-            class="form-horizontal account-register clearfix"
+            className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
               <h4 className="post-ad-heading">Surplus Business Details</h4>
@@ -333,18 +333,21 @@ const EditSurplus = (props) => {
                 {/* <div className="col-sm-2"></div> */}
                 {errors && errors.message && (
                   <div className="col-sm-12">
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                       {errors.message}
                     </div>
                   </div>
                 )}
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-company">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-company"
+                >
                   Company
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="company"
@@ -366,11 +369,14 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-telephone">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-telephone"
+                >
                   Contact
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="tel"
                     name="telephone"
@@ -392,11 +398,14 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-address">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-address"
+                >
                   Address
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="address"
@@ -417,11 +426,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-postCode">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-postCode"
+                >
                   Post Code
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="postcode"
@@ -444,11 +456,11 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-city">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
                   City
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="city"
@@ -471,11 +483,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-country">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-country"
+                >
                   Country
                 </label>
-                <div class="col-sm-10" style={{ position: "relative" }}>
+                <div className="col-sm-10" style={{ position: "relative" }}>
                   <input
                     type="text"
                     name="city"
@@ -498,14 +513,14 @@ const EditSurplus = (props) => {
                   {renderSuggustion()}
                 </div>
               </div>
-              <div class="form-group required">
+              <div className="form-group required">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
                   htmlFor="input-businessType"
                 >
                   Business Type
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors &&
@@ -547,12 +562,15 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-category">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-category"
+                >
                   Category
                 </label>
 
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors && errors.validation && errors.validation.category
@@ -579,11 +597,14 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   website
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="url"
                     name="city"
@@ -606,13 +627,16 @@ const EditSurplus = (props) => {
               </div>
 
               <div className="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Weekly Schedule
                 </label>
-                <div class="col-sm-10">
-                  <div class="checkout-content confirm-section">
+                <div className="col-sm-10">
+                  <div className="checkout-content confirm-section">
                     {Days.map((day, i) => (
-                      <div class="checkbox check-newsletter">
+                      <div className="checkbox check-newsletter">
                         <label htmlFor={day} className="container-checkbox">
                           <input
                             type="checkbox"
@@ -627,7 +651,7 @@ const EditSurplus = (props) => {
                             }
                           />{" "}
                           {day}
-                          <span class="checkmark"></span>
+                          <span className="checkmark"></span>
                         </label>
                       </div>
                     ))}
@@ -642,11 +666,11 @@ const EditSurplus = (props) => {
                 </div>
               </div>
               <h4 className="post-ad-heading">Surplus Details</h4>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-name">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
                   Name
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="name"
@@ -667,14 +691,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div className="form-group required">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
                   htmlFor="input-description"
                 >
                   Description
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="city"
@@ -699,11 +723,14 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Keyword
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="url"
                     name="city"
@@ -725,11 +752,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Original Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -750,11 +780,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Offered Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -775,11 +808,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Upload image
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <div
                     className="form-control"
                     style={{
@@ -846,7 +882,7 @@ const EditSurplus = (props) => {
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
-                <div class="col-sm-11">
+                <div className="col-sm-11">
                   <label
                     className="control-label"
                     style={{
@@ -870,9 +906,9 @@ const EditSurplus = (props) => {
                   >
                     Select an option to promote your ad
                   </label>
-                  <div class="checkout-content confirm-section">
+                  <div className="checkout-content confirm-section">
                     {/* {Days.map((day, i) => ( */}
-                    <div class="checkbox check-newsletter">
+                    <div className="checkbox check-newsletter">
                       {adpromotionType.map((type) => (
                         <label
                           htmlFor={type.promote}
@@ -917,7 +953,7 @@ const EditSurplus = (props) => {
                             : type.promote === "SPOTLIGHT"
                             ? "Have your Ad seen on the Gumtree homepage!"
                             : "SELECT ALL"}
-                          <span class="checkmark"></span>
+                          <span className="checkmark"></span>
                         </label>
                       ))}
                     </div>
@@ -949,12 +985,12 @@ const EditSurplus = (props) => {
               </div>
             </fieldset>
 
-            <div class="buttons">
-              <div class="pull-right">
+            <div className="buttons">
+              <div className="pull-right">
                 <input
                   type="button"
                   value="Update"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

@@ -71,11 +71,10 @@ if (localStorage.jwtToken) {
 }
 
 const App = (props) => {
-  console.log(props);
   return (
     <div className="App">
       <div className="common-home res layout-4">
-        <div id="wrapper" class="wrapper-fluid banners-effect-3">
+        <div id="wrapper" className="wrapper-fluid banners-effect-3">
           <Router>
             <Provider store={store}>
               <Header2 />

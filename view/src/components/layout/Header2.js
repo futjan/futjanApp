@@ -71,13 +71,14 @@ const Header2 = () => {
         className="autoComplete-ul"
         style={{ top: "40px", left: "0", width: "100%" }}
       >
-        {suggustionCities.map((co) => (
+        {suggustionCities.map((co, i) => (
           <li
             className="autoComplete-li"
             onClick={() => {
               setCity(co.name);
               setSuggustionCities([]);
             }}
+            key={i}
           >
             {co.name}
           </li>
@@ -114,12 +115,13 @@ const Header2 = () => {
 
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co) => (
+        {suggustion.map((co, i) => (
           <li
             onClick={() => {
               setKeyword(co);
               setSuggustion([]);
             }}
+            key={i}
           >
             <Link
               to="/surplus"
@@ -135,35 +137,35 @@ const Header2 = () => {
   };
   return (
     // <!-- Header Container  -->
-    <header id="header" class="typeheader-4">
+    <header id="header" className="typeheader-4">
       {/* <!-- Header Top --> */}
       {/* 
-      <div class="header-top hidden-compact">
-        <div class="container">
-          <div class="row">
-            <div class="header-top-left  col-lg-6  col-sm-8 col-md-6 col-xs-8">
-              <div class="list-contact">
-                <span class="hidden-xs"> welcome to FUTJAN! </span>{" "}
-                <Link class="link-lg" to="/signup">
+      <div className="header-top hidden-compact">
+        <div className="container">
+          <div className="row">
+            <div className="header-top-left  col-lg-6  col-sm-8 col-md-6 col-xs-8">
+              <div className="list-contact">
+                <span className="hidden-xs"> welcome to FUTJAN! </span>{" "}
+                <Link className="link-lg" to="/signup">
                   Join Free
                 </Link>{" "}
                 or{" "}
-                <Link class="link-lg" to="/login">
+                <Link className="link-lg" to="/login">
                   Sign in
                 </Link>
               </div>
             </div>
-            <div class="header-top-right collapsed-block col-lg-6 col-sm-4 col-md-6 col-xs-4 ">
-              <div class="tabBlock" id="TabBlock-1">
-                <ul class="top-link list-inline">
+            <div className="header-top-right collapsed-block col-lg-6 col-sm-4 col-md-6 col-xs-4 ">
+              <div className="tabBlock" id="TabBlock-1">
+                <ul className="top-link list-inline">
                   <li>
-                    <div class="pull-left">
+                    <div className="pull-left">
                       <form
                         id="form-language"
                       >
-                        <div class="btn-group">
+                        <div className="btn-group">
                           <button
-                            class="btn-link dropdown-toggle"
+                            className="btn-link dropdown-toggle"
                             data-toggle="dropdown"
                           >
                             <svg
@@ -223,15 +225,15 @@ const Header2 = () => {
                                 />
                               </g>
                             </svg>
-                            <span class="hidden-xs hidden-sm hidden-md">
+                            <span className="hidden-xs hidden-sm hidden-md">
                               India
                             </span>
                             
                           </button>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <button
-                                class="btn-block language-select"
+                                className="btn-block language-select"
                                 type="button"
                                 name="ar-ar"
                               >
@@ -296,7 +298,7 @@ const Header2 = () => {
                             </li>
                             <li>
                               <button
-                                class="btn-block language-select"
+                                className="btn-block language-select"
                                 type="button"
                                 name="en-gb"
                               >
@@ -315,23 +317,23 @@ const Header2 = () => {
                       </form>
                     </div>
                   </li>
-                  <li class="currency">
-                    <div class="pull-left">
+                  <li className="currency">
+                    <div className="pull-left">
                       <form
                         id="form-currency"
                       >
-                        <div class="btn-group">
+                        <div className="btn-group">
                           <button
-                            class="btn-link dropdown-toggle"
+                            className="btn-link dropdown-toggle"
                            
                           >
-                            ₹<span class="hidden-xs"> Rupee</span>
+                            ₹<span className="hidden-xs"> Rupee</span>
                             
                           </button>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <button
-                                class="currency-select btn-block"
+                                className="currency-select btn-block"
                                 type="button"
                                 name="EUR"
                               >
@@ -353,10 +355,10 @@ const Header2 = () => {
       </div> */}
       {/* <!-- //Header Top -->
     <!-- Header center --> */}
-      <div class="header-center">
-        <div class="container">
-          <div class="row">
-            <div class="navbar-logo col-lg-3 col-md-2 col-xs-12 col-sm-3">
+      <div className="header-center">
+        <div className="container">
+          <div className="row">
+            <div className="navbar-logo col-lg-3 col-md-2 col-xs-12 col-sm-3">
               <Link
                 to="/"
                 style={{
@@ -374,26 +376,29 @@ const Header2 = () => {
                 <h3 className="logo-heading">FUTJAN</h3>
               </Link>
             </div>
-            <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-11">
-              <div class="header_search">
-                <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
+            <div className="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-11">
+              <div className="header_search">
+                <div
+                  id="sosearchpro"
+                  className="sosearchpro-wrapper so-search "
+                >
                   <form method="GET" action="#">
                     <div
                       id="search0"
-                      class="search d-grid input-group form-group"
+                      className="search d-grid input-group form-group"
                     >
                       <input
-                        class="autosearch-input form-control"
+                        className="autosearch-input form-control"
                         type="text"
                         value={keyword}
                         onChange={(e) => onChangeAutoFieldName(e)}
-                        autocomplete="off"
+                        autoComplete="off"
                         placeholder="eg Restaurant, Jobs, Business, Stock "
                         name="search"
                       />
                       {renderNameSuggustion()}
                       <div
-                        class="select_category filter_type  icon-select"
+                        className="select_category filter_type  icon-select"
                         // style={{ display: "none" }}
                       >
                         <input
@@ -412,10 +417,10 @@ const Header2 = () => {
                         />
                         {renderCitySuggustion()}
                       </div>
-                      <span class="input-group-btn">
+                      <span className="input-group-btn">
                         <Link
                           to="/surplus"
-                          class="button-search btn btn-default btn-lg"
+                          className="button-search btn btn-default btn-lg"
                           name="submit_search"
                           state={{ keyword, city }}
                           style={{
@@ -424,8 +429,8 @@ const Header2 = () => {
                             alignItems: "center",
                           }}
                         >
-                          <i class="fa fa-search"></i>
-                          <span class="hidden">Search</span>
+                          <i className="fa fa-search"></i>
+                          <span className="hidden">Search</span>
                         </Link>
                       </span>
                       <div
@@ -542,22 +547,22 @@ const Header2 = () => {
                                               }}
                                             ></i>
                                             <strong>Menu</strong>
-                                            <b class="caret"></b>
+                                            <b className="caret"></b>
                                           </div>
                                           <div
-                                            class="sub-menu"
+                                            className="sub-menu"
                                             style={{ width: "100%" }}
                                             id="sub-menu"
                                           >
                                             <div
-                                              class="content"
+                                              className="content"
                                               id="sub-menu-content"
                                             >
                                               <div>
-                                                <ul class="row-list">
+                                                <ul className="row-list">
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{
                                                         active: "ACCOUNT",
@@ -572,7 +577,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{
                                                         active: "SURPLUS",
@@ -584,7 +589,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{ active: "ADD" }}
                                                     >
@@ -594,7 +599,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{
                                                         active: "MESSAGE",
@@ -609,7 +614,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{
                                                         active: "ALERT",
@@ -621,7 +626,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                       state={{
                                                         active: "FAVOURITE",
@@ -636,7 +641,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/user-panel"
                                                     >
                                                       <i
@@ -648,7 +653,7 @@ const Header2 = () => {
                                                   </li>
                                                   <li>
                                                     <Link
-                                                      class="subcategory_item"
+                                                      className="subcategory_item"
                                                       to="/"
                                                       onClick={() =>
                                                         dispatch(logoutUser())
@@ -703,7 +708,7 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              class="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
+              className="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
               style={{ display: "flex", justifyContent: "start", margin: "0" }}
             >
               <div className="megamenu-style-dev megamenu-dev">
@@ -801,19 +806,22 @@ const Header2 = () => {
                                       style={{ fontSize: "20px", padding: "0" }}
                                     ></i>
                                     <strong>Menu</strong>
-                                    <b class="caret"></b>
+                                    <b className="caret"></b>
                                   </div>
                                   <div
-                                    class="sub-menu"
+                                    className="sub-menu"
                                     style={{ width: "100%" }}
                                     id="sub-menu"
                                   >
-                                    <div class="content" id="sub-menu-content">
+                                    <div
+                                      className="content"
+                                      id="sub-menu-content"
+                                    >
                                       <div>
-                                        <ul class="row-list">
+                                        <ul className="row-list">
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ACCOUNT" }}
                                             >
@@ -826,7 +834,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "SURPLUS" }}
                                             >
@@ -836,7 +844,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ADD" }}
                                             >
@@ -846,7 +854,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "MESSAGE" }}
                                             >
@@ -859,7 +867,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ALERT" }}
                                             >
@@ -869,7 +877,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "FAVOURITE" }}
                                             >
@@ -882,7 +890,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                             >
                                               <i
@@ -894,7 +902,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/"
                                               onClick={() =>
                                                 dispatch(logoutUser())

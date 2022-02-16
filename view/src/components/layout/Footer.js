@@ -48,7 +48,7 @@ const Footer = () => {
                                 <button
                                   className="btn btn-primary"
                                   type="submit"
-                                  onclick="return subscribe_newsletter();"
+                                  onClick="return subscribe_newsletter();"
                                   name="submit"
                                 >
                                   <i className="fa fa-envelope hidden"></i>

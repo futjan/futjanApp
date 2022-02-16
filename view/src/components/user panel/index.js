@@ -20,7 +20,7 @@ const Index = (props) => {
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   return (
-    <div class="container product-detail" style={{ margin: "30px auto" }}>
+    <div className="container product-detail" style={{ margin: "30px auto" }}>
       <div className="product-attribute module">
         <div className="row content-product-midde clearfix">
           <div className="col-xs-12">

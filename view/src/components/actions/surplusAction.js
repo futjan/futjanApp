@@ -147,7 +147,7 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
   });
   try {
     const res = await axios.patch("/api/v1/surplus", formDate, config);
-    console.log(res.data);
+
     dispatch(clearLoading());
 
     // if (res) {
