@@ -137,7 +137,7 @@ const Header2 = () => {
     // <!-- Header Container  -->
     <header id="header" class="typeheader-4">
       {/* <!-- Header Top --> */}
-
+      {/* 
       <div class="header-top hidden-compact">
         <div class="container">
           <div class="row">
@@ -159,9 +159,6 @@ const Header2 = () => {
                   <li>
                     <div class="pull-left">
                       <form
-                        // action="#"
-                        // method="post"
-                        // enctype="multipart/form-data"
                         id="form-language"
                       >
                         <div class="btn-group">
@@ -170,8 +167,6 @@ const Header2 = () => {
                             data-toggle="dropdown"
                           >
                             <svg
-                              // xmlns="http://www.w3.org/2000/svg"
-                              // xmlns:xlink="http://www.w3.org/1999/xlink"
                               id="flag-icons-in"
                               viewBox="0 0 640 480"
                               style={{ width: "14px", marginRight: "5px" }}
@@ -194,21 +189,21 @@ const Header2 = () => {
                                         <path d="M0 17.5.6 7 0 2l-.6 5L0 17.5z" />
                                       </g>
                                       <use
-                                        // xlink:href="#a"
+                                        
                                         width="100%"
                                         height="100%"
                                         transform="rotate(15)"
                                       />
                                     </g>
                                     <use
-                                      // xlink:href="#b"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(30)"
                                     />
                                   </g>
                                   <use
-                                    // xlink:href="#c"
+                                    
                                     width="100%"
                                     height="100%"
                                     transform="rotate(60)"
@@ -231,7 +226,7 @@ const Header2 = () => {
                             <span class="hidden-xs hidden-sm hidden-md">
                               India
                             </span>
-                            {/* &nbsp;<i class="fa fa-angle-down"></i> */}
+                            
                           </button>
                           <ul class="dropdown-menu">
                             <li>
@@ -241,8 +236,6 @@ const Header2 = () => {
                                 name="ar-ar"
                               >
                                 <svg
-                                  // xmlns="http://www.w3.org/2000/svg"
-                                  // xmlns:xlink="http://www.w3.org/1999/xlink"
                                   id="flag-icons-in"
                                   viewBox="0 0 640 480"
                                 >
@@ -264,34 +257,34 @@ const Header2 = () => {
                                             <path d="M0 17.5.6 7 0 2l-.6 5L0 17.5z" />
                                           </g>
                                           <use
-                                            // xlink:href="#a"
+                                            
                                             width="100%"
                                             height="100%"
                                             transform="rotate(15)"
                                           />
                                         </g>
                                         <use
-                                          // xlink:href="#b"
+                                          
                                           width="100%"
                                           height="100%"
                                           transform="rotate(30)"
                                         />
                                       </g>
                                       <use
-                                        // xlink:href="#c"
+                                        
                                         width="100%"
                                         height="100%"
                                         transform="rotate(60)"
                                       />
                                     </g>
                                     <use
-                                      // xlink:href="#d"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(120)"
                                     />
                                     <use
-                                      // xlink:href="#d"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(-120)"
@@ -325,18 +318,15 @@ const Header2 = () => {
                   <li class="currency">
                     <div class="pull-left">
                       <form
-                        // action="#"
-                        // method="post"
-                        // enctype="multipart/form-data"
                         id="form-currency"
                       >
                         <div class="btn-group">
                           <button
                             class="btn-link dropdown-toggle"
-                            // data-toggle="dropdown"
+                           
                           >
                             ₹<span class="hidden-xs"> Rupee</span>
-                            {/* <i class="fa fa-angle-down"></i> */}
+                            
                           </button>
                           <ul class="dropdown-menu">
                             <li>
@@ -360,7 +350,7 @@ const Header2 = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <!-- //Header Top -->
     <!-- Header center --> */}
       <div class="header-center">
@@ -381,9 +371,7 @@ const Header2 = () => {
                   title="Your Store"
                   src={LOGO}
                 />
-                <h3 className="logo-heading">
-                  FUTJ<span>AN</span>
-                </h3>
+                <h3 className="logo-heading">FUTJAN</h3>
               </Link>
             </div>
             <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-11">
@@ -419,6 +407,7 @@ const Header2 = () => {
                             height: "100%",
                             background: "#fff",
                             paddingLeft: "0",
+                            borderRadius: "4px",
                           }}
                         />
                         {renderCitySuggustion()}
@@ -526,7 +515,7 @@ const Header2 = () => {
                                                 padding: "0",
                                               }}
                                             ></i>
-                                            <strong>Login</strong>
+                                            <strong>Login / Register</strong>
                                           </NavLink>
                                         </li>
                                       ) : null}
@@ -715,7 +704,7 @@ const Header2 = () => {
             </div>
             <div
               class="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
-              style={{ display: "flex", justifyContent: "end", margin: "0" }}
+              style={{ display: "flex", justifyContent: "start", margin: "0" }}
             >
               <div className="megamenu-style-dev megamenu-dev">
                 <div className="responsive">
@@ -964,7 +953,7 @@ const Header2 = () => {
         style={{
           position: "relative",
           background: "#fff",
-          padding: "30px 0",
+          padding: "15px 0 30px 0",
           borderBottom: "1px solid #ddd",
         }}
       >

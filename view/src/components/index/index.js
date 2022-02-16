@@ -10,7 +10,7 @@ import banner2 from "../image/catalog/demo/banners/home1/bn-2.jpg";
 import banner3 from "../image/catalog/demo/banners/home1/bn-3.jpg";
 import banner4 from "../image/catalog/demo/banners/home1/bn-4.jpg";
 import spa1 from "../image/catalog/demo/product/spa/5-270x270.jpg";
-import spa2 from "../image/catalog/demo/product/spa/1-270x270.jpg";
+
 import travel from "../image/catalog/demo/product/travel/2-370x370.jpg";
 import travel5 from "../image/catalog/demo/product/travel/5-370x370.jpg";
 

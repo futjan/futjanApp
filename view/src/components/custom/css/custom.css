@@ -478,19 +478,19 @@ input[type="number"] {
   align-items: center;
 }
 .new-design-ul li {
-  margin-right: 20px;
+  margin-right: 8%;
   z-index: 2;
 }
 .new-design-ul li a {
-  width: 120px !important;
-  height: 110px !important;
+  width: 100px !important;
+  height: 90px !important;
   justify-content: center;
   align-items: center;
   display: flex;
   background: #3b5998;
   color: #ddd;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgb(59 89 152 / 40%);
+  box-shadow: 0 0 10px rgb(59 89 152 / 20%);
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 2;

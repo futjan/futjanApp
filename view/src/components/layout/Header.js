@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import homeIcon2 from "../image/catalog/demo/product/travel/2.jpg";
+
 import LOGO from "../image/Logo.png";
 import { logoutUser } from "../actions/authAction";
 const Header = (props) => {
