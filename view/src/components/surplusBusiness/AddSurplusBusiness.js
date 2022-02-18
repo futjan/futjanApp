@@ -865,7 +865,7 @@ const AddSurplusBusiness = () => {
                   )}
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-group ">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
@@ -873,6 +873,23 @@ const AddSurplusBusiness = () => {
                   Upload image
                 </label>
                 <div className="col-sm-10">
+                  <label
+                    className="control-label"
+                    style={{
+                      fontSize: "15px",
+                      marginBottom: "15px",
+                      width: "100%",
+                      padding: "10px",
+                      background: "#fafafa",
+                      textDecoration: "underline",
+                      border: "1px solid #ddd",
+                    }}
+                  >
+                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
+                      Note:{" "}
+                    </span>
+                    You can add upto 5 images
+                  </label>
                   <div
                     className={
                       errors && errors.validation && errors.validation.files
@@ -899,6 +916,7 @@ const AddSurplusBusiness = () => {
                               position: "relative",
                               overflow: "hidden",
                             }}
+                            key={i}
                           >
                             <i
                               className="fa fa-times-circle"
@@ -939,6 +957,7 @@ const AddSurplusBusiness = () => {
                         : "form-control"
                     }
                   />
+
                   {errors && errors.validation && errors.validation.files && (
                     <div className="invalid-feedback">
                       {errors.validation.files}
@@ -948,7 +967,7 @@ const AddSurplusBusiness = () => {
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
-                <div className="col-sm-11">
+                <div className="col-sm-12">
                   <label
                     className="control-label"
                     style={{
@@ -980,50 +999,120 @@ const AddSurplusBusiness = () => {
                           htmlFor={type.promote}
                           className="container-checkbox border-bottom"
                         >
-                          <input
-                            type="checkbox"
-                            name="featured"
-                            value={type.promote}
-                            checked={
-                              promoteType.filter(
-                                (promote) => promote.promote === type.promote
-                              ).length > 0
-                                ? true
-                                : false
-                            }
-                            id={type.promote}
-                            onChange={(e) => {
-                              promoteCheckBoxHandler(e.target.checked, type);
-                            }}
-                          />{" "}
-                          {type.promote !== "ALL" ? (
-                            <span
-                              className={
-                                type.promote === "FEATURED"
-                                  ? "ad-type featured"
-                                  : type.promote === "URGENT"
-                                  ? "ad-type urgent"
-                                  : type.promote === "SPOTLIGHT"
-                                  ? "ad-type spotlight"
-                                  : "ad-type"
+                          <span>
+                            <input
+                              type="checkbox"
+                              name="featured"
+                              value={type.promote}
+                              checked={
+                                promoteType.filter(
+                                  (promote) => promote.promote === type.promote
+                                ).length > 0
+                                  ? true
+                                  : false
                               }
+                              id={type.promote}
+                              onChange={(e) => {
+                                promoteCheckBoxHandler(e.target.checked, type);
+                              }}
+                            />{" "}
+                            {type.promote !== "ALL" ? (
+                              <span
+                                className={
+                                  type.promote === "FEATURED"
+                                    ? "ad-type featured"
+                                    : type.promote === "URGENT"
+                                    ? "ad-type urgent"
+                                    : type.promote === "SPOTLIGHT"
+                                    ? "ad-type spotlight"
+                                    : "ad-type"
+                                }
+                              >
+                                {type.promote}
+                              </span>
+                            ) : null}
+                            {type.promote === "FEATURED"
+                              ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
+                              : type.promote === "URGENT"
+                              ? "Let people know you want to sell, rent or hire quickly"
+                              : type.promote === "SPOTLIGHT"
+                              ? "Have your Ad seen on the Gumtree homepage!"
+                              : "SELECT ALL"}
+                            <span className="checkmark"></span>
+                          </span>
+                          {type.promote === "FEATURED" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#007fb0",
+                                fontWeight: "600",
+                              }}
                             >
-                              {type.promote}
+                              14 days-INR 100
                             </span>
                           ) : null}
-                          {type.promote === "FEATURED"
-                            ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
-                            : type.promote === "URGENT"
-                            ? "Let people know you want to sell, rent or hire quickly"
-                            : type.promote === "SPOTLIGHT"
-                            ? "Have your Ad seen on the Gumtree homepage!"
-                            : "SELECT ALL"}
-                          <span className="checkmark"></span>
+
+                          {type.promote === "URGENT" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#e52815",
+                                fontWeight: "600",
+                              }}
+                            >
+                              7 days-INR 150
+                            </span>
+                          ) : null}
+
+                          {type.promote === "SPOTLIGHT" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#52a744",
+                                fontWeight: "600",
+                              }}
+                            >
+                              7 days-INR 350
+                            </span>
+                          ) : null}
                         </label>
                       ))}
                     </div>
                   </div>
-
+                  <div
+                    style={{
+                      display: "block",
+                      overflow: "hidden",
+                      color: "#ddd",
+                      padding: "6px 15px",
+                      background: "#3b5998",
+                      width: "100%",
+                      marginBottom: "15px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <span style={{ float: "left" }}>Total</span>
+                    <span style={{ float: "right" }}>
+                      {promoteType.length > 0
+                        ? (promoteType.filter(
+                            (type) => type.promote === "FEATURED"
+                          ).length > 0
+                            ? 100
+                            : 0) +
+                          (promoteType.filter(
+                            (type) => type.promote === "URGENT"
+                          ).length > 0
+                            ? 150
+                            : 0) +
+                          (promoteType.filter(
+                            (type) => type.promote === "SPOTLIGHT"
+                          ).length > 0
+                            ? 350
+                            : 0) +
+                          " INR"
+                        : "Free"}
+                    </span>
+                  </div>
                   <label style={{ lineHeight: "16px" }}>
                     By selecting Post My Ad you agree you've read and accepted
                     our{" "}

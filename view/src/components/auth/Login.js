@@ -150,7 +150,9 @@ const Login = (props) => {
                         value="Login"
                         className="btn btn-primary pull-left"
                         onClick={(e) => login_Func(e)}
-                      />
+                      >
+                        Login{" "}
+                      </button>
                     </form>
                     <column id="column-login" className="col-sm-8 pull-right">
                       <div className="row">

@@ -10,6 +10,7 @@ const userRoutes = require("./routes/userRoutes");
 const surplusRoutes = require("./routes/surplusRoutes");
 const businessTypeRoutes = require("./routes/businessTypeRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const purchingRoutes = require("./routes/purchingRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
@@ -19,7 +20,7 @@ app.use(
     directives: {
       "default-src": ["'self'"],
 
-      "img-src": ["'self' data:", "futjan.s3.ap-south-1.amazonaws.com"],
+      "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
     },
   })
 );
@@ -42,6 +43,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/surplus", surplusRoutes);
 app.use("/api/v1/businesstype", businessTypeRoutes);
 app.use("/api/v1/review", reviewRoutes);
+app.use("/api/v1/purching", purchingRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder

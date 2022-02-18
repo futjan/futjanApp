@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import countryList from "../../utils/countriesList";
-import cities from "../../utils/cities";
+// import countryList from "../../utils/countriesList";
+// import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import { updateSurplus, getSurplusById } from "../actions/surplusAction";
 
@@ -90,7 +90,7 @@ const EditSurplus = (props) => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = countryList.sort().filter((v) => regex.test(v));
+      // suggustions = countryList.sort().filter((v) => regex.test(v));
     }
     setCountry(value);
     setSuggustion([...suggustions]);
@@ -100,7 +100,7 @@ const EditSurplus = (props) => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = cities.sort().filter((v) => regex.test(v));
+      // suggustions = cities.sort().filter((v) => regex.test(v));
     }
     setCity(value);
     setSuggustionCities([...suggustions]);

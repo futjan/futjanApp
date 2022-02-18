@@ -214,8 +214,10 @@ input[type="number"] {
   display: block;
 }
 .autoComplete-ul .autoComplete-li:hover {
-  background-color: rgba(0, 0, 0, 0.04) !important;
-  color: #929292 !important;
+  /* background-color: rgba(0, 0, 0, 0.04) !important;
+  color: #929292 !important; */
+  background-color: rgba(59, 89, 152, 0.8) !important;
+  color: #ddd !important;
 }
 .autoComplete-ul .autoComplete-li:last-child {
   border: none !important;
@@ -395,6 +397,10 @@ input[type="number"] {
   padding-bottom: 15px;
   margin-bottom: 15px !important;
 }
+.container-checkbox.border-bottom:last-child {
+  border: none !important;
+  margin: 0 !important;
+}
 .container-checkbox {
   display: block;
   position: relative !important;
@@ -481,9 +487,29 @@ input[type="number"] {
   margin-right: 8%;
   z-index: 2;
 }
-.new-design-ul li a {
-  width: 100px !important;
-  height: 90px !important;
+.new-design-ul li:hover .sub-menu {
+  display: block;
+  opacity: 1;
+}
+.new-design-ul li .sub-menu {
+  display: none;
+  opacity: 0;
+}
+.new-design-ul li .sub-menu ul li {
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #fff;
+}
+
+.new-design-ul li .sub-menu ul li a {
+  padding: 5px 15px !important;
+  display: block;
+  width: 100%;
+}
+.new-design-ul li .type-links {
+  width: 85px !important;
+  height: 75px !important;
+  font-size: 13px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -497,10 +523,10 @@ input[type="number"] {
   flex-direction: column;
 }
 .new-design-ul li i {
-  font-size: 25px !important;
+  font-size: 22px !important;
 }
-.new-design-ul li a:hover,
-.new-design-ul li a.active {
+.new-design-ul li .type-links:hover,
+.new-design-ul li .type-links.active {
   background: #363f48 !important;
   color: #ddd !important;
   box-shadow: 0 0 10px rgb(59 89 152 / 60%) !important;
@@ -511,7 +537,7 @@ input[type="number"] {
 .new-design-hr {
   margin: 0;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #ddd;
@@ -550,9 +576,9 @@ input[type="number"] {
 }
 /* LOGOUT BTN */
 @media (max-width: 500px) {
-  .new-design-ul li a {
+  .new-design-ul li .type-links {
     width: 85px !important;
-    height: 80px !important;
+    height: 75px !important;
     font-size: 13px !important;
   }
   .new-design-ul li i {
@@ -618,7 +644,7 @@ input[type="number"] {
   }
 
   .header-center .container .row {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     flex-direction: column;

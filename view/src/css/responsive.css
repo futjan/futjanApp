@@ -1202,6 +1202,9 @@
    ************************************************************************************************ */
   /*MEGA MENU*/
   /*MENU STIKY*/
+  .d-sm-block {
+    display: block !important;
+  }
   header.typeheader-1 .header-sevices {
     display: none;
   }
@@ -3308,6 +3311,7 @@
   }
   .typeheader-4 .header-cart-phone {
     padding: 0 !important;
+    justify-content: center !important;
   }
   header.typeheader-4 .header-bottom-right .megamenu-style-dev .navbar-header {
     float: right;

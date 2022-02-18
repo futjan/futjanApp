@@ -4,7 +4,7 @@ import fileURL from "../../utils/fileURL";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-import cities from "../../utils/cities";
+// import cities from "../../utils/cities";
 import { City } from "country-state-city";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -47,13 +47,19 @@ const SurplusBusinesses = () => {
     );
   }, []);
   useEffect(() => {
-    if ((state && state.keyword) || (state && state.city)) {
+    if (
+      (state && state.keyword) ||
+      (state && state.city) ||
+      (state && state.type)
+    ) {
       dispatch(
         getSurpluses(
           page,
           limit,
           sort,
-          businessType.toLowerCase(),
+          state && state.type && state.type.length > 0
+            ? state.type.toLowerCase()
+            : businessType.toLowerCase(),
           category.toLowerCase(),
           state && state.keyword && state.keyword.length > 0
             ? state.keyword.toLowerCase()
@@ -69,8 +75,16 @@ const SurplusBusinesses = () => {
         state && state.keyword && state.keyword.length > 0 ? state.keyword : ""
       );
       setCity(state && state.city && state.city.length > 0 ? state.city : "");
+      setBusinessType(
+        state && state.type && state.type.length > 0 ? state.type : ""
+      );
     }
-  }, [state || (state && state.keyword) || (state && state.city)]);
+  }, [
+    state ||
+      (state && state.keyword) ||
+      (state && state.city) ||
+      (state && state.type),
+  ]);
 
   useEffect(() => {
     dispatch(getSurplusKeywords());
@@ -267,7 +281,7 @@ const SurplusBusinesses = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Location</span>
+                          <span>Locations</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>

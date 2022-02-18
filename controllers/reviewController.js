@@ -1,11 +1,12 @@
 const Review = require("../models/Review");
 const SurplusBusiness = require("../models/SurplusBusiness");
 const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 
 // @route                   POST /api/v1/review
 // @desc                    create review
 // @access                  Private
-exports.create = async (req, res, next) => {
+exports.create = catchAsync(async (req, res, next) => {
   if (!req.body.review.trim() || !req.body.rating) {
     return next(
       new AppError("Fields Required", 400, {
@@ -44,13 +45,13 @@ exports.create = async (req, res, next) => {
     status: "success",
     surplus,
   });
-};
+});
 
 // @route                   GET /api/v1/review
 // @desc                    get review
 // @access                  Public
 
-exports.getReviews = async (req, res, next) => {
+exports.getReviews = catchAsync(async (req, res, next) => {
   const reviews = await Review.find({});
 
   if (!reviews) {
@@ -63,4 +64,4 @@ exports.getReviews = async (req, res, next) => {
       reviews,
     },
   });
-};
+});

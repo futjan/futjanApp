@@ -16143,7 +16143,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
 .module.so_filter_wrap {
   box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  border-top: 2px solid #ff5e00;
+  border-top: 2px solid #3b5998;
   overflow: hidden;
 }
 .module.so_filter_wrap .modcontent {
@@ -16369,7 +16369,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   border: none;
 }
 .module.so_filter_wrap .modcontent li.so-filter-options {
-  border-bottom: 2px solid #ff5e00;
+  border-bottom: 2px solid #3b5998;
 }
 .module.so_filter_wrap
   .modcontent

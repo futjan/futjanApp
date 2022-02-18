@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 const crypto = require("crypto");
 const Validator = require("validator");
 const isEmpty = require("../validation/is-empty");
@@ -11,7 +12,7 @@ const sendEmail = require("../utils/email");
 // @route               POST /api/v1/user/signup
 // @desc                create new user
 // @access              Public
-exports.signup = async (req, res, next) => {
+exports.signup = catchAsync(async (req, res, next) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -42,11 +43,11 @@ exports.signup = async (req, res, next) => {
       user,
     },
   });
-};
+});
 // @route               POST /api/v1/user/login
 // @desc                login user
 // @access              Public
-exports.login = async (req, res, next) => {
+exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   // 1) check if email and password exist
   if (!email || !password) {
@@ -70,11 +71,11 @@ exports.login = async (req, res, next) => {
     status: "success",
     token,
   });
-};
+});
 
 // Protected Route
 
-exports.protect = async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
   let token;
   // 1) getting token and check if token exist
   if (
@@ -105,12 +106,12 @@ exports.protect = async (req, res, next) => {
   req.user = currentUser;
 
   next();
-};
+});
 
 // @route         POST /api/v1/user/forgetPassword
 // @desc          send reset password token
 // @access        Public
-exports.forgetPassword = async (req, res, next) => {
+exports.forgetPassword = catchAsync(async (req, res, next) => {
   if (Validator.isEmpty(req.body.email)) {
     return next(new AppError("E-mail is required", 400, undefined));
   }
@@ -148,12 +149,12 @@ exports.forgetPassword = async (req, res, next) => {
     status: "success",
     message: "token sent to email",
   });
-};
+});
 
 // @route         POST /api/v1/user/resetPassword
 // @desc          reset password
 // @access        Public
-exports.resetPassword = async (req, res, next) => {
+exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user base on token
   const hashedToken = crypto
     .createHash("sha256")
@@ -201,12 +202,12 @@ exports.resetPassword = async (req, res, next) => {
     status: "success",
     message: "password successfully changed!",
   });
-};
+});
 
 // @route         POST /api/v1/user/updatePassword
 // @desc          update password
 // @access        Private
-exports.updatePassword = async (req, res, next) => {
+exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) get user from collection
   const user = await User.findById(req.user.id).select("+password");
   // 2) check if posted current password is correct
@@ -226,4 +227,4 @@ exports.updatePassword = async (req, res, next) => {
     status: "success",
     message: "user successfully update password!",
   });
-};
+});

@@ -357,8 +357,18 @@ const Header2 = () => {
     <!-- Header center --> */}
       <div className="header-center">
         <div className="container">
-          <div className="row">
-            <div className="navbar-logo col-lg-3 col-md-2 col-xs-12 col-sm-3">
+          <div
+            className="row d-sm-block"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="navbar-logo col-lg-2 col-md-2 col-xs-12 col-sm-3"
+              style={{ margin: "0" }}
+            >
               <Link
                 to="/"
                 style={{
@@ -376,7 +386,7 @@ const Header2 = () => {
                 <h3 className="logo-heading">FUTJAN</h3>
               </Link>
             </div>
-            <div className="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-11">
+            <div className="header-center-right col-lg-8 col-md-8 col-sm-8 col-xs-11">
               <div className="header_search">
                 <div
                   id="sosearchpro"
@@ -708,8 +718,13 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              className="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
-              style={{ display: "flex", justifyContent: "start", margin: "0" }}
+              className="header-cart-phone col-lg-2 col-md-2 col-sm-1 col-xs-1"
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                margin: "0",
+                padding: "0",
+              }}
             >
               <div className="megamenu-style-dev megamenu-dev">
                 <div className="responsive">
@@ -961,29 +976,178 @@ const Header2 = () => {
         style={{
           position: "relative",
           background: "#fff",
-          padding: "15px 0 30px 0",
+          padding: "0px 0 25px 0",
           borderBottom: "1px solid #ddd",
         }}
       >
         <div className="container">
           <ul className="new-design-ul">
             <li>
-              <NavLink to="/jobs">
+              <NavLink to="/jobs" className="type-links">
                 <i className="fa fa-briefcase"></i>
                 JOBS
               </NavLink>
             </li>
             <li>
-              <NavLink to="/jobs">
+              <NavLink to="/jobs" className="type-links">
                 <i className="fa fa-handshake-o"></i>
                 BUSINESS
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/surplus">
+            <li className="with-sub-menu" style={{ position: "relative" }}>
+              <NavLink to="/surplus" className="type-links">
                 <i className="fa fa-th-large"></i>
                 SURPLUS
               </NavLink>
+              <div
+                className="sub-menu"
+                style={{
+                  boxShadow: "0px 15px 20px rgb(0 0 0 / 30%)",
+                  position: "absolute",
+                  maxHeight: "200px",
+                  overflow: "auto",
+                }}
+                id="sub-menu"
+              >
+                <div className="content" id="sub-menu-content">
+                  <div>
+                    <ul className="row-list">
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/user-panel"
+                          state={{
+                            type: "",
+                          }}
+                        >
+                          Choose Type
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Bakery",
+                          }}
+                        >
+                          Bakery
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Beverage Shop" }}
+                        >
+                          Beverage Shop
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Convenience store",
+                          }}
+                        >
+                          Convenience store
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Fruit/Vegetable store",
+                          }}
+                        >
+                          Fruit/Vegetable store
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Hotel",
+                          }}
+                        >
+                          Hotel
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Pastry shop",
+                          }}
+                        >
+                          Pastry shop
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Producers/Manufacturers",
+                          }}
+                        >
+                          Producers/Manufacturers
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Restaurant" }}
+                        >
+                          Restaurant
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Supermarkets" }}
+                        >
+                          Supermarkets
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Takeaway" }}
+                        >
+                          Takeaway
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Wholesalers" }}
+                        >
+                          Wholesalers
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Other" }}
+                        >
+                          Other
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
