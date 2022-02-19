@@ -1,27 +1,27 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 // component
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Header from "./components/layout/Header";
+
+// import Login from "./components/auth/Login";
+// import Register from "./components/auth/Register";
+
 import Header2 from "./components/layout/Header2";
 import Index from "./components//index/index";
-import Navbar from "./components/layout/Navbar";
-import Aboutus from "./components/about us/Aboutus";
-import Contactus from "./components/contact us/Contactus";
-import Job from "./components/jobs/Jobs";
-import JobDetail from "./components/jobs/JobDetail";
+// import Aboutus from "./components/about us/Aboutus";
+// import Contactus from "./components/contact us/Contactus";
+// import Job from "./components/jobs/Jobs";
+// import JobDetail from "./components/jobs/JobDetail";
 import Footer from "./components/layout/Footer";
-import ForgetPassword from "./components/user/ForgetPassword";
-import ResetPassword from "./components/user/ResetPassword";
+// import ForgetPassword from "./components/user/ForgetPassword";
+// import ResetPassword from "./components/user/ResetPassword";
 import PrivateRoute from "./utils/privateRoute";
-import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
-import UserPanel from "./components/user panel/index";
-import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
-import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
+// import SurplusBusinesses from "./components/surplusBusiness/SurplusBusinesses";
+// import UserPanel from "./components/user panel/index";
+// import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
+// import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
 
 // css
 
@@ -47,7 +47,6 @@ import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";
 // import "./css/quickview/quickview.css";
-
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 // stylesheet
@@ -55,6 +54,23 @@ import "./components/custom/css/custom.css";
 // import history from "./history";
 // action
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
+// lazy loading component
+const Login = lazy(() => import("./components/auth/Login"));
+const Register = lazy(() => import("./components/auth/Register"));
+// const Header2 = lazy(()=> import("./components/layout/Header2"))
+const Aboutus = lazy(() => import("./components/about us/Aboutus"));
+const Contactus = lazy(() => import("./components/contact us/Contactus"));
+const Job = lazy(() => import("./components/jobs/Jobs"));
+const JobDetail = lazy(() => import("./components/jobs/JobDetail"));
+const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
+const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
+const SurplusBusinesses = lazy(() =>
+  import("./components/surplusBusiness/SurplusBusinesses")
+);
+const UserPanel = lazy(() => import("./components/user panel/index"));
+const DetailSurplus = lazy(() =>
+  import("./components/surplusBusiness/DetailSurplus")
+);
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -74,44 +90,73 @@ if (localStorage.jwtToken) {
 const App = (props) => {
   return (
     <div className="App">
-      <div className="common-home res layout-4">
-        <div id="wrapper" class="wrapper-fluid banners-effect-3">
-          <Router>
-            <Provider store={store}>
-              <Header2 />
+      <Suspense fallback={<div></div>}>
+        <div className="common-home res layout-4">
+          <div id="wrapper" className="wrapper-fluid banners-effect-3">
+            <Router>
+              <Provider store={store}>
+                <Header2 />
+                {/* <header id="header" className=" typeheader-1">
+                <Header />
+                
+              </header> */}
+                <Routes>
+                  <Route path="/" exact={true} element={<Index />} />
+                  <Route path="/login" exact={true} element={<Login />} />
+                  <Route path="/signup" exact={true} element={<Register />} />
+                  <Route
+                    path="/forget-password"
+                    exact={true}
+                    element={<ForgetPassword />}
+                  />
+                  <Route
+                    path="/:token"
+                    exact={true}
+                    element={<ResetPassword />}
+                  />
+                  <Route path="/about-us" exact={true} element={<Aboutus />} />
+                  <Route
+                    path="/contact-us"
+                    exact={true}
+                    element={<Contactus />}
+                  />
+                  <Route path="/jobs" exact={true} element={<Job />} />
+                  <Route path="/business" exact={true} element={<Job />} />
+                  <Route path="/details" exact={true} element={<JobDetail />} />
+                  {/* <Route
+                    path="/add-surplus"
+                    exact
+                    element={<AddSurplusBusiness />}
+                  /> */}
+                  <Route
+                    path="/surplus"
+                    exact
+                    element={<SurplusBusinesses />}
+                  />
+                  <Route
+                    path="/user-panel"
+                    exact={true}
+                    element={<PrivateRoute />}
+                  >
+                    <Route
+                      path="/user-panel"
+                      exact={true}
+                      element={<UserPanel />}
+                    />
+                  </Route>
 
-              <Routes>
-                <Route path="/" exact element={<Index />} />
-                <Route path="/login" exact element={<Login />} />
-                <Route path="/signup" exact element={<Register />} />
-                <Route
-                  path="/forget-password"
-                  exact
-                  element={<ForgetPassword />}
-                />
-                <Route path="/:token" exact element={<ResetPassword />} />
-                <Route path="/about-us" exact element={<Aboutus />} />
-                <Route path="/contact-us" exact element={<Contactus />} />
-                <Route path="/jobs" exact element={<Job />} />
-                <Route path="/business" exact element={<Job />} />
-                <Route path="/details" exact element={<JobDetail />} />
-                {/* <Route path="/add-surplus" exact element={<AddSurplusBusiness />} /> */}
-                <Route path="/surplus" exact element={<SurplusBusinesses />} />
-                <Route path="/user-panel" exact element={<PrivateRoute />}>
-                  <Route path="/user-panel" exact element={<UserPanel />} />
-                </Route>
-
-                <Route
-                  path="/surplus-detail/:id"
-                  exact
-                  element={<DetailSurplus />}
-                />
-              </Routes>
-              <Footer />
-            </Provider>
-          </Router>
+                  <Route
+                    path="/surplus-detail/:id"
+                    exact
+                    element={<DetailSurplus />}
+                  />
+                </Routes>
+                <Footer />
+              </Provider>
+            </Router>
+          </div>
         </div>
-      </div>
+      </Suspense>
     </div>
   );
 };

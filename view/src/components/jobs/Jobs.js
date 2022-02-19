@@ -5,13 +5,13 @@ const Job = () => {
   return (
     <div className="cextension-simple_blog-article ltr layout-1 loaded">
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
-        {/* <div class="breadcrumbs">
-          <div class="container">
-            <div class="title-breadcrumb">POSTS</div>
-            <ul class="breadcrumb-cate">
+        {/* <div className="breadcrumbs">
+          <div className="container">
+            <div className="title-breadcrumb">POSTS</div>
+            <ul className="breadcrumb-cate">
               <li>
                 <a href="index.html">
-                  <i class="fa fa-home"></i>
+                  <i className="fa fa-home"></i>
                 </a>
               </li>
               <li>

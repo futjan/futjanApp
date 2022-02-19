@@ -2738,6 +2738,7 @@ input[type="search"] {
   margin-bottom: 0;
   font-weight: 400;
   cursor: pointer;
+  font-size: 15px;
 }
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"],
@@ -3075,7 +3076,7 @@ textarea.input-lg {
   .form-horizontal .control-label {
     padding-top: 7px;
     margin-bottom: 0;
-    text-align: right;
+    text-align: left;
   }
 }
 .form-horizontal .has-feedback .form-control-feedback {
@@ -4907,8 +4908,9 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #3b5998;
+  border-color: #3b5998;
+  cursor: pointer;
 }
 .pagination > .disabled > a,
 .pagination > .disabled > a:focus,
@@ -6252,9 +6254,9 @@ button.close {
   background: 0 0;
   border: 0;
 }
-.modal-open {
+/* .modal-open {
   overflow: hidden;
-}
+} */
 .modal {
   position: fixed;
   top: 0;
@@ -6266,6 +6268,19 @@ button.close {
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   outline: 0;
+  background-color: rgba(1, 1, 1, 0.4);
+  animation-name: modalAnimation;
+  animation-iteration-count: 1;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+}
+@keyframes modalAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .modal.fade .modal-dialog {
   -webkit-transition: -webkit-transform 0.3s ease-out;
@@ -6289,7 +6304,7 @@ button.close {
 .modal-dialog {
   position: relative;
   width: auto;
-  margin: 10px;
+  /* margin: 10px; */
 }
 .modal-content {
   position: relative;
@@ -6361,7 +6376,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    margin: 30px auto;
+    /* margin: 30px auto; */
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import fileURL from "../../utils/fileURL";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-import cities from "../../utils/cities";
+// import cities from "../../utils/cities";
+import { City } from "country-state-city";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -46,24 +47,44 @@ const SurplusBusinesses = () => {
     );
   }, []);
   useEffect(() => {
-    if (state && state.keyword) {
+    if (
+      (state && state.keyword) ||
+      (state && state.city) ||
+      (state && state.type)
+    ) {
       dispatch(
         getSurpluses(
           page,
           limit,
           sort,
-          businessType.toLowerCase(),
+          state && state.type && state.type.length > 0
+            ? state.type.toLowerCase()
+            : businessType.toLowerCase(),
           category.toLowerCase(),
-          state && state.keyword
+          state && state.keyword && state.keyword.length > 0
             ? state.keyword.toLowerCase()
             : keyword.toLowerCase(),
-          city.toLowerCase(),
+          state && state.city && state.city.length > 0
+            ? state.city.toLowerCase()
+            : city.toLowerCase(),
           setSearchedCategory
         )
       );
-      setKeyword(state.keyword);
+
+      setKeyword(
+        state && state.keyword && state.keyword.length > 0 ? state.keyword : ""
+      );
+      setCity(state && state.city && state.city.length > 0 ? state.city : "");
+      setBusinessType(
+        state && state.type && state.type.length > 0 ? state.type : ""
+      );
     }
-  }, [state && state.keyword]);
+  }, [
+    state ||
+      (state && state.keyword) ||
+      (state && state.city) ||
+      (state && state.type),
+  ]);
 
   useEffect(() => {
     dispatch(getSurplusKeywords());
@@ -139,7 +160,12 @@ const SurplusBusinesses = () => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = cities.sort().filter((v) => regex.test(v));
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
     }
     setCity(value);
     setSuggustionCities([...suggustions]);
@@ -170,7 +196,7 @@ const SurplusBusinesses = () => {
     }
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co) => (
+        {suggustion.map((co, i) => (
           <li
             className="autoComplete-li"
             onClick={() => {
@@ -178,6 +204,7 @@ const SurplusBusinesses = () => {
               setSuggustion([]);
             }}
             style={{ display: "block", width: "100%" }}
+            key={i}
           >
             {co}
           </li>
@@ -191,16 +218,17 @@ const SurplusBusinesses = () => {
     }
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustionCities.map((co) => (
+        {suggustionCities.map((co, i) => (
           <li
             className="autoComplete-li"
             onClick={() => {
-              setCity(co);
+              setCity(co.name);
               setSuggustionCities([]);
             }}
             style={{ display: "block", width: "100%" }}
+            key={i}
           >
-            {co}
+            {co.name}
           </li>
         ))}
       </ul>
@@ -219,25 +247,25 @@ const SurplusBusinesses = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
-                    <li class="so-filter-options" data-option="search">
-                      <div class="so-filter-heading">
-                        <div class="so-filter-heading-text">
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
                           <span>Keyword</span>
                         </div>
-                        <i class="fa fa-chevron-down"></i>
+                        <i className="fa fa-chevron-down"></i>
                       </div>
 
-                      <div class="so-filter-content-opts">
-                        <div class="so-filter-content-opts-container">
-                          <div class="so-filter-option" data-type="search">
-                            <div class="so-option-container">
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
                               <div
-                                class="input-group"
+                                className="input-group"
                                 style={{ width: "100%" }}
                               >
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="text_search"
                                   id="text_search"
                                   value={keyword}
@@ -250,25 +278,25 @@ const SurplusBusinesses = () => {
                         </div>
                       </div>
                     </li>
-                    <li class="so-filter-options" data-option="search">
-                      <div class="so-filter-heading">
-                        <div class="so-filter-heading-text">
-                          <span>City</span>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>Locations</span>
                         </div>
-                        <i class="fa fa-chevron-down"></i>
+                        <i className="fa fa-chevron-down"></i>
                       </div>
 
-                      <div class="so-filter-content-opts">
-                        <div class="so-filter-content-opts-container">
-                          <div class="so-filter-option" data-type="search">
-                            <div class="so-option-container">
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
                               <div
-                                class="input-group"
+                                className="input-group"
                                 style={{ width: "100%" }}
                               >
                                 <input
                                   type="text"
-                                  class="form-control"
+                                  className="form-control"
                                   name="text_search"
                                   id="text_search"
                                   value={city}
@@ -284,7 +312,7 @@ const SurplusBusinesses = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Type</span>
+                          <span>Business Type</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -455,7 +483,7 @@ const SurplusBusinesses = () => {
                   </ul>
                   <div className="clear_filter">
                     <a
-                      href="javascript:;"
+                      href="#"
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => callSurplusesAPI(page, limit, sort)}
@@ -468,7 +496,7 @@ const SurplusBusinesses = () => {
                     </a>
 
                     <a
-                      href="javascript:;"
+                      href="#"
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => clearState()}
@@ -485,9 +513,9 @@ const SurplusBusinesses = () => {
             </aside>
             <a
               href="javascript:void(0)"
-              class="open-sidebar hidden-lg hidden-md"
+              className="open-sidebar hidden-lg hidden-md"
             >
-              <i class="fa fa-bars"></i>Sidebar
+              <i className="fa fa-bars"></i>Sidebar
             </a>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
@@ -564,7 +592,7 @@ const SurplusBusinesses = () => {
 
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
-                        <label className="control-label" for="input-sort">
+                        <label className="control-label" htmlFor="input-sort">
                           Sort By:
                         </label>
                         <select
@@ -602,7 +630,7 @@ const SurplusBusinesses = () => {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label className="control-label" for="input-limit">
+                        <label className="control-label" htmlFor="input-limit">
                           Show:
                         </label>
                         <select
@@ -654,20 +682,6 @@ const SurplusBusinesses = () => {
                     </div>
                   </div>
                 </div>
-                {surplusFromStore.loading === true ? (
-                  <div className="row">
-                    {["", "", "", "", "", ""].map((num) => (
-                      <div
-                        className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
-                        style={{ margin: "20px 0" }}
-                      >
-                        <Skeleton count={1} className="skeleton-card" />
-                        <Skeleton count={1} className="skeleton-p" />
-                        <Skeleton count={1} className="skeleton-price" />
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
                   <p>
@@ -681,30 +695,65 @@ const SurplusBusinesses = () => {
                       : ""} */}
                   </p>
                 </div>
+                {surplusFromStore.loading === true &&
+                surplusFromStore.surpluses.length === 0 ? (
+                  <div className="row">
+                    {["", "", "", "", "", ""].map((num, i) => (
+                      <div
+                        className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                        style={{ margin: "20px 0" }}
+                        key={i}
+                      >
+                        <Skeleton count={1} className="skeleton-card" />
+                        <Skeleton count={1} className="skeleton-p" />
+                        <Skeleton count={1} className="skeleton-price" />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
 
                 <div className="products-list grid row number-col-3 so-filter-gird">
                   {surplusFromStore.surpluses.length > 0
                     ? surplusFromStore.surpluses.map((sur) => (
-                        <div className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <div
+                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
+                          key={sur._id}
+                        >
                           <div className="product-item-container">
                             <div className="left-block">
-                              <div className="product-image-container  second_img  ">
+                              <div
+                                className="product-image-container  second_img  "
+                                style={{ position: "relative" }}
+                              >
                                 <Link
                                   to={`/surplus-detail/${sur._id}`}
                                   title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                 >
                                   <img
-                                    src={surplusImageSkeleton}
+                                    src={fileURL(sur.images && sur.images[0])}
                                     alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-1 img-responsive"
                                   />
                                   <img
-                                    src={surplusImageSkeleton}
+                                    src={fileURL(sur.images && sur.images[0])}
                                     alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-2 img-responsive"
                                   />
+                                  {sur.promoteType &&
+                                  sur.promoteType.length > 0 ? (
+                                    <div className="ad-promote-type-container">
+                                      {sur.promoteType.map((promote, i) => (
+                                        <div
+                                          className={`ad-promote-type ${promote.promote}`}
+                                          key={i}
+                                        >
+                                          {promote.promote}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : null}
                                 </Link>
                               </div>
                               {/* <div className="countdown_box">
@@ -870,6 +919,7 @@ const SurplusBusinesses = () => {
                                   setPage(i + 1);
                                   callSurplusesAPI(i + 1, limit, sort);
                                 }}
+                                key={i}
                               >
                                 <span>{i + 1}</span>
                               </li>

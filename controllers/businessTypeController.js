@@ -1,10 +1,11 @@
 const BusinessType = require("../models/BusinessType");
 const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 
 // @route                   POST /api/v1/businesstype
 // @desc                    create new business type
 // @access                  Private
-exports.create = async (req, res, next) => {
+exports.create = catchAsync(async (req, res, next) => {
   //check validataion
   if (!req.body.type) {
     return next(new AppError("Business type is required", 400, undefined));
@@ -21,12 +22,12 @@ exports.create = async (req, res, next) => {
     status: "success",
     businessType,
   });
-};
+});
 
 // @route                   GET /api/v1/businesstype
 // @desc                    get all business type
 // @access                  Private
-exports.getAllType = async (req, res, next) => {
+exports.getAllType = catchAsync(async (req, res, next) => {
   const businessTypes = await BusinessType.find({});
 
   //check type exist or not
@@ -38,12 +39,12 @@ exports.getAllType = async (req, res, next) => {
     status: "success",
     businessTypes,
   });
-};
+});
 
 // @route                   DELETE /api/v1/businesstype/:id
 // @desc                    delete business type
 // @access                  Private
-exports.deleteType = async (req, res, next) => {
+exports.deleteType = catchAsync(async (req, res, next) => {
   const businessType = await BusinessType.findByIdAndDelete(req.params.id);
 
   //check type exist or not
@@ -55,4 +56,4 @@ exports.deleteType = async (req, res, next) => {
     status: "success",
     businessType,
   });
-};
+});

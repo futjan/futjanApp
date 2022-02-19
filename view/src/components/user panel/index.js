@@ -8,18 +8,19 @@ const Index = (props) => {
   const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
   // initialize hooks
-  const location = useLocation();
-  const { active } = location.state;
+  const state = useLocation().state;
 
   // useEffect
   useEffect(() => {
-    setTab(active);
-  }, [active]);
+    if (state && state.active) {
+      setTab(state.active);
+    }
+  }, [state && state.active]);
 
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   return (
-    <div class="container product-detail" style={{ margin: "30px auto" }}>
+    <div className="container product-detail" style={{ margin: "30px auto" }}>
       <div className="product-attribute module">
         <div className="row content-product-midde clearfix">
           <div className="col-xs-12">

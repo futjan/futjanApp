@@ -1,16 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurplusById, createReview } from "../actions/surplusAction";
+// import $ from "jquery";
+import Carousel from "react-multi-carousel";
+
+import "react-multi-carousel/lib/styles.css";
+// import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
+import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
+import fileURL from "../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
+
 import "react-loading-skeleton/dist/skeleton.css";
 import "./skeleton.css";
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 3,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 3,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 3,
+  },
+};
 
 function DetailSurplus() {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState();
+  const [tab, setTab] = useState("DESCRIPTION");
+  const [modal, setModal] = useState(false);
+  const [zoomModal, setZoomModal] = useState(false);
+  const [zoomImage, setZoomImage] = useState("");
+  const [activeImage, setActiveImage] = useState(0);
   // initialize hooks
   const params = useParams();
   const dispatch = useDispatch();
@@ -36,27 +68,100 @@ function DetailSurplus() {
     setRating();
     setReview("");
   };
+  // close report modal
+  const closeReportModal = (e) => {
+    e.preventDefault();
+    if (
+      document.getElementById("so_sociallogin") &&
+      e.target !== document.getElementById("block-popup-login")
+    ) {
+      document.getElementById("so_sociallogin").classList.add("in");
+      document.getElementById("so_sociallogin").classList.add("d-block");
+      // document.getElementsByTagName("body")[0].classList.add("modal-open");
+    }
+  };
+
   return (
-    <div class="container product-detail" style={{ marginTop: "30px" }}>
-      <div class="row">
-        <div id="content" class="col-md-12 col-sm-12 col-xs-12">
-          <div class="product-view product-detail">
-            <div class="product-view-inner clearfix">
+    <div className="container product-detail" style={{ marginTop: "30px" }}>
+      <ReportModal />
+      <div className="row">
+        <div id="content" className="col-md-12 col-sm-12 col-xs-12">
+          <div className="product-view product-detail">
+            <div className="product-view-inner clearfix">
               {surplusFromStore.loading === true ? (
                 <div className="content-product-left  col-md-5 col-sm-6 col-xs-12">
                   <Skeleton count={1} className="skeleton-card-detail" />
                 </div>
               ) : (
-                <div class="content-product-left  col-md-5 col-sm-6 col-xs-12">
-                  <div class="large-image  class-honizol">
-                    <div class="box-label"></div>
+                <div className="content-product-left  col-md-5 col-sm-6 col-xs-12">
+                  <div
+                    className="large-image  class-honizol"
+                    style={{
+                      padding: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div className="box-label"></div>
                     <img
-                      class="product-image-zoom"
-                      src={surplusImageSkeleton}
+                      className="product-image-zoom"
+                      src={fileURL(
+                        surplusFromStore.surplus.images &&
+                          surplusFromStore.surplus.images[activeImage]
+                      )}
                       data-zoom-image="image/catalog/demo/product/electronic/27.jpg"
                       title="Canada Travel One or Two European Facials at  Studio"
                       alt="Canada Travel One or Two European Facials at  Studio"
                     />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "5px",
+                        right: "5px",
+                        padding: "3px 25px",
+                        cursor: "pointer",
+                        borderRadius: "3px",
+                        background: "rgba(0,0,0,0.6)",
+                      }}
+                      onClick={() => {
+                        setZoomImage(
+                          surplusFromStore.surplus.images[activeImage]
+                        );
+                        setZoomModal(true);
+                      }}
+                    >
+                      <i
+                        className="fa fa-search-plus"
+                        style={{ color: "#fff", fontSize: "18px" }}
+                      ></i>
+                    </div>
+                  </div>
+                  <div
+                    id="thumb-slider"
+                    className="full_slider category-slider-inner products-list yt-content-slider"
+                  >
+                    <Carousel responsive={responsive}>
+                      {surplusFromStore.surplus.images &&
+                        surplusFromStore.surplus.images.map((image, i) => (
+                          <div
+                            className="owl2-item "
+                            style={{ padding: "4px" }}
+                            key={i}
+                          >
+                            <img
+                              src={fileURL(image)}
+                              className={
+                                i === activeImage
+                                  ? "detail-page-slide active"
+                                  : "detail-page-slide"
+                              }
+                              onClick={() => setActiveImage(i)}
+                              alt={image}
+                            />
+                          </div>
+                        ))}
+                    </Carousel>
                   </div>
                 </div>
               )}
@@ -78,40 +183,40 @@ function DetailSurplus() {
                   <Skeleton count={1} className="skeleton-price-detail" />
                 </div>
               ) : (
-                <div class="content-product-right col-md-7 col-sm-6 col-xs-12">
-                  <div class="countdown_box">
-                    <div class="countdown_inner">
-                      <div class="Countdown-1"></div>
+                <div className="content-product-right col-md-7 col-sm-6 col-xs-12">
+                  <div className="countdown_box">
+                    <div className="countdown_inner">
+                      <div className="Countdown-1"></div>
                     </div>
                   </div>
-                  <div class="title-product">
+                  <div className="title-product">
                     {surplusFromStore.surplus &&
                       surplusFromStore.surplus.name && (
                         <h1>{surplusFromStore.surplus.name}</h1>
                       )}
                   </div>
-                  <div class="box-review">
-                    <div class="rating">
-                      <div class="rating-box">
-                        <span class="fa fa-stack">
-                          <i class="fa fa-star-o fa-stack-1x"></i>
+                  <div className="box-review">
+                    <div className="rating">
+                      <div className="rating-box">
+                        <span className="fa fa-stack">
+                          <i className="fa fa-star-o fa-stack-1x"></i>
                         </span>
-                        <span class="fa fa-stack">
-                          <i class="fa fa-star-o fa-stack-1x"></i>
+                        <span className="fa fa-stack">
+                          <i className="fa fa-star-o fa-stack-1x"></i>
                         </span>
-                        <span class="fa fa-stack">
-                          <i class="fa fa-star-o fa-stack-1x"></i>
+                        <span className="fa fa-stack">
+                          <i className="fa fa-star-o fa-stack-1x"></i>
                         </span>
-                        <span class="fa fa-stack">
-                          <i class="fa fa-star-o fa-stack-1x"></i>
+                        <span className="fa fa-stack">
+                          <i className="fa fa-star-o fa-stack-1x"></i>
                         </span>
-                        <span class="fa fa-stack">
-                          <i class="fa fa-star-o fa-stack-1x"></i>
+                        <span className="fa fa-stack">
+                          <i className="fa fa-star-o fa-stack-1x"></i>
                         </span>
                       </div>
                     </div>
                     <a
-                      class="reviews_button"
+                      className="reviews_button"
                       href="#review"
                       // onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"
                     >
@@ -122,22 +227,18 @@ function DetailSurplus() {
                     </a>{" "}
                     /{" "}
                     <a
-                      class="write_review_button"
+                      className="write_review_button"
                       href="#review"
                       // onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;"
                     >
                       Write a review
                     </a>
                   </div>
-                  <div
-                    class="product_page_price price"
-                    itemscope=""
-                    itemtype="http://data-vocabulary.org/Offer"
-                  >
+                  <div className="product_page_price price">
                     {surplusFromStore.surplus.originalPrice &&
                     surplusFromStore.surplus.offeredPrice > 0 ? (
                       <span
-                        class="price-old"
+                        className="price-old"
                         id="price-old"
                         style={{ fontWeight: "100" }}
                       >
@@ -145,7 +246,7 @@ function DetailSurplus() {
                       </span>
                     ) : null}
                     <span
-                      class="price-new"
+                      className="price-new"
                       style={{
                         margin: "0 5px",
                         color: "#494949",
@@ -171,96 +272,71 @@ function DetailSurplus() {
                         {surplusFromStore.surplus.discount} % OFF
                       </span>
                     ) : null}
-                    {/* <div class="price-tax">
-                      <span>Ex Tax:</span> ₹ 70.00
-                    </div> */}
                   </div>
-                  <div class="product-box-desc">
-                    <div class="inner-box-desc">
-                      <div class="model">
+                  <div className="product-box-desc">
+                    <div className="inner-box-desc">
+                      <div className="model">
                         <span>Category: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.category}
                       </div>
-                      <div class="model">
+                      <div className="model">
                         <span>Type: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.businessType}
                       </div>
-                      <div class="model">
+                      <div className="model">
                         <span>Company: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.company}
                       </div>
-                      {/* <div class="model">
-                        <span>Product Code: </span>{" "}
-                        {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.postCode}
-                      </div> */}
-                      <div class="model">
+
+                      <div className="model">
                         <span>City: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.city}
                       </div>
 
-                      <div class="model">
+                      <div className="model">
                         <span>Contact: </span>{" "}
                         {surplusFromStore.surplus &&
                           surplusFromStore.surplus.contact}
                       </div>
-                      <div class="model">
-                        <span>Description: </span>{" "}
-                        {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.description}
-                      </div>
-                      <div class="model">
+
+                      <div className="model">
                         <span>For Collection/Delivery contact seller </span>{" "}
                       </div>
-
-                      {/* <div class="stock">
-                     <span>Availability:</span>{" "}
-                     <i class="fa fa-check-square-o"></i>In Stock
-                   </div> */}
                     </div>
                   </div>
-                  <div class="short_description form-group">
+                  <div className="short_description form-group">
                     <h3>OverView</h3>
                   </div>
                   <div id="product">
-                    <div class="box-cart clearfix">
-                      <div class="form-group box-info-product">
-                        <div class="option quantity">
-                          {/* <div class="input-group quantity-control" unselectable="on" style="user-select: none;">
-               <input class="form-control" type="text" name="quantity" value="1">
-               <input type="hidden" name="product_id" value="108">
-               <span class="input-group-addon product_quantity_down fa fa-caret-down"></span>
-               <span class="input-group-addon product_quantity_up fa fa-caret-up"></span>
-              </div>
-             </div> */}
-                          {/* <div class="cart">
-              <input type="button" value="Add to Cart" class="addToCart btn btn-mega btn-lg " data-toggle="tooltip" title="" onclick="cart.add('30');" data-original-title="Add to cart"/>
-             </div> */}
-                          <div class="add-to-links wish_comp">
-                            <ul class="blank">
-                              <li class="wishlist">
-                                <a onclick="wishlist.add(108);">
-                                  <i class="fa fa-heart"></i>
+                    <div className="box-cart clearfix">
+                      <div className="form-group box-info-product">
+                        <div className="option quantity">
+                          <div className="add-to-links wish_comp">
+                            <ul className="blank">
+                              <li className="wishlist">
+                                <a>
+                                  <i className="fa fa-heart"></i>
+                                  Favourite
                                 </a>
                               </li>
-                              <li class="compare wishlist">
-                                <a onclick="compare.add(108);">
-                                  <i class="fa fa-random"></i>
-                                </a>
-                              </li>
-                              <li class="compare">
-                                <a onclick="compare.add(108);">
-                                  <i class="fa fa-ban"></i>
+
+                              <li
+                                className="compare"
+                                onClick={(e) => closeReportModal(e)}
+                              >
+                                <a>
+                                  <i className="fa fa-exclamation-triangle"></i>
+                                  Report
                                 </a>
                               </li>
                             </ul>
                           </div>
                         </div>
-                        <div class="clearfix"></div>
+                        <div className="clearfix"></div>
                       </div>
                     </div>
                   </div>
@@ -268,13 +344,22 @@ function DetailSurplus() {
               )}
             </div>
           </div>
-          <div class="product-attribute module">
-            <div class="row content-product-midde clearfix">
-              <div class="col-xs-12">
-                <div class="producttab ">
-                  <div class="tabsslider  ">
-                    <ul class="nav nav-tabs font-sn">
-                      <li class="active">
+          <div className="product-attribute module">
+            <div className="row content-product-midde clearfix">
+              <div className="col-xs-12">
+                <div className="producttab ">
+                  <div className="tabsslider  ">
+                    <ul className="nav nav-tabs font-sn">
+                      <li
+                        onClick={() => setTab("DESCRIPTION")}
+                        className={tab === "DESCRIPTION" ? "active" : ""}
+                      >
+                        <div className="tab">Description</div>
+                      </li>
+                      <li
+                        onClick={() => setTab("REVIEW")}
+                        className={tab === "REVIEW" ? "active" : ""}
+                      >
                         <div className="tab">
                           Review (
                           {surplusFromStore.surplus &&
@@ -284,9 +369,36 @@ function DetailSurplus() {
                         </div>
                       </li>
                     </ul>
-                    <div class="tab-content" id="review">
-                      <div class="tab-pane active" id="tab-review">
-                        <form class="form-horizontal" id="form-review">
+
+                    <div className="tab-content" id="review">
+                      <div
+                        className={
+                          tab === "DESCRIPTION" ? "tab-pane active" : "tab-pane"
+                        }
+                        id="tab-description"
+                      >
+                        <div style={{ margin: "30px 0" }}>
+                          {surplusFromStore.loading === true ? (
+                            <>
+                              <Skeleton count={1} className="skeleton-p" />
+                              <Skeleton count={1} className="skeleton-p" />
+                              <Skeleton count={1} className="skeleton-p" />
+                            </>
+                          ) : null}
+
+                          {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.description && (
+                              <p>{surplusFromStore.surplus.description}</p>
+                            )}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          tab === "REVIEW" ? "tab-pane active" : "tab-pane"
+                        }
+                        id="tab-review"
+                      >
+                        <form className="form-horizontal" id="form-review">
                           <div id="review" style={{ margin: "30px 0" }}>
                             {surplusFromStore.surplus &&
                             surplusFromStore.surplus.reviews &&
@@ -327,11 +439,11 @@ function DetailSurplus() {
                           {auth.isAuthenticated === true ? (
                             <>
                               <h2>Write a review</h2>
-                              <div class="form-group required">
-                                <div class="col-sm-12">
+                              <div className="form-group required">
+                                <div className="col-sm-12">
                                   <label
-                                    class="control-label"
-                                    for="input-review"
+                                    className="control-label"
+                                    htmlFor="input-review"
                                   >
                                     Your Review
                                   </label>
@@ -339,70 +451,72 @@ function DetailSurplus() {
                                     name="text"
                                     rows="5"
                                     id="input-review"
-                                    class="form-control"
+                                    className="form-control"
                                     value={review}
                                     onChange={(e) => setReview(e.target.value)}
                                   ></textarea>
-                                  <div class="help-block">
-                                    <span class="text-danger">Note:</span> HTML
-                                    is not translated!
+                                  <div className="help-block">
+                                    <span className="text-danger">Note:</span>{" "}
+                                    HTML is not translated!
                                   </div>
                                 </div>
                               </div>
-                              <div class="form-group required">
-                                <div class="col-sm-12">
-                                  <label class="control-label">Rating</label>
+                              <div className="form-group required">
+                                <div className="col-sm-12">
+                                  <label className="control-label">
+                                    Rating
+                                  </label>
                                   &nbsp;&nbsp;&nbsp; Bad&nbsp;
                                   <input
                                     type="radio"
                                     name="rating"
-                                    value="1"
+                                    defaultValue="1"
                                     onClick={() => setRating(1)}
                                   />
                                   &nbsp;
                                   <input
                                     type="radio"
                                     name="rating"
-                                    value="2"
+                                    defaultValue="2"
                                     onClick={() => setRating(2)}
                                   />
                                   &nbsp;
                                   <input
                                     type="radio"
                                     name="rating"
-                                    value="3"
+                                    defaultValue="3"
                                     onClick={() => setRating(3)}
                                   />
                                   &nbsp;
                                   <input
                                     type="radio"
                                     name="rating"
-                                    value="4"
+                                    defaultValue="4"
                                     onClick={() => setRating(4)}
                                   />
                                   &nbsp;
                                   <input
                                     type="radio"
                                     name="rating"
-                                    value="5"
+                                    defaultValue="5"
                                     onClick={() => setRating(5)}
                                   />
                                   &nbsp;Good
                                 </div>
                               </div>
                               <div
-                                class="buttons clearfix"
+                                className="buttons clearfix"
                                 style={{
                                   visibility: "hidden",
                                   display: "block",
                                 }}
                               >
-                                <div class="pull-right">
+                                <div className="pull-right">
                                   <button
                                     type="button"
                                     id="button-review"
                                     data-loading-text="Loading..."
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     onClick={() => createReviewFunc()}
                                   >
                                     Continue
@@ -421,6 +535,36 @@ function DetailSurplus() {
           </div>
         </div>
       </div>
+
+      {zoomModal === true ? (
+        <div
+          className={
+            zoomImage === true
+              ? "modal modal-opacity-0"
+              : "modal modal-opacity-1"
+          }
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "10px",
+          }}
+        >
+          <i
+            className="fa fa-times"
+            style={{
+              position: "absolute",
+              top: "15px",
+              right: "15px",
+              color: "#fff",
+              fontSize: "20px",
+              cursor: "pointer",
+            }}
+            onClick={() => setZoomModal(false)}
+          ></i>
+          <img src={fileURL(zoomImage)} alt={zoomImage} />
+        </div>
+      ) : null}
     </div>
   );
 }

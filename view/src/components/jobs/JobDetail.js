@@ -2,37 +2,40 @@ import React from "react";
 import jobSkeleton from "../image/catalog/demo/blog/5.jpg";
 const JobDetail = () => {
   return (
-    <div class="cextension-simple_blog-article ltr layout-1 loaded">
-      <div id="wrapper" class="wrapper-fluid banners-effect-10">
-        <div class="container">
-          <div class="row" style={{ marginTop: "30px" }}>
-            <div id="content" class="col-sm-12">
-              <div class="rows form-group">
-                <div class="article-info">
-                  <div class="entry-wrap">
-                    <div class="article-image">
+    <div className="cextension-simple_blog-article ltr layout-1 loaded">
+      <div id="wrapper" className="wrapper-fluid banners-effect-10">
+        <div className="container">
+          <div className="row" style={{ marginTop: "30px" }}>
+            <div id="content" className="col-sm-12">
+              <div className="rows form-group">
+                <div className="article-info">
+                  <div className="entry-wrap">
+                    <div className="article-image">
                       <img
                         src={jobSkeleton}
                         alt="Baby Came Back! Missed Out? Grab Your"
                       />
                     </div>
-                    <div class="article-sub-title">
-                      <span class="article-author hidden">
+                    <div className="article-sub-title">
+                      <span className="article-author hidden">
                         <a href="#">Posted by: Tuandt</a>
                       </span>
-                      <span class="article-date pull-left">
+                      <span className="article-date pull-left">
                         <b>17</b> Oct
                       </span>
-                      <div class="article-comment pull-right">
+                      <div className="article-comment pull-right">
                         <span>
-                          <i class="fa fa-comments"></i>0 Comments
+                          <i className="fa fa-comments"></i>0 Comments
                         </span>
                       </div>
                     </div>
-                    <div class="article-title">
+                    <div className="article-title">
                       <h3>Baby Came Back! Missed Out? Grab Your</h3>
                     </div>
-                    <div class="article-description" style={{ clear: "both" }}>
+                    <div
+                      className="article-description"
+                      style={{ clear: "both" }}
+                    >
                       <p>
                         Morbi tempus, non ullamcorper euismod, erat odio
                         suscipit purus, nec ornare lacus turpis ac purus. Mauris
@@ -49,10 +52,10 @@ const JobDetail = () => {
                       </p>
                     </div>
                   </div>
-                  <div class="panel panel-default related-comment">
-                    <div class="panel-body">
-                      <div class="form-group">
-                        <div id="comments" class="blog-comment-info">
+                  <div className="panel panel-default related-comment">
+                    <div className="panel-body">
+                      <div className="form-group">
+                        <div id="comments" className="blog-comment-info">
                           <div id="comment-list">
                             <h5>There are no comments for this blog.</h5>
                           </div>
@@ -60,10 +63,9 @@ const JobDetail = () => {
                           <h2 id="review-title">
                             Leave your comment
                             <i
-                              class="fa fa-times-circle fa-lg"
+                              className="fa fa-times-circle fa-lg"
                               id="reply-remove"
                               style={{ display: "none", cursor: "pointer" }}
-                              onclick="removeCommentId();"
                             ></i>
                           </h2>
                           <input
@@ -72,24 +74,24 @@ const JobDetail = () => {
                             value="0"
                             id="blog-reply-id"
                           />
-                          <div class="form-group contacts-form row">
-                            <div class="col-md-6">
+                          <div className="form-group contacts-form row">
+                            <div className="col-md-6">
                               <b>Name</b>
                               <br />
                               <input
                                 type="text"
                                 name="name"
                                 value=""
-                                class="form-control"
+                                className="form-control"
                               />
                               <br />
                             </div>
-                            <div class="col-md-12">
+                            <div className="col-md-12">
                               <b>Comment</b>
                               <br />
                               <textarea
                                 name="text"
-                                class="form-control"
+                                className="form-control"
                               ></textarea>
                               <span style={{ fontSize: "11px" }}>
                                 Note: HTML is not translated!
@@ -97,10 +99,10 @@ const JobDetail = () => {
                               <br />
                               <br />
                             </div>
-                            <div class="col-md-12"></div>
+                            <div className="col-md-12"></div>
                           </div>
-                          <div class="text-left">
-                            <a id="button-comment" class="btn btn-info">
+                          <div className="text-left">
+                            <a id="button-comment" className="btn btn-info">
                               <span>LEAVE A COMMENT</span>
                             </a>
                           </div>

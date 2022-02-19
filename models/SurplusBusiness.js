@@ -38,6 +38,10 @@ const surplusBusiness = Schmea(
       type: String,
       required: [true, "Country is required"],
     },
+    county: {
+      type: String,
+      required: [true, "State is required"],
+    },
     category: {
       type: String,
       required: [true, "Category is required"],
@@ -57,11 +61,20 @@ const surplusBusiness = Schmea(
       type: [String],
     },
     website: String,
+    images: [String],
 
     createdAt: {
       type: Date,
       default: Date.now(),
       select: false,
+    },
+    promoteType: {
+      type: [
+        {
+          promote: String,
+          numberSort: Number,
+        },
+      ],
     },
     user: {
       type: mongoose.Schema.ObjectId,

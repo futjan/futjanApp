@@ -97,7 +97,7 @@ const Login = (props) => {
                       <div className="form-group">
                         {errors && errors.message && (
                           <div className="col-sm-12" style={{ padding: "0" }}>
-                            <div class="alert alert-danger" role="alert">
+                            <div className="alert alert-danger" role="alert">
                               {errors.message}
                             </div>
                           </div>
@@ -145,12 +145,14 @@ const Login = (props) => {
                         </Link>
                       </div>
 
-                      <input
+                      <button
                         type="submit"
                         value="Login"
                         className="btn btn-primary pull-left"
                         onClick={(e) => login_Func(e)}
-                      />
+                      >
+                        Login{" "}
+                      </button>
                     </form>
                     <column id="column-login" className="col-sm-8 pull-right">
                       <div className="row">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import countryList from "../../utils/countriesList";
-import cities from "../../utils/cities";
+// import countryList from "../../utils/countriesList";
+// import cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import { updateSurplus, getSurplusById } from "../actions/surplusAction";
 
@@ -13,6 +13,13 @@ const Days = [
   "FRIDAY",
   "SATURADAY",
   "SUNDAY",
+];
+
+const adpromotionType = [
+  { promote: "FEATURED", numberSort: 1 },
+  { promote: "URGENT", numberSort: 2 },
+  { promote: "SPOTLIGHT", numberSort: 3 },
+  { promote: "ALL", numberSort: 4 },
 ];
 
 const EditSurplus = (props) => {
@@ -33,6 +40,12 @@ const EditSurplus = (props) => {
   const [errors, setErrors] = useState({});
   const [suggustion, setSuggustion] = useState([]);
   const [suggustionCities, setSuggustionCities] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [suggustionKeyword, setSuggustionKeyword] = useState([]);
+  const [promoteType, setPromoteType] = useState([]);
+  const [files, setFiles] = useState([]);
+
+  const [file, setFile] = useState({});
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -57,10 +70,13 @@ const EditSurplus = (props) => {
       setCategory(surplus.surplus.category);
       setDescription(surplus.surplus.description);
       setWebsite(surplus.surplus.website);
-
       setWeeklySchedule(surplus.surplus.weeklySchedule);
       setOfferedPrice(surplus.surplus.offeredPrice);
       setOriginalPrice(surplus.surplus.originalPrice);
+      setKeyword(surplus.surplus.keyword);
+      if (surplus.surplus.promoteType) {
+        setPromoteType(surplus.surplus.promoteType);
+      }
     }
   }, [surplus.surplus && surplus.surplus._id]);
 
@@ -74,7 +90,7 @@ const EditSurplus = (props) => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = countryList.sort().filter((v) => regex.test(v));
+      // suggustions = countryList.sort().filter((v) => regex.test(v));
     }
     setCountry(value);
     setSuggustion([...suggustions]);
@@ -84,7 +100,7 @@ const EditSurplus = (props) => {
     let suggustions = [];
     if (value.trim().length > 0) {
       const regex = new RegExp(`^${value}`, "i");
-      suggustions = cities.sort().filter((v) => regex.test(v));
+      // suggustions = cities.sort().filter((v) => regex.test(v));
     }
     setCity(value);
     setSuggustionCities([...suggustions]);
@@ -130,6 +146,50 @@ const EditSurplus = (props) => {
       </ul>
     );
   };
+
+  // keyword suggustion
+  const onChangeAutoFieldName = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      if (surplus.keywords.length > 0) {
+        suggustions = surplus.keywords
+
+          .map((v) => v.keyword)
+          .filter(
+            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+          )
+          .sort()
+          .filter((v) => regex.test(v));
+      }
+    }
+    setKeyword(value);
+
+    setSuggustionKeyword([...suggustions]);
+  };
+  const renderNameSuggustion = () => {
+    if (suggustionKeyword.length === 0) {
+      return null;
+    }
+    return (
+      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
+        {suggustionKeyword.map((co) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setKeyword(co);
+              setSuggustionKeyword([]);
+            }}
+            style={{ display: "block", width: "100%" }}
+          >
+            {co}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   // handle check box
   const handleCheckBox = (checked, value) => {
     if (checked !== true) {
@@ -147,12 +207,44 @@ const EditSurplus = (props) => {
     }
   };
 
+  // handle promotion checkBox
+  const promoteCheckBoxHandler = (checked, value) => {
+    if (checked !== true) {
+      if (value.promote === "ALL") {
+        setPromoteType([]);
+      } else {
+        const tempArr = promoteType.filter(
+          (promote) => promote.promote !== value.promote
+        );
+        setPromoteType([...tempArr]);
+      }
+    } else {
+      if (value.promote === "ALL") {
+        setPromoteType([
+          { promote: "FEATURED", numberSort: 1 },
+          { promote: "URGENT", numberSort: 2 },
+          { promote: "SPOTLIGHT", numberSort: 3 },
+          { promote: "ALL", numberSort: 4 },
+        ]);
+      } else {
+        const tempArr = [...promoteType];
+        tempArr.push(value);
+
+        setPromoteType([
+          ...tempArr.filter((value, index, self) => {
+            return self.indexOf(value) === index;
+          }),
+        ]);
+      }
+    }
+  };
   // create surplux function
   const createSurplusFunction = (e) => {
     e.preventDefault();
 
     const obj = {
       id: props.id,
+      files,
       surplus: {
         name: name.toLowerCase(),
         company: company.toLowerCase(),
@@ -165,9 +257,12 @@ const EditSurplus = (props) => {
         category: category.toLowerCase(),
         country: country.toLowerCase(),
         website,
+        keyword: keyword.toLowerCase(),
         weeklySchedule,
+        promoteType: promoteType.filter((type) => type.promote !== "ALL"),
         originalPrice: (originalPrice * 1).toFixed(2),
         offeredPrice: (offeredPrice * 1).toFixed(2),
+
         discount:
           offeredPrice > 0
             ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
@@ -176,8 +271,27 @@ const EditSurplus = (props) => {
     };
     dispatch(updateSurplus(obj, clearState));
   };
+
+  // fileUploadHandler
+  const uploadFilesHandler = (e) => {
+    if (files.length < 5) {
+      const tempFiles = [...files];
+      tempFiles.push(e.target.files[0]);
+      setFiles([
+        ...tempFiles.filter(
+          (file, i, filesArray) => filesArray.indexOf(file) === i
+        ),
+      ]);
+    }
+  };
+
+  // deleteFileHandler
+  const deleteFileHandler = (index) => {
+    setFiles([...files.filter((file, i) => i !== index)]);
+  };
   // clear state function
   const clearState = () => {
+    setFile("");
     setName("");
     setCompany("");
     setContact("");
@@ -193,69 +307,47 @@ const EditSurplus = (props) => {
     setWeeklySchedule([""]);
     setOfferedPrice(0);
     setOriginalPrice(0);
+    setKeyword("");
+    setPromoteType([]);
+
     props.setTab("SURPLUS");
   };
   return (
     <div
-      class="main-container container"
+      className="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
-      <div class="row">
-        <div id="content" class="col-md-9">
-          <h2 class="title">Edit Surplus Business</h2>
-          <p>
-            If you already have an surplus business with us
-            {/* , please login at the{" "} */}
-            {/* <Link to="/login">login page</Link>. */}
-          </p>
+      <div className="row">
+        <div id="content" className="col-md-9">
+          <h2 className="title">Edit Surplus Business</h2>
           <form
             action=""
             method="post"
             enctype="multipart/form-data"
-            class="form-horizontal account-register clearfix"
+            className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
-              <legend>Surplus Business Details</legend>
+              <h4 className="post-ad-heading">Surplus Business Details</h4>
+              {/* <legend></legend> */}
               <div className="form-group">
                 {/* <div className="col-sm-2"></div> */}
                 {errors && errors.message && (
                   <div className="col-sm-12">
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                       {errors.message}
                     </div>
                   </div>
                 )}
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-name">
-                  Name
-                </label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    id="input-name"
-                    className={
-                      errors && errors.validation && errors.validation.name
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.name && (
-                    <div className="invalid-feedback">
-                      {errors.validation.name}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-company">
+
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-company"
+                >
                   Company
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="company"
@@ -277,11 +369,14 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-telephone">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-telephone"
+                >
                   Contact
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="tel"
                     name="telephone"
@@ -303,11 +398,14 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-address">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-address"
+                >
                   Address
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="address"
@@ -328,11 +426,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-postCode">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-postCode"
+                >
                   Post Code
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="postcode"
@@ -355,11 +456,11 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-city">
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
                   City
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="city"
@@ -382,14 +483,44 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group required">
+              <div className="form-group required">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
+                  htmlFor="input-country"
+                >
+                  Country
+                </label>
+                <div className="col-sm-10" style={{ position: "relative" }}>
+                  <input
+                    type="text"
+                    name="city"
+                    value={country}
+                    // onChange={(e) => setCountry(e.target.value)}
+                    onChange={(e) => onChangeAutoField(e)}
+                    placeholder="Country"
+                    id="input-country"
+                    className={
+                      errors && errors.validation && errors.validation.country
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.country && (
+                    <div className="invalid-feedback">
+                      {errors.validation.country}
+                    </div>
+                  )}
+                  {renderSuggustion()}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
                   htmlFor="input-businessType"
                 >
                   Business Type
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors &&
@@ -430,39 +561,16 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-country">
-                  Country
-                </label>
-                <div class="col-sm-10" style={{ position: "relative" }}>
-                  <input
-                    type="text"
-                    name="city"
-                    value={country}
-                    // onChange={(e) => setCountry(e.target.value)}
-                    onChange={(e) => onChangeAutoField(e)}
-                    placeholder="Country"
-                    id="input-country"
-                    className={
-                      errors && errors.validation && errors.validation.country
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.country && (
-                    <div className="invalid-feedback">
-                      {errors.validation.country}
-                    </div>
-                  )}
-                  {renderSuggustion()}
-                </div>
-              </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-category">
+
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-category"
+                >
                   Category
                 </label>
 
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <select
                     className={
                       errors && errors.validation && errors.validation.category
@@ -488,14 +596,109 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group required">
+
+              <div className="form-group">
                 <label
-                  class="col-sm-2 control-label"
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  website
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="url"
+                    name="city"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                    placeholder="website"
+                    id="input-website"
+                    className={
+                      errors && errors.validation && errors.validation.website
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.website && (
+                    <div className="invalid-feedback">
+                      {errors.validation.website}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Weekly Schedule
+                </label>
+                <div className="col-sm-10">
+                  <div className="checkout-content confirm-section">
+                    {Days.map((day, i) => (
+                      <div className="checkbox check-newsletter">
+                        <label htmlFor={day} className="container-checkbox">
+                          <input
+                            type="checkbox"
+                            name={day}
+                            value={day}
+                            checked={
+                              weeklySchedule.indexOf(day) !== -1 ? true : false
+                            }
+                            id={day}
+                            onChange={(e) =>
+                              handleCheckBox(e.target.checked, day)
+                            }
+                          />{" "}
+                          {day}
+                          <span className="checkmark"></span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.weeklySchedule && (
+                      <div className="invalid-feedback">
+                        {errors.validation.weeklySchedule}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <h4 className="post-ad-heading">Surplus Details</h4>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Name
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                    id="input-name"
+                    className={
+                      errors && errors.validation && errors.validation.name
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.name && (
+                    <div className="invalid-feedback">
+                      {errors.validation.name}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
                   htmlFor="input-description"
                 >
                   Description
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="text"
                     name="city"
@@ -520,36 +723,43 @@ const EditSurplus = (props) => {
                     )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
-                  website
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Keyword
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
                     type="url"
                     name="city"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    placeholder="website"
+                    value={keyword}
+                    onChange={(e) => onChangeAutoFieldName(e)}
+                    placeholder="keyword (Trending or Top surplus)"
                     id="input-website"
                     className={
-                      errors && errors.validation && errors.validation.website
+                      errors && errors.validation && errors.validation.keyword
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.website && (
+                  {renderNameSuggustion()}
+                  {errors && errors.validation && errors.validation.keyword && (
                     <div className="invalid-feedback">
-                      {errors.validation.website}
+                      {errors.validation.keyword}
                     </div>
                   )}
                 </div>
               </div>
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Original Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -570,11 +780,14 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   Offered Price
                 </label>
-                <div class="col-sm-10 col-md-5">
+                <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
@@ -596,48 +809,188 @@ const EditSurplus = (props) => {
                 </div>
               </div>
               <div className="form-group">
-                <label class="col-sm-2 control-label" htmlFor="input-website">
-                  Weekly Schedule
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Upload image
                 </label>
-                <div class="col-sm-10">
-                  <div class="checkout-content confirm-section">
-                    {Days.map((day, i) => (
-                      <div class="checkbox check-newsletter">
-                        <label htmlFor={day}>
+                <div className="col-sm-10">
+                  <div
+                    className="form-control"
+                    style={{
+                      minHeight: "200px",
+                      width: "100%",
+                      marginBottom: "10px",
+                      display: "flex",
+                      // alignItems: "center",
+                      justifyContent: "start",
+                      gap: "10px",
+                    }}
+                  >
+                    {files.length > 0
+                      ? files.map((file, i) => (
+                          <div
+                            style={{
+                              width: "100px ",
+                              height: "100px",
+
+                              position: "relative",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <i
+                              className="fa fa-times-circle"
+                              style={{
+                                position: "absolute",
+                                top: "2px",
+                                right: "6px",
+                                color: "#c82333",
+                                fontSize: "23px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteFileHandler(i)}
+                            ></i>
+                            <img
+                              width={100}
+                              src={URL.createObjectURL(file)}
+                              alt={`uploaded-image-${i}`}
+                            />
+                          </div>
+                        ))
+                      : null}
+                  </div>
+                  <input
+                    type="file"
+                    name="photo"
+                    value=""
+                    onChange={(e) => uploadFilesHandler(e)}
+                    placeholder="Offered Price"
+                    id="input-website"
+                    className={
+                      errors && errors.validation && errors.validation.website
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.website && (
+                    <div className="invalid-feedback">
+                      {errors.validation.website}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <h4 className="post-ad-heading">Make your ad stand out!</h4>
+              <div className="form-group">
+                <div className="col-sm-11">
+                  <label
+                    className="control-label"
+                    style={{
+                      fontSize: "15px",
+                      marginBottom: "15px",
+                      width: "100%",
+                      padding: "10px",
+                      background: "#fafafa",
+                      textDecoration: "underline",
+                      border: "1px solid #ddd",
+                    }}
+                  >
+                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
+                      Note:{" "}
+                    </span>
+                    Promote ad option is optional. You can post ad free
+                  </label>
+                  <label
+                    className="control-label"
+                    style={{ fontSize: "15px", marginBottom: "15px" }}
+                  >
+                    Select an option to promote your ad
+                  </label>
+                  <div className="checkout-content confirm-section">
+                    {/* {Days.map((day, i) => ( */}
+                    <div className="checkbox check-newsletter">
+                      {adpromotionType.map((type) => (
+                        <label
+                          htmlFor={type.promote}
+                          className="container-checkbox border-bottom"
+                        >
                           <input
                             type="checkbox"
-                            name={day}
-                            value={day}
+                            name="featured"
+                            value={type.promote}
+                            defaultValue={type.promote}
                             checked={
-                              weeklySchedule.indexOf(day) !== -1 ? true : false
+                              promoteType.filter(
+                                (promote) => promote.promote === type.promote
+                              ).length > 0
+                                ? true
+                                : false
                             }
-                            id={day}
-                            onChange={(e) =>
-                              handleCheckBox(e.target.checked, day)
-                            }
+                            id={type.promote}
+                            onChange={(e) => {
+                              promoteCheckBoxHandler(e.target.checked, type);
+                            }}
                           />{" "}
-                          {day}
+                          {type.promote !== "ALL" ? (
+                            <span
+                              className={
+                                type.promote === "FEATURED"
+                                  ? "ad-type featured"
+                                  : type.promote === "URGENT"
+                                  ? "ad-type urgent"
+                                  : type.promote === "SPOTLIGHT"
+                                  ? "ad-type spotlight"
+                                  : "ad-type"
+                              }
+                            >
+                              {type.promote}
+                            </span>
+                          ) : null}
+                          {type.promote === "FEATURED"
+                            ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
+                            : type.promote === "URGENT"
+                            ? "Let people know you want to sell, rent or hire quickly"
+                            : type.promote === "SPOTLIGHT"
+                            ? "Have your Ad seen on the Gumtree homepage!"
+                            : "SELECT ALL"}
+                          <span className="checkmark"></span>
                         </label>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.weeklySchedule && (
-                      <div className="invalid-feedback">
-                        {errors.validation.weeklySchedule}
-                      </div>
-                    )}
+
+                  <label style={{ lineHeight: "16px" }}>
+                    By selecting Post My Ad you agree you've read and accepted
+                    our{" "}
+                    <span
+                      style={{ color: "#007fb0", textDecoration: "underline" }}
+                    >
+                      Terms of Use
+                    </span>{" "}
+                    and{" "}
+                    <span
+                      style={{ color: "#007fb0", textDecoration: "underline" }}
+                    >
+                      Posting Rules
+                    </span>
+                    . Please see our{" "}
+                    <span
+                      style={{ color: "#007fb0", textDecoration: "underline" }}
+                    >
+                      Privacy Notice
+                    </span>{" "}
+                    for information regarding the processing of your data.
+                  </label>
                 </div>
               </div>
             </fieldset>
 
-            <div class="buttons">
-              <div class="pull-right">
+            <div className="buttons">
+              <div className="pull-right">
                 <input
                   type="button"
                   value="Update"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

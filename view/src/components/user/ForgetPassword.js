@@ -95,7 +95,7 @@ const ForgetPassword = () => {
                       <div className="form-group">
                         {errors && errors.message && (
                           <div className="col-sm-12" style={{ padding: "0" }}>
-                            <div class="alert alert-danger" role="alert">
+                            <div className="alert alert-danger" role="alert">
                               {errors.message}
                             </div>
                           </div>

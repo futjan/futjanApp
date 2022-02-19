@@ -2,16 +2,26 @@ const SurplusBusiness = require("../models/SurplusBusiness");
 const validateSurplus = require("../validation/surplus");
 const APIFeature = require("../utils/apiFeatures");
 const AppError = require("../utils/appError");
+const catchAsync = require("../utils/catchAsync");
 
 // @route                   POST /api/v1/surplus
 // @desc                    create surplux
 // @access                  Private
-exports.createSurplus = async (req, res, next) => {
-  const { errors, isValid } = validateSurplus(req.body);
+exports.createSurplus = catchAsync(async (req, res, next) => {
+  const { errors, isValid } = validateSurplus(JSON.parse(req.body.surplus));
   // check validation
   if (!isValid) {
     return next(new AppError("Fields required", 400, errors));
   }
+  let images = [];
+  if (req.files.length > 0) {
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+  }
+
+  req.body = JSON.parse(req.body.surplus);
+
   // create surplus
   const surplus = await SurplusBusiness.create({
     user: req.user._id.toString(),
@@ -31,18 +41,21 @@ exports.createSurplus = async (req, res, next) => {
     offeredPrice: req.body.offeredPrice,
     discount: req.body.discount,
     keyword: req.body.keyword,
+    county: req.body.county,
+    promoteType: req.body.promoteType,
+    images,
   });
   // send response to client
   res.status(201).json({
     status: "success",
     surplus,
   });
-};
+});
 
 // @route                   GET /api/v1/surplus
 // @desc                    get all surplus
 // @access                  Public
-exports.getAllSurplus = async (req, res, next) => {
+exports.getAllSurplus = catchAsync(async (req, res, next) => {
   req.query.active = true;
   const features = new APIFeature(SurplusBusiness.find(), req.query)
     .filter()
@@ -78,12 +91,12 @@ exports.getAllSurplus = async (req, res, next) => {
     result: surpluses.length,
     surpluses,
   });
-};
+});
 
 // @route                   GET /api/v1/surplus/current-user-surplus
 // @desc                    get all surplus create by current user
 // @access                  Private
-exports.getAllCurrentUserSurplus = async (req, res, next) => {
+exports.getAllCurrentUserSurplus = catchAsync(async (req, res, next) => {
   req.query.user = req.user._id.toString();
   const features = new APIFeature(SurplusBusiness.find(), req.query)
     .filter()
@@ -108,12 +121,12 @@ exports.getAllCurrentUserSurplus = async (req, res, next) => {
     result: surpluses.length,
     surpluses,
   });
-};
+});
 
 // @route                   GET /api/v1/surplus/:id
 // @desc                    get surplus by id
 // access                   Private
-exports.getSurplus = async (req, res, next) => {
+exports.getSurplus = catchAsync(async (req, res, next) => {
   const surplus = await SurplusBusiness.findById(req.params.id).populate(
     "reviews"
   );
@@ -128,12 +141,12 @@ exports.getSurplus = async (req, res, next) => {
     status: "success",
     surplus,
   });
-};
+});
 
 // @route                   DELETE /api/v1/surplus/:id
 // @desc                    delete surplux
 // @access                  Private
-exports.deleteSurplus = async (req, res, next) => {
+exports.deleteSurplus = catchAsync(async (req, res, next) => {
   const surplus = await SurplusBusiness.findByIdAndDelete(req.params.id).select(
     "-name -company -__v -description -originalPrice -offeredPrice -discount -active -businessType -address -category -city -country -contact -postCode -weeklySchedule -user -website -createdAt"
   );
@@ -146,32 +159,41 @@ exports.deleteSurplus = async (req, res, next) => {
     status: "success",
     surplus,
   });
-};
+});
 
 // @route                   PATCH /api/v1/surplus
 // @desc                    update surplux
 // @access                  Private
-exports.updateSurplus = async (req, res, next) => {
-  const surplus = await SurplusBusiness.findByIdAndUpdate(
-    req.body.id,
-    req.body.surplus,
-    { new: true, runValidators: true }
-  );
-  // check surplus exist or not
-  if (!surplus) {
-    return next(new AppError("Surplus not found", 404, undefined));
+exports.updateSurplus = catchAsync(async (req, res, next) => {
+  if (req.files.length > 0) {
+    let images = [];
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+    req.body.images = images;
   }
-  // send response to client
-  res.status(200).json({
-    status: "success",
-    surplus,
-  });
-};
+
+  // const surplus = await SurplusBusiness.findByIdAndUpdate(
+  //   req.body.id,
+  //   req.body.surplus,
+  //   { new: true, runValidators: true }
+  // );
+  // // check surplus exist or not
+  // if (!surplus) {
+  //   return next(new AppError("Surplus not found", 404, undefined));
+  // }
+  // // send response to client
+  // res.status(200).json({
+  //   status: "success",
+  //   surplus:"",
+  // });
+  res.end();
+});
 
 // @route                   GET /api/v1/surplus/activate
 // @desc                    activate surplus
 // @access                  Private
-exports.surplusActivate = async (req, res, next) => {
+exports.surplusActivate = catchAsync(async (req, res, next) => {
   req.query.user = req.user._id.toString();
   const surplus = await SurplusBusiness.findByIdAndUpdate(
     req.body.id,
@@ -187,12 +209,12 @@ exports.surplusActivate = async (req, res, next) => {
     status: "success",
     surplus,
   });
-};
+});
 
 // @route                   GET /api/v1/surplus/keyword
 // @desc                    get surplus keyword
 // @access                  Public
-exports.surplusKeyword = async (req, res, next) => {
+exports.surplusKeyword = catchAsync(async (req, res, next) => {
   const keywords = await SurplusBusiness.find({}).select("keyword");
 
   if (!keywords) {
@@ -203,4 +225,4 @@ exports.surplusKeyword = async (req, res, next) => {
     status: "success",
     keywords: keywords,
   });
-};
+});

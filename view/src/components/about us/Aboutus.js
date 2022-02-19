@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 function Aboutus() {
   return (
-    <div id="wrapper" class="wrapper-fluid banners-effect-5">
-      <div class="main-container container">
-        <ul class="breadcrumb">
+    <div id="wrapper" className="wrapper-fluid banners-effect-5">
+      <div className="main-container container">
+        <ul className="breadcrumb">
           <li>
             <Link to="/">
-              <i class="fa fa-home"></i>
+              <i className="fa fa-home"></i>
             </Link>
           </li>
 
@@ -18,15 +18,15 @@ function Aboutus() {
           </li>
         </ul>
 
-        <div class="row">
-          <div id="content" class="col-sm-12">
-            <div class="about-us about-demo-4">
-              <div class="row">
-                <div class="col-lg-6 col-md-6 about-us-content">
-                  <div class="content-about">
-                    <h2 class="about-title">About Us</h2>
+        <div className="row">
+          <div id="content" className="col-sm-12">
+            <div className="about-us about-demo-4">
+              <div className="row">
+                <div className="col-lg-6 col-md-6 about-us-content">
+                  <div className="content-about">
+                    <h2 className="about-title">About Us</h2>
                     {/* <img src="image/catalog/demo/about/about-us-demo4.jpg" alt="About Us"> */}
-                    <p class="description-about">
+                    <p className="description-about">
                       {" "}
                       Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                       Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
@@ -45,17 +45,17 @@ function Aboutus() {
                     </p>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 faq-about-us">
-                  <h2 class="about-title">Faqs</h2>
-                  <div class="content-faq">
+                <div className="col-lg-6 col-md-6 faq-about-us">
+                  <h2 className="about-title">Faqs</h2>
+                  <div className="content-faq">
                     <div
                       id="accordion"
                       role="tablist"
                       aria-multiselectable="true"
                     >
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingOne">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div className="panel-head" role="tab" id="headingOne">
+                          <h4 className="panel-title">
                             {" "}
                             <a
                               role="button"
@@ -64,7 +64,7 @@ function Aboutus() {
                               href="#collapseOne"
                               aria-expanded="false"
                               aria-controls="collapseOne"
-                              class="collapsed"
+                              className="collapsed"
                             >
                               {" "}
                               <span>Etharums ser quidem rerum?</span>{" "}
@@ -73,13 +73,13 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseOne"
-                          class="panel-collapse collapse"
+                          className="panel-collapse collapse"
                           role="tabpanel"
                           aria-labelledby="headingOne"
                           aria-expanded="false"
                           style={{ height: "0px" }}
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean
@@ -95,12 +95,12 @@ function Aboutus() {
                           </div>
                         </div>
                       </div>
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingTwo">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div className="panel-head" role="tab" id="headingTwo">
+                          <h4 className="panel-title">
                             {" "}
                             <a
-                              class=""
+                              className=""
                               role="button"
                               data-toggle="collapse"
                               data-parent="#accordion"
@@ -115,12 +115,12 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseTwo"
-                          class="panel-collapse collapse in"
+                          className="panel-collapse collapse in"
                           role="tabpanel"
                           aria-labelledby="headingTwo"
                           aria-expanded="true"
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean
@@ -136,12 +136,16 @@ function Aboutus() {
                           </div>
                         </div>
                       </div>
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingThree">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div
+                          className="panel-head"
+                          role="tab"
+                          id="headingThree"
+                        >
+                          <h4 className="panel-title">
                             {" "}
                             <a
-                              class="collapsed"
+                              className="collapsed"
                               role="button"
                               data-toggle="collapse"
                               data-parent="#accordion"
@@ -158,13 +162,13 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseThree"
-                          class="panel-collapse collapse"
+                          className="panel-collapse collapse"
                           role="tabpanel"
                           aria-labelledby="headingThree"
                           aria-expanded="false"
                           style={{ height: "0px" }}
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean
@@ -180,12 +184,12 @@ function Aboutus() {
                           </div>
                         </div>
                       </div>
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingFour">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div className="panel-head" role="tab" id="headingFour">
+                          <h4 className="panel-title">
                             {" "}
                             <a
-                              class="collapsed"
+                              className="collapsed"
                               role="button"
                               data-toggle="collapse"
                               data-parent="#accordion"
@@ -202,13 +206,13 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseFour"
-                          class="panel-collapse collapse"
+                          className="panel-collapse collapse"
                           role="tabpanel"
                           aria-labelledby="headingFour"
                           aria-expanded="false"
                           style={{ height: "0px" }}
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean
@@ -224,12 +228,12 @@ function Aboutus() {
                           </div>
                         </div>
                       </div>
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingFive">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div className="panel-head" role="tab" id="headingFive">
+                          <h4 className="panel-title">
                             {" "}
                             <a
-                              class="collapsed"
+                              className="collapsed"
                               role="button"
                               data-toggle="collapse"
                               data-parent="#accordion"
@@ -246,13 +250,13 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseFive"
-                          class="panel-collapse collapse"
+                          className="panel-collapse collapse"
                           role="tabpanel"
                           aria-labelledby="headingFive"
                           aria-expanded="false"
                           style={{ height: "0px" }}
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean
@@ -268,12 +272,12 @@ function Aboutus() {
                           </div>
                         </div>
                       </div>
-                      <div class="panel">
-                        <div class="panel-head" role="tab" id="headingSix">
-                          <h4 class="panel-title">
+                      <div className="panel">
+                        <div className="panel-head" role="tab" id="headingSix">
+                          <h4 className="panel-title">
                             {" "}
                             <a
-                              class="collapsed"
+                              className="collapsed"
                               role="button"
                               data-toggle="collapse"
                               data-parent="#accordion"
@@ -288,13 +292,13 @@ function Aboutus() {
                         </div>
                         <div
                           id="collapseSix"
-                          class="panel-collapse collapse"
+                          className="panel-collapse collapse"
                           role="tabpanel"
                           aria-labelledby="headingSix"
                           aria-expanded="false"
                           style={{ height: "0px" }}
                         >
-                          <div class="panel-body">
+                          <div className="panel-body">
                             {" "}
                             Lorem ipsum dolor sit amet, consectetuer adipiscing
                             elit. Aenean commodo ligula eget dolor. Aenean

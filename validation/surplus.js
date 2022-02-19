@@ -14,9 +14,13 @@ module.exports = function validateSurplus(data) {
   data.category = !isEmpty(data.category) ? data.category : "";
   data.description = !isEmpty(data.description) ? data.description : "";
   data.keyword = !isEmpty(data.keyword) ? data.keyword : "";
+  data.county = !isEmpty(data.county) ? data.county : "";
 
   if (Validator.isEmpty(data.name)) {
     errors.name = "Name is required";
+  }
+  if (Validator.isEmpty(data.county)) {
+    errors.county = "State is required";
   }
   if (Validator.isEmpty(data.keyword)) {
     errors.keyword = "keyword is required";
@@ -45,6 +49,13 @@ module.exports = function validateSurplus(data) {
   }
   if (Validator.isEmpty(data.description)) {
     errors.description = "description is required";
+  }
+  if (
+    data.files.length === 0 ||
+    data.files === undefined ||
+    data.files === null
+  ) {
+    errors.files = "image is required";
   }
 
   if (

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import LOGO from "../image/Logo.png";
+import LOGO from "../image/logo2.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { City } from "country-state-city";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
 
 const Header2 = () => {
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
+  const [city, setCity] = useState("");
+  const [suggustionCities, setSuggustionCities] = useState([]);
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -18,18 +20,17 @@ const Header2 = () => {
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
+
   // show side navbar
-  const showSideNavBar = () => {
-    const humburgerMenuIcon =
-      document.getElementsByClassName("megamenu-wrapper")[0];
+  const showSideNavBar = (id) => {
+    const humburgerMenuIcon = document.getElementById(`${id}`);
     if (humburgerMenuIcon) {
       humburgerMenuIcon.classList.toggle("so-megamenu-active");
     }
   };
   // close side navBar onclick on cross icon
-  const closeSideNavBar = () => {
-    const humburgerMenuIcon =
-      document.getElementsByClassName("megamenu-wrapper")[0];
+  const closeSideNavBar = (id) => {
+    const humburgerMenuIcon = document.getElementById(`${id}`);
     if (humburgerMenuIcon) {
       humburgerMenuIcon.classList.remove("so-megamenu-active");
     }
@@ -45,6 +46,47 @@ const Header2 = () => {
     document.getElementById("sub-menu-content").classList.toggle("d-none");
   };
 
+  // cities
+  const onChangeAutoFieldCities = (e) => {
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
+    }
+    setCity(value);
+    setSuggustionCities([...suggustions]);
+  };
+  const renderCitySuggustion = () => {
+    if (suggustionCities.length === 0) {
+      return null;
+    }
+    return (
+      <ul
+        className="autoComplete-ul"
+        style={{ top: "40px", left: "0", width: "100%" }}
+      >
+        {suggustionCities.map((co, i) => (
+          <li
+            className="autoComplete-li"
+            onClick={() => {
+              setCity(co.name);
+              setSuggustionCities([]);
+            }}
+            key={i}
+          >
+            {co.name}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  // keyword
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -73,12 +115,13 @@ const Header2 = () => {
 
     return (
       <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co) => (
+        {suggustion.map((co, i) => (
           <li
             onClick={() => {
               setKeyword(co);
               setSuggustion([]);
             }}
+            key={i}
           >
             <Link
               to="/surplus"
@@ -94,43 +137,38 @@ const Header2 = () => {
   };
   return (
     // <!-- Header Container  -->
-    <header id="header" class="typeheader-4">
+    <header id="header" className="typeheader-4">
       {/* <!-- Header Top --> */}
-
-      <div class="header-top hidden-compact">
-        <div class="container">
-          <div class="row">
-            <div class="header-top-left  col-lg-6  col-sm-4 col-md-6 hidden-xs">
-              <div class="list-contact">
-                <span class="hidden-sm"> welcome to FUTJAN! </span>{" "}
-                <Link class="link-lg" to="/signup">
+      {/* 
+      <div className="header-top hidden-compact">
+        <div className="container">
+          <div className="row">
+            <div className="header-top-left  col-lg-6  col-sm-8 col-md-6 col-xs-8">
+              <div className="list-contact">
+                <span className="hidden-xs"> welcome to FUTJAN! </span>{" "}
+                <Link className="link-lg" to="/signup">
                   Join Free
                 </Link>{" "}
                 or{" "}
-                <Link class="link-lg" to="/login">
+                <Link className="link-lg" to="/login">
                   Sign in
                 </Link>
               </div>
             </div>
-            <div class="header-top-right collapsed-block col-lg-6 col-sm-8 col-md-6 col-xs-12 ">
-              <div class="tabBlock" id="TabBlock-1">
-                <ul class="top-link list-inline">
+            <div className="header-top-right collapsed-block col-lg-6 col-sm-4 col-md-6 col-xs-4 ">
+              <div className="tabBlock" id="TabBlock-1">
+                <ul className="top-link list-inline">
                   <li>
-                    <div class="pull-left">
+                    <div className="pull-left">
                       <form
-                        // action="#"
-                        // method="post"
-                        // enctype="multipart/form-data"
                         id="form-language"
                       >
-                        <div class="btn-group">
+                        <div className="btn-group">
                           <button
-                            class="btn-link dropdown-toggle"
+                            className="btn-link dropdown-toggle"
                             data-toggle="dropdown"
                           >
                             <svg
-                              // xmlns="http://www.w3.org/2000/svg"
-                              // xmlns:xlink="http://www.w3.org/1999/xlink"
                               id="flag-icons-in"
                               viewBox="0 0 640 480"
                               style={{ width: "14px", marginRight: "5px" }}
@@ -153,21 +191,21 @@ const Header2 = () => {
                                         <path d="M0 17.5.6 7 0 2l-.6 5L0 17.5z" />
                                       </g>
                                       <use
-                                        // xlink:href="#a"
+                                        
                                         width="100%"
                                         height="100%"
                                         transform="rotate(15)"
                                       />
                                     </g>
                                     <use
-                                      // xlink:href="#b"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(30)"
                                     />
                                   </g>
                                   <use
-                                    // xlink:href="#c"
+                                    
                                     width="100%"
                                     height="100%"
                                     transform="rotate(60)"
@@ -187,21 +225,19 @@ const Header2 = () => {
                                 />
                               </g>
                             </svg>
-                            <span class="hidden-xs hidden-sm hidden-md">
+                            <span className="hidden-xs hidden-sm hidden-md">
                               India
                             </span>
-                            {/* &nbsp;<i class="fa fa-angle-down"></i> */}
+                            
                           </button>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <button
-                                class="btn-block language-select"
+                                className="btn-block language-select"
                                 type="button"
                                 name="ar-ar"
                               >
                                 <svg
-                                  // xmlns="http://www.w3.org/2000/svg"
-                                  // xmlns:xlink="http://www.w3.org/1999/xlink"
                                   id="flag-icons-in"
                                   viewBox="0 0 640 480"
                                 >
@@ -223,34 +259,34 @@ const Header2 = () => {
                                             <path d="M0 17.5.6 7 0 2l-.6 5L0 17.5z" />
                                           </g>
                                           <use
-                                            // xlink:href="#a"
+                                            
                                             width="100%"
                                             height="100%"
                                             transform="rotate(15)"
                                           />
                                         </g>
                                         <use
-                                          // xlink:href="#b"
+                                          
                                           width="100%"
                                           height="100%"
                                           transform="rotate(30)"
                                         />
                                       </g>
                                       <use
-                                        // xlink:href="#c"
+                                        
                                         width="100%"
                                         height="100%"
                                         transform="rotate(60)"
                                       />
                                     </g>
                                     <use
-                                      // xlink:href="#d"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(120)"
                                     />
                                     <use
-                                      // xlink:href="#d"
+                                      
                                       width="100%"
                                       height="100%"
                                       transform="rotate(-120)"
@@ -262,7 +298,7 @@ const Header2 = () => {
                             </li>
                             <li>
                               <button
-                                class="btn-block language-select"
+                                className="btn-block language-select"
                                 type="button"
                                 name="en-gb"
                               >
@@ -281,26 +317,23 @@ const Header2 = () => {
                       </form>
                     </div>
                   </li>
-                  <li class="currency">
-                    <div class="pull-left">
+                  <li className="currency">
+                    <div className="pull-left">
                       <form
-                        // action="#"
-                        // method="post"
-                        // enctype="multipart/form-data"
                         id="form-currency"
                       >
-                        <div class="btn-group">
+                        <div className="btn-group">
                           <button
-                            class="btn-link dropdown-toggle"
-                            // data-toggle="dropdown"
+                            className="btn-link dropdown-toggle"
+                           
                           >
-                            ₹<span class="hidden-xs"> Rupee</span>
-                            {/* <i class="fa fa-angle-down"></i> */}
+                            ₹<span className="hidden-xs"> Rupee</span>
+                            
                           </button>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <button
-                                class="currency-select btn-block"
+                                className="currency-select btn-block"
                                 type="button"
                                 name="EUR"
                               >
@@ -319,76 +352,365 @@ const Header2 = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <!-- //Header Top -->
     <!-- Header center --> */}
-      <div class="header-center">
-        <div class="container">
-          <div class="row">
-            <div class="navbar-logo col-lg-3 col-md-2 col-xs-12 col-sm-3">
-              <Link to="/">
+      <div className="header-center">
+        <div className="container">
+          <div
+            className="row d-sm-block"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="navbar-logo col-lg-2 col-md-2 col-xs-12 col-sm-3"
+              style={{ margin: "0" }}
+            >
+              <Link
+                to="/"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <img
                   alt="Your Store"
-                  style={{ width: "230px", height: "43px" }}
+                  style={{ width: "30px", height: "40px" }}
                   title="Your Store"
                   src={LOGO}
                 />
+                <h3 className="logo-heading">FUTJAN</h3>
               </Link>
             </div>
-            <div class="header-center-right col-lg-6 col-md-7 col-sm-8 col-xs-10">
-              <div class="header_search">
-                <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
+            <div className="header-center-right col-lg-8 col-md-8 col-sm-8 col-xs-11">
+              <div className="header_search">
+                <div
+                  id="sosearchpro"
+                  className="sosearchpro-wrapper so-search "
+                >
                   <form method="GET" action="#">
-                    <div id="search0" class="search input-group form-group">
+                    <div
+                      id="search0"
+                      className="search d-grid input-group form-group"
+                    >
                       <input
-                        class="autosearch-input form-control"
+                        className="autosearch-input form-control"
                         type="text"
                         value={keyword}
                         onChange={(e) => onChangeAutoFieldName(e)}
-                        autocomplete="off"
-                        placeholder="Search"
+                        autoComplete="off"
+                        placeholder="eg Restaurant, Jobs, Business, Stock "
                         name="search"
                       />
                       {renderNameSuggustion()}
-                      {/* <div
-                        class="select_category filter_type  icon-select"
-                        style={{ display: "none" }}
+                      <div
+                        className="select_category filter_type  icon-select"
+                        // style={{ display: "none" }}
                       >
-                        <select class="no-border" name="category_id">
-                          <option value="0">All Categories </option>
-                          <option value="82 ">Book Stationery </option>
-                          <option value="65">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Girls New{" "}
-                          </option>
-                          <option value="56">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kitchen{" "}
-                          </option>
-                          <option value="61">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pearl mens{" "}
-                          </option>
-                          <option value="38 ">Laptop &amp; Notebook </option>
-                          <option value="52 ">Spa &amp; Massage </option>
-                          <option value="44">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Latenge mange{" "}
-                          </option>
-                        </select>
-                      </div> */}
-                      <span class="input-group-btn">
+                        <input
+                          className="form-control no-border"
+                          name="category_id"
+                          placeholder="Location"
+                          onChange={(e) => onChangeAutoFieldCities(e)}
+                          value={city}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            background: "#fff",
+                            paddingLeft: "0",
+                            borderRadius: "4px",
+                          }}
+                        />
+                        {renderCitySuggustion()}
+                      </div>
+                      <span className="input-group-btn">
                         <Link
                           to="/surplus"
-                          class="button-search btn btn-default btn-lg"
+                          className="button-search btn btn-default btn-lg"
                           name="submit_search"
-                          state={{ keyword }}
+                          state={{ keyword, city }}
                           style={{
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
                         >
-                          <i class="fa fa-search"></i>
-                          <span class="hidden">Search</span>
+                          <i className="fa fa-search"></i>
+                          <span className="hidden">Search</span>
                         </Link>
                       </span>
+                      <div
+                        className="megamenu-style-dev megamenu-dev mobile-burger-menu-show"
+                        style={{ display: "none" }}
+                      >
+                        <div className="responsive">
+                          <nav className="navbar-default">
+                            <div className="container-megamenu horizontal">
+                              <div className="navbar-header">
+                                <button
+                                  type="button"
+                                  id="show-megamenu"
+                                  data-toggle="collapse"
+                                  className="navbar-toggle"
+                                  onClick={() =>
+                                    showSideNavBar("megamenu-wrapper-1")
+                                  }
+                                >
+                                  <span className="icon-bar"></span>
+                                  <span className="icon-bar"></span>
+                                  <span className="icon-bar"></span>
+                                </button>
+                              </div>
+                              <div
+                                className="megamenu-wrapper"
+                                id="megamenu-wrapper-1"
+                              >
+                                <span
+                                  id="remove-megamenu"
+                                  className="fa fa-times"
+                                  onClick={() =>
+                                    closeSideNavBar("megamenu-wrapper-1")
+                                  }
+                                ></span>
+                                <div className="megamenu-pattern">
+                                  <div className="container">
+                                    <ul
+                                      className="megamenu"
+                                      data-transition="slide"
+                                      data-animationtime="500"
+                                    >
+                                      <li className="full-width menu-home with-sub-menu hover">
+                                        <p className="close-menu"></p>
+
+                                        <NavLink
+                                          className="clearfix"
+                                          to="/user-panel"
+                                          state={{ active: "ADD" }}
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            flexDirection: "column",
+                                          }}
+                                        >
+                                          <i
+                                            className="fa fa-thumb-tack"
+                                            style={{
+                                              fontSize: "20px",
+                                              padding: "0",
+                                            }}
+                                          ></i>
+                                          <strong>Post Ad</strong>
+                                        </NavLink>
+                                      </li>
+                                      {auth.isAuthenticated !== true ? (
+                                        <li className="full-width menu-home with-sub-menu hover">
+                                          <p className="close-menu"></p>
+
+                                          <NavLink
+                                            className="clearfix"
+                                            to="/login"
+                                            style={{
+                                              display: "flex",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              flexDirection: "column",
+                                            }}
+                                            // onClick={() => closeSideNavBar()}
+                                          >
+                                            {" "}
+                                            <i
+                                              className="fa fa-user"
+                                              style={{
+                                                fontSize: "20px",
+                                                padding: "0",
+                                              }}
+                                            ></i>
+                                            <strong>Login / Register</strong>
+                                          </NavLink>
+                                        </li>
+                                      ) : null}
+                                      {auth.isAuthenticated === true ? (
+                                        <li className="full-width menu-home with-sub-menu hover menu-link">
+                                          <p className="close-menu"></p>
+
+                                          <div
+                                            className="clearfix"
+                                            style={{
+                                              display: "flex",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              flexDirection: "column",
+                                            }}
+                                            onClick={() => subMenu()}
+                                          >
+                                            {" "}
+                                            <i
+                                              className="fa fa-bars"
+                                              style={{
+                                                fontSize: "20px",
+                                                padding: "0",
+                                              }}
+                                            ></i>
+                                            <strong>Menu</strong>
+                                            <b className="caret"></b>
+                                          </div>
+                                          <div
+                                            className="sub-menu"
+                                            style={{ width: "100%" }}
+                                            id="sub-menu"
+                                          >
+                                            <div
+                                              className="content"
+                                              id="sub-menu-content"
+                                            >
+                                              <div>
+                                                <ul className="row-list">
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "ACCOUNT",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-user"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      My Account
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "SURPLUS",
+                                                      }}
+                                                    >
+                                                      <i className="fa fa-archive"></i>{" "}
+                                                      My Ad
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{ active: "ADD" }}
+                                                    >
+                                                      <i className="fa fa-archive"></i>{" "}
+                                                      Post ad
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "MESSAGE",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-envelope"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      Message
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "ALERT",
+                                                      }}
+                                                    >
+                                                      <i className="fa fa-bell"></i>
+                                                      My Alerts
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                      state={{
+                                                        active: "FAVOURITE",
+                                                      }}
+                                                    >
+                                                      <i
+                                                        className="fa fa-heart"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      My Favourites
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/user-panel"
+                                                    >
+                                                      <i
+                                                        className="fa fa-question-circle"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>{" "}
+                                                      Help
+                                                    </Link>
+                                                  </li>
+                                                  <li>
+                                                    <Link
+                                                      className="subcategory_item"
+                                                      to="/"
+                                                      onClick={() =>
+                                                        dispatch(logoutUser())
+                                                      }
+                                                    >
+                                                      <i
+                                                        className="fa fa-power-off"
+                                                        // style={{ fontSize: "20px", padding: "0" }}
+                                                      ></i>
+                                                      Logout
+                                                    </Link>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>
+                                      ) : null}
+                                      {/* {auth.isAuthenticated === true ? (
+                                <li className="full-width menu-home with-sub-menu hover">
+                                  <p className="close-menu"></p>
+                                  <a
+                                    className="clearfix"
+                                   
+                                  >
+                                    <strong>LOGOUT</strong>
+                                    <span className="labelopencart"></span>
+                                  </a>
+                                </li>
+                              ) : null} */}
+
+                                      {/* <li className="deal-h5 hidden">
+                              <p className="close-menu"></p>
+                              <a href="#" className="clearfix">
+                                <strong>
+                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
+                                </strong>
+                              </a>
+                            </li> */}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </nav>
+                        </div>
+                      </div>
                     </div>
                     <input type="hidden" name="route" value="product/search" />
                   </form>
@@ -396,8 +718,13 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              class="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-2"
-              style={{ display: "flex", justifyContent: "end", margin: "0" }}
+              className="header-cart-phone col-lg-2 col-md-2 col-sm-1 col-xs-1"
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                margin: "0",
+                padding: "0",
+              }}
             >
               <div className="megamenu-style-dev megamenu-dev">
                 <div className="responsive">
@@ -409,18 +736,18 @@ const Header2 = () => {
                           id="show-megamenu"
                           data-toggle="collapse"
                           className="navbar-toggle"
-                          onClick={() => showSideNavBar()}
+                          onClick={() => showSideNavBar("megamenu-wrapper-2")}
                         >
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                           <span className="icon-bar"></span>
                         </button>
                       </div>
-                      <div className="megamenu-wrapper">
+                      <div className="megamenu-wrapper" id="megamenu-wrapper-2">
                         <span
                           id="remove-megamenu"
                           className="fa fa-times"
-                          onClick={() => closeSideNavBar()}
+                          onClick={() => closeSideNavBar("megamenu-wrapper-2")}
                         ></span>
                         <div className="megamenu-pattern">
                           <div className="container">
@@ -494,19 +821,22 @@ const Header2 = () => {
                                       style={{ fontSize: "20px", padding: "0" }}
                                     ></i>
                                     <strong>Menu</strong>
-                                    <b class="caret"></b>
+                                    <b className="caret"></b>
                                   </div>
                                   <div
-                                    class="sub-menu"
+                                    className="sub-menu"
                                     style={{ width: "100%" }}
                                     id="sub-menu"
                                   >
-                                    <div class="content" id="sub-menu-content">
+                                    <div
+                                      className="content"
+                                      id="sub-menu-content"
+                                    >
                                       <div>
-                                        <ul class="row-list">
+                                        <ul className="row-list">
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ACCOUNT" }}
                                             >
@@ -519,7 +849,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "SURPLUS" }}
                                             >
@@ -529,7 +859,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ADD" }}
                                             >
@@ -539,7 +869,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "MESSAGE" }}
                                             >
@@ -552,7 +882,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "ALERT" }}
                                             >
@@ -562,7 +892,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                               state={{ active: "FAVOURITE" }}
                                             >
@@ -575,7 +905,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/user-panel"
                                             >
                                               <i
@@ -587,7 +917,7 @@ const Header2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              class="subcategory_item"
+                                              className="subcategory_item"
                                               to="/"
                                               onClick={() =>
                                                 dispatch(logoutUser())
@@ -641,93 +971,187 @@ const Header2 = () => {
       </div>
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}
+
       <div
-        class="header-bottom hidden-compact"
-        style={{ borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd" }}
+        style={{
+          position: "relative",
+          background: "#fff",
+          padding: "0px 0 25px 0",
+          borderBottom: "1px solid #ddd",
+        }}
       >
-        <div class="container">
-          <div class="header-bottom-inner">
-            <div class="row">
-              {/* <!-- Menuhome --> */}
-              <div class="header-bottom-right col-md-12 col-sm-12 col-xs-12">
-                <div class="header-menu">
-                  <div class="megamenu-style-dev megamenu-dev">
-                    <div class="responsive">
-                      <nav class="navbar-default">
-                        <div class="container-megamenu horizontal">
-                          {/* <div class="megamenu-wrapper"> */}
-                          <div>
-                            {/* <span
-                              id="remove-megamenu"
-                              class="fa fa-times"
-                            ></span> */}
-                            <div class="megamenu-pattern">
-                              <div class="container">
-                                <ul
-                                  class="megamenu row"
-                                  data-transition="slide"
-                                  data-animationtime="500"
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/jobs">
-                                      <strong>JOBS</strong>
-                                    </NavLink>
-                                  </li>
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/surplus">
-                                      <strong>SURPLUS</strong>
-                                    </NavLink>
-                                  </li>
-                                  <li
-                                    class="col-xs-4 nav-bar-li"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      padding: "0",
-                                      // borderRight: "1px solid #ddd",
-                                    }}
-                                  >
-                                    <p class="close-menu"></p>
-                                    <NavLink className="clearfix" to="/jobs">
-                                      <strong>BUSINESS</strong>
-                                    </NavLink>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </nav>
-                    </div>
+        <div className="container">
+          <ul className="new-design-ul">
+            <li>
+              <NavLink to="/jobs" className="type-links">
+                <i className="fa fa-briefcase"></i>
+                JOBS
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/jobs" className="type-links">
+                <i className="fa fa-handshake-o"></i>
+                BUSINESS
+              </NavLink>
+            </li>
+            <li className="with-sub-menu" style={{ position: "relative" }}>
+              <NavLink to="/surplus" className="type-links">
+                <i className="fa fa-th-large"></i>
+                SURPLUS
+              </NavLink>
+              <div
+                className="sub-menu"
+                style={{
+                  boxShadow: "0px 15px 20px rgb(0 0 0 / 30%)",
+                  position: "absolute",
+                  maxHeight: "200px",
+                  overflow: "auto",
+                }}
+                id="sub-menu"
+              >
+                <div className="content" id="sub-menu-content">
+                  <div>
+                    <ul className="row-list">
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/user-panel"
+                          state={{
+                            type: "",
+                          }}
+                        >
+                          Choose Type
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Bakery",
+                          }}
+                        >
+                          Bakery
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Beverage Shop" }}
+                        >
+                          Beverage Shop
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Convenience store",
+                          }}
+                        >
+                          Convenience store
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Fruit/Vegetable store",
+                          }}
+                        >
+                          Fruit/Vegetable store
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Hotel",
+                          }}
+                        >
+                          Hotel
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Pastry shop",
+                          }}
+                        >
+                          Pastry shop
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{
+                            type: "Producers/Manufacturers",
+                          }}
+                        >
+                          Producers/Manufacturers
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Restaurant" }}
+                        >
+                          Restaurant
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Supermarkets" }}
+                        >
+                          Supermarkets
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Takeaway" }}
+                        >
+                          Takeaway
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Wholesalers" }}
+                        >
+                          Wholesalers
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
+                          state={{ type: "Other" }}
+                        >
+                          Other
+                        </Link>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
+        <hr className="new-design-hr" />
       </div>
     </header>
   );

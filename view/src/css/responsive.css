@@ -1163,10 +1163,11 @@
     margin: 35px -15px 0 !important;
   }
 
-  ..module.home1_deals .cslider-item-timer .product_time_maxprice {
+  .module.home1_deals .cslider-item-timer .product_time_maxprice {
     padding: 5px 10px 5px 15px;
   }
 }
+
 /************************************************************************************************
  BLOCK HEADER  
  ************************************************************************************************ */
@@ -1201,6 +1202,9 @@
    ************************************************************************************************ */
   /*MEGA MENU*/
   /*MENU STIKY*/
+  .d-sm-block {
+    display: block !important;
+  }
   header.typeheader-1 .header-sevices {
     display: none;
   }
@@ -1379,7 +1383,7 @@
   header.typeheader-4 #sosearchpro.so-search .select_category {
     display: block;
     float: left;
-    width: 35% !important;
+    /* width: 35% !important; */
   }
   .typeheader-4 #sosearchpro.so-search .autosearch-input {
     width: 100% !important;
@@ -2401,7 +2405,7 @@
     cursor: pointer;
     padding: 11.5px 10px;
     border-radius: 3px;
-    margin-top: 5px !important;
+    margin-top: 5px;
   }
   .megamenu-style-dev .navbar-default .horizontal .navbar-toggle .icon-bar {
     background: #fff !important;
@@ -3307,6 +3311,7 @@
   }
   .typeheader-4 .header-cart-phone {
     padding: 0 !important;
+    justify-content: center !important;
   }
   header.typeheader-4 .header-bottom-right .megamenu-style-dev .navbar-header {
     float: right;

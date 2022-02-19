@@ -2,11 +2,11 @@ import React from "react";
 
 const Contactus = () => {
   return (
-    <div class="container">
-      <div class="row">
-        <div id="content" class="col-sm-12">
-          <div class="info-contact row">
-            <div class="col-sm-6 col-xs-12 info-store">
+    <div className="container">
+      <div className="row">
+        <div id="content" className="col-sm-12">
+          <div className="info-contact row">
+            <div className="col-sm-6 col-xs-12 info-store">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d26081603.29442044!2d-95.677068!3d37.06250000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1642089667354!5m2!1sen!2s"
                 width="500"
@@ -19,12 +19,12 @@ const Contactus = () => {
               {/* <div id="map-canvas"></div> */}
             </div>
 
-            <div class="col-sm-6 col-xs-12 contact-form">
+            <div className="col-sm-6 col-xs-12 contact-form">
               <form
                 action="#"
                 method="post"
                 enctype="multipart/form-data"
-                class="form-horizontal"
+                className="form-horizontal"
               >
                 <fieldset>
                   <legend>
@@ -36,45 +36,45 @@ const Contactus = () => {
                     aliqua. Ut enim ad minim veniam
                   </p>
 
-                  <div class="form-group required">
-                    <div class="col-sm-12">
+                  <div className="form-group required">
+                    <div className="col-sm-12">
                       <input
                         type="text"
                         name="name"
                         value=""
                         id="input-name"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Your Name *"
                       />
                     </div>
                   </div>
-                  <div class="form-group required">
-                    <div class="col-sm-12">
+                  <div className="form-group required">
+                    <div className="col-sm-12">
                       <input
                         type="text"
                         name="email"
                         value=""
                         id="input-email"
-                        class="form-control"
+                        className="form-control"
                         placeholder="E-Mail Address *"
                       />
                     </div>
                   </div>
-                  <div class="form-group required">
-                    <div class="col-sm-12">
+                  <div className="form-group required">
+                    <div className="col-sm-12">
                       <textarea
                         name="enquiry"
                         rows="10"
                         id="input-enquiry"
                         placeholder="Enquiry *"
-                        class="form-control"
+                        className="form-control"
                       ></textarea>
                     </div>
                   </div>
                 </fieldset>
-                <div class="buttons">
-                  <div class="pull-left">
-                    <button class="btn btn-info" type="submit">
+                <div className="buttons">
+                  <div className="pull-left">
+                    <button className="btn btn-info" type="submit">
                       <span>Submit </span>
                     </button>
                   </div>
