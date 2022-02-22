@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LOGO from "../image/logo2.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { City } from "country-state-city";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
 
@@ -49,18 +48,18 @@ const Header2 = () => {
   // cities
   const onChangeAutoFieldCities = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = City.getAllCities()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((cit) => {
-          return { name: cit.name, countryCode: cit.countryCode };
-        });
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = City.getAllCities()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((cit) => {
+    //       return { name: cit.name, countryCode: cit.countryCode };
+    //     });
+    // }
+    // setCity(value);
+    // setSuggustionCities([...suggustions]);
   };
   const renderCitySuggustion = () => {
     if (suggustionCities.length === 0) {
@@ -397,6 +396,7 @@ const Header2 = () => {
                       id="search0"
                       className="search d-grid input-group form-group"
                     >
+                      {/* <Keyword setKeyword={setKeyword} /> */}
                       <input
                         className="autosearch-input form-control"
                         type="text"
@@ -682,6 +682,27 @@ const Header2 = () => {
                                           </div>
                                         </li>
                                       ) : null}
+                                      {/* {auth.isAuthenticated === true ? (
+                                <li className="full-width menu-home with-sub-menu hover">
+                                  <p className="close-menu"></p>
+                                  <a
+                                    className="clearfix"
+                                   
+                                  >
+                                    <strong>LOGOUT</strong>
+                                    <span className="labelopencart"></span>
+                                  </a>
+                                </li>
+                              ) : null} */}
+
+                                      {/* <li className="deal-h5 hidden">
+                              <p className="close-menu"></p>
+                              <a href="#" className="clearfix">
+                                <strong>
+                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
+                                </strong>
+                              </a>
+                            </li> */}
                                     </ul>
                                   </div>
                                 </div>
@@ -955,7 +976,7 @@ const Header2 = () => {
         style={{
           position: "relative",
           background: "#fff",
-          padding: "0px 0 25px 0",
+          padding: "0px 0 15px 0",
           borderBottom: "1px solid #ddd",
         }}
       >
@@ -973,25 +994,22 @@ const Header2 = () => {
                 BUSINESS
               </NavLink>
             </li>
-            <li className="with-sub-menu" style={{ position: "relative" }}>
-              <NavLink to="/surplus" className="type-links">
+            <li className="with-sub-menu">
+              <NavLink
+                to="/surplus"
+                className="type-links"
+                style={{ zIndex: "9999" }}
+              >
                 <i className="fa fa-th-large"></i>
                 SURPLUS
               </NavLink>
-              <div
-                className="sub-menu"
-                style={{
-                  boxShadow: "0px 15px 20px rgb(0 0 0 / 30%)",
-                  position: "absolute",
-                  maxHeight: "200px",
-                  overflow: "auto",
-                }}
-                id="sub-menu"
-              >
-                <div className="content" id="sub-menu-content">
+              <div className="sub-menu" id="sub-menu">
+                {/* <div className="content" id="sub-menu-content"> */}
+                <div id="sub-menu-content">
+                  <h4 style={{ padding: "0 15px" }}>Business Type</h4>
                   <div>
                     <ul className="row-list">
-                      <li>
+                      {/* <li className="col-md-3 col-sm-3 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/user-panel"
@@ -1001,8 +1019,8 @@ const Header2 = () => {
                         >
                           Choose Type
                         </Link>
-                      </li>
-                      <li>
+                      </li> */}
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1013,7 +1031,7 @@ const Header2 = () => {
                           Bakery
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1022,7 +1040,7 @@ const Header2 = () => {
                           Beverage Shop
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1033,7 +1051,7 @@ const Header2 = () => {
                           Convenience store
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1044,7 +1062,7 @@ const Header2 = () => {
                           Fruit/Vegetable store
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1055,7 +1073,7 @@ const Header2 = () => {
                           Hotel
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1066,7 +1084,7 @@ const Header2 = () => {
                           Pastry shop
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1077,7 +1095,7 @@ const Header2 = () => {
                           Producers/Manufacturers
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1086,7 +1104,7 @@ const Header2 = () => {
                           Restaurant
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1096,7 +1114,7 @@ const Header2 = () => {
                         </Link>
                       </li>
 
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1105,7 +1123,7 @@ const Header2 = () => {
                           Takeaway
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"
@@ -1114,7 +1132,7 @@ const Header2 = () => {
                           Wholesalers
                         </Link>
                       </li>
-                      <li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"
                           to="/surplus"

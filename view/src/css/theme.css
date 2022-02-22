@@ -1969,6 +1969,8 @@ div.required .control-label:before {
   content: "* ";
   color: #f00;
   font-weight: bold;
+  position: absolute;
+  left: 9px;
 }
 /*******************************************************************
  ******                SO Framework: Sass Menu                 ******
@@ -3781,8 +3783,8 @@ div.required .control-label:before {
   .popup-content
   .form-group
   .form-control::-moz-placeholder {
-  color: #999;
-  opacity: 1;
+  color: #999 !important;
+  opacity: 1 !important;
 }
 .module.main-newsleter-popup
   .so-custom-popup
@@ -3790,16 +3792,8 @@ div.required .control-label:before {
   .popup-content
   .form-group
   .form-control:-ms-input-placeholder {
+  color: #999 !important;
   color: #999;
-}
-.module.main-newsleter-popup
-  .so-custom-popup
-  .oca_popup
-  .popup-content
-  .form-group
-  .form-control::-webkit-input-placeholder {
-  color: #999;
-}
 .module.main-newsleter-popup
   .so-custom-popup
   .oca_popup
@@ -6350,6 +6344,7 @@ legend {
 label {
   font-size: 12px;
   font-weight: normal;
+  position: relative;
 }
 
 .input-group .input-group-addon {
@@ -8370,9 +8365,9 @@ span.fa-stack .fa-star.fa-stack-2x:before {
 .title-category:after {
   position: absolute;
   content: "";
-  width: 110px;
+  width: 80px;
   height: 2px;
-  background-color: #ff5e00;
+  background-color: #3b5998;
   bottom: -2px;
   left: 0;
 }
@@ -10095,14 +10090,14 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
 }
 .producttab .tabsslider .nav-tabs li.active .tabb,
 .producttab .tabsslider .nav-tabs li:hover .tab {
-  border-top-color: #ff5e00;
+  border-top-color: #3b5998;
 }
 .producttab .tabsslider .nav-tabs li.active .tab:before,
 .producttab .tabsslider .nav-tabs li:hover .tab:before {
   content: "";
   width: 100%;
   height: 3px;
-  background: #ff5e00;
+  background: #3b5998;
   left: 0;
   position: absolute;
   top: 0;
@@ -10127,7 +10122,7 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
 }
 .producttab .tabsslider .tab-content {
   background: #fff;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   display: block;
   margin: 0;
   border: solid 1px #e3e1e1;

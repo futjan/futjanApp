@@ -1,9 +1,46 @@
 /* Global */
+
+/* MATERIAL UI */
+.header_search
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-16awh2u-MuiAutocomplete-root
+  .MuiOutlinedInput-root {
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.header_search .css-wb57ya-MuiFormControl-root-MuiTextField-root {
+  height: 100% !important;
+}
+.header_search
+  .css-16awh2u-MuiAutocomplete-root
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+}
+/* MATERIAL UI */
 .logo-heading {
   position: relative;
   letter-spacing: 5px;
   color: #3b5998;
 }
+/* Placeholder */
+::placeholder {
+  color: #999999 !important;
+  opacity: 0.7 !important; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #999999 !important;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #999999 !important;
+}
+/* Placeholder */
 /* SLider css */
 .react-multi-carousel-track {
   border-radius: 50% !important;
@@ -299,7 +336,7 @@ input[type="number"] {
 }
 .post-ad-heading::after {
   content: "";
-  background-color: #ff5e00;
+  background-color: #3b5998;
   height: 2px;
   width: 120px;
   bottom: -1.9px;
@@ -482,29 +519,50 @@ input[type="number"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .new-design-ul li {
   margin-right: 8%;
-  z-index: 2;
+  z-index: 999;
 }
 .new-design-ul li:hover .sub-menu {
   display: block;
   opacity: 1;
 }
+.new-design-ul li .type-links:focus {
+  background: #363f48 !important;
+  color: #ddd !important;
+  box-shadow: 0 0 10px rgb(59 89 152 / 60%) !important;
+}
 .new-design-ul li .sub-menu {
   display: none;
   opacity: 0;
+  z-index: 9999;
+  box-shadow: rgb(0 0 0 / 30%) 0px 8px 20px;
+  position: absolute;
+  max-height: 200px;
+  overflow: auto;
+  left: 0px;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  /* margin-top: 10px; */
 }
 .new-design-ul li .sub-menu ul li {
   padding: 0 !important;
   margin: 0 !important;
   background-color: #fff;
+  border-bottom: none !important;
 }
 
 .new-design-ul li .sub-menu ul li a {
   padding: 5px 15px !important;
   display: block;
   width: 100%;
+  color: #8a848d !important;
+}
+.new-design-ul li .sub-menu ul li a:hover {
+  text-decoration: underline;
 }
 .new-design-ul li .type-links {
   width: 85px !important;

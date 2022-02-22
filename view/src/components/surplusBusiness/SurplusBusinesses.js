@@ -4,8 +4,9 @@ import fileURL from "../../utils/fileURL";
 import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-// import cities from "../../utils/cities";
-import { City } from "country-state-city";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/Cities";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -14,7 +15,20 @@ import $ from "jquery";
 import "./skeleton.css";
 const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
   const [category, setCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
@@ -41,7 +55,15 @@ const SurplusBusinesses = () => {
         businessType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
-        city.toLowerCase(),
+
+        country !== null && country.name.length > 0
+          ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+
+        city !== null && city.name.length > 0 ? city.name.toLowerCase() : "",
         setSearchedCategory
       )
     );
@@ -64,9 +86,16 @@ const SurplusBusinesses = () => {
           state && state.keyword && state.keyword.length > 0
             ? state.keyword.toLowerCase()
             : keyword.toLowerCase(),
+
+          country !== null && country.name.length > 0
+            ? country.name.toLowerCase()
+            : "",
+          county !== null && county.name.length > 0
+            ? county.name.toLowerCase()
+            : "",
           state && state.city && state.city.length > 0
             ? state.city.toLowerCase()
-            : city.toLowerCase(),
+            : city.name.toLowerCase(),
           setSearchedCategory
         )
       );
@@ -75,6 +104,12 @@ const SurplusBusinesses = () => {
         state && state.keyword && state.keyword.length > 0 ? state.keyword : ""
       );
       setCity(state && state.city && state.city.length > 0 ? state.city : "");
+      setKeyword(state && state.keyword ? state.keyword : "");
+      setCity(
+        state && state.city && state.city.length > 0
+          ? { name: state.city, countryCode: "", stateCode: "" }
+          : ""
+      );
       setBusinessType(
         state && state.type && state.type.length > 0 ? state.type : ""
       );
@@ -135,17 +170,25 @@ const SurplusBusinesses = () => {
         businessType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
-        city.toLowerCase(),
+        country !== null && country.name.length > 0
+          ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+        city !== null && city.name.length > 0 ? city.name.toLowerCase() : "",
         setSearchedCategory
       )
     );
   };
   // clear State
   const clearState = () => {
-    setCity("");
+    setCity({ name: "", countryCode: "", stateCode: "" });
     setBusinessType("");
     setCategory("");
     setKeyword("");
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
   };
 
   // pagination UI
@@ -154,22 +197,6 @@ const SurplusBusinesses = () => {
     paginationUI.push("");
   }
 
-  // autoComplete function
-  const onChangeAutoFieldCities = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = City.getAllCities()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((cit) => {
-          return { name: cit.name, countryCode: cit.countryCode };
-        });
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
-  };
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -207,28 +234,6 @@ const SurplusBusinesses = () => {
             key={i}
           >
             {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-  const renderCitySuggustion = () => {
-    if (suggustionCities.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustionCities.map((co, i) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCity(co.name);
-              setSuggustionCities([]);
-            }}
-            style={{ display: "block", width: "100%" }}
-            key={i}
-          >
-            {co.name}
           </li>
         ))}
       </ul>
@@ -281,7 +286,7 @@ const SurplusBusinesses = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Locations</span>
+                          <span>Country</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -294,15 +299,60 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="text_search"
-                                  id="text_search"
-                                  value={city}
-                                  onChange={(e) => onChangeAutoFieldCities(e)}
+                                <Countries setCountry={setCountry} />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>State / County</span>
+                        </div>
+                        <i className="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <County
+                                  country={country}
+                                  setCounty={setCounty}
                                 />
-                                {renderCitySuggustion()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>City</span>
+                        </div>
+                        <i className="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <Cities
+                                  setCity={setCity}
+                                  county={county}
+                                  country={country}
+                                />
                               </div>
                             </div>
                           </div>
@@ -402,88 +452,9 @@ const SurplusBusinesses = () => {
                         </div>
                       </div>
                     </li>
-
-                    {/* <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>City</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  value={city}
-                                  onChange={(e) => setCity(e.target.value)}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li> */}
-                    {/* <li className="so-filter-options" data-option="Price">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>Price</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-content-wrapper so-filter-iscroll">
-                            <div className="so-filter-options">
-                              <div className="so-filter-option so-filter-price">
-                                <div className="content_min_max">
-                                  <div className="put-min put-min_max">
-                                    ${" "}
-                                    <input
-                                      type="number"
-                                      className="input_min form-control"
-                                      value={lessThanPrice}
-                                      onChange={(e) =>
-                                        setLessThanPrice(e.target.value * 1)
-                                      }
-                                      min="0"
-                                      // max="1202"
-                                    />
-                                  </div>
-                                  <div className="put-max put-min_max">
-                                    ${" "}
-                                    <input
-                                      type="number"
-                                      className="input_max form-control"
-                                      value="1202"
-                                      min="74"
-                                      max="1202"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="content_scroll">
-                                  <div
-                                    id="slider-range"
-                                    className="noUi-target noUi-ltr noUi-horizontal noUi-background"
-                                  ></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li> */}
                   </ul>
                   <div className="clear_filter">
-                    <a
-                      href="#"
+                    <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => callSurplusesAPI(page, limit, sort)}
@@ -493,10 +464,9 @@ const SurplusBusinesses = () => {
                         aria-hidden="true"
                       ></span>{" "}
                       Search
-                    </a>
+                    </button>
 
-                    <a
-                      href="#"
+                    <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => clearState()}
@@ -506,7 +476,7 @@ const SurplusBusinesses = () => {
                         aria-hidden="true"
                       ></span>{" "}
                       Reset All
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -570,26 +540,7 @@ const SurplusBusinesses = () => {
                             : "All"}
                         </span>
                       </h4>
-                      {/* <div className="list-view">
-                        <button
-                          className="btn btn-default grid active"
-                          data-view="grid"
-                          data-toggle="tooltip"
-                          data-original-title="Grid"
-                        >
-                          <i className="fa fa-th"></i>
-                        </button>
-                        <button
-                          className="btn btn-default list"
-                          data-view="list"
-                          data-toggle="tooltip"
-                          data-original-title="List"
-                        >
-                          <i className="fa fa-th-list"></i>
-                        </button>
-                      </div> */}
                     </div>
-
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
                         <label className="control-label" htmlFor="input-sort">
@@ -663,37 +614,16 @@ const SurplusBusinesses = () => {
                             }
                           }}
                         >
-                          {/* <option value="" selected="selected">
-                            1
-                          </option> */}
                           <option value="5">5</option>
                           <option value="10">10</option>
                         </select>
                       </div>
-                      {/* <div className="form-group product-compare">
-                        <a
-                          id="compare-total"
-                          className="btn btn-default"
-                          onClick={() => callSurplusesAPI()}
-                        >
-                          Search
-                        </a>
-                      </div> */}
                     </div>
                   </div>
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>
-                    {surplusFromStore.totalDocs} results found{" "}
-                    {/* {surplusFromStore.totalDocs > 0
-                      ? `for ${name.length > 0 ? `"${name}"` : ""}  ${
-                          category.length > 0 ? `"${category}"` : ""
-                        }  ${
-                          businessType.length > 0 ? `"${businessType}"` : ""
-                        } ${city.length > 0 ? `"${city}"` : ""}`
-                      : ""} */}
-                  </p>
+                  <p>{surplusFromStore.totalDocs} results found </p>
                 </div>
                 {surplusFromStore.loading === true &&
                 surplusFromStore.surpluses.length === 0 ? (
@@ -804,88 +734,7 @@ const SurplusBusinesses = () => {
                                     </div>
                                   ) : null}
                                 </div>
-                                {/* <div className="description item-desc hidden">
-                                  <p>
-                                    The 30-inch Apple Cinema HD Display delivers
-                                    an amazing 2560 x 1600 pixel resolution.
-                                    Designed specifically for the creative
-                                    professional, this display provides more
-                                    space for easier access to all the..{" "}
-                                  </p>
-                                </div> */}
-                                {/* <div className="list-block hidden">
-                                  <button
-                                    className="addToCart"
-                                    type="button"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    onclick="cart.add('30 ', '1 ');"
-                                    data-original-title="Add to Cart "
-                                  >
-                                    <span>Add to Cart </span>
-                                  </button>
-                                  <button
-                                    className="wishlist btn-button"
-                                    type="button"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    onclick="wishlist.add('30 ');"
-                                    data-original-title="Add to Wish List "
-                                  >
-                                    <i className="fa fa-heart-o"></i>
-                                  </button>
-                                  <button
-                                    className="compare btn-button"
-                                    type="button"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    onclick="compare.add('30 ');"
-                                    data-original-title="Compare this Product "
-                                  >
-                                    <i className="fa fa-retweet"></i>
-                                  </button>
-                                </div> */}
                               </div>
-                              {/* <div className="button-group">
-                                <a
-                                  className="quickview iframe-link visible-lg btn-button"
-                                  data-fancybox-type="iframe"
-                                  href="quickview.html"
-                                >
-                                  {" "}
-                                  <i className="fa fa-search"></i>{" "}
-                                </a>
-                                <button
-                                  className="wishlist btn-button"
-                                  type="button"
-                                  data-toggle="tooltip"
-                                  title=""
-                                  onclick="wishlist.add('105');"
-                                  data-original-title="Add to Wish List"
-                                >
-                                  <i className="fa fa-heart-o"></i>
-                                </button>
-                                <button
-                                  className="compare btn-button"
-                                  type="button"
-                                  data-toggle="tooltip"
-                                  title=""
-                                  onclick="compare.add('105');"
-                                  data-original-title="Compare this Product"
-                                >
-                                  <i className="fa fa-retweet"></i>
-                                </button>
-                                <button
-                                  className="addToCart btn-button"
-                                  type="button"
-                                  data-toggle="tooltip"
-                                  title=""
-                                  onclick="cart.add('105', '2');"
-                                  data-original-title="Add to Cart"
-                                >
-                                  <span className="hidden">Add to Cart </span>
-                                </button>
-                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -938,18 +787,6 @@ const SurplusBusinesses = () => {
                           <a href="#">&gt;</a>
                         </li>
                       ) : null}
-                      {/* <li className="active">
-                        <span>1</span>
-                      </li>
-                      <li>
-                        <a href="#">2</a>
-                      </li>
-                      <li>
-                        <a href="#">&gt;</a>
-                      </li>
-                      <li>
-                        <a href="#">&gt;|</a>
-                      </li> */}
                     </ul>
                   </div>
                   <div className="col-sm-6 text-right">
