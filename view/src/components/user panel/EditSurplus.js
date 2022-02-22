@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import countryList from "../../utils/countriesList";
-// import cities from "../../utils/cities";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/Cities";
 import Loader from "../../utils/Loader";
 import { updateSurplus, getSurplusById } from "../actions/surplusAction";
 
@@ -23,14 +24,27 @@ const adpromotionType = [
 ];
 
 const EditSurplus = (props) => {
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
-  const [city, setCity] = useState("");
+
   const [businessType, setBusinessType] = useState("");
-  const [country, setCountry] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [weeklySchedule, setWeeklySchedule] = useState([]);
@@ -64,9 +78,10 @@ const EditSurplus = (props) => {
       setContact(surplus.surplus.contact);
       setAddress(surplus.surplus.address);
       setPostCode(surplus.surplus.postCode);
-      setCity(surplus.surplus.city);
+      setCity({ name: surplus.surplus.city, countryCode: "", stateCode: "" });
       setBusinessType(surplus.surplus.businessType);
-      setCountry(surplus.surplus.country);
+      setCountry({ name: surplus.surplus.country, isoCode: "", phonecode: "" });
+      setCounty({ name: surplus.surplus.county, isoCode: "" });
       setCategory(surplus.surplus.category);
       setDescription(surplus.surplus.description);
       setWebsite(surplus.surplus.website);
@@ -87,23 +102,23 @@ const EditSurplus = (props) => {
   // handle onChange AutoComplete field
   const onChangeAutoField = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      // suggustions = countryList.sort().filter((v) => regex.test(v));
-    }
-    setCountry(value);
-    setSuggustion([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = countryList.sort().filter((v) => regex.test(v));
+    // }
+    // setCountry(value);
+    // setSuggustion([...suggustions]);
   };
   const onChangeAutoFieldCities = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      // suggustions = cities.sort().filter((v) => regex.test(v));
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = cities.sort().filter((v) => regex.test(v));
+    // }
+    // setCity(value);
+    // setSuggustionCities([...suggustions]);
   };
   // render suggustion
   const renderSuggustion = () => {
@@ -251,11 +266,12 @@ const EditSurplus = (props) => {
         contact,
         address,
         postCode,
-        city: city.toLowerCase(),
+        city: city.name.toLowerCase(),
         businessType: businessType.toLowerCase(),
         description,
         category: category.toLowerCase(),
-        country: country.toLowerCase(),
+        country: country.name.toLowerCase(),
+        county: county.name.toLowerCase(),
         website,
         keyword: keyword.toLowerCase(),
         weeklySchedule,
@@ -318,7 +334,7 @@ const EditSurplus = (props) => {
       style={{ position: "relative", marginTop: "30px" }}
     >
       <div className="row">
-        <div id="content" className="col-md-9">
+        <div id="content" className="col-md-11">
           <h2 className="title">Edit Surplus Business</h2>
           <form
             action=""
@@ -457,11 +473,80 @@ const EditSurplus = (props) => {
                 </div>
               </div>
               <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-country"
+                >
+                  Country
+                </label>
+                <div className="col-sm-10" style={{ position: "relative" }}>
+                  <Countries setCountry={setCountry} country={country} />
+                  {/* <input
+                    type="text"
+                    name="city"
+                    value={country}
+                    // onChange={(e) => setCountry(e.target.value)}
+                    onChange={(e) => onChangeAutoField(e)}
+                    placeholder="Country"
+                    id="input-country"
+                    className={
+                      errors && errors.validation && errors.validation.country
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  /> */}
+                  {errors && errors.validation && errors.validation.country && (
+                    <div className="invalid-feedback">
+                      {errors.validation.country}
+                    </div>
+                  )}
+                  {/* {renderSuggustion()} */}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
+                  State / County
+                </label>
+                <div className="col-sm-10">
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
+                  />
+                  {/* <input
+                    type="text"
+                    name="city"
+                    value={city}
+                    // onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => onChangeAutoFieldCities(e)}
+                    placeholder="City"
+                    id="input-city"
+                    className={
+                      errors && errors.validation && errors.validation.city
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  /> */}
+                  {/* {renderCitySuggustion()} */}
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-city">
                   City
                 </label>
                 <div className="col-sm-10">
-                  <input
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {/* <input
                     type="text"
                     name="city"
                     value={city}
@@ -475,7 +560,7 @@ const EditSurplus = (props) => {
                         : "form-control"
                     }
                   />
-                  {renderCitySuggustion()}
+                  {renderCitySuggustion()} */}
                   {errors && errors.validation && errors.validation.city && (
                     <div className="invalid-feedback">
                       {errors.validation.city}
@@ -483,36 +568,7 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div className="form-group required">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-country"
-                >
-                  Country
-                </label>
-                <div className="col-sm-10" style={{ position: "relative" }}>
-                  <input
-                    type="text"
-                    name="city"
-                    value={country}
-                    // onChange={(e) => setCountry(e.target.value)}
-                    onChange={(e) => onChangeAutoField(e)}
-                    placeholder="Country"
-                    id="input-country"
-                    className={
-                      errors && errors.validation && errors.validation.country
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.country && (
-                    <div className="invalid-feedback">
-                      {errors.validation.country}
-                    </div>
-                  )}
-                  {renderSuggustion()}
-                </div>
-              </div>
+
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
@@ -699,13 +755,12 @@ const EditSurplus = (props) => {
                   Description
                 </label>
                 <div className="col-sm-10">
-                  <input
-                    type="text"
+                  <textarea
                     name="city"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="description"
                     id="input-description"
+                    rows="5"
+                    id="input-review"
+                    placeholder="Description"
                     className={
                       errors &&
                       errors.validation &&
@@ -713,7 +768,9 @@ const EditSurplus = (props) => {
                         ? "form-control is-invalid"
                         : "form-control"
                     }
-                  />
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
                   {errors &&
                     errors.validation &&
                     errors.validation.description && (
@@ -882,7 +939,7 @@ const EditSurplus = (props) => {
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
-                <div className="col-sm-11">
+                <div className="col-sm-12">
                   <label
                     className="control-label"
                     style={{
@@ -914,51 +971,120 @@ const EditSurplus = (props) => {
                           htmlFor={type.promote}
                           className="container-checkbox border-bottom"
                         >
-                          <input
-                            type="checkbox"
-                            name="featured"
-                            value={type.promote}
-                            defaultValue={type.promote}
-                            checked={
-                              promoteType.filter(
-                                (promote) => promote.promote === type.promote
-                              ).length > 0
-                                ? true
-                                : false
-                            }
-                            id={type.promote}
-                            onChange={(e) => {
-                              promoteCheckBoxHandler(e.target.checked, type);
-                            }}
-                          />{" "}
-                          {type.promote !== "ALL" ? (
-                            <span
-                              className={
-                                type.promote === "FEATURED"
-                                  ? "ad-type featured"
-                                  : type.promote === "URGENT"
-                                  ? "ad-type urgent"
-                                  : type.promote === "SPOTLIGHT"
-                                  ? "ad-type spotlight"
-                                  : "ad-type"
+                          <span>
+                            <input
+                              type="checkbox"
+                              name="featured"
+                              value={type.promote}
+                              checked={
+                                promoteType.filter(
+                                  (promote) => promote.promote === type.promote
+                                ).length > 0
+                                  ? true
+                                  : false
                               }
+                              id={type.promote}
+                              onChange={(e) => {
+                                promoteCheckBoxHandler(e.target.checked, type);
+                              }}
+                            />{" "}
+                            {type.promote !== "ALL" ? (
+                              <span
+                                className={
+                                  type.promote === "FEATURED"
+                                    ? "ad-type featured"
+                                    : type.promote === "URGENT"
+                                    ? "ad-type urgent"
+                                    : type.promote === "SPOTLIGHT"
+                                    ? "ad-type spotlight"
+                                    : "ad-type"
+                                }
+                              >
+                                {type.promote}
+                              </span>
+                            ) : null}
+                            {type.promote === "FEATURED"
+                              ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
+                              : type.promote === "URGENT"
+                              ? "Let people know you want to sell, rent or hire quickly"
+                              : type.promote === "SPOTLIGHT"
+                              ? "Have your Ad seen on the Futjan homepage!"
+                              : "SELECT ALL"}
+                            <span className="checkmark"></span>
+                          </span>
+                          {type.promote === "FEATURED" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#007fb0",
+                                fontWeight: "600",
+                              }}
                             >
-                              {type.promote}
+                              14 days-INR 100
                             </span>
                           ) : null}
-                          {type.promote === "FEATURED"
-                            ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
-                            : type.promote === "URGENT"
-                            ? "Let people know you want to sell, rent or hire quickly"
-                            : type.promote === "SPOTLIGHT"
-                            ? "Have your Ad seen on the Gumtree homepage!"
-                            : "SELECT ALL"}
-                          <span className="checkmark"></span>
+
+                          {type.promote === "URGENT" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#e52815",
+                                fontWeight: "600",
+                              }}
+                            >
+                              7 days-INR 150
+                            </span>
+                          ) : null}
+
+                          {type.promote === "SPOTLIGHT" ? (
+                            <span
+                              style={{
+                                float: "right",
+                                color: "#52a744",
+                                fontWeight: "600",
+                              }}
+                            >
+                              7 days-INR 350
+                            </span>
+                          ) : null}
                         </label>
                       ))}
                     </div>
                   </div>
-
+                  <div
+                    style={{
+                      display: "block",
+                      overflow: "hidden",
+                      color: "#ddd",
+                      padding: "6px 15px",
+                      background: "#3b5998",
+                      width: "100%",
+                      marginBottom: "15px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <span style={{ float: "left" }}>Total</span>
+                    <span style={{ float: "right" }}>
+                      {promoteType.length > 0
+                        ? (promoteType.filter(
+                            (type) => type.promote === "FEATURED"
+                          ).length > 0
+                            ? 100
+                            : 0) +
+                          (promoteType.filter(
+                            (type) => type.promote === "URGENT"
+                          ).length > 0
+                            ? 150
+                            : 0) +
+                          (promoteType.filter(
+                            (type) => type.promote === "SPOTLIGHT"
+                          ).length > 0
+                            ? 350
+                            : 0) +
+                          " INR"
+                        : "Free"}
+                    </span>
+                  </div>
                   <label style={{ lineHeight: "16px" }}>
                     By selecting Post My Ad you agree you've read and accepted
                     our{" "}

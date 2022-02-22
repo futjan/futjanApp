@@ -133,17 +133,16 @@ const App = (props) => {
                     exact
                     element={<SurplusBusinesses />}
                   />
-                  <Route
+                  {/* <Route
                     path="/user-panel"
                     exact={true}
                     element={<PrivateRoute />}
-                  >
-                    <Route
-                      path="/user-panel"
-                      exact={true}
-                      element={<UserPanel />}
-                    />
-                  </Route>
+                  ></Route> */}
+                  <Route
+                    path="/user-panel"
+                    exact={true}
+                    element={<UserPanel />}
+                  />
 
                   <Route
                     path="/surplus-detail/:id"

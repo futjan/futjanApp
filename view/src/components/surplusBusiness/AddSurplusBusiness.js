@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import countryList from "../../utils/countriesList";
-// import cities from "../../utils/cities";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/Cities";
 import Loader from "../../utils/Loader";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
-import { Country, City, State } from "country-state-city";
 
 const Days = [
   "MONDAY",
@@ -27,10 +27,21 @@ const AddSurplusBusiness = () => {
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
-  const [city, setCity] = useState("");
-  const [county, setCounty] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
   const [businessType, setBusinessType] = useState("");
-  const [country, setCountry] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [weeklySchedule, setWeeklySchedule] = useState([]);
@@ -65,52 +76,52 @@ const AddSurplusBusiness = () => {
   // handle onChange AutoComplete field
   const onChangeAutoField = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = Country.getAllCountries()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((count) => {
-          return { name: count.name, isoCode: count.isoCode };
-        });
-    }
-    setCountry(value);
-    setSuggustion([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = Country.getAllCountries()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((count) => {
+    //       return { name: count.name, isoCode: count.isoCode };
+    //     });
+    // }
+    // setCountry(value);
+    // setSuggustion([...suggustions]);
   };
 
   const onChangeAutoFieldCities = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = City.getAllCities()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((cit) => {
-          return { name: cit.name, countryCode: cit.countryCode };
-        });
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = City.getAllCities()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((cit) => {
+    //       return { name: cit.name, countryCode: cit.countryCode };
+    //     });
+    // }
+    // setCity(value);
+    // setSuggustionCities([...suggustions]);
   };
   const onChangeAutoFieldState = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = State.getAllStates()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((state) => {
-          return { name: state.name, countryCode: state.countryCode };
-        })
-        .filter(
-          (state, index, stateArray) => stateArray.indexOf(state) === index
-        );
-    }
-    setCounty(value);
-    setSuggustionState([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = State.getAllStates()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((state) => {
+    //       return { name: state.name, countryCode: state.countryCode };
+    //     })
+    //     .filter(
+    //       (state, index, stateArray) => stateArray.indexOf(state) === index
+    //     );
+    // }
+    // setCounty(value);
+    // setSuggustionState([...suggustions]);
   };
   // render suggustion
   const renderSuggustion = () => {
@@ -275,12 +286,12 @@ const AddSurplusBusiness = () => {
       address,
       postCode,
       files,
-      city: city.toLowerCase(),
+      city: city.name.toLowerCase(),
       businessType: businessType.toLowerCase(),
       description,
       category: category.toLowerCase(),
-      county: county.toLowerCase(),
-      country: country.toLowerCase(),
+      county: county.name.toLowerCase(),
+      country: country.name.toLowerCase(),
       keyword: keyword.toLowerCase(),
       website,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
@@ -321,9 +332,9 @@ const AddSurplusBusiness = () => {
     setContact("");
     setAddress("");
     setPostCode("");
-    setCity("");
+    setCity({ name: "", stateCode: "", countryCode: "" });
     setBusinessType("");
-    setCountry("");
+    setCountry({ name: "", isoCode: "", phonecode: "" });
     setCategory("");
     setDescription("");
     setWebsite("");
@@ -332,7 +343,7 @@ const AddSurplusBusiness = () => {
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
-    setCounty("");
+    setCounty({ name: "", isoCode: "" });
     setPromoteType([]);
     setFiles([]);
   };
@@ -344,7 +355,7 @@ const AddSurplusBusiness = () => {
     >
       <div className="row">
         <div id="content" className="col-md-11">
-          <h2 className="title" style={{ marginTop: "35px" }}>
+          <h2 className="title" style={{ margin: "0" }}>
             Add Surplus business with us
           </h2>
 
@@ -492,7 +503,7 @@ const AddSurplusBusiness = () => {
                   Country
                 </label>
                 <div className="col-sm-10" style={{ position: "relative" }}>
-                  <input
+                  {/* <input
                     type="text"
                     name="city"
                     value={country}
@@ -505,40 +516,14 @@ const AddSurplusBusiness = () => {
                         ? "form-control is-invalid"
                         : "form-control"
                     }
-                  />
+                  /> */}
+                  <Countries setCountry={setCountry} country={country} />
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
                     </div>
                   )}
-                  {renderSuggustion()}
-                </div>
-              </div>
-              <div className="form-group required">
-                <label className="col-sm-2 control-label" htmlFor="input-city">
-                  City
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    type="text"
-                    name="city"
-                    value={city}
-                    // onChange={(e) => setCity(e.target.value)}
-                    onChange={(e) => onChangeAutoFieldCities(e)}
-                    placeholder="City"
-                    id="input-city"
-                    className={
-                      errors && errors.validation && errors.validation.city
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {renderCitySuggustion()}
-                  {errors && errors.validation && errors.validation.city && (
-                    <div className="invalid-feedback">
-                      {errors.validation.city}
-                    </div>
-                  )}
+                  {/* {renderSuggustion()} */}
                 </div>
               </div>
               <div className="form-group required">
@@ -546,24 +531,32 @@ const AddSurplusBusiness = () => {
                   State / County
                 </label>
                 <div className="col-sm-10">
-                  <input
-                    type="text"
-                    name="city"
-                    value={county}
-                    // onChange={(e) => setCity(e.target.value)}
-                    onChange={(e) => onChangeAutoFieldState(e)}
-                    placeholder="State"
-                    id="input-city"
-                    className={
-                      errors && errors.validation && errors.validation.county
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
                   />
-                  {renderStateSuggustion()}
                   {errors && errors.validation && errors.validation.county && (
                     <div className="invalid-feedback">
                       {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-city">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
                     </div>
                   )}
                 </div>
@@ -1036,7 +1029,7 @@ const AddSurplusBusiness = () => {
                               : type.promote === "URGENT"
                               ? "Let people know you want to sell, rent or hire quickly"
                               : type.promote === "SPOTLIGHT"
-                              ? "Have your Ad seen on the Gumtree homepage!"
+                              ? "Have your Ad seen on the Futjan homepage!"
                               : "SELECT ALL"}
                             <span className="checkmark"></span>
                           </span>

@@ -5,13 +5,24 @@ import axios from "axios";
 // @desc                    get all surpluses
 // @access                  Public
 export const getSurpluses =
-  (page, limit, sort, businessType, category, keyword, city, setCategory) =>
+  (
+    page,
+    limit,
+    sort,
+    businessType,
+    category,
+    keyword,
+    country,
+    county,
+    city,
+    setCategory
+  ) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,images,originalPrice,offeredPrice,discount,promoteType`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,images,originalPrice,offeredPrice,discount,promoteType`
       );
       if (res.data) {
         dispatch({
