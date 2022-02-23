@@ -469,18 +469,6 @@ const Header2 = () => {
                                           </div>
                                         </li>
                                       ) : null}
-                                      {/* {auth.isAuthenticated === true ? (
-                                <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-                                  <a
-                                    className="clearfix"
-                                   
-                                  >
-                                    <strong>LOGOUT</strong>
-                                    <span className="labelopencart"></span>
-                                  </a>
-                                </li>
-                              ) : null} */}
                                     </ul>
                                   </div>
                                 </div>
