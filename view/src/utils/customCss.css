@@ -10,13 +10,23 @@
   height: 100%;
   width: 100% !important;
 }
-.css-viou3o-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+.MuiAutocomplete-input {
   border: none !important;
   outline: none !important;
   background-color: transparent !important;
 }
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
   border: none !important;
+}
+.MuiOutlinedInput-notchedOutline,
+.css-igs3ac {
+  padding: 0 !important;
+  border: none !important;
+}
+.MuiAutocomplete-endAdornment,
+.css-2iz2x6 {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
 }
 .css-nnbavb {
   display: none !important;
@@ -28,7 +38,7 @@
 .css-1na68kg .MuiOutlinedInput-root {
   padding: 0 !important;
 }
-.MuiAutocomplete-root{
+.MuiAutocomplete-root {
   padding: 0 !important;
   height: 100% !important;
 }
