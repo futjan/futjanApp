@@ -1,10 +1,11 @@
 /* Global */
 
 /* MATERIAL UI */
-.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input:focus {
+.MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input:focus {
   background: transparent !important;
 }
-.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input {
+
+.MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input {
   font-size: 14px !important;
 
   color: rgb(0 127 176) !important;
