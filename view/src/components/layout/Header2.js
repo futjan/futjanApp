@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
-import { City } from "country-state-city";
+// import { City } from "country-state-city";
 
 const Header2 = () => {
   const [keyword, setKeyword] = useState("");
@@ -49,18 +49,18 @@ const Header2 = () => {
   // cities
   const onChangeAutoFieldCities = (e) => {
     const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = City.getAllCities()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((cit) => {
-          return { name: cit.name, countryCode: cit.countryCode };
-        });
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = City.getAllCities()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((cit) => {
+    //       return { name: cit.name, countryCode: cit.countryCode };
+    //     });
+    // }
+    // setCity(value);
+    // setSuggustionCities([...suggustions]);
   };
   const renderCitySuggustion = () => {
     if (suggustionCities.length === 0) {
@@ -92,22 +92,22 @@ const Header2 = () => {
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      if (surplusFromStore.keywords.length > 0) {
-        suggustions = surplusFromStore.keywords
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   if (surplusFromStore.keywords.length > 0) {
+    //     suggustions = surplusFromStore.keywords
 
-          .map((v) => v.keyword)
-          .filter(
-            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-          )
-          .sort()
-          .filter((v) => regex.test(v));
-      }
-    }
-    setKeyword(value);
+    //       .map((v) => v.keyword)
+    //       .filter(
+    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+    //       )
+    //       .sort()
+    //       .filter((v) => regex.test(v));
+    //   }
+    // }
+    // setKeyword(value);
 
-    setSuggustion([...suggustions]);
+    // setSuggustion([...suggustions]);
   };
 
   const renderNameSuggustion = () => {
