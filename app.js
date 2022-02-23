@@ -19,7 +19,7 @@ app.use(
     useDefaults: false,
     directives: {
       "default-src": ["'self'"],
-
+      "style-src": null,
       "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
     },
   })
