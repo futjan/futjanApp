@@ -19,7 +19,7 @@ app.use(
     useDefaults: false,
     directives: {
       "default-src": ["'self'", "'unsafe-inline'"],
-      "style-src": ["'self' *", "'unsafe-inline'"],
+      "style-src": ["'self' https: data: *", "'unsafe-inline'"],
       "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
       "font-src": ["'self' https: data:", "fonts.googleapis.com"],
     },
