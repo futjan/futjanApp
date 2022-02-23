@@ -25,6 +25,13 @@
   .MuiOutlinedInput-root {
   padding: 0 !important;
 }
+.css-1na68kg .MuiOutlinedInput-root {
+  padding: 0 !important;
+}
+.MuiAutocomplete-root{
+  padding: 0 !important;
+  height: 100% !important;
+}
 
 .MuiAutocomplete-popper ul li {
   width: 100% !important;

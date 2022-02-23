@@ -16373,6 +16373,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   .so-option-container
   .input-group {
   margin: 11px 0px;
+  overflow: hidden;
 }
 .module.so_filter_wrap .modcontent .so-filter-option.so-filter-price {
   text-align: left;
