@@ -18,7 +18,7 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: false,
     directives: {
-      "default-src": ["'self'"],
+      "default-src": ["'self'", "'unsafe-inline'"],
       "style-src": null,
       "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
     },
