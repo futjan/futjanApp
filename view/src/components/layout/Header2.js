@@ -481,15 +481,6 @@ const Header2 = () => {
                                   </a>
                                 </li>
                               ) : null} */}
-
-                                      {/* <li className="deal-h5 hidden">
-                              <p className="close-menu"></p>
-                              <a href="#" className="clearfix">
-                                <strong>
-                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
-                                </strong>
-                              </a>
-                            </li> */}
                                     </ul>
                                   </div>
                                 </div>
