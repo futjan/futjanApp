@@ -56,14 +56,15 @@ const SurplusBusinesses = () => {
         category.toLowerCase(),
         keyword.toLowerCase(),
 
-        country !== null && country.name.length > 0
+        country !== null || (country.name && country.name.length > 0)
           ? country.name.toLowerCase()
           : "",
-        county !== null && county.name.length > 0
+        county !== null || (county.name && county.name.length > 0)
           ? county.name.toLowerCase()
           : "",
-
-        city !== null && city.name.length > 0 ? city.name.toLowerCase() : "",
+        city !== null || (city.name && city.name.length > 0)
+          ? city.name.toLowerCase()
+          : "",
         setSearchedCategory
       )
     );
@@ -83,36 +84,38 @@ const SurplusBusinesses = () => {
             ? state.type.toLowerCase()
             : businessType.toLowerCase(),
           category.toLowerCase(),
-          state && state.keyword && state.keyword.length > 0
+
+          state && state.keyword
             ? state.keyword.toLowerCase()
             : keyword.toLowerCase(),
 
-          country !== null && country.name.length > 0
+          country !== null && country.name && country.name.length > 0
             ? country.name.toLowerCase()
             : "",
-          county !== null && county.name.length > 0
+          county !== null && county.name && county.name.length > 0
             ? county.name.toLowerCase()
             : "",
           state && state.city && state.city.length > 0
             ? state.city.toLowerCase()
-            : city.name.toLowerCase(),
+            : "",
+
           setSearchedCategory
         )
       );
 
-      setKeyword(
-        state && state.keyword && state.keyword.length > 0 ? state.keyword : ""
-      );
-      setCity(state && state.city && state.city.length > 0 ? state.city : "");
-      setKeyword(state && state.keyword ? state.keyword : "");
-      setCity(
-        state && state.city && state.city.length > 0
-          ? { name: state.city, countryCode: "", stateCode: "" }
-          : ""
-      );
-      setBusinessType(
-        state && state.type && state.type.length > 0 ? state.type : ""
-      );
+      if (state && state.keyword) {
+        setKeyword(state && state.keyword ? state.keyword : "");
+      }
+      if (state && state.city) {
+        setCity(
+          state && state.city && state.city.length > 0
+            ? { name: state.city, countryCode: "", stateCode: "" }
+            : ""
+        );
+      }
+      if (state && state.type) {
+        setBusinessType(state && state.type ? state.type : "");
+      }
     }
   }, [
     state ||
@@ -120,7 +123,6 @@ const SurplusBusinesses = () => {
       (state && state.city) ||
       (state && state.type),
   ]);
-
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
@@ -170,13 +172,15 @@ const SurplusBusinesses = () => {
         businessType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
-        country !== null && country.name.length > 0
+        country !== null && country.name && country.name.length > 0
           ? country.name.toLowerCase()
           : "",
-        county !== null && county.name.length > 0
+        county !== null && county.name && county.name.length > 0
           ? county.name.toLowerCase()
           : "",
-        city !== null && city.name.length > 0 ? city.name.toLowerCase() : "",
+        city !== null && city.name && city.name.length > 0
+          ? city.name.toLowerCase()
+          : "",
         setSearchedCategory
       )
     );
@@ -299,7 +303,10 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <Countries setCountry={setCountry} />
+                                <Countries
+                                  setCountry={setCountry}
+                                  country={country}
+                                />
                               </div>
                             </div>
                           </div>
@@ -325,6 +332,7 @@ const SurplusBusinesses = () => {
                                 <County
                                   country={country}
                                   setCounty={setCounty}
+                                  county={county}
                                 />
                               </div>
                             </div>
@@ -352,6 +360,7 @@ const SurplusBusinesses = () => {
                                   setCity={setCity}
                                   county={county}
                                   country={country}
+                                  city={city}
                                 />
                               </div>
                             </div>

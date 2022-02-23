@@ -3794,6 +3794,7 @@ div.required .control-label:before {
   .form-control:-ms-input-placeholder {
   color: #999 !important;
   color: #999;
+}
 .module.main-newsleter-popup
   .so-custom-popup
   .oca_popup

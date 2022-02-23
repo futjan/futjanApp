@@ -4,6 +4,10 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/Cities";
 import Loader from "../../utils/Loader";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
 
 const Days = [
@@ -27,6 +31,7 @@ const AddSurplusBusiness = () => {
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
+  const [featureRate, setFeatureRate] = useState(100);
   const [city, setCity] = useState({
     name: "",
     stateCode: "",
@@ -598,7 +603,7 @@ const AddSurplusBusiness = () => {
                     <option value="Supermarkets">Supermarkets</option>
                     <option value="Takeaway">Takeaway</option>
                     <option value="Wholesalers">Wholesalers</option>
-                    <option value="Other ">Other </option>
+                    <option value="Other">Other </option>
                   </select>
 
                   {errors &&
@@ -990,7 +995,7 @@ const AddSurplusBusiness = () => {
                       {adpromotionType.map((type) => (
                         <label
                           htmlFor={type.promote}
-                          className="container-checkbox border-bottom"
+                          className="container-checkbox border-bottom promotion-price"
                         >
                           <span>
                             <input
@@ -1041,7 +1046,31 @@ const AddSurplusBusiness = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              14 days-INR 100
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 130 }}
+                              >
+                                <Select
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={featureRate}
+                                  onChange={(e) =>
+                                    setFeatureRate(e.target.value * 1)
+                                  }
+                                  // label="Age"
+                                >
+                                  <MenuItem value={100}>
+                                    14 days - 100 INR
+                                  </MenuItem>
+                                  <MenuItem value={250}>
+                                    30 days - 250 INR
+                                  </MenuItem>
+                                  <MenuItem value={500}>
+                                    60 days - 500 INR
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                              {/* 14 days-INR 100 */}
                             </span>
                           ) : null}
 
@@ -1051,9 +1080,10 @@ const AddSurplusBusiness = () => {
                                 float: "right",
                                 color: "#e52815",
                                 fontWeight: "600",
+                                minWidth: "135px",
                               }}
                             >
-                              7 days-INR 150
+                              7 days - 150 INR
                             </span>
                           ) : null}
 
@@ -1063,9 +1093,10 @@ const AddSurplusBusiness = () => {
                                 float: "right",
                                 color: "#52a744",
                                 fontWeight: "600",
+                                minWidth: "135px",
                               }}
                             >
-                              7 days-INR 350
+                              7 days - 350 INR
                             </span>
                           ) : null}
                         </label>
@@ -1090,7 +1121,7 @@ const AddSurplusBusiness = () => {
                         ? (promoteType.filter(
                             (type) => type.promote === "FEATURED"
                           ).length > 0
-                            ? 100
+                            ? featureRate
                             : 0) +
                           (promoteType.filter(
                             (type) => type.promote === "URGENT"
