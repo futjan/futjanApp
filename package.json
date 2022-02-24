@@ -6,7 +6,7 @@
   "scripts": {
     "client-install": "npm install --prefix view",
     "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "nodemon  server.js",
     "view": "npm start --prefix view",
     "dev": "concurrently \"npm run server\" \"npm run view\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix view && npm run build --prefix view"

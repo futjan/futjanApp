@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
@@ -14,16 +14,17 @@ const purchingRoutes = require("./routes/purchingRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: false,
-    directives: {
-      "default-src": ["'self'"],
-
-      "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
-    },
-  })
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     useDefaults: false,
+//     directives: {
+//       "default-src": ["'self'", "'unsafe-inline'"],
+//       "style-src": ["'self' https: data: *"],
+//       "img-src": ["'self' data: blob:", "futjan.s3.ap-south-1.amazonaws.com"],
+//       "font-src": ["'self' https: data:", "fonts.googleapis.com"],
+//     },
+//   })
+// );
 // Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

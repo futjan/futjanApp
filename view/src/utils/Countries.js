@@ -14,16 +14,16 @@ const options = [
 ];
 
 const Countries = (props) => {
-  // const [country, setCountry] = useState({
-  //   name: "",
-  //   isoCode: "",
-  //   phonecode: "",
-  // });
-  // useEffect(() => {
-  //   if (props.for === "update") {
-  //     setCountry({ ...props.country });
-  //   }
-  // }, []);
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  useEffect(() => {
+    if (props.for === "update") {
+      setCountry({ ...props.country });
+    }
+  }, []);
   return (
     <Autocomplete
       className="form-control"
