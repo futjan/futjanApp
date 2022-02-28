@@ -418,6 +418,7 @@ const SurplusBusinesses = () => {
                                   <option value="Wholesalers">
                                     Wholesalers
                                   </option>
+                                  <option value="Cafe">Cafe</option>
                                   <option value="Other">Other </option>
                                 </select>
                               </div>

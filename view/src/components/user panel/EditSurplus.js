@@ -604,6 +604,7 @@ const EditSurplus = (props) => {
                     <option value="Supermarkets">Supermarkets</option>
                     <option value="Takeaway">Takeaway</option>
                     <option value="Wholesalers">Wholesalers</option>
+                    <option value="Cafe">Cafe</option>
                     <option value="Other ">Other </option>
                   </select>
 

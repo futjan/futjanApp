@@ -902,6 +902,15 @@ const Header2 = () => {
                         <Link
                           className="subcategory_item"
                           to="/surplus"
+                          state={{ type: "Cafe" }}
+                        >
+                          Cafe
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/surplus"
                           state={{ type: "Other" }}
                         >
                           Other
