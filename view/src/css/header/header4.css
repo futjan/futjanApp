@@ -770,6 +770,7 @@
   background: transparent;
   cursor: pointer;
   padding-left: 10px;
+  height: 42px;
 }
 .typeheader-4 #sosearchpro.so-search .select_category input {
   font-size: 16px !important;
@@ -806,7 +807,7 @@
   text-align: center;
   border-width: 1px 1px 1px 0;
   border-style: solid;
-  border-color: #ebebeb;
+  border-color: #3b5998;
   border-radius: 0 !important;
   background: #3b5998;
 }
@@ -820,7 +821,7 @@
 }
 .typeheader-4 .header-cart-phone {
   text-align: right;
-  margin-top: 4px;
+  margin: 0;
 }
 .typeheader-4 .header-cart-phone .bt-head {
   text-align: left;
