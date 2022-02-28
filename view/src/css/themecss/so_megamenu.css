@@ -526,7 +526,10 @@ ul.megamenu > li span.labelhot {
 @media (max-width: 991px) {
   /* MegaMenu Vertical */
   .navbar-header .navbar-toggle {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   .responsive .vertical #menuHeading {
     margin: 20px 0px 0px 0px;

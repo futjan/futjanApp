@@ -10,7 +10,7 @@ import Cities from "../../utils/Cities";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import $ from "jquery";
+// import $ from "jquery";
 
 import "./skeleton.css";
 const SurplusBusinesses = () => {
@@ -128,39 +128,39 @@ const SurplusBusinesses = () => {
   }, []);
 
   // useEffect to run jquery
-  useEffect(() => {
-    $(".so-filter-heading").on("click", function () {
-      if ($(this).find(".fa").hasClass("fa-chevron-down")) {
-        $(this)
-          .find(".fa-chevron-down")
-          .addClass("fa-chevron-right", "slow")
-          .removeClass("fa-chevron-down", "slow");
-      } else {
-        $(this)
-          .find(".fa-chevron-right")
-          .addClass("fa-chevron-down", "slow")
-          .removeClass("fa-chevron-right", "slow");
-      }
-      $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
-    });
+  // useEffect(() => {
+  //   $(".so-filter-heading").on("click", function () {
+  //     if ($(this).find(".fa").hasClass("fa-chevron-down")) {
+  //       $(this)
+  //         .find(".fa-chevron-down")
+  //         .addClass("fa-chevron-right", "slow")
+  //         .removeClass("fa-chevron-down", "slow");
+  //     } else {
+  //       $(this)
+  //         .find(".fa-chevron-right")
+  //         .addClass("fa-chevron-down", "slow")
+  //         .removeClass("fa-chevron-right", "slow");
+  //     }
+  //     $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
+  //   });
 
-    // side bar filers
-    $(".open-sidebar").click(function (e) {
-      e.preventDefault();
-      $(".sidebar-overlay").toggleClass("show");
-      $(".sidebar-offcanvas").toggleClass("active");
-    });
+  //   // side bar filers
+  //   $(".open-sidebar").click(function (e) {
+  //     e.preventDefault();
+  //     $(".sidebar-overlay").toggleClass("show");
+  //     $(".sidebar-offcanvas").toggleClass("active");
+  //   });
 
-    $(".sidebar-overlay").click(function (e) {
-      e.preventDefault();
-      $(".sidebar-overlay").toggleClass("show");
-      $(".sidebar-offcanvas").toggleClass("active");
-    });
-    $("#close-sidebar").click(function () {
-      $(".sidebar-overlay").removeClass("show");
-      $(".sidebar-offcanvas").removeClass("active");
-    });
-  }, []);
+  //   $(".sidebar-overlay").click(function (e) {
+  //     e.preventDefault();
+  //     $(".sidebar-overlay").toggleClass("show");
+  //     $(".sidebar-offcanvas").toggleClass("active");
+  //   });
+  //   $("#close-sidebar").click(function () {
+  //     $(".sidebar-overlay").removeClass("show");
+  //     $(".sidebar-offcanvas").removeClass("active");
+  //   });
+  // }, []);
 
   // call getSurplusesAction
   const callSurplusesAPI = (page, lim, sortBy) => {
@@ -204,19 +204,19 @@ const SurplusBusinesses = () => {
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      if (surplusFromStore.keywords.length > 0) {
-        suggustions = surplusFromStore.keywords
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   if (surplusFromStore.keywords.length > 0) {
+    //     suggustions = surplusFromStore.keywords
 
-          .map((v) => v.keyword)
-          .filter(
-            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-          )
-          .sort()
-          .filter((v) => regex.test(v));
-      }
-    }
+    //       .map((v) => v.keyword)
+    //       .filter(
+    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+    //       )
+    //       .sort()
+    //       .filter((v) => regex.test(v));
+    //   }
+    // }
     setKeyword(value);
 
     setSuggustion([...suggustions]);

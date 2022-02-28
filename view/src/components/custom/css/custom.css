@@ -134,6 +134,10 @@ html {
 .d-block {
   display: block !important;
 }
+.v-visible {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 .d-none {
   display: none !important;
 }

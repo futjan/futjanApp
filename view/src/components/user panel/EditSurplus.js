@@ -166,19 +166,19 @@ const EditSurplus = (props) => {
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      if (surplus.keywords.length > 0) {
-        suggustions = surplus.keywords
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   if (surplus.keywords.length > 0) {
+    //     suggustions = surplus.keywords
 
-          .map((v) => v.keyword)
-          .filter(
-            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-          )
-          .sort()
-          .filter((v) => regex.test(v));
-      }
-    }
+    //       .map((v) => v.keyword)
+    //       .filter(
+    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+    //       )
+    //       .sort()
+    //       .filter((v) => regex.test(v));
+    //   }
+    // }
     setKeyword(value);
 
     setSuggustionKeyword([...suggustions]);
