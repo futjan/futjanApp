@@ -172,7 +172,7 @@ const Header2 = () => {
                 <h3 className="logo-heading">FUTJAN</h3>
               </Link>
             </div>
-            <div className="header-center-right col-lg-8 col-md-8 col-sm-8 col-xs-11">
+            <div className="header-center-right col-lg-7 col-md-7 col-sm-8 col-xs-11">
               <div className="header_search">
                 <div
                   id="sosearchpro"
@@ -190,7 +190,7 @@ const Header2 = () => {
                         value={keyword}
                         onChange={(e) => onChangeAutoFieldName(e)}
                         autoComplete="off"
-                        placeholder="eg Restaurant, Jobs, Business, Stock "
+                        placeholder="Restaurant, Jobs, Business, Stock "
                         name="search"
                       />
                       {renderNameSuggustion()}
@@ -484,7 +484,7 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              className="header-cart-phone col-lg-2 col-md-2 col-sm-1 col-xs-1"
+              className="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
               style={{
                 display: "flex",
                 justifyContent: "start",
@@ -563,7 +563,7 @@ const Header2 = () => {
                                       className="fa fa-user"
                                       style={{ fontSize: "20px", padding: "0" }}
                                     ></i>
-                                    <strong>Login</strong>
+                                    <strong>Login/Register</strong>
                                   </NavLink>
                                 </li>
                               ) : null}
