@@ -1029,7 +1029,7 @@ const AddSurplusBusiness = () => {
                               </span>
                             ) : null}
                             {type.promote === "FEATURED"
-                              ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
+                              ? "Have your Ad appear at the top of the category listings for 14, 30 or 60 days."
                               : type.promote === "URGENT"
                               ? "Let people know you want to sell, rent or hire quickly"
                               : type.promote === "SPOTLIGHT"
