@@ -60,7 +60,7 @@ const Register = lazy(() => import("./components/auth/Register"));
 // const Header2 = lazy(()=> import("./components/layout/Header2"))
 const Aboutus = lazy(() => import("./components/about us/Aboutus"));
 const Contactus = lazy(() => import("./components/contact us/Contactus"));
-const Job = lazy(() => import("./components/jobs/Jobs"));
+const Job = lazy(() => import("./components/job/index"));
 const JobDetail = lazy(() => import("./components/jobs/JobDetail"));
 const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
@@ -68,6 +68,7 @@ const SurplusBusinesses = lazy(() =>
   import("./components/surplusBusiness/SurplusBusinesses")
 );
 const UserPanel = lazy(() => import("./components/user panel/index"));
+const AddJob = lazy(() => import("./components/job/AddJob"));
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
@@ -121,6 +122,8 @@ const App = (props) => {
                     element={<Contactus />}
                   />
                   <Route path="/jobs" exact={true} element={<Job />} />
+                  <Route path="/add-job" exact={true} element={<AddJob />} />
+
                   <Route path="/business" exact={true} element={<Job />} />
                   <Route path="/details" exact={true} element={<JobDetail />} />
                   {/* <Route
