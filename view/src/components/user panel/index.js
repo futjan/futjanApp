@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
+import AddJob from "../job/AddJob";
 import Surplus from "./Surplus";
 import EditSurplus from "./EditSurplus";
 const Index = (props) => {
   const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
+  const [add, setAdd] = useState("surplus");
   // initialize hooks
   const state = useLocation().state;
 
@@ -19,6 +21,7 @@ const Index = (props) => {
 
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
+
   return (
     <div className="container product-detail" style={{ margin: "30px auto" }}>
       <div className="product-attribute module">
@@ -84,8 +87,36 @@ const Index = (props) => {
                 {tab === "ADD" ? (
                   <div className="tab-content ">
                     <div className="tab-pane active" id="tab-description">
+                      <div style={{ display: "flex", marginTop: "25px" }}>
+                        <label
+                          className="container-radio"
+                          onClick={() => setAdd("surplus")}
+                          style={{ marginRight: "20px" }}
+                        >
+                          <input
+                            type="radio"
+                            checked={add === "surplus" ? true : false}
+                            name="Flat Shipping Rate"
+                          />{" "}
+                          Surplus
+                          <span className="checkmark"></span>
+                        </label>
+                        <label
+                          className="container-radio"
+                          onClick={() => setAdd("job")}
+                        >
+                          <input
+                            type="radio"
+                            checked={add === "job" ? true : false}
+                            name="Flat Shipping Rate"
+                          />{" "}
+                          Job
+                          <span className="checkmark"></span>
+                        </label>
+                      </div>
                       <div>
-                        <AddSurplusBusiness />
+                        {add === "surplus" ? <AddSurplusBusiness /> : null}
+                        {add === "job" ? <AddJob /> : null}
                       </div>
                     </div>
                   </div>

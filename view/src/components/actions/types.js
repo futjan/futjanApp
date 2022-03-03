@@ -16,3 +16,14 @@ export const DELETE_SURPLUS = "DELETE_SURPLUS";
 export const UPDATE_SURPLUS = "UPDATE_SURPLUS";
 export const SET_SURPLUS_LOADING = "SET_SURPLUS_LOADING";
 export const CLEAR_SURPLUS_LOADING = "CLEAR_SURPLUS_LOADING";
+// Job
+export const CREATE_JOB = "CREATE_JOB";
+export const ACTIVATE_JOB = "ACTIVATE_JOB";
+export const GET_JOBS = "GET_JOBS";
+export const GET_CURRENT_USER_JOBS = "GET_CURRENT_USER_JOBS";
+export const GET_JOB = "GET_JOB";
+export const GET_JOB_KEYWORDS = "GET_JOB_KEYWORDS";
+export const DELETE_JOB = "DELETE_JOB";
+export const UPDATE_JOB = "UPDATE_JOB";
+export const SET_JOB_LOADING = "SET_JOB_LOADING";
+export const CLEAR_JOB_LOADING = "CLEAR_JOB_LOADING";

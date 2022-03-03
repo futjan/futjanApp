@@ -59,3 +59,9 @@
   top: 2px !important;
   /* position: relative !important; */
 }
+
+/* material ui select */
+.MuiSelect-select {
+  padding: 0 !important;
+}
+/* material ui select */

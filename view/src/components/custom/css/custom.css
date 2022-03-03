@@ -5,8 +5,14 @@
   background: transparent !important;
 }
 
+.MuiMenuItem-root {
+  font-size: 16px !important;
+}
+.MuiAutocomplete-input {
+  font-size: 16px !important;
+}
 .MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input {
-  font-size: 14px !important;
+  font-size: 16px !important;
 
   color: rgb(0 127 176) !important;
   font-weight: 600 !important;
@@ -639,6 +645,77 @@ input[type="number"] {
   grid-area: btn;
 }
 
+/* JOB Page */
+.products-list {
+  padding-bottom: 10px;
+}
+.products-list .product-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+.products-list .product-layout .job-container {
+  width: 350px;
+  background: #fff;
+  border-radius: 8px;
+  /* margin: 10px; */
+  padding: 20px 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 16px rgb(0 0 0 / 5%);
+  height: 133px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+}
+.products-list .product-layout .job-container .job-image-container {
+  width: 80px;
+  /* padding-right: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.products-list .product-layout .job-container .job-image-container img {
+  border-radius: 6px;
+}
+.products-list .product-layout .job-container:hover {
+  box-shadow: 0px 0px 16px rgb(0 0 0 / 15%);
+}
+.products-list .product-layout .job-container .job-detail {
+  width: 75%;
+}
+.products-list .product-layout .job-container .job-detail h5 {
+  margin: 0 !important;
+  color: #3b5998;
+}
+.products-list .product-layout .job-container .job-detail p {
+  margin: 0 !important;
+  color: #666;
+  position: relative;
+  font-size: 13px !important;
+}
+.products-list .product-layout .job-container .job-detail p i {
+  margin-right: 5px;
+}
+.products-list .product-layout .job-container .job-type-span {
+  background: #4574d745;
+  padding: 3px 16px;
+  border-radius: 10px;
+  color: #3b5998;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+.products-list .product-layout .job-container .job-promotion-type {
+  background: #ff5e0054;
+  padding: 3px 16px;
+  border-radius: 10px;
+  color: #ff5e00;
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+/* JOB Page */
 /* HEADER */
 @media screen and (max-width: 992px) {
   .promotion-price {
