@@ -6,7 +6,11 @@ import "./customCss.css";
 const JobType = (props) => {
   return (
     <Select
-      className="form-control"
+      className={
+        props.errors && props.errors.validation && props.errors.validation.type
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       value={props.type}
       placeholder="choose..."
       onChange={(e) => props.setType(e.target.value)}

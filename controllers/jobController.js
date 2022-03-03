@@ -1,11 +1,21 @@
 const Job = require("../models/Job");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const validateJob = require("../validation/job");
 
 // @route                   POST /api/v1/job
 // @desc                    create job
 // @access                  Private
 exports.create = catchAsync(async (req, res, next) => {
+  let images = [];
+  if (req.files.length > 0) {
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+  }
+
+  req.body = JSON.parse(req.body.job);
+
   const job = await Job.create({
     user: req.user._id.toString(),
     title: req.body.title,
@@ -23,6 +33,7 @@ exports.create = catchAsync(async (req, res, next) => {
     contact: req.body.contact,
     address: req.body.address,
     subCategory: req.body.subCategory,
+    images,
   });
 
   // check job
@@ -97,4 +108,14 @@ exports.deleteJob = catchAsync(async (req, res, next) => {
     status: "success",
     job,
   });
+});
+
+exports.validateJob = catchAsync(async (req, res, next) => {
+  const { errors, isValid } = validateJob(JSON.parse(req.body.job));
+  // check validation
+  if (!isValid) {
+    return next(new AppError("Fields required", 400, errors));
+  }
+
+  next();
 });

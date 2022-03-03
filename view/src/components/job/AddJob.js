@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -7,9 +7,10 @@ import LocalJobs from "../../utils/LocalJobs";
 import JobCategory from "../../utils/JobCategory";
 import Gender from "../../utils/Gender";
 import JobType from "../../utils/JobType";
+import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
 import { createJob } from "../actions/jobAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
@@ -35,11 +36,35 @@ const AddJob = () => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
-  const [minSalary, setMinSalary] = useState(0);
-  const [maxSalary, setMaxSalary] = useState(0);
+  const [minSalary, setMinSalary] = useState("");
+  const [maxSalary, setMaxSalary] = useState("");
 
   // initialize hook
   const dispatch = useDispatch();
+
+  // get state from redux
+  const errorState = useSelector((state) => state.error);
+  const job = useSelector((state) => state.job);
+  // useEffect
+  useEffect(() => {
+    setErrors(errorState);
+  }, [errorState]);
+  // fileUploadHandler
+  const uploadFilesHandler = (e) => {
+    console.log(e.target.files);
+    if (e.target.files[0]) {
+      console.log(e.target.files[0]);
+      if (files.length < 5) {
+        const tempFiles = [...files];
+        tempFiles.push(e.target.files[0]);
+        setFiles([
+          ...tempFiles.filter(
+            (file, i, filesArray) => filesArray.indexOf(file) === i
+          ),
+        ]);
+      }
+    }
+  };
   // deleteFileHandler
   const deleteFileHandler = (index) => {
     setFiles([...files.filter((file, i) => i !== index)]);
@@ -89,8 +114,9 @@ const AddJob = () => {
       salaryType: salaryType.toLowerCase(),
       experience: experience.toLowerCase(),
       qualification: qualification.toLowerCase(),
-      minSalary,
-      maxSalary,
+      minSalary: minSalary * 1,
+      files,
+      maxSalary: maxSalary * 1,
       email: email.toLowerCase(),
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
@@ -109,23 +135,24 @@ const AddJob = () => {
     setSalaryType("");
     setExperience("");
     setQualification("");
-    setMinSalary(0);
-    setMaxSalary(0);
+    setMinSalary("");
+    setMaxSalary("");
     setEmail("");
     setContact("");
     setAddress("");
     setPromoteType([]);
+    setFiles([]);
   };
   return (
     // <!-- Main Container  -->
     <div
       className="main-container container"
-      style={{ position: "relative", marginTop: "30px" }}
+      style={{ position: "relative", margin: "30px auto" }}
     >
-      <div className="row">
+      <div className="row" style={{ padding: "25px" }}>
         <div id="content" className="col-md-11">
           <h2 className="title" style={{ margin: "0" }}>
-            Add JOB with us
+            Create Job with us
           </h2>
 
           <form
@@ -166,12 +193,18 @@ const AddJob = () => {
                   Category
                 </label>
                 <div className="col-sm-10">
-                  <JobCategory category={category} setCategory={setCategory} />
-                  {errors && errors.validation && errors.validation.title && (
-                    <div className="invalid-feedback">
-                      {errors.validation.title}
-                    </div>
-                  )}
+                  <JobCategory
+                    category={category}
+                    setCategory={setCategory}
+                    errors={errors}
+                  />
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.category && (
+                      <div className="invalid-feedback">
+                        {errors.validation.category}
+                      </div>
+                    )}
                 </div>
               </div>
               <div className="form-group required">
@@ -183,11 +216,13 @@ const AddJob = () => {
                     <LocalJobs
                       subCategory={subCategory}
                       setSubCategory={setSubCategory}
+                      errors={errors}
                     />
                   ) : (
                     <SpecialJobs
                       subCategory={subCategory}
                       setSubCategory={setSubCategory}
+                      errors={errors}
                     />
                   )}
                   {errors &&
@@ -204,7 +239,7 @@ const AddJob = () => {
                   Job type
                 </label>
                 <div className="col-sm-10">
-                  <JobType type={type} setType={setType} />
+                  <JobType type={type} setType={setType} errors={errors} />
 
                   {errors && errors.validation && errors.validation.type && (
                     <div className="invalid-feedback">
@@ -218,7 +253,11 @@ const AddJob = () => {
                   Gender
                 </label>
                 <div className="col-sm-10">
-                  <Gender gender={gender} setGender={setGender} />
+                  <Gender
+                    gender={gender}
+                    setGender={setGender}
+                    errors={errors}
+                  />
 
                   {errors && errors.validation && errors.validation.gender && (
                     <div className="invalid-feedback">
@@ -235,6 +274,7 @@ const AddJob = () => {
                   <SalaryType
                     salaryType={salaryType}
                     setSalaryType={setSalaryType}
+                    errors={errors}
                   />
 
                   {errors &&
@@ -400,7 +440,7 @@ const AddJob = () => {
                     type="number"
                     name="city"
                     value={minSalary}
-                    onChange={(e) => setMinSalary(e.target.value * 1)}
+                    onChange={(e) => setMinSalary(e.target.value)}
                     placeholder="min salary"
                     id="input-website"
                     className="form-control"
@@ -419,7 +459,7 @@ const AddJob = () => {
                     type="number"
                     name="city"
                     value={maxSalary}
-                    onChange={(e) => setMaxSalary(e.target.value * 1)}
+                    onChange={(e) => setMaxSalary(e.target.value)}
                     placeholder="max Salary"
                     id="input-website"
                     className="form-control"
@@ -509,7 +549,7 @@ const AddJob = () => {
                     type="file"
                     name="photo"
                     // value=""
-                    // onChange={(e) => uploadFilesHandler(e)}
+                    onChange={(e) => uploadFilesHandler(e)}
                     placeholder="Offered Price"
                     id="input-website"
                     className={
@@ -739,7 +779,7 @@ const AddJob = () => {
           </form>
         </div>
       </div>
-      {/* {surplus.loading === true ? <Loader /> : null} */}
+      {job.loading === true ? <Loader /> : null}
     </div>
   );
 };

@@ -70,21 +70,21 @@ export const getSurplusesPrivate = () => async (dispatch) => {
 // @access                  Private
 export const createJob = (job, clearState) => async (dispatch) => {
   let formDate = new FormData();
-  //   surplus.files.forEach((file) => formDate.append("photo", file));
+  job.files.forEach((file) => formDate.append("photo", file));
 
-  //   formDate.append("surplus", JSON.stringify(surplus));
-  //   const config = {
-  //     headers: {
-  //       "content-type": "multipart/form-data",
-  //     },
-  //   };
+  formDate.append("job", JSON.stringify(job));
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
   dispatch(setLoading());
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
   try {
-    // const res = await axios.post("/api/v1/surplus", formDate, config);
-    const res = await axios.post("/api/v1/job", job);
+    const res = await axios.post("/api/v1/job", formDate, config);
+    // const res = await axios.post("/api/v1/job", job);
     if (res) {
       dispatch({
         type: Types.CREATE_JOB,

@@ -360,7 +360,7 @@ const AddSurplusBusiness = () => {
       <div className="row">
         <div id="content" className="col-md-11">
           <h2 className="title" style={{ margin: "0" }}>
-            Add Surplus business with us
+            Create Surplus with us
           </h2>
 
           <form

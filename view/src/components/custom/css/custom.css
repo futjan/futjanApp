@@ -5,8 +5,11 @@
   background: transparent !important;
 }
 
+.MuiMenuItem-root {
+  font-size: 16px !important;
+}
 .MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input {
-  font-size: 14px !important;
+  font-size: 16px !important;
 
   color: rgb(0 127 176) !important;
   font-weight: 600 !important;

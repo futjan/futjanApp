@@ -53,7 +53,7 @@ const jobSchema = Sehema({
   email: String,
   contact: String,
   address: String,
-  photos: [String],
+  images: [String],
   createdAt: {
     type: Date,
     default: Date.now(),

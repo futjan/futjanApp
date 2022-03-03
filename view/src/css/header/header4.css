@@ -1088,6 +1088,7 @@
   position: relative;
   top: 7px;
   font-size: 12px !important;
+  text-transform: capitalize;
 }
 .typeheader-4
   .megamenu-style-dev

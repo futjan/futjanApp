@@ -6,7 +6,13 @@ import "./customCss.css";
 const SalaryType = (props) => {
   return (
     <Select
-      className="form-control"
+      className={
+        props.errors &&
+        props.errors.validation &&
+        props.errors.validation.salaryType
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       value={props.salaryType}
       placeholder="choose..."
       onChange={(e) => props.setSalaryType(e.target.value)}

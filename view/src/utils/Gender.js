@@ -6,7 +6,13 @@ import "./customCss.css";
 const Gender = (props) => {
   return (
     <Select
-      className="form-control"
+      className={
+        props.errors &&
+        props.errors.validation &&
+        props.errors.validation.gender
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       value={props.gender}
       placeholder="choose..."
       onChange={(e) => props.setGender(e.target.value)}

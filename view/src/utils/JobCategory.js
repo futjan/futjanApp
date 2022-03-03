@@ -6,7 +6,13 @@ import "./customCss.css";
 const JobCategory = (props) => {
   return (
     <Select
-      className="form-control"
+      className={
+        props.errors &&
+        props.errors.validation &&
+        props.errors.validation.category
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       value={props.category}
       placeholder="choose..."
       onChange={(e) => props.setCategory(e.target.value)}

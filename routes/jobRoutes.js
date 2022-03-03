@@ -6,7 +6,13 @@ const fileController = require("../controllers/fileController");
 
 router
   .route("/")
-  .post(authController.protect, jobController.create)
+  .post(
+    authController.protect,
+    fileController.uploadFile,
+    jobController.validateJob,
+    fileController.resizeImage,
+    jobController.create
+  )
   .get(jobController.getJobs);
 
 router
