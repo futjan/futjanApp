@@ -121,11 +121,15 @@ const App = (props) => {
                     exact={true}
                     element={<Contactus />}
                   />
-                  <Route path="/jobs" exact={true} element={<Job />} />
+                  <Route
+                    path="/job-detail/:id"
+                    exact={true}
+                    element={<JobDetail />}
+                  />
+                  <Route path="/job" exact={true} element={<Job />} />
                   <Route path="/add-job" exact={true} element={<AddJob />} />
 
                   <Route path="/business" exact={true} element={<Job />} />
-                  <Route path="/details" exact={true} element={<JobDetail />} />
                   {/* <Route
                     path="/add-surplus"
                     exact

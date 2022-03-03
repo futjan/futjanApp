@@ -115,7 +115,7 @@ export const getJobById = (id) => async (dispatch) => {
     const res = await axios.get(`/api/v1/job/${id}`);
     if (res) {
       dispatch({
-        type: Types.GET_SURPLUS,
+        type: Types.GET_JOB,
         payload: res.data.job,
       });
     }

@@ -308,9 +308,35 @@ function DetailSurplus() {
                       </div>
                     </div>
                   </div>
-                  <div className="short_description form-group">
-                    <h3>OverView</h3>
+                  <h3 style={{ margin: "0" }}>Share on</h3>
+
+                  <div class="socials" style={{ marginTop: "8px" }}>
+                    <i
+                      class="fa fa-facebook"
+                      style={{
+                        fontSize: "20px",
+                        marginRight: "8px",
+                        cursor: "pointer",
+                      }}
+                    ></i>
+
+                    <i
+                      class="fa fa-twitter"
+                      style={{
+                        fontSize: "20px",
+                        marginRight: "8px",
+                        cursor: "pointer",
+                      }}
+                    ></i>
+
+                    <i
+                      class="fa fa-instagram"
+                      style={{ fontSize: "20px", cursor: "pointer" }}
+                    ></i>
                   </div>
+                  {/* <div className="short_description form-group">
+                    <h3>OverView</h3>
+                  </div> */}
                   <div id="product">
                     <div className="box-cart clearfix">
                       <div className="form-group box-info-product">

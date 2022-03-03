@@ -312,10 +312,12 @@ const AddSurplusBusiness = () => {
   };
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
-    if (e.target.files[0]) {
+    if (e.target.files) {
       if (files.length < 5) {
         const tempFiles = [...files];
-        tempFiles.push(e.target.files[0]);
+        for (let i = 0; i < e.target.files.length; i++) {
+          tempFiles.push(e.target.files[i]);
+        }
         setFiles([
           ...tempFiles.filter(
             (file, i, filesArray) => filesArray.indexOf(file) === i
@@ -679,7 +681,7 @@ const AddSurplusBusiness = () => {
                 </div>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
@@ -717,7 +719,7 @@ const AddSurplusBusiness = () => {
                       </div>
                     )}
                 </div>
-              </div>
+              </div> */}
               <h4 className="post-ad-heading">Surplus Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
@@ -944,6 +946,7 @@ const AddSurplusBusiness = () => {
                   <input
                     type="file"
                     name="photo"
+                    multiple
                     value=""
                     onChange={(e) => uploadFilesHandler(e)}
                     placeholder="Offered Price"

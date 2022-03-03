@@ -50,13 +50,14 @@ const AddJob = () => {
     setErrors(errorState);
   }, [errorState]);
   // fileUploadHandler
+  // fileUploadHandler
   const uploadFilesHandler = (e) => {
-    console.log(e.target.files);
-    if (e.target.files[0]) {
-      console.log(e.target.files[0]);
+    if (e.target.files) {
       if (files.length < 5) {
         const tempFiles = [...files];
-        tempFiles.push(e.target.files[0]);
+        for (let i = 0; i < e.target.files.length; i++) {
+          tempFiles.push(e.target.files[i]);
+        }
         setFiles([
           ...tempFiles.filter(
             (file, i, filesArray) => filesArray.indexOf(file) === i
@@ -149,7 +150,7 @@ const AddJob = () => {
       className="main-container container"
       style={{ position: "relative", margin: "30px auto" }}
     >
-      <div className="row" style={{ padding: "25px" }}>
+      <div className="row">
         <div id="content" className="col-md-11">
           <h2 className="title" style={{ margin: "0" }}>
             Create Job with us

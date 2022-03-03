@@ -1106,13 +1106,13 @@ const Header2 = () => {
         <div className="container">
           <ul className="new-design-ul">
             <li>
-              <NavLink to="/jobs" className="type-links">
+              <NavLink to="/job" className="type-links">
                 <i className="fa fa-briefcase"></i>
                 JOBS
               </NavLink>
             </li>
             <li>
-              <NavLink to="/jobs" className="type-links">
+              <NavLink to="/job" className="type-links">
                 <i className="fa fa-handshake-o"></i>
                 BUSINESS
               </NavLink>

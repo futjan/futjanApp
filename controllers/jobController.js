@@ -33,6 +33,7 @@ exports.create = catchAsync(async (req, res, next) => {
     contact: req.body.contact,
     address: req.body.address,
     subCategory: req.body.subCategory,
+    promoteType: req.body.promoteType,
     images,
   });
 

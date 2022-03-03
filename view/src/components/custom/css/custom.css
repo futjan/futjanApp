@@ -8,6 +8,9 @@
 .MuiMenuItem-root {
   font-size: 16px !important;
 }
+.MuiAutocomplete-input {
+  font-size: 16px !important;
+}
 .MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input {
   font-size: 16px !important;
 
@@ -683,6 +686,7 @@ input[type="number"] {
 }
 .products-list .product-layout .job-container .job-detail h5 {
   margin: 0 !important;
+  color: #3b5998;
 }
 .products-list .product-layout .job-container .job-detail p {
   margin: 0 !important;
@@ -700,6 +704,7 @@ input[type="number"] {
   color: #3b5998;
   font-size: 13px;
   font-weight: 600;
+  text-transform: lowercase;
 }
 .products-list .product-layout .job-container .job-promotion-type {
   background: #ff5e0054;

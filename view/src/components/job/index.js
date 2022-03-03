@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import upworkLogo from "../image/upworkLogo.png";
+// import upworkLogo from "../image/upworkLogo.png";
+// import Loader from "../../utils/Loader";
+import fileURL from "../../utils/fileURL";
+import { getJobs } from "../actions/jobAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const Index = () => {
+  // initialize hooks
+  const dispatch = useDispatch();
+  // get state from store
+
+  const job = useSelector((state) => state.job);
+
+  // useEffect
+  useEffect(() => {
+    dispatch(getJobs());
+  }, []);
+
+  console.log(job);
+
   return (
     <div className="res layout-1" style={{ marginTop: "30px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -393,13 +410,63 @@ const Index = () => {
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>0 results found </p>
+                  <p>{job.jobs.length} results found </p>
                 </div>
 
                 <div className="products-list grid row number-col-3 so-filter-gird">
-                  {/* {surplusFromStore.surpluses.length > 0
-                  ? surplusFromStore.surpluses.map((sur) => ( */}
-                  <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  {job.jobs.length > 0
+                    ? job.jobs.map((job) => (
+                        <Link
+                          to={`/job-detail/${job._id}`}
+                          className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12"
+                          key={job._id}
+                        >
+                          <div className="job-container">
+                            <div className="job-image-container">
+                              {job.images.length > 0 ? (
+                                <img
+                                  src={fileURL(job.images[0])}
+                                  alt="logo"
+                                  width="55"
+                                />
+                              ) : null}
+                            </div>
+                            <div className="job-detail">
+                              <h5>{job.title}</h5>
+                              <p>
+                                <i className="fa fa-briefcase"></i>{" "}
+                                {job.subCategory}
+                              </p>
+                              <p>
+                                {" "}
+                                <i className="fa fa-money"></i>
+                                {job.minSalary > 0 && job.maxSalary > 0
+                                  ? job.minSalary +
+                                    " - " +
+                                    job.maxSalary +
+                                    " / " +
+                                    job.salaryType
+                                  : job.salaryType}
+                              </p>
+                              <span className="job-type-span">{job.type}</span>
+                              {job.promoteType.length > 0
+                                ? job.promoteType
+                                    .filter(
+                                      (type) => type.promote === "FEATURED"
+                                    )
+                                    .map((type) => (
+                                      <span className="job-promotion-type">
+                                        {type.promote}
+                                      </span>
+                                    ))
+                                : null}
+                            </div>
+                          </div>
+                        </Link>
+                      ))
+                    : null}
+
+                  {/* <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div className="job-container">
                       <div className="job-image-container">
                         <img src={upworkLogo} alt="logo" width="55" />
@@ -417,8 +484,8 @@ const Index = () => {
                         <span className="job-promotion-type">Featured</span>
                       </div>
                     </div>
-                  </div>
-                  <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  </div> */}
+                  {/* <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div className="job-container">
                       <div className="job-image-container">
                         <img src={upworkLogo} alt="logo" width="55" />
@@ -436,26 +503,7 @@ const Index = () => {
                         <span className="job-promotion-type">Featured</span>
                       </div>
                     </div>
-                  </div>
-                  <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div className="job-container">
-                      <div className="job-image-container">
-                        <img src={upworkLogo} alt="logo" width="55" />
-                      </div>
-                      <div className="job-detail">
-                        <h5>Senior Product Designer</h5>
-                        <p>
-                          <i className="fa fa-briefcase"></i> Job type
-                        </p>
-                        <p>
-                          {" "}
-                          <i className="fa fa-money"></i> Min - Max / day
-                        </p>
-                        <span className="job-type-span">Part time</span>
-                        <span className="job-promotion-type">Featured</span>
-                      </div>
-                    </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="product-filter product-filter-bottom filters-panel">
