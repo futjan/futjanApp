@@ -1154,7 +1154,7 @@ const Header2 = () => {
                 {/* <div className="content" id="sub-menu-content"> */}
                 <div id="sub-menu-content">
                   <div>
-                    <h4 style={{ padding: "0 15px" }}>Local Jobs</h4>
+                    <h4 style={{ padding: "0 15px" }}>Category</h4>
                     <ul className="row-list">
                       <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
