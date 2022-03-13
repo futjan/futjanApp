@@ -93,7 +93,6 @@
 }
 .lib-list-item-product2 .image-dev .list-button-dev li {
   display: inline-block;
-  float: left;
   height: 40px;
   width: 40px;
   background: #fff;
@@ -554,15 +553,7 @@ footer.typefooter-1 .footer--center3 .contactinfo .content-footer .phone label {
   background: transparent;
   left: 0;
 }
-footer.typefooter-1 .footer--center3 .payment-html a.app-1 {
-  /* background: url("../../image/icon/app-store-1.png") no-repeat left center;  */
-}
-footer.typefooter-1 .footer--center3 .payment-html a.app-2 {
-  /* background: url("../../image/icon/app-store-2.png") no-repeat left center;  */
-}
-footer.typefooter-1 .footer--center3 .payment-html a.app-3 {
-  /* background: url("../../image/icon/app-store-3.png") no-repeat left center;  */
-}
+
 footer.typefooter-1 .footer--center3 .payment-html {
   text-align: center;
 }

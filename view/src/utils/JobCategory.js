@@ -14,7 +14,7 @@ const JobCategory = (props) => {
           : "form-control"
       }
       value={props.category}
-      placeholder="choose..."
+      displayEmpty
       onChange={(e) => props.setCategory(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>

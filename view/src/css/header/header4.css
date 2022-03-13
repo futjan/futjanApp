@@ -781,7 +781,7 @@
   cursor: pointer;
   padding-right: 26px;
 }
-.typeheader-4 #sosearchpro.so-search .select_category:after {
+/* .typeheader-4 #sosearchpro.so-search .select_category:after {
   content: "\f0d7";
   background-color: transparent;
   line-height: 38px;
@@ -789,7 +789,7 @@
   color: #444;
   right: 10px;
   left: auto;
-}
+} */
 .typeheader-4 #sosearchpro.so-search .autosearch-input {
   border-width: 1px 0 1px 1px;
   border-style: solid;

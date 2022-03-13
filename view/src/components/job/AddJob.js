@@ -379,7 +379,6 @@ const AddJob = () => {
                     name="city"
                     id="input-description"
                     rows="5"
-                    id="input-review"
                     placeholder="Description"
                     className={
                       errors &&
@@ -499,11 +498,12 @@ const AddJob = () => {
                         : "form-control"
                     }
                     style={{
-                      minHeight: "200px",
+                      height: "100%",
                       width: "100%",
                       marginBottom: "10px",
                       display: "flex",
                       // alignItems: "center",
+                      background: "transparent",
                       justifyContent: "start",
                       gap: "10px",
                     }}
@@ -512,11 +512,15 @@ const AddJob = () => {
                       ? files.map((file, i) => (
                           <div
                             style={{
-                              width: "100px ",
-                              height: "100px",
-
+                              width: "180px ",
+                              height: "180px",
+                              background: "#eee",
                               position: "relative",
                               overflow: "hidden",
+                              padding: "10px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             key={i}
                           >

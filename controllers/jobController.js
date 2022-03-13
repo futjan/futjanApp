@@ -2,6 +2,7 @@ const Job = require("../models/Job");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const validateJob = require("../validation/job");
+const APIFeature = require("../utils/apiFeatures");
 
 // @route                   POST /api/v1/job
 // @desc                    create job
@@ -52,8 +53,13 @@ exports.create = catchAsync(async (req, res, next) => {
 // @desc                    GET jobs
 // @access                  Public
 exports.getJobs = catchAsync(async (req, res, next) => {
-  const jobs = await Job.find({});
+  const features = new APIFeature(Job.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
 
+  const jobs = await features.query;
   // send response to client
   res.status(200).json({
     status: "success",

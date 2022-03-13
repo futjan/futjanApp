@@ -14,7 +14,7 @@ const Login = (props) => {
   // initialize navigation
   const navigate = useNavigate();
   const location = useLocation();
-
+  console.log(location && location.state);
   // initialize useDispatch
   const dispatch = useDispatch();
   // get state from store
@@ -40,7 +40,11 @@ const Login = (props) => {
     setPassword("");
   };
   const pushToIndex = () => {
-    navigate("/");
+    if (location && location.state && location.state.from) {
+      navigate(location && location.state && location.state.from);
+    } else {
+      navigate("/");
+    }
   };
   return (
     <div

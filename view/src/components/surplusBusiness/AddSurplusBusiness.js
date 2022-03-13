@@ -390,7 +390,7 @@ const AddSurplusBusiness = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-company"
                 >
-                  Company
+                  Name / Company
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -759,7 +759,6 @@ const AddSurplusBusiness = () => {
                     name="city"
                     id="input-description"
                     rows="5"
-                    id="input-review"
                     placeholder="Description"
                     className={
                       errors &&
@@ -890,80 +889,83 @@ const AddSurplusBusiness = () => {
                     </span>
                     You can add upto 5 images
                   </label>
-                  <div
-                    className={
-                      errors && errors.validation && errors.validation.files
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                    style={{
-                      minHeight: "200px",
-                      width: "100%",
-                      marginBottom: "10px",
-                      display: "flex",
-                      // alignItems: "center",
-                      justifyContent: "start",
-                      gap: "10px",
-                    }}
-                  >
-                    {files.length > 0
-                      ? files.map((file, i) => (
-                          <div
-                            style={{
-                              width: "100px ",
-                              height: "100px",
-
-                              position: "relative",
-                              overflow: "hidden",
-                            }}
-                            key={i}
-                          >
-                            <i
-                              className="fa fa-times-circle"
+                  <div>
+                    <div
+                      className={
+                        errors && errors.validation && errors.validation.files
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        marginBottom: "10px",
+                        display: "flex",
+                        // alignItems: "center",
+                        background: "transparent",
+                        justifyContent: "start",
+                        gap: "10px",
+                      }}
+                    >
+                      {files.length > 0
+                        ? files.map((file, i) => (
+                            <div
                               style={{
-                                position: "absolute",
-                                top: "2px",
-                                right: "6px",
-                                color: "#c82333",
-                                fontSize: "23px",
-                                cursor: "pointer",
+                                width: "180px ",
+                                height: "180px",
+                                background: "#eee",
+                                position: "relative",
+                                overflow: "hidden",
+                                padding: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
-                              onClick={() => deleteFileHandler(i)}
-                            ></i>
-                            <img
-                              width={100}
-                              src={URL.createObjectURL(file)}
-                              alt={`uploaded-image-${i}`}
-                            />
-                          </div>
-                        ))
-                      : null}
-                  </div>
-                  {/* {errors && errors.validation && errors.validation.files && (
-                    <div className="invalid-feedback">
-                      {errors.validation.files}
+                              key={i}
+                            >
+                              <i
+                                className="fa fa-times-circle"
+                                style={{
+                                  position: "absolute",
+                                  top: "2px",
+                                  right: "6px",
+                                  color: "#c82333",
+                                  fontSize: "23px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => deleteFileHandler(i)}
+                              ></i>
+                              <img
+                                width="100%"
+                                src={URL.createObjectURL(file)}
+                                alt={`uploaded-image-${i}`}
+                              />
+                            </div>
+                          ))
+                        : null}
                     </div>
-                  )} */}
-                  <input
-                    type="file"
-                    name="photo"
-                    multiple
-                    value=""
-                    onChange={(e) => uploadFilesHandler(e)}
-                    placeholder="Offered Price"
-                    id="input-website"
-                    className={
-                      errors && errors.validation && errors.validation.files
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
 
-                  {errors && errors.validation && errors.validation.files && (
-                    <div className="invalid-feedback">
-                      {errors.validation.files}
-                    </div>
-                  )}
+                    <input
+                      type="file"
+                      name="photo"
+                      multiple
+                      value=""
+                      onChange={(e) => uploadFilesHandler(e)}
+                      placeholder="Offered Price"
+                      id="input-website"
+                      className={
+                        errors && errors.validation && errors.validation.files
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                    />
+
+                    {errors && errors.validation && errors.validation.files && (
+                      <div className="invalid-feedback">
+                        {errors.validation.files}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
@@ -984,7 +986,7 @@ const AddSurplusBusiness = () => {
                     <span style={{ fontWeight: "600", fontSize: "16px" }}>
                       Note:{" "}
                     </span>
-                    Promote ad option is optional. You can post ad free
+                    Promote your Ad options are optional. You can post Ad free
                   </label>
                   <label
                     className="control-label"
