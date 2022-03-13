@@ -1,10 +1,29 @@
 /* Global */
-
+/* MAP */
+.nJjxad-bMcfAe-haAclf.nJjxad-HzV7m {
+  display: none !important;
+}
+#watermark {
+  display: none !important;
+}
+.i4ewOd-pzNkMb-haAclf {
+  display: none !important;
+}
+.yePe5c-haAclf.yePe5c-purZT.yePe5c-HzV7m {
+  display: none !important;
+}
+.gmnoprint {
+  display: none !important;
+}
+/* MAP */
 /* MATERIAL UI */
 .MuiSelect-select.MuiSelect-standard.MuiInput-input.MuiInputBase-input:focus {
   background: transparent !important;
 }
 
+.top-link.list-inline .MuiSelect-select {
+  padding-right: 25px !important;
+}
 .MuiMenuItem-root {
   font-size: 16px !important;
 }
@@ -126,7 +145,7 @@ html {
   padding: 15px;
   background: #fff;
   border-radius: 3px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   box-sizing: border-box;
   border: 1px solid #ddd;
   display: flex;

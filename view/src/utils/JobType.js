@@ -12,6 +12,7 @@ const JobType = (props) => {
           : "form-control"
       }
       value={props.type}
+      displayEmpty
       placeholder="choose..."
       onChange={(e) => props.setType(e.target.value)}
     >

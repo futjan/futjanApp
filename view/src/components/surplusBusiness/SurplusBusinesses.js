@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
-import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
+
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
@@ -244,7 +244,7 @@ const SurplusBusinesses = () => {
     );
   };
   return (
-    <div className="res layout-1" style={{ marginTop: "30px" }}>
+    <div className="res layout-1" style={{ marginTop: "20px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
         <div className="container product-detail">
           <div className="row">

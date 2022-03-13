@@ -308,37 +308,50 @@ function DetailSurplus() {
                       </div>
                     </div>
                   </div>
+
+                  <h3 style={{ marginBottom: "8px" }}>location</h3>
+                  <iframe
+                    src="https://www.google.com/maps/d/embed?mid=1DfFcv3jAM8NAeioBjW_CHwtKL3A&ehbc=2E312F"
+                    width="120"
+                    height="120"
+                  ></iframe>
                   <h3 style={{ margin: "0" }}>Share on</h3>
 
                   <div class="socials" style={{ marginTop: "8px" }}>
                     <i
-                      class="fa fa-facebook"
+                      className="fa fa-brands fa-facebook-square"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "25px",
                         marginRight: "8px",
                         cursor: "pointer",
+                        color: "rgba(20,110,190,1)",
                       }}
                     ></i>
 
                     <i
-                      class="fa fa-twitter"
+                      className="fa fa-brands fa-twitter-square"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "25px",
                         marginRight: "8px",
                         cursor: "pointer",
+                        color: "#1DA1F2",
                       }}
                     ></i>
 
                     <i
-                      class="fa fa-instagram"
-                      style={{ fontSize: "20px", cursor: "pointer" }}
+                      className="fa fa-brands fa-whatsapp"
+                      style={{
+                        fontSize: "25px",
+                        cursor: "pointer",
+                        color: "#25D366",
+                      }}
                     ></i>
                   </div>
                   {/* <div className="short_description form-group">
                     <h3>OverView</h3>
                   </div> */}
                   <div id="product">
-                    <div className="box-cart clearfix">
+                    <div className="box-cart clearfix" style={{ margin: "0" }}>
                       <div className="form-group box-info-product">
                         <div className="option quantity">
                           <div className="add-to-links wish_comp">

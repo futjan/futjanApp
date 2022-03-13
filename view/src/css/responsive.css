@@ -96,7 +96,6 @@
 }
 .lib-list-item-product2 .image-dev .list-button-dev li {
   display: inline-block;
-  float: left;
   height: 40px;
   width: 40px;
   background: #fff;
@@ -1408,9 +1407,6 @@
     top: -74px;
     right: 10px;
   }
-  header.typeheader-5 .header-bottom .header-cart .handle {
-    /* background: url("../image/icon-cart-ly3.png") no-repeat center center; */
-  }
   header.typeheader-5 .header-bottom .header-cart .cart-info,
   header.typeheader-5
     .megamenu-style-dev
@@ -2550,6 +2546,7 @@
     background: -ms-linear-gradient(top, #474747 0%, #212121 100%);
     background: linear-gradient(to bottom, #474747 0%, #212121 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#474747', endColorstr='#212121',GradientType=0);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
     -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15),
       inset 0 1px 0.5px rgba(255, 255, 255, 0.2);
     -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15),
@@ -3322,9 +3319,6 @@
   header.typeheader-4 .header-bottom-right .megamenu-style-dev .navbar-header {
     float: right;
   }
-  header.typeheader-4 .header-bottom {
-    /* padding-top: 10px; */
-  }
   header.typeheader-4 .header-bonus .coupon-code .container {
     padding-left: 15px !important;
   }
@@ -3832,7 +3826,7 @@
   }
   .so-filter-price .put-min_max .name-curent {
     display: inline-block;
-    float: left;
+
     line-height: 30px;
   }
   .so-filter-price .put-min_max .form-control {
@@ -4246,6 +4240,7 @@
     background: -ms-linear-gradient(top, #474747 0%, #212121 100%);
     background: linear-gradient(to bottom, #474747 0%, #212121 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#474747', endColorstr='#212121',GradientType=0);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
     -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15),
       inset 0 1px 0.5px rgba(255, 255, 255, 0.2);
     -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15),

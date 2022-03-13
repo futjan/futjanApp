@@ -13,7 +13,7 @@ const LocalJobs = (props) => {
           ? "form-control is-invalid"
           : "form-control"
       }
-      placeholder="choose..."
+      displayEmpty
       onChange={(e) => props.setSubCategory(e.target.value)}
       value={props.subCategory}
     >
@@ -29,7 +29,7 @@ const LocalJobs = (props) => {
       <MenuItem value="Plumber">Plumber</MenuItem>
       <MenuItem value="Beautician/Salon">Beautician/Salon</MenuItem>
       <MenuItem value="Data entry/Back office">Data entry/Back office</MenuItem>
-      <MenuItem value="BPO & Telecaller">BPO & Telecaller</MenuItem>
+      <MenuItem value="BPOTelecaller">BPO & Telecaller</MenuItem>
       <MenuItem value="Firefighter">Firefighter</MenuItem>
       <MenuItem value="Sales/Marketing">Sales/Marketing</MenuItem>
       <MenuItem value="Office co-ordinator">Office co-ordinator</MenuItem>

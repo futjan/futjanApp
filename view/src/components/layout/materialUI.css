@@ -1,0 +1,18 @@
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+.MuiOutlinedInput-notchedOutline legend {
+  display: none !important;
+}
+.MuiOutlinedInput-root {
+  font-size: 16px !important;
+}
+
+.top-link li:first-child .MuiOutlinedInput-root {
+  border-right: 1px solid #ddd;
+  border-radius: 0 !important;
+}
+
+.MuiSelect-select {
+  padding: 0 25px 0 5px !important;
+}

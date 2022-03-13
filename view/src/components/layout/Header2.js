@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import LOGO from "../image/logo2.jpeg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
+import { Select, MenuItem } from "@mui/material";
+import ukFlag from "../image/flag/uk.png";
+import indianFlag from "../image/flag/india.png";
 // import { City } from "country-state-city";
+import "./materialUI.css";
 
 const Header2 = () => {
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
   const [city, setCity] = useState("");
   const [suggustionCities, setSuggustionCities] = useState([]);
+  const [currency, setCurrency] = useState("india");
+  const [country, setCountry] = useState("india");
   // initialize hooks
   const dispatch = useDispatch();
+  const location = useLocation();
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   const auth = useSelector((state) => state.auth);
@@ -144,6 +151,37 @@ const Header2 = () => {
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
       <div className="header-center">
+        <ul
+          className="top-link list-inline"
+          style={{ position: "absolute", top: "0", right: "0" }}
+        >
+          <li>
+            <Select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            >
+              <MenuItem value="uk">
+                <img src={ukFlag} width="20" />
+              </MenuItem>
+              <MenuItem value="india">
+                <img src={indianFlag} width="20" />
+              </MenuItem>
+            </Select>
+          </li>
+          <li class="currency">
+            <Select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            >
+              <MenuItem value="uk">
+                <p style={{ margin: "0" }}>£</p>
+              </MenuItem>
+              <MenuItem value="india">
+                <p style={{ margin: "0" }}>₹</p>
+              </MenuItem>
+            </Select>
+          </li>
+        </ul>
         <div className="container">
           <div
             className="row d-sm-block"
@@ -442,6 +480,8 @@ const Header2 = () => {
                                                         to="/user-panel"
                                                         state={{
                                                           active: "ADD",
+                                                          navigate:
+                                                            "/user-panel",
                                                         }}
                                                       >
                                                         <i className="fa fa-archive"></i>{" "}
@@ -503,9 +543,7 @@ const Header2 = () => {
                                                       </Link>
                                                     </li>
                                                     <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/"
+                                                      <a
                                                         onClick={() =>
                                                           dispatch(logoutUser())
                                                         }
@@ -515,7 +553,7 @@ const Header2 = () => {
                                                           // style={{ fontSize: "20px", padding: "0" }}
                                                         ></i>
                                                         Logout
-                                                      </Link>
+                                                      </a>
                                                     </li>
                                                   </ul>
                                                 </div>
@@ -630,6 +668,7 @@ const Header2 = () => {
                                       alignItems: "center",
                                       flexDirection: "column",
                                     }}
+                                    state={{ from: location.pathname }}
                                     onClick={() =>
                                       closeSideNavBar(
                                         "megamenu-wrapper-2",
@@ -901,6 +940,7 @@ const Header2 = () => {
                                         alignItems: "center",
                                         flexDirection: "column",
                                       }}
+                                      state={{ from: location.pathname }}
                                       onClick={() =>
                                         closeSideNavBar(
                                           "megamenu-wrapper-2",
@@ -1110,6 +1150,770 @@ const Header2 = () => {
                 <i className="fa fa-briefcase"></i>
                 JOBS
               </NavLink>
+              <div className="sub-menu" id="sub-menu">
+                {/* <div className="content" id="sub-menu-content"> */}
+                <div id="sub-menu-content">
+                  <div>
+                    <h4 style={{ padding: "0 15px" }}>Local Jobs</h4>
+                    <ul className="row-list">
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "ACTechnician",
+                            category: "Local Job",
+                          }}
+                        >
+                          AC Technician
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Cook/Helper",
+                            category: "Local Job",
+                          }}
+                        >
+                          Cook/Helper
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Operator/Technician",
+                            category: "Local Job",
+                          }}
+                        >
+                          Operator/Technician
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Bar Tender",
+                            category: "Local Job",
+                          }}
+                        >
+                          Bar Tender
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Delivery person",
+                            category: "Local Job",
+                          }}
+                        >
+                          Delivery person
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Painter",
+                            category: "Local Job",
+                          }}
+                        >
+                          Painter
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Body Guard",
+                            category: "Local Job",
+                          }}
+                        >
+                          Body Guard
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Driver",
+                            category: "Local Job",
+                          }}
+                        >
+                          Driver
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Plumber",
+                            category: "Local Job",
+                          }}
+                        >
+                          Plumber
+                        </Link>
+                      </li>
+
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Beautician/Salon",
+                            category: "Local Job",
+                          }}
+                        >
+                          Beautician/Salon
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Data entry/Back office",
+                            category: "Local Job",
+                          }}
+                        >
+                          Data entry/Back office
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "BPOTelecaller",
+                            category: "Local Job",
+                          }}
+                        >
+                          BPOTelecaller
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Firefighter",
+                            category: "Local Job",
+                          }}
+                        >
+                          Firefighter
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Sales/Marketing",
+                            category: "Local Job",
+                          }}
+                        >
+                          Sales/Marketing
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/=job"
+                          state={{
+                            subCategory: "Office co-ordinator",
+                            category: "Local Job",
+                          }}
+                        >
+                          Office co-ordinator
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Helper",
+                            category: "Local Job",
+                          }}
+                        >
+                          Helper
+                        </Link>
+                      </li>
+
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Soldering operator",
+                            category: "Local Job",
+                          }}
+                        >
+                          Soldering operator
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Nanny/Aaya",
+                            category: "Local Job",
+                          }}
+                        >
+                          Nanny/Aaya
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="job"
+                          state={{
+                            subCategory: "Labour",
+                            category: "Local Job",
+                          }}
+                        >
+                          Labour
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Teacher/Tutor",
+                            category: "Local Job",
+                          }}
+                        >
+                          Teacher/Tutor
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Construction",
+                            category: "Local Job",
+                          }}
+                        >
+                          Construction
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Maid/Servant",
+                            category: "Local Job",
+                          }}
+                        >
+                          Maid/Servant
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Waiter",
+                            category: "Local Job",
+                          }}
+                        >
+                          Waiter
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Control room",
+                            category: "Local Job",
+                          }}
+                        >
+                          Control room
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Metal sheet worker/Welder",
+                            category: "Local Job",
+                          }}
+                        >
+                          Metal sheet worker/Welder
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Washer",
+                            category: "Local Job",
+                          }}
+                        >
+                          Washer
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Office boy/peon",
+                            category: "Local Job",
+                          }}
+                        >
+                          Office boy/peon
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Other",
+                            category: "Local Job",
+                          }}
+                        >
+                          Other
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    {/* <h4 style={{ padding: "0 15px", display: "block" }}>
+                      Special Jobs
+                    </h4> */}
+                    <ul className="row-list">
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Apprenticeships",
+                            category: "Special Job",
+                          }}
+                        >
+                          Apprenticeships
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Financial Services",
+                            category: "Special Job",
+                          }}
+                        >
+                          Financial Services
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Purchasing",
+                            category: "Special Job",
+                          }}
+                        >
+                          Purchasing
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Admin, SecretarialPA",
+                            category: "Special Job",
+                          }}
+                        >
+                          Admin, Secretarial & PA
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "General Insurance",
+                            category: "Special Job",
+                          }}
+                        >
+                          General Insurance
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Recruitment Consultancy",
+                            category: "Special Job",
+                          }}
+                        >
+                          Recruitment Consultancy
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Accountant",
+                            category: "Special Job",
+                          }}
+                        >
+                          Accountant
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Graduate TrainingInternships",
+                            category: "Special Job",
+                          }}
+                        >
+                          Graduate Training & Internships
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Retail",
+                            category: "Special Job",
+                          }}
+                        >
+                          Retail
+                        </Link>
+                      </li>
+
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Banking",
+                            category: "Special Job",
+                          }}
+                        >
+                          Banking
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "HealthMedicine",
+                            category: "Special Job",
+                          }}
+                        >
+                          Health & Medicine
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Scientific",
+                            category: "Special Job",
+                          }}
+                        >
+                          Scientific
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "ConstructionProperty",
+                            category: "Special Job",
+                          }}
+                        >
+                          Construction & Property
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Human Resources",
+                            category: "Special Job",
+                          }}
+                        >
+                          Human Resources
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "SecuritySafety",
+                            category: "Special Job",
+                          }}
+                        >
+                          Security & Safety
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Customer Service",
+                            category: "Special Job",
+                          }}
+                        >
+                          Customer Service
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "HospitalityCatering",
+                            category: "Special Job",
+                          }}
+                        >
+                          Hospitality & Catering
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "StrategyConsultancy",
+                            category: "Special Job",
+                          }}
+                        >
+                          Strategy & Consultancy
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "CharityVoluntary",
+                            category: "Special Job",
+                          }}
+                        >
+                          Charity & Voluntary
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "ITTelecoms",
+                            category: "Special Job",
+                          }}
+                        >
+                          IT & Telecoms
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Social Care",
+                            category: "Special Job",
+                          }}
+                        >
+                          Social Care
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Education",
+                            category: "Special Job",
+                          }}
+                        >
+                          Education
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "LeisureTourism",
+                            category: "Special Job",
+                          }}
+                        >
+                          Leisure & Tourism
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Sales",
+                            category: "Special Job",
+                          }}
+                        >
+                          Sales
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Engineering",
+                            category: "Special Job",
+                          }}
+                        >
+                          Engineering
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Manufacturing",
+                            category: "Special Job",
+                          }}
+                        >
+                          Manufacturing
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "TransportLogistics",
+                            category: "Special Job",
+                          }}
+                        >
+                          Transport & Logistics
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Energy",
+                            category: "Special Job",
+                          }}
+                        >
+                          Energy
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "MarketingPR",
+                            category: "Special Job",
+                          }}
+                        >
+                          Marketing & PR
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Training",
+                            category: "Special Job",
+                          }}
+                        >
+                          Training
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "MotoringAutomotive",
+                            category: "Special Job",
+                          }}
+                        >
+                          Motoring & Automotive
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Legal",
+                            category: "Special Job",
+                          }}
+                        >
+                          Legal
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Media, DigitalCreative",
+                            category: "Special Job",
+                          }}
+                        >
+                          Media, Digital & Creative
+                        </Link>
+                      </li>
+                      <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
+                        <Link
+                          className="subcategory_item"
+                          to="/job"
+                          state={{
+                            subCategory: "Other",
+                            category: "Special Job",
+                          }}
+                        >
+                          Other
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </li>
             <li>
               <NavLink to="/job" className="type-links">
@@ -1132,17 +1936,6 @@ const Header2 = () => {
                   <h4 style={{ padding: "0 15px" }}>Business Type</h4>
                   <div>
                     <ul className="row-list">
-                      {/* <li className="col-md-3 col-sm-3 col-xs-6 type-ul-li-nav">
-                        <Link
-                          className="subcategory_item"
-                          to="/user-panel"
-                          state={{
-                            type: "",
-                          }}
-                        >
-                          Choose Type
-                        </Link>
-                      </li> */}
                       <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                         <Link
                           className="subcategory_item"

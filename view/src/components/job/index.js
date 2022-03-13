@@ -1,27 +1,155 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 // import upworkLogo from "../image/upworkLogo.png";
 // import Loader from "../../utils/Loader";
 import fileURL from "../../utils/fileURL";
+import JobType from "../../utils/JobType";
+import JobCategory from "../../utils/JobCategory";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/Cities";
+import LocalJobs from "../../utils/LocalJobs";
+import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const Index = () => {
+  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [searchedCategory, setSearchedCategory] = useState("");
+  const [sort, setSort] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
   // initialize hooks
   const dispatch = useDispatch();
+  const location = useLocation();
   // get state from store
 
   const job = useSelector((state) => state.job);
 
   // useEffect
   useEffect(() => {
-    dispatch(getJobs());
+    dispatch(
+      getJobs(
+        page,
+        limit,
+        sort,
+        type.toLowerCase(),
+        category.toLowerCase(),
+        // keyword.toLowerCase(),
+        subCategory.toLowerCase(),
+        country !== null && country.name && country.name.length > 0
+          ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+        city !== null && city.name && city.name.length > 0
+          ? city.name.toLowerCase()
+          : "",
+        setSearchedCategory
+      )
+    );
   }, []);
 
-  console.log(job);
+  useEffect(() => {
+    if (
+      location.state &&
+      location.state.category &&
+      location.state.subCategory
+    ) {
+      dispatch(
+        getJobs(
+          page,
+          limit,
+          sort,
+          type.toLowerCase(),
+          location.state && location.state.category
+            ? location.state.category.toLowerCase()
+            : category,
+          // keyword.toLowerCase(),
+          location.state && location.state.subCategory
+            ? location.state.subCategory.toLowerCase()
+            : subCategory,
+          country !== null && country.name && country.name.length > 0
+            ? country.name.toLowerCase()
+            : "",
+          county !== null && county.name && county.name.length > 0
+            ? county.name.toLowerCase()
+            : "",
+          city !== null && city.name && city.name.length > 0
+            ? city.name.toLowerCase()
+            : "",
+          setSearchedCategory
+        )
+      );
 
+      setCategory(
+        location.state && location.state.category ? location.state.category : ""
+      );
+      setSubCategory(
+        location.state && location.state.subCategory
+          ? location.state.subCategory
+          : ""
+      );
+    }
+  }, [
+    location.state && location.state.category,
+    location.state && location.state.subCategory,
+  ]);
+
+  // call getjobs api
+  // const callJobsAPI = (page, lim, sortBy) => {
+  const callJobsAPI = (page, lim, sortBy) => {
+    dispatch(
+      getJobs(
+        page,
+        lim,
+        sortBy,
+        type.toLowerCase(),
+        category.toLowerCase(),
+        // keyword.toLowerCase(),
+        subCategory.toLowerCase(),
+        country !== null && country.name && country.name.length > 0
+          ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+        city !== null && city.name && city.name.length > 0
+          ? city.name.toLowerCase()
+          : "",
+        setSearchedCategory
+      )
+    );
+  };
+
+  // clear State
+  const clearState = () => {
+    setCity({ name: "", countryCode: "", stateCode: "" });
+    setType("");
+    setCategory("");
+    setSubCategory("");
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
+  };
   return (
-    <div className="res layout-1" style={{ marginTop: "30px" }}>
+    <div className="res layout-1" style={{ marginTop: "20px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
         <div className="container product-detail">
           <div className="row">
@@ -33,7 +161,7 @@ const Index = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
-                    <li className="so-filter-options" data-option="search">
+                    {/* <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
                           <span>Keyword</span>
@@ -54,16 +182,16 @@ const Index = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
-                                  // value={keyword}
-                                  // onChange={(e) => onChangeAutoFieldName(e)}
+                                  value={keyword}
+                                  onChange={(e) => onChangeAutoFieldName(e)}
                                 />
-                                {/* {renderNameSuggustion()} */}
+                                {renderNameSuggustion()}
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </li>
+                    </li> */}
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -80,10 +208,10 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <Countries
-                                setCountry={setCountry}
-                                country={country}
-                              /> */}
+                                <Countries
+                                  setCountry={setCountry}
+                                  country={country}
+                                />
                               </div>
                             </div>
                           </div>
@@ -106,11 +234,11 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <County
-                                country={country}
-                                setCounty={setCounty}
-                                county={county}
-                              /> */}
+                                <County
+                                  country={country}
+                                  setCounty={setCounty}
+                                  county={county}
+                                />
                               </div>
                             </div>
                           </div>
@@ -133,12 +261,12 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <Cities
-                                setCity={setCity}
-                                county={county}
-                                country={country}
-                                city={city}
-                              /> */}
+                                <Cities
+                                  setCity={setCity}
+                                  county={county}
+                                  country={country}
+                                  city={city}
+                                />
                               </div>
                             </div>
                           </div>
@@ -148,7 +276,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Business Type</span>
+                          <span>Type</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -161,42 +289,7 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <select
-                                  className="form-control"
-                                  // onChange={(e) =>
-                                  //   setBusinessType(e.target.value)
-                                  // }
-                                  // value={businessType}
-                                >
-                                  <option value="">Choose type</option>
-                                  <option value="Bakery">Bakery</option>
-                                  <option value="Beverage Shop">
-                                    Beverage Shop
-                                  </option>
-                                  <option value="Convenience store">
-                                    Convenience store
-                                  </option>
-                                  <option value="Cafe">Cafe</option>
-                                  <option value="Fruit/Vegetable store">
-                                    Fruit/Vegetable store
-                                  </option>
-                                  <option value="Hotel">Hotel</option>
-                                  <option value="Pastry shop">
-                                    Pastry shop
-                                  </option>
-                                  <option value="Producers/Manufacturers">
-                                    Producers/Manufacturers
-                                  </option>
-                                  <option value="Restaurant">Restaurant</option>
-                                  <option value="Supermarkets">
-                                    Supermarkets
-                                  </option>
-                                  <option value="Takeaway">Takeaway</option>
-                                  <option value="Wholesalers">
-                                    Wholesalers
-                                  </option>
-                                  <option value="Other">Other </option>
-                                </select>
+                                <JobType type={type} setType={setType} />
                               </div>
                             </div>
                           </div>
@@ -219,20 +312,29 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <select
-                                  className="form-control"
-                                  // onChange={(e) => setCategory(e.target.value)}
-                                  // value={category}
-                                >
-                                  <option value="">Choose Category</option>
-                                  <option value="Baked Goods">
-                                    Baked Goods
-                                  </option>
-                                  <option value="Groceries">Groceries</option>
-                                  <option value="Meals">Meals</option>
-                                  <option value="Other">Other</option>
-                                </select>
+                                <JobCategory
+                                  category={category}
+                                  setCategory={setCategory}
+                                />
                               </div>
+                              {category.length > 0 ? (
+                                <div
+                                  className="input-group"
+                                  style={{ width: "100%" }}
+                                >
+                                  {category === "Local Job" ? (
+                                    <LocalJobs
+                                      subCategory={subCategory}
+                                      setSubCategory={setSubCategory}
+                                    />
+                                  ) : (
+                                    <SpecialJobs
+                                      subCategory={subCategory}
+                                      setSubCategory={setSubCategory}
+                                    />
+                                  )}
+                                </div>
+                              ) : null}
                             </div>
                           </div>
                         </div>
@@ -243,7 +345,7 @@ const Index = () => {
                     <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
-                      // onClick={() => callSurplusesAPI(page, limit, sort)}
+                      onClick={() => callJobsAPI(page, limit, sort)}
                     >
                       <span
                         className="hidden fa fa-times"
@@ -255,7 +357,7 @@ const Index = () => {
                     <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
-                      // onClick={() => clearState()}
+                      onClick={() => clearState()}
                     >
                       <span
                         className="hidden fa fa-times"
@@ -336,11 +438,11 @@ const Index = () => {
                         <select
                           id="input-sort"
                           className="form-control"
-                          // value={sort}
-                          // onChange={(e) => {
-                          //   setSort(e.target.value);
-                          //   callSurplusesAPI(page, limit, e.target.value);
-                          // }}
+                          value={sort}
+                          onChange={(e) => {
+                            setSort(e.target.value);
+                            // callJobsAPI(page, limit, e.target.value);
+                          }}
                         >
                           <option value="" selected="selected">
                             Default
@@ -387,7 +489,7 @@ const Index = () => {
                           //           (e.target.value * 1)
                           //       )
                           //     );
-                          //     callSurplusesAPI(
+                          //     callJobsAPI(
                           //       Math.ceil(
                           //         surplusFromStore.totalDocs /
                           //           (e.target.value * 1)
@@ -397,7 +499,7 @@ const Index = () => {
                           //     );
                           //   } else {
                           //     setLimit(e.target.value * 1);
-                          //     callSurplusesAPI(page, e.target.value, sort);
+                          //     callJobsAPI(page, e.target.value, sort);
                           //   }
                           // }}
                         >
@@ -514,7 +616,7 @@ const Index = () => {
                         onClick={() => {
                           if (page > 1) {
                             setPage(page - 1);
-                            callSurplusesAPI(page - 1, limit, sort);
+                            callJobsAPI(page - 1, limit, sort);
                           }
                         }}
                       >
@@ -530,7 +632,7 @@ const Index = () => {
                               style={{ cursor: "pointer" }}
                               onClick={() => {
                                 setPage(i + 1);
-                                callSurplusesAPI(i + 1, limit, sort);
+                                callJobsAPI(i + 1, limit, sort);
                               }}
                               key={i}
                             >
@@ -544,7 +646,7 @@ const Index = () => {
                         onClick={() => {
                           if (page <= surplusFromStore.totalDocs / limit) {
                             setPage(page + 1);
-                            callSurplusesAPI(page + 1, limit, sort);
+                            callJobsAPI(page + 1, limit, sort);
                           }
                         }}
                       >
