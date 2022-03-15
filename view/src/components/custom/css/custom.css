@@ -575,6 +575,10 @@ input[type="number"] {
   color: #ddd !important;
   box-shadow: 0 0 10px rgb(59 89 152 / 60%) !important;
 }
+.new-design-ul li .sub-menu:hover {
+  display: block;
+  opacity: 1;
+}
 .new-design-ul li .sub-menu {
   display: none;
   opacity: 0;
