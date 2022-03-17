@@ -14,7 +14,7 @@ const Gender = (props) => {
           : "form-control"
       }
       value={props.gender}
-      placeholder="choose..."
+      displayEmpty
       onChange={(e) => props.setGender(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>

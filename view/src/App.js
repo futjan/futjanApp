@@ -65,8 +65,13 @@ const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const SurplusBusinesses = lazy(() =>
   import("./components/surplusBusiness/SurplusBusinesses")
 );
+const JobSeeker = lazy(() => import("./components/jobSeeker/Index"));
 const UserPanel = lazy(() => import("./components/user panel/index"));
 const AddJob = lazy(() => import("./components/job/AddJob"));
+const AddJobSeeker = lazy(() => import("./components/jobSeeker/AddJobSeeker"));
+const JobSeekerDetails = lazy(() =>
+  import("./components/jobSeeker/JobSeekerDetails")
+);
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
@@ -126,6 +131,21 @@ const App = (props) => {
                   />
                   <Route path="/job" exact={true} element={<Job />} />
                   <Route path="/add-job" exact={true} element={<AddJob />} />
+                  <Route
+                    path="/job-seeker"
+                    exact={true}
+                    element={<JobSeeker />}
+                  />
+                  <Route
+                    path="/job-seeker-detail/:id"
+                    exact={true}
+                    element={<JobSeekerDetails />}
+                  />
+                  <Route
+                    path="/add-job-seeker"
+                    exact={true}
+                    element={<AddJobSeeker />}
+                  />
 
                   <Route path="/business" exact={true} element={<Job />} />
                   {/* <Route

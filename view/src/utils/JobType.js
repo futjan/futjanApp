@@ -13,7 +13,6 @@ const JobType = (props) => {
       }
       value={props.type}
       displayEmpty
-      placeholder="choose..."
       onChange={(e) => props.setType(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
