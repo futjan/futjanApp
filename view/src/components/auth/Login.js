@@ -14,7 +14,6 @@ const Login = (props) => {
   // initialize navigation
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location && location.state);
   // initialize useDispatch
   const dispatch = useDispatch();
   // get state from store
@@ -94,9 +93,9 @@ const Login = (props) => {
                       <strong>I am a returning customer</strong>
                     </p>
                     <form
-                      action="#"
-                      method="post"
-                      encType="multipart/form-data"
+                    // action="#"
+                    // method="post"
+                    // encType="multipart/form-data"
                     >
                       <div className="form-group">
                         {errors && errors.message && (

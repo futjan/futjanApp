@@ -1,21 +1,26 @@
 const JobSeeker = require("../models/JobSeeker");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
-const validateJob = require("../validation/job");
+const validateJobSeeker = require("../validation/jobseeker");
 const APIFeature = require("../utils/apiFeatures");
 
 // @route                   POST /api/v1/jobseekers
 // @desc                    create jobseekers
 // @access                  Private
 exports.create = catchAsync(async (req, res, next) => {
-  //   let photo = "";
-  //   if (req.files.length > 0) {
-  //     req.files.forEach((file) => {
-  //       images.push(file.key);
-  //     });
-  //   }
+  let photo = "";
+  let cv = "";
+  if (req.files.length > 0) {
+    for (let i = 0; i < req.files.length; i++) {
+      if (i == 0) {
+        cv = req.files[i].key;
+      } else {
+        photo = req.files[i].key;
+      }
+    }
+  }
 
-  //   req.body = JSON.parse(req.body.job);
+  req.body = JSON.parse(req.body.job);
 
   const jobSeeker = await JobSeeker.create({
     user: req.user._id.toString(),
@@ -37,6 +42,8 @@ exports.create = catchAsync(async (req, res, next) => {
     country: req.body.country,
     salaryType: req.body.salaryType,
     promoteType: req.body.promoteType,
+    photo,
+    cv,
   });
 
   // check job
@@ -120,10 +127,11 @@ exports.deleteJobSeeker = catchAsync(async (req, res, next) => {
 });
 
 exports.validateJobSeeker = catchAsync(async (req, res, next) => {
-  const { errors, isValid } = validateJob(JSON.parse(req.body.job));
+  const { errors, isValid } = validateJobSeeker(JSON.parse(req.body.job));
   // check validation
   if (!isValid) {
     return next(new AppError("Fields required", 400, errors));
   }
+
   next();
 });

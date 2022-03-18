@@ -11,7 +11,6 @@ const JobDetail = () => {
   const dispatch = useDispatch();
   // get state from store
   const job = useSelector((state) => state.job);
-  console.log(job.job);
 
   // useEffect
   useEffect(() => {

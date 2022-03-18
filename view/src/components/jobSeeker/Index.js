@@ -46,7 +46,6 @@ const Index = () => {
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
 
-  console.log(jobSeeker);
   // useEffect
   useEffect(() => {
     dispatch(

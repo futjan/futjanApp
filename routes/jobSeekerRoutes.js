@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const jobSeekerController = require("../controllers/jobSeekerController");
+const fileController = require("../controllers/fileController");
 
 router
   .route("/")
   .post(
     authController.protect,
-    // fileController.uploadFile,
-    // jobSeekerController.validateJob,
-    // fileController.resizeImage,
-
+    fileController.uploadFile,
+    jobSeekerController.validateJobSeeker,
+    fileController.resizeImage,
     jobSeekerController.create
   )
   .get(jobSeekerController.getJobSeekers);

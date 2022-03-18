@@ -32,7 +32,13 @@ const Countries = (props) => {
   }, []);
   return (
     <Autocomplete
-      className="form-control"
+      className={
+        props.errors &&
+        props.errors.validation &&
+        props.errors.validation.country
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       disablePortal
       autoHighlight={true}
       id="combo-box-demo"

@@ -3,8 +3,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = (props) => {
-  console.log(props.from);
-
   const auth = useSelector((state) => state.auth);
   return auth.isAuthenticated === true ? (
     <Outlet />

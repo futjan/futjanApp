@@ -5,7 +5,7 @@
 }
 .css-viou3o-MuiAutocomplete-root {
   outline: none !important;
-  border: none !important;
+  border: none;
   padding: 0;
   height: 100%;
   width: 100% !important;
