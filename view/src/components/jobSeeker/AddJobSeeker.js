@@ -209,7 +209,7 @@ const AddJobSeeker = () => {
             className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
-              <h4 className="post-ad-heading">Job Details</h4>
+              <h4 className="post-ad-heading">Job Seeker Detail</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Name
