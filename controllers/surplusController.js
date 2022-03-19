@@ -63,21 +63,11 @@ exports.getAllSurplus = catchAsync(async (req, res, next) => {
     .limitField()
     .pagination();
 
-  // filtering extra fields and empty fields
-  const queryObj = { ...req.query };
-  const excludeFields = ["page", "sort", "limit", "fields"];
-  excludeFields.forEach((el) => delete queryObj[el]);
-  const excludeEmptyField = Object.keys(queryObj);
-  excludeEmptyField.forEach((el) => {
-    if (!queryObj[el] || queryObj[el].length === 0 || queryObj[el] == 0) {
-      delete queryObj[el];
-    }
-  });
-
   const surpluses = await features.query;
-  const totalDoc = await SurplusBusiness.find({
-    active: true,
-  }).countDocuments(queryObj);
+  const totalFilterDocs = new APIFeature(SurplusBusiness.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDoc = await totalFilterDocs;
 
   // check surplus exist or not
   if (!surpluses) {

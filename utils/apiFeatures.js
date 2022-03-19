@@ -2,6 +2,7 @@ class APIFeature {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
+    this.totalDocs = 0;
   }
 
   filter() {
@@ -44,13 +45,15 @@ class APIFeature {
     }
     return this;
   }
-
+  totalFilterDocs() {
+    const totalDocs = this.query.countDocuments();
+    return totalDocs;
+  }
   pagination() {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 20;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
-
     return this;
   }
 }

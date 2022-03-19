@@ -27,6 +27,7 @@ const s3 = new aws.S3();
 exports.uploadFile = upload.array("photo");
 
 exports.resizeImage = catchAsync(async (req, res, next) => {
+  console.log(req.files && req.files[0]);
   if (req.files.length > 0) {
     req.files.forEach((file, i) => {
       const timeStamp = Date.now();

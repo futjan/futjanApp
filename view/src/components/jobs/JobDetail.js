@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getJobById } from "../actions/jobAction";
 import { useParams } from "react-router-dom";
 import fileURL from "../../utils/fileURL";
-
+import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 const JobDetail = () => {
   // initialize hooks
   const { id } = useParams();
   const dispatch = useDispatch();
   // get state from store
   const job = useSelector((state) => state.job);
-  console.log(job.job);
 
   // useEffect
   useEffect(() => {
@@ -80,13 +79,21 @@ const JobDetail = () => {
                     </div>
                     <div>
                       <strong>Job Category : </strong>{" "}
-                      {job.job && job.job.subCategory}
+                      {job.job &&
+                        job.job.subCategory &&
+                        capitalizeFirstLetter(job.job.subCategory)}
                     </div>
                     <div>
-                      <strong>Gender : </strong> {job.job && job.job.gender}
+                      <strong>Gender : </strong>{" "}
+                      {job.job &&
+                        job.job.gender &&
+                        capitalizeFirstLetter(job.job.gender)}
                     </div>
                     <div>
-                      <strong>Job Type : </strong> {job.job && job.job.type}
+                      <strong>Job Type : </strong>{" "}
+                      {job.job &&
+                        job.job.type &&
+                        capitalizeFirstLetter(job.job.type)}
                     </div>
                     {job.job &&
                     job.job.minSalary > 0 &&
@@ -107,14 +114,18 @@ const JobDetail = () => {
                     {job.job && job.job.qualification && (
                       <div>
                         <strong>Qualification : </strong>{" "}
-                        {job.job && job.job.qualification}
+                        {job.job &&
+                          job.job.qualification &&
+                          capitalizeFirstLetter(job.job.qualification)}
                       </div>
                     )}
 
                     {job.job && job.job.experience && (
                       <div>
                         <strong>Experience : </strong>{" "}
-                        {job.job && job.job.experience}
+                        {job.job &&
+                          job.job.experience &&
+                          capitalizeFirstLetter(job.job.experience)}
                       </div>
                     )}
                     {job.job && job.job.email && (

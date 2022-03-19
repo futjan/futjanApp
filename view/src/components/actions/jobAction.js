@@ -27,7 +27,7 @@ export const getJobs =
       if (res.data) {
         dispatch({
           type: Types.GET_JOBS,
-          payload: res.data.jobs,
+          payload: res.data,
         });
       }
     } catch (err) {

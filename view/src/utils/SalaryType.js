@@ -14,7 +14,7 @@ const SalaryType = (props) => {
           : "form-control"
       }
       value={props.salaryType}
-      placeholder="choose..."
+      displayEmpty
       onChange={(e) => props.setSalaryType(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>

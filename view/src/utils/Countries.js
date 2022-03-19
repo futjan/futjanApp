@@ -4,13 +4,19 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Country } from "country-state-city";
 import "./customCss.css";
 const options = [
-  ...Country.getAllCountries().map((count) => {
-    return {
-      name: count.name,
-      isoCode: count.isoCode,
-      phonecode: count.phonecode,
-    };
-  }),
+  ...Country.getAllCountries()
+    .map((count) => {
+      return {
+        name: count.name,
+        isoCode: count.isoCode,
+        phonecode: count.phonecode,
+      };
+    })
+    .filter(
+      (country) =>
+        country.name.toLowerCase() === "united kingdom" ||
+        country.name.toLowerCase() === "india"
+    ),
 ];
 
 const Countries = (props) => {
@@ -26,7 +32,13 @@ const Countries = (props) => {
   }, []);
   return (
     <Autocomplete
-      className="form-control"
+      className={
+        props.errors &&
+        props.errors.validation &&
+        props.errors.validation.country
+          ? "form-control is-invalid"
+          : "form-control"
+      }
       disablePortal
       autoHighlight={true}
       id="combo-box-demo"
