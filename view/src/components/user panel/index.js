@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 import AddJob from "../job/AddJob";
+import AddJobSeeker from "../jobSeeker/AddJobSeeker";
 import Surplus from "./Surplus";
 import EditSurplus from "./EditSurplus";
 const Index = (props) => {
@@ -104,6 +105,7 @@ const Index = (props) => {
                         <label
                           className="container-radio"
                           onClick={() => setAdd("job")}
+                          style={{ marginRight: "20px" }}
                         >
                           <input
                             type="radio"
@@ -113,10 +115,23 @@ const Index = (props) => {
                           Job
                           <span className="checkmark"></span>
                         </label>
+                        <label
+                          className="container-radio"
+                          onClick={() => setAdd("candidiate")}
+                        >
+                          <input
+                            type="radio"
+                            checked={add === "candidiate" ? true : false}
+                            name="Flat Shipping Rate"
+                          />{" "}
+                          Job Seeker
+                          <span className="checkmark"></span>
+                        </label>
                       </div>
                       <div>
                         {add === "surplus" ? <AddSurplusBusiness /> : null}
                         {add === "job" ? <AddJob /> : null}
+                        {add === "candidiate" ? <AddJobSeeker /> : null}
                       </div>
                     </div>
                   </div>
