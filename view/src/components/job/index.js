@@ -11,6 +11,7 @@ import Cities from "../../utils/Cities";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
+import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { useSelector, useDispatch } from "react-redux";
 
 const Index = () => {
@@ -148,6 +149,11 @@ const Index = () => {
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
   };
+  // pagination UI
+  let paginationUI = [];
+  while (paginationUI.length <= job.totalDocs / limit) {
+    paginationUI.push("");
+  }
   return (
     <div className="res layout-1" style={{ marginTop: "20px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -503,8 +509,9 @@ const Index = () => {
                           //   }
                           // }}
                         >
-                          <option value="5">5</option>
                           <option value="10">10</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
                         </select>
                       </div>
                     </div>
@@ -512,10 +519,13 @@ const Index = () => {
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>{job.jobs.length} results found </p>
+                  <p>{job.totalDocs} results found </p>
                 </div>
 
-                <div className="products-list grid row number-col-3 so-filter-gird">
+                <div
+                  className="products-list grid row number-col-3 so-filter-gird"
+                  style={{ minHeight: "930px" }}
+                >
                   {job.jobs.length > 0
                     ? job.jobs.map((job) => (
                         <Link
@@ -534,10 +544,13 @@ const Index = () => {
                               ) : null}
                             </div>
                             <div className="job-detail">
-                              <h5>{job.title}</h5>
+                              <h5>
+                                {job.title && capitalizeFirstLetter(job.title)}
+                              </h5>
                               <p>
                                 <i className="fa fa-briefcase"></i>{" "}
-                                {job.subCategory}
+                                {job.subCategory &&
+                                  capitalizeFirstLetter(job.subCategory)}
                               </p>
                               <p>
                                 {" "}
@@ -550,7 +563,9 @@ const Index = () => {
                                     job.salaryType
                                   : job.salaryType}
                               </p>
-                              <span className="job-type-span">{job.type}</span>
+                              <span className="job-type-span">
+                                {job.type && capitalizeFirstLetter(job.type)}
+                              </span>
                               {job.promoteType.length > 0
                                 ? job.promoteType
                                     .filter(
@@ -558,7 +573,8 @@ const Index = () => {
                                     )
                                     .map((type) => (
                                       <span className="job-promotion-type">
-                                        {type.promote}
+                                        {type.promote &&
+                                          capitalizeFirstLetter(type.promote)}
                                       </span>
                                     ))
                                 : null}
@@ -611,56 +627,56 @@ const Index = () => {
                 <div className="product-filter product-filter-bottom filters-panel">
                   <div className="col-sm-6 text-left">
                     <ul className="pagination">
-                      {/* {paginationUI.length > 5 && page > 1 ? (
-                      <li
-                        onClick={() => {
-                          if (page > 1) {
-                            setPage(page - 1);
-                            callJobsAPI(page - 1, limit, sort);
-                          }
-                        }}
-                      >
-                        <a href="#">&lt;</a>
-                      </li>
-                    ) : null} */}
+                      {paginationUI.length > 5 && page > 1 ? (
+                        <li
+                          onClick={() => {
+                            if (page > 1) {
+                              setPage(page - 1);
+                              callJobsAPI(page - 1, limit, sort);
+                            }
+                          }}
+                        >
+                          <a href="#">&lt;</a>
+                        </li>
+                      ) : null}
 
-                      {/* {paginationUI.length > 0
-                      ? paginationUI.map((pag, i) =>
-                          i + 1 > 5 ? null : (
-                            <li
-                              className={i + 1 === page ? "active" : ""}
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                setPage(i + 1);
-                                callJobsAPI(i + 1, limit, sort);
-                              }}
-                              key={i}
-                            >
-                              <span>{i + 1}</span>
-                            </li>
+                      {paginationUI.length > 0
+                        ? paginationUI.map((pag, i) =>
+                            i + 1 > 5 ? null : (
+                              <li
+                                className={i + 1 === page ? "active" : ""}
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                  setPage(i + 1);
+                                  callJobsAPI(i + 1, limit, sort);
+                                }}
+                                key={i}
+                              >
+                                <span>{i + 1}</span>
+                              </li>
+                            )
                           )
-                        )
-                      : null} */}
-                      {/* {paginationUI.length > 5 ? (
-                      <li
-                        onClick={() => {
-                          if (page <= surplusFromStore.totalDocs / limit) {
-                            setPage(page + 1);
-                            callJobsAPI(page + 1, limit, sort);
-                          }
-                        }}
-                      >
-                        <a href="#">&gt;</a>
-                      </li>
-                    ) : null} */}
+                        : null}
+                      {paginationUI.length > 5 ? (
+                        <li
+                          onClick={() => {
+                            if (page <= job.totalDocs / limit) {
+                              setPage(page + 1);
+                              callJobsAPI(page + 1, limit, sort);
+                            }
+                          }}
+                        >
+                          <a href="#">&gt;</a>
+                        </li>
+                      ) : null}
                     </ul>
                   </div>
                   <div className="col-sm-6 text-right">
-                    {/* Showing {page * limit - limit + 1} to{" "}
-                  {(page - 1) * limit + limit > surplusFromStore.totalDocs
-                    ? surplusFromStore.totalDocs
-                    : (page - 1) * limit + limit}{" "}
-                  of {surplusFromStore.totalDocs} ({page} Pages) */}
+                    Showing {page * limit - limit + 1} to{" "}
+                    {(page - 1) * limit + limit > job.totalDocs
+                      ? job.totalDocs
+                      : (page - 1) * limit + limit}{" "}
+                    of {job.totalDocs} ({page} Pages)
                   </div>
                 </div>
               </div>

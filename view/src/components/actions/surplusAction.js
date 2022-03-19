@@ -22,7 +22,7 @@ export const getSurpluses =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,images,originalPrice,offeredPrice,discount,promoteType`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,category,city,images,originalPrice,offeredPrice,discount,promoteType`
       );
       if (res.data) {
         dispatch({

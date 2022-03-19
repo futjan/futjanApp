@@ -266,7 +266,27 @@ input[type="number"] {
   overflow: hidden;
   display: flex;
   align-items: center;
+  margin: 0;
 }
+.products-list.grid
+  .product-layout
+  .product-item-container
+  .right-block
+  .caption
+  small {
+  font-size: 13px;
+  color: #635b67;
+}
+.products-list.grid
+  .product-layout
+  .product-item-container
+  .right-block
+  .caption
+  i {
+  margin-right: 7px;
+  color: #635b67 !important;
+}
+
 /* Surpluses */
 
 /* autoComplete */
@@ -583,7 +603,7 @@ input[type="number"] {
   display: none;
   opacity: 0;
   z-index: 9999;
-  box-shadow: rgb(0 0 0 / 30%) 0px 8px 20px;
+  box-shadow: rgb(0 0 0 / 15%) 0px 15px 20px;
   position: absolute;
   max-height: 200px;
   overflow: auto;

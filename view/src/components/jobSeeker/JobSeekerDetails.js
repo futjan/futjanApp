@@ -3,6 +3,9 @@ import user12 from "../image/user-12.jpg";
 import { getJobSeekerById } from "../actions/jobSeekersAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import fileURL from "../../utils/fileURL";
+import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
+import defaultUser from "../image/default.jpg";
 
 const JobSeekerDetails = () => {
   // initialize hooks
@@ -31,17 +34,32 @@ const JobSeekerDetails = () => {
                 }}
               >
                 {" "}
-                <img
-                  src={user12}
-                  alt="About Us"
-                  width={"40%"}
-                  style={{ borderRadius: "50%", marginBottom: "20px" }}
-                />{" "}
+                {jobSeeker.jobSeeker &&
+                jobSeeker.jobSeeker.photo &&
+                jobSeeker.jobSeeker.photo.length > 0 ? (
+                  <img
+                    src={fileURL(jobSeeker.jobSeeker.photo)}
+                    alt="About Us"
+                    width={"40%"}
+                    style={{ borderRadius: "50%", marginBottom: "20px" }}
+                  />
+                ) : (
+                  <img
+                    src={defaultUser}
+                    alt="About Us"
+                    width={"40%"}
+                    style={{ borderRadius: "50%", marginBottom: "20px" }}
+                  />
+                )}
                 <h4 style={{ margin: "0" }}>
-                  {jobSeeker.jobSeeker && jobSeeker.jobSeeker.name}
+                  {jobSeeker.jobSeeker &&
+                    jobSeeker.jobSeeker.name &&
+                    capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
                 </h4>
                 <p style={{ margin: "0" }}>
-                  {jobSeeker.jobSeeker && jobSeeker.jobSeeker.jobTitle}
+                  {jobSeeker.jobSeeker &&
+                    jobSeeker.jobSeeker.jobTitle &&
+                    capitalizeFirstLetter(jobSeeker.jobSeeker.jobTitle)}
                 </p>
                 <div
                   style={{
@@ -59,7 +77,9 @@ const JobSeekerDetails = () => {
                       style={{ marginRight: "5px" }}
                     ></i>
                     <span>
-                      {jobSeeker.jobSeeker && jobSeeker.jobSeeker.country}
+                      {jobSeeker.jobSeeker &&
+                        jobSeeker.jobSeeker.country &&
+                        capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
                     </span>
                   </div>
                   <div style={{ marginLeft: "20px" }}>
@@ -76,7 +96,10 @@ const JobSeekerDetails = () => {
               </div>
               <div class="col-lg-6 col-md-6 about-info">
                 <h2 class="about-title">
-                  About {jobSeeker.jobSeeker && jobSeeker.jobSeeker.name}
+                  About{" "}
+                  {jobSeeker.jobSeeker &&
+                    jobSeeker.jobSeeker.name &&
+                    capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
                 </h2>
                 <div class="about-text">
                   <div
@@ -106,7 +129,9 @@ const JobSeekerDetails = () => {
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Gender</h4>
                       <p style={{ margin: "0" }}>
-                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.gender}
+                        {jobSeeker.jobSeeker &&
+                          jobSeeker.jobSeeker.gender &&
+                          capitalizeFirstLetter(jobSeeker.jobSeeker.gender)}
                       </p>
                     </div>
                   </div>
@@ -134,7 +159,9 @@ const JobSeekerDetails = () => {
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
                       <p style={{ margin: "0" }}>
-                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.country}
+                        {jobSeeker.jobSeeker &&
+                          jobSeeker.jobSeeker.country &&
+                          capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
                       </p>
                     </div>
                   </div>
@@ -204,7 +231,9 @@ const JobSeekerDetails = () => {
 
                 {jobSeeker.jobSeeker && jobSeeker.jobSeeker.description && (
                   <p>
-                    {jobSeeker.jobSeeker && jobSeeker.jobSeeker.description}
+                    {jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.description &&
+                      capitalizeFirstLetter(jobSeeker.jobSeeker.description)}
                   </p>
                 )}
               </div>
@@ -231,7 +260,7 @@ const JobSeekerDetails = () => {
                           borderRadius: "30px",
                         }}
                       >
-                        {skill}
+                        {skill && capitalizeFirstLetter(skill)}
                       </span>
                     ))}
                 </div>

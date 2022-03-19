@@ -35,7 +35,7 @@ const Index = (props) => {
                     onClick={() => setTab("ADD")}
                   >
                     <div className="tab">
-                      <i className="fa fa-plus-circle"></i> <span>Add</span>
+                      <i className="fa fa-plus-circle"></i> <span>Post ad</span>
                     </div>
                   </li>
                   <li
@@ -44,7 +44,7 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-archive"></i>
-                      <span>Surplus</span>
+                      <span>My ad</span>
                     </div>
                   </li>
                   <li
@@ -53,7 +53,7 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-bell"></i>
-                      <span>Alert</span>
+                      <span>My Alert</span>
                     </div>
                   </li>
                   <li
@@ -62,7 +62,7 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-envelope"></i>
-                      <span>Message</span>
+                      <span>Messages</span>
                     </div>
                   </li>
                   <li
@@ -71,7 +71,7 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-heart"></i>
-                      <span>Favourite</span>
+                      <span>My Favourite</span>
                     </div>
                   </li>
                   <li
@@ -80,7 +80,7 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-user"></i>
-                      <span>Account</span>
+                      <span>My Account</span>
                     </div>
                   </li>
                 </ul>

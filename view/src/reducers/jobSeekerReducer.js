@@ -3,6 +3,7 @@ import * as Types from "../components/actions/types";
 const initialState = {
   jobSeekers: [],
   jobSeeker: {},
+  totalDocs: 0,
   loading: false,
 };
 
@@ -21,7 +22,8 @@ export default function jobSeekerReducer(state = initialState, action) {
     case Types.GET_JOB_SEEKERS:
       return {
         ...state,
-        jobSeekers: action.payload,
+        jobSeekers: action.payload.jobSeekers,
+        totalDocs: action.payload.totalDocs,
         loading: false,
       };
 

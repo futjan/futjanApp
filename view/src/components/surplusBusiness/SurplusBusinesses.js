@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/Cities";
+import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -32,7 +33,7 @@ const SurplusBusinesses = () => {
   const [category, setCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
@@ -623,8 +624,9 @@ const SurplusBusinesses = () => {
                             }
                           }}
                         >
-                          <option value="5">5</option>
                           <option value="10">10</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
                         </select>
                       </div>
                     </div>
@@ -651,7 +653,10 @@ const SurplusBusinesses = () => {
                   </div>
                 ) : null}
 
-                <div className="products-list grid row number-col-3 so-filter-gird">
+                <div
+                  className="products-list grid row number-col-3 so-filter-gird"
+                  style={{ minHeight: "930px" }}
+                >
                   {surplusFromStore.surpluses.length > 0
                     ? surplusFromStore.surpluses.map((sur) => (
                         <div
@@ -712,10 +717,27 @@ const SurplusBusinesses = () => {
                                 <h4>
                                   <Link to={`/surplus-detail/${sur._id}`}>
                                     {sur.name && sur.name.length > 50
-                                      ? sur.name.substring(0, 50) + "..."
-                                      : sur.name}
+                                      ? capitalizeFirstLetter(
+                                          sur.name.substring(0, 50) + "..."
+                                        )
+                                      : sur.name &&
+                                        capitalizeFirstLetter(sur.name)}
                                   </Link>
                                 </h4>
+                                <div>
+                                  <i class="fa fa-tasks"></i>
+                                  <small>
+                                    {sur.category &&
+                                      capitalizeFirstLetter(sur.category)}
+                                  </small>
+                                </div>
+                                <div>
+                                  <i class="fa fa-map-marker"></i>
+                                  <small>
+                                    {sur.city &&
+                                      capitalizeFirstLetter(sur.city)}
+                                  </small>
+                                </div>
                                 <div className="total-price">
                                   <div className="price price-left">
                                     {sur.originalPrice &&

@@ -3,8 +3,8 @@ const initialState = {
   jobs: [],
   job: {},
   loading: false,
-  //   totalDocs: 0,
-  //   result: 0,
+  totalDocs: 0,
+  result: 0,
 };
 
 export default function JobReducer(state = initialState, action) {
@@ -28,9 +28,9 @@ export default function JobReducer(state = initialState, action) {
     case Types.GET_JOBS:
       return {
         ...state,
-        jobs: action.payload,
-        // totalDocs: action.payload.totalDocs,
-        // result: action.payload.result,
+        jobs: action.payload.jobs,
+        totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
         loading: false,
       };
     // case Types.GET_CURRENT_USER_JOBS:

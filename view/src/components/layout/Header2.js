@@ -190,7 +190,7 @@ const Header2 = () => {
               </MenuItem>
             </Select>
           </li>
-          <li class="currency">
+          {/* <li class="currency">
             <Select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
@@ -202,7 +202,7 @@ const Header2 = () => {
                 <p style={{ margin: "0" }}>₹</p>
               </MenuItem>
             </Select>
-          </li>
+          </li> */}
         </ul>
         <div className="container">
           <div
@@ -1170,7 +1170,7 @@ const Header2 = () => {
             <li>
               <NavLink to="/job" className="type-links">
                 <i className="fa fa-briefcase"></i>
-                JOBS
+                Jobs
               </NavLink>
               <div className="sub-menu" id="sub-menu">
                 {/* <div className="content" id="sub-menu-content"> */}
@@ -1958,9 +1958,9 @@ const Header2 = () => {
               </div>
             </li>
             <li>
-              <NavLink to="/job" className="type-links">
-                <i className="fa fa-handshake-o"></i>
-                BUSINESS
+              <NavLink to="/job-seeker" className="type-links">
+                <i className="fa fa-user"></i>
+                Candidate
               </NavLink>
             </li>
             <li className="with-sub-menu">
@@ -1970,7 +1970,7 @@ const Header2 = () => {
                 style={{ zIndex: "9999" }}
               >
                 <i className="fa fa-th-large"></i>
-                SURPLUS
+                Surplus
               </NavLink>
               <div className="sub-menu" id="sub-menu">
                 {/* <div className="content" id="sub-menu-content"> */}

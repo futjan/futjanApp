@@ -5,29 +5,29 @@ import axios from "axios";
 // @desc                    get all job
 // @access                  Public
 export const getJobSeekers =
-  () =>
-  // page,
-  // limit,
-  // sort,
-  // type,
-  // category,
-  // subCategory,
-  // country,
-  // county,
-  // city,
-  // setCategory
+  (
+    page,
+    limit,
+    sort,
+    salaryType,
+    category,
+    subCategory,
+    country,
+
+    setCategory
+  ) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        // `/api/v1/jobseekers?type=${type}&category=${category}&subCategory=${subCategory}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort}`
-        `/api/v1/jobseekers`
+        `/api/v1/jobseekers?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,jobTitle,rate,salaryType,photo,skills,country`
+        // `/api/v1/jobseekers`
       );
       if (res.data) {
         dispatch({
           type: Types.GET_JOB_SEEKERS,
-          payload: res.data.jobSeekers,
+          payload: res.data,
         });
       }
     } catch (err) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSurplusById, createReview } from "../actions/surplusAction";
+
 // import $ from "jquery";
 import Carousel from "react-multi-carousel";
 
@@ -11,7 +12,7 @@ import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
 import fileURL from "../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
-
+import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./skeleton.css";
 
@@ -43,6 +44,7 @@ function DetailSurplus() {
   const [zoomModal, setZoomModal] = useState(false);
   const [zoomImage, setZoomImage] = useState("");
   const [activeImage, setActiveImage] = useState(0);
+  const [mapAndImage, setMapAndImage] = useState("image");
   // initialize hooks
   const params = useParams();
   const dispatch = useDispatch();
@@ -95,6 +97,46 @@ function DetailSurplus() {
               ) : (
                 <div className="content-product-left  col-md-5 col-sm-6 col-xs-12">
                   <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <div
+                      style={{
+                        textAlign: "center",
+                        flex: 1,
+                        padding: "10px",
+                        background: "#fafafa",
+                        border: "1px solid #f5f5f5",
+                        borderBottom: "none",
+                        borderRight: "none",
+                        color: "#666",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setMapAndImage("image")}
+                    >
+                      Image
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "center",
+                        flex: 1,
+                        padding: "10px",
+                        background: "#fafafa",
+                        border: "1px solid #f5f5f5",
+                        borderBottom: "none",
+                        color: "#666",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setMapAndImage("map")}
+                    >
+                      Map
+                    </div>
+                  </div>
+                  <div
                     className="large-image  class-honizol"
                     style={{
                       padding: "20px",
@@ -103,66 +145,79 @@ function DetailSurplus() {
                       alignItems: "center",
                     }}
                   >
-                    <div className="box-label"></div>
-                    <img
-                      className="product-image-zoom"
-                      src={fileURL(
-                        surplusFromStore.surplus.images &&
-                          surplusFromStore.surplus.images[activeImage]
-                      )}
-                      data-zoom-image="image/catalog/demo/product/electronic/27.jpg"
-                      title="Canada Travel One or Two European Facials at  Studio"
-                      alt="Canada Travel One or Two European Facials at  Studio"
-                    />
+                    {mapAndImage === "image" ? (
+                      <>
+                        <img
+                          className="product-image-zoom"
+                          src={fileURL(
+                            surplusFromStore.surplus.images &&
+                              surplusFromStore.surplus.images[activeImage]
+                          )}
+                          data-zoom-image="image/catalog/demo/product/electronic/27.jpg"
+                          title="Canada Travel One or Two European Facials at  Studio"
+                          alt="Canada Travel One or Two European Facials at  Studio"
+                        />
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: "5px",
+                            right: "5px",
+                            padding: "3px 25px",
+                            cursor: "pointer",
+                            borderRadius: "3px",
+                            background: "rgba(0,0,0,0.6)",
+                          }}
+                          onClick={() => {
+                            setZoomImage(
+                              surplusFromStore.surplus.images[activeImage]
+                            );
+                            setZoomModal(true);
+                          }}
+                        >
+                          <i
+                            className="fa fa-search-plus"
+                            style={{ color: "#fff", fontSize: "18px" }}
+                          ></i>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <iframe
+                          src="https://www.google.com/maps/d/embed?mid=1DfFcv3jAM8NAeioBjW_CHwtKL3A&ehbc=2E312F"
+                          width="100%"
+                          height="500"
+                        ></iframe>
+                      </>
+                    )}
+                  </div>
+                  {mapAndImage === "image" ? (
                     <div
-                      style={{
-                        position: "absolute",
-                        bottom: "5px",
-                        right: "5px",
-                        padding: "3px 25px",
-                        cursor: "pointer",
-                        borderRadius: "3px",
-                        background: "rgba(0,0,0,0.6)",
-                      }}
-                      onClick={() => {
-                        setZoomImage(
-                          surplusFromStore.surplus.images[activeImage]
-                        );
-                        setZoomModal(true);
-                      }}
+                      id="thumb-slider"
+                      className="full_slider category-slider-inner products-list yt-content-slider"
                     >
-                      <i
-                        className="fa fa-search-plus"
-                        style={{ color: "#fff", fontSize: "18px" }}
-                      ></i>
+                      <Carousel responsive={responsive}>
+                        {surplusFromStore.surplus.images &&
+                          surplusFromStore.surplus.images.map((image, i) => (
+                            <div
+                              className="owl2-item "
+                              style={{ padding: "4px" }}
+                              key={i}
+                            >
+                              <img
+                                src={fileURL(image)}
+                                className={
+                                  i === activeImage
+                                    ? "detail-page-slide active"
+                                    : "detail-page-slide"
+                                }
+                                onClick={() => setActiveImage(i)}
+                                alt={image}
+                              />
+                            </div>
+                          ))}
+                      </Carousel>
                     </div>
-                  </div>
-                  <div
-                    id="thumb-slider"
-                    className="full_slider category-slider-inner products-list yt-content-slider"
-                  >
-                    <Carousel responsive={responsive}>
-                      {surplusFromStore.surplus.images &&
-                        surplusFromStore.surplus.images.map((image, i) => (
-                          <div
-                            className="owl2-item "
-                            style={{ padding: "4px" }}
-                            key={i}
-                          >
-                            <img
-                              src={fileURL(image)}
-                              className={
-                                i === activeImage
-                                  ? "detail-page-slide active"
-                                  : "detail-page-slide"
-                              }
-                              onClick={() => setActiveImage(i)}
-                              alt={image}
-                            />
-                          </div>
-                        ))}
-                    </Carousel>
-                  </div>
+                  ) : null}
                 </div>
               )}
 
@@ -192,7 +247,9 @@ function DetailSurplus() {
                   <div className="title-product">
                     {surplusFromStore.surplus &&
                       surplusFromStore.surplus.name && (
-                        <h1>{surplusFromStore.surplus.name}</h1>
+                        <h1>
+                          {capitalizeFirstLetter(surplusFromStore.surplus.name)}
+                        </h1>
                       )}
                   </div>
                   <div className="box-review">
@@ -278,23 +335,33 @@ function DetailSurplus() {
                       <div className="model">
                         <span>Category: </span>{" "}
                         {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.category}
+                          surplusFromStore.surplus.category &&
+                          capitalizeFirstLetter(
+                            surplusFromStore.surplus.category
+                          )}
                       </div>
                       <div className="model">
                         <span>Type: </span>{" "}
                         {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.businessType}
+                          surplusFromStore.surplus.businessType &&
+                          capitalizeFirstLetter(
+                            surplusFromStore.surplus.businessType
+                          )}
                       </div>
                       <div className="model">
                         <span>Company: </span>{" "}
                         {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.company}
+                          surplusFromStore.surplus.company &&
+                          capitalizeFirstLetter(
+                            surplusFromStore.surplus.company
+                          )}
                       </div>
 
                       <div className="model">
                         <span>City: </span>{" "}
                         {surplusFromStore.surplus &&
-                          surplusFromStore.surplus.city}
+                          surplusFromStore.surplus.city &&
+                          capitalizeFirstLetter(surplusFromStore.surplus.city)}
                       </div>
 
                       <div className="model">
@@ -309,12 +376,8 @@ function DetailSurplus() {
                     </div>
                   </div>
 
-                  <h3 style={{ marginBottom: "8px" }}>location</h3>
-                  <iframe
-                    src="https://www.google.com/maps/d/embed?mid=1DfFcv3jAM8NAeioBjW_CHwtKL3A&ehbc=2E312F"
-                    width="120"
-                    height="120"
-                  ></iframe>
+                  {/* <h3 style={{ marginBottom: "8px" }}>location</h3> */}
+
                   <h3 style={{ margin: "0" }}>Share on</h3>
 
                   <div class="socials" style={{ marginTop: "8px" }}>

@@ -60,17 +60,23 @@ exports.create = catchAsync(async (req, res, next) => {
 // @desc                    GET job seekers
 // @access                  Public
 exports.getJobSeekers = catchAsync(async (req, res, next) => {
-  //   const features = new APIFeature(JobSeeker.find(), req.query)
-  //     .filter()
-  //     .sort()
-  //     .limitField()
-  //     .pagination();
+  const features = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
 
-  const jobSeekers = await JobSeeker.find({});
+  const jobSeekers = await features.query;
+
+  const totalFilterDocs = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDocs = await totalFilterDocs;
   // send response to client
   res.status(200).json({
     status: "success",
     jobSeekers,
+    totalDocs,
   });
 });
 
