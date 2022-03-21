@@ -108,6 +108,21 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// @route         GET /api/v1/users/current-user
+// @desc          get current or logged in user
+// @access        Private
+exports.getCurrentUser = catchAsync(async (req, res, next) => {
+  const currentUser = await User.findById(req.user.id).select("-__V");
+  if (!currentUser) {
+    next(new AppError("user not found or not logged in", 401, undefined));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: currentUser,
+    },
+  });
+});
 // @route         POST /api/v1/user/forgetPassword
 // @desc          send reset password token
 // @access        Public
@@ -208,6 +223,27 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 // @desc          update password
 // @access        Private
 exports.updatePassword = catchAsync(async (req, res, next) => {
+  console.log("update Password API HIt");
+  const errors = {};
+  if (!req.body.currentPassword) {
+    errors.currentPassword = "currend password is required";
+  }
+  if (!req.body.password) {
+    errors.password = "password is required";
+  }
+  if (
+    req.body.password !== req.body.passwordConfirm ||
+    !req.body.passwordConfirm
+  ) {
+    errors.passwordConfirm = "confirm password must be match with password";
+  }
+  if (req.body.password.length < 8) {
+    errors.password = "password must be greater";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return next(new AppError("Fields required", 400, errors));
+  }
   // 1) get user from collection
   const user = await User.findById(req.user.id).select("+password");
   // 2) check if posted current password is correct
@@ -215,7 +251,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     !user ||
     !(await user.correctPassword(req.body.currentPassword, user.password))
   ) {
-    return res.status(400).send("user not valid");
+    return next(new AppError("user not valid", 400, undefined));
   }
   // 3) if so. update password
   user.password = req.body.password;

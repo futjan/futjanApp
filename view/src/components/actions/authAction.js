@@ -8,6 +8,7 @@ import {
   SET_USER_LOADING,
   CLEAR_USER_LOADING,
   CLEAR_ERRORS,
+  GET_CURRENT_USER,
 } from "./types";
 
 // @route   POST /api/v1/users/signup
@@ -152,6 +153,51 @@ export const resetPassword = (userData, token, clearState) => (dispatch) => {
         payload: err.response.data,
       });
     });
+};
+
+// @route         GET /api/v1/users/current-user
+// @desc          get current or logged in user
+// @access        Private
+export const getCurrentUser = () => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const res = await axios.get("/api/v1/users/current-user");
+
+    if (res) {
+      dispatch({
+        type: GET_CURRENT_USER,
+        payload: res.data.data.user,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+
+// @route         POST /api/v1/users/updatePassword
+// @desc          change current or logged in user password
+// @access        Private
+export const changePassword = (data, clearState) => async (dispatch) => {
+  console.log("API HIT");
+  try {
+    dispatch(setLoading());
+    const res = await axios.post("/api/v1/users/updatePassword", data);
+
+    if (res) {
+      dispatch(logoutUser());
+      clearState();
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
 };
 
 const setLoading = () => {

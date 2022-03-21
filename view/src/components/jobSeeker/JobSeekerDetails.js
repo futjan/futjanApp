@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
+import Skeleton from "react-loading-skeleton";
+import "../surplusBusiness/skeleton.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const JobSeekerDetails = () => {
   // initialize hooks
@@ -34,9 +37,18 @@ const JobSeekerDetails = () => {
                 }}
               >
                 {" "}
-                {jobSeeker.jobSeeker &&
-                jobSeeker.jobSeeker.photo &&
-                jobSeeker.jobSeeker.photo.length > 0 ? (
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={1}
+                    style={{
+                      width: "232px",
+                      height: "232px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : jobSeeker.jobSeeker &&
+                  jobSeeker.jobSeeker.photo &&
+                  jobSeeker.jobSeeker.photo.length > 0 ? (
                   <img
                     src={fileURL(jobSeeker.jobSeeker.photo)}
                     alt="About Us"
@@ -51,11 +63,18 @@ const JobSeekerDetails = () => {
                     style={{ borderRadius: "50%", marginBottom: "20px" }}
                   />
                 )}
-                <h4 style={{ margin: "0" }}>
-                  {jobSeeker.jobSeeker &&
-                    jobSeeker.jobSeeker.name &&
-                    capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
-                </h4>
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "10px", width: "120px" }}
+                  />
+                ) : (
+                  <h4 style={{ margin: "0" }}>
+                    {jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.name &&
+                      capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
+                  </h4>
+                )}
                 <p style={{ margin: "0" }}>
                   {jobSeeker.jobSeeker &&
                     jobSeeker.jobSeeker.jobTitle &&

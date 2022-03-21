@@ -6,6 +6,7 @@ import AddJob from "../job/AddJob";
 import AddJobSeeker from "../jobSeeker/AddJobSeeker";
 import Surplus from "./Surplus";
 import EditSurplus from "./EditSurplus";
+import MyAccount from "./MyAccount";
 const Index = (props) => {
   const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
@@ -146,6 +147,16 @@ const Index = (props) => {
                     </div>
                   </div>
                 ) : null}
+                {tab === "ACCOUNT" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <div>
+                        <MyAccount />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
                 {tab === "EDIT" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">

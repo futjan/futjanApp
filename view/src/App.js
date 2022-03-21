@@ -62,6 +62,7 @@ const Job = lazy(() => import("./components/job/index"));
 const JobDetail = lazy(() => import("./components/jobs/JobDetail"));
 const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
+const ChangePassword = lazy(() => import("./components/user/ChangePassword"));
 const SurplusBusinesses = lazy(() =>
   import("./components/surplusBusiness/SurplusBusinesses")
 );
@@ -167,6 +168,11 @@ const App = (props) => {
                       path="/user-panel"
                       exact={true}
                       element={<UserPanel />}
+                    />
+                    <Route
+                      path="/user-panel/change-password"
+                      exact={true}
+                      element={<ChangePassword />}
                     />
                   </Route>
 

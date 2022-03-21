@@ -634,7 +634,12 @@ const SurplusBusinesses = () => {
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>{surplusFromStore.totalDocs} results found </p>
+                  <p>
+                    {surplusFromStore.totalDocs > 0
+                      ? surplusFromStore.totalDocs
+                      : 0}{" "}
+                    results found{" "}
+                  </p>
                 </div>
                 {surplusFromStore.loading === true &&
                 surplusFromStore.surpluses.length === 0 ? (

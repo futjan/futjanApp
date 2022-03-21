@@ -3,11 +3,14 @@ import {
   SET_CURRENT_USER,
   SET_USER_LOADING,
   CLEAR_USER_LOADING,
+  GET_CURRENT_USER,
+  UPDATE_CURRENT_USER,
 } from "../components/actions/types";
 
 const initialState = {
   isAuthenticated: false,
   user: {},
+  currentUser: {},
   loading: false,
 };
 
@@ -28,6 +31,18 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
+        loading: false,
+      };
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+        loading: false,
+      };
+    case UPDATE_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
         loading: false,
       };
     default:

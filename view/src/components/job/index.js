@@ -13,7 +13,9 @@ import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { useSelector, useDispatch } from "react-redux";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import "../surplusBusiness/skeleton.css";
 const Index = () => {
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
@@ -521,10 +523,29 @@ const Index = () => {
                   <i className="fa fa-rss"></i>
                   <p>{job.totalDocs} results found </p>
                 </div>
-
+                {job.loading === true && job.jobs.length === 0 ? (
+                  <div className="row">
+                    {["", "", "", "", "", ""].map((num, i) => (
+                      <div
+                        className="col-lg-6 col-md-6 col-sm-6 col-xs-12"
+                        style={{
+                          margin: "10px 0",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignContent: "center",
+                        }}
+                        key={i}
+                      >
+                        <Skeleton count={1} className="skeleton-card-round" />
+                        {/* <Skeleton count={1} className="skeleton-p" />
+                        <Skeleton count={1} className="skeleton-price" /> */}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <div
                   className="products-list grid row number-col-3 so-filter-gird"
-                  style={{ minHeight: "930px" }}
+                  // style={{ minHeight: "130px" }}
                 >
                   {job.jobs.length > 0
                     ? job.jobs.map((job) => (

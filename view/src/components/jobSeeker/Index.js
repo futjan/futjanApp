@@ -4,7 +4,7 @@ import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import { getJobSeekers } from "../actions/jobSeekersAction";
-// import Skeleton from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 // import County from "../../utils/County";
 // import Cities from "../../utils/Cities";
@@ -14,11 +14,11 @@ import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import SalaryType from "../../utils/SalaryType";
 import { Link, useLocation } from "react-router-dom";
-// import "react-loading-skeleton/dist/skeleton.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // import $ from "jquery";
 
-// import "./skeleton.css";
+import "../surplusBusiness/skeleton.css";
 const Index = () => {
   //   const [businessType, setBusinessType] = useState("");
   const [country, setCountry] = useState({
@@ -503,13 +503,28 @@ const Index = () => {
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>{jobSeeker.totalDocs} results found </p>
+                  <p>
+                    {jobSeeker.totalDocs > 0 ? jobSeeker.totalDocs : 0} results
+                    found{" "}
+                  </p>
                 </div>
-
-                <div
-                  className="products-list grid row number-col-3 so-filter-gird job-seekers"
-                  style={{ minHeight: "930px" }}
-                >
+                {jobSeeker.loading === true &&
+                jobSeeker.jobSeekers.length === 0 ? (
+                  <div className="row">
+                    {["", "", "", "", "", ""].map((num, i) => (
+                      <div
+                        className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                        style={{ margin: "20px 0" }}
+                        key={i}
+                      >
+                        <Skeleton count={1} className="skeleton-card" />
+                        {/* <Skeleton count={1} className="skeleton-p" />
+                        <Skeleton count={1} className="skeleton-price" /> */}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                <div className="products-list grid row number-col-3 so-filter-gird job-seekers">
                   {jobSeeker.jobSeekers.length > 0
                     ? jobSeeker.jobSeekers.map((candidate) => (
                         <div
