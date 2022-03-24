@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
+import Skeleton from "react-loading-skeleton";
+import "../surplusBusiness/skeleton.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const JobSeekerDetails = () => {
   // initialize hooks
@@ -34,9 +37,18 @@ const JobSeekerDetails = () => {
                 }}
               >
                 {" "}
-                {jobSeeker.jobSeeker &&
-                jobSeeker.jobSeeker.photo &&
-                jobSeeker.jobSeeker.photo.length > 0 ? (
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={1}
+                    style={{
+                      width: "232px",
+                      height: "232px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : jobSeeker.jobSeeker &&
+                  jobSeeker.jobSeeker.photo &&
+                  jobSeeker.jobSeeker.photo.length > 0 ? (
                   <img
                     src={fileURL(jobSeeker.jobSeeker.photo)}
                     alt="About Us"
@@ -48,51 +60,86 @@ const JobSeekerDetails = () => {
                     src={defaultUser}
                     alt="About Us"
                     width={"40%"}
-                    style={{ borderRadius: "50%", marginBottom: "20px" }}
+                    style={{ borderRadius: "50%", marginBottom: "25px" }}
                   />
                 )}
-                <h4 style={{ margin: "0" }}>
-                  {jobSeeker.jobSeeker &&
-                    jobSeeker.jobSeeker.name &&
-                    capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
-                </h4>
-                <p style={{ margin: "0" }}>
-                  {jobSeeker.jobSeeker &&
-                    jobSeeker.jobSeeker.jobTitle &&
-                    capitalizeFirstLetter(jobSeeker.jobSeeker.jobTitle)}
-                </p>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "#858585",
-                    width: "100%",
-                  }}
-                >
-                  <div>
-                    <i
-                      className="fa fa-map-marker"
-                      style={{ marginRight: "5px" }}
-                    ></i>
-                    <span>
-                      {jobSeeker.jobSeeker &&
-                        jobSeeker.jobSeeker.country &&
-                        capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
-                    </span>
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "20px", width: "180px" }}
+                  />
+                ) : (
+                  <h4 style={{ margin: "0" }}>
+                    {jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.name &&
+                      capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
+                  </h4>
+                )}
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "18px", width: "150px", marginTop: "8px" }}
+                  />
+                ) : (
+                  <p style={{ margin: "0" }}>
+                    {jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.jobTitle &&
+                      capitalizeFirstLetter(jobSeeker.jobSeeker.jobTitle)}
+                  </p>
+                )}
+                {jobSeeker.loading === true ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+
+                      gap: "10px",
+                    }}
+                  >
+                    <Skeleton
+                      count={1}
+                      style={{ height: "18px", width: "100px" }}
+                    />
+                    <Skeleton
+                      count={1}
+                      style={{ height: "18px", width: "100px" }}
+                    />
                   </div>
-                  <div style={{ marginLeft: "20px" }}>
-                    <i
-                      className="fa fa-money"
-                      style={{ marginRight: "5px" }}
-                    ></i>{" "}
-                    <span>
-                      {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate} /{" "}
-                      {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType}
-                    </span>
+                ) : (
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "#858585",
+                      width: "100%",
+                    }}
+                  >
+                    <div>
+                      <i
+                        className="fa fa-map-marker"
+                        style={{ marginRight: "5px" }}
+                      ></i>
+                      <span>
+                        {jobSeeker.jobSeeker &&
+                          jobSeeker.jobSeeker.country &&
+                          capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
+                      </span>
+                    </div>
+                    <div style={{ marginLeft: "20px" }}>
+                      <i
+                        className="fa fa-money"
+                        style={{ marginRight: "5px" }}
+                      ></i>{" "}
+                      <span>
+                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate} /{" "}
+                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div class="col-lg-6 col-md-6 about-info">
                 <h2 class="about-title">
@@ -128,11 +175,18 @@ const JobSeekerDetails = () => {
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Gender</h4>
-                      <p style={{ margin: "0" }}>
-                        {jobSeeker.jobSeeker &&
-                          jobSeeker.jobSeeker.gender &&
-                          capitalizeFirstLetter(jobSeeker.jobSeeker.gender)}
-                      </p>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker &&
+                            jobSeeker.jobSeeker.gender &&
+                            capitalizeFirstLetter(jobSeeker.jobSeeker.gender)}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div
@@ -158,11 +212,18 @@ const JobSeekerDetails = () => {
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
-                      <p style={{ margin: "0" }}>
-                        {jobSeeker.jobSeeker &&
-                          jobSeeker.jobSeeker.country &&
-                          capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
-                      </p>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker &&
+                            jobSeeker.jobSeeker.country &&
+                            capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div
@@ -191,7 +252,14 @@ const JobSeekerDetails = () => {
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Languages</h4>
-                      <p style={{ margin: "0" }}>English</p>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>English</p>
+                      )}
                     </div>
                   </div>
                   <div
@@ -217,9 +285,16 @@ const JobSeekerDetails = () => {
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
-                      <p style={{ margin: "0" }}>
-                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact}
-                      </p>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -228,14 +303,21 @@ const JobSeekerDetails = () => {
             <div class="row">
               <div class="col-lg-6 col-md-6 skills-description">
                 <h2 class="about-title">Description</h2>
-
-                {jobSeeker.jobSeeker && jobSeeker.jobSeeker.description && (
+                {jobSeeker.loading === true ? (
+                  <Skeleton
+                    count={5}
+                    style={{ height: "23px", width: "90%" }}
+                  />
+                ) : (
                   <p>
                     {jobSeeker.jobSeeker &&
                       jobSeeker.jobSeeker.description &&
                       capitalizeFirstLetter(jobSeeker.jobSeeker.description)}
                   </p>
                 )}
+                {/* {jobSeeker.jobSeeker && jobSeeker.jobSeeker.description && (
+                  
+                )} */}
               </div>
               <div class="col-lg-6 col-md-6">
                 <h2 class="about-title">Skills</h2>
@@ -250,7 +332,41 @@ const JobSeekerDetails = () => {
                     gap: "10px",
                   }}
                 >
-                  {jobSeeker.jobSeeker &&
+                  {jobSeeker.loading === true ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <Skeleton
+                        count={1}
+                        style={{
+                          height: "30px",
+                          width: "100px",
+                          borderRadius: "20px",
+                        }}
+                      />
+                      <Skeleton
+                        count={1}
+                        style={{
+                          height: "30px",
+                          width: "120px",
+                          borderRadius: "20px",
+                        }}
+                      />
+                      <Skeleton
+                        count={1}
+                        style={{
+                          height: "30px",
+                          width: "120px",
+                          borderRadius: "20px",
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    jobSeeker.jobSeeker &&
                     jobSeeker.jobSeeker.skills &&
                     jobSeeker.jobSeeker.skills.map((skill, i) => (
                       <span
@@ -262,7 +378,8 @@ const JobSeekerDetails = () => {
                       >
                         {skill && capitalizeFirstLetter(skill)}
                       </span>
-                    ))}
+                    ))
+                  )}
                 </div>
               </div>
             </div>

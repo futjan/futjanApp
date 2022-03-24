@@ -45,16 +45,16 @@ export const getJobs =
 // @desc                    get current user surplus
 // @access                  Private
 
-export const getSurplusesPrivate = () => async (dispatch) => {
+export const getJobsPrivate = (page, limit) => async (dispatch) => {
   dispatch(setLoading());
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/surplus/current-user-surplus?fields=name,category,businessType,originalPrice,offeredPrice,discount,active`
+      `/api/v1/job/current-user-job?fields=title,category,subCategory,images,salaryType,type,minSalary,maxSalary&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
-        type: Types.GET_CURRENT_USER_SURPLUSES,
+        type: Types.GET_USER_JOBS,
         payload: res.data,
       });
     }
@@ -130,6 +130,31 @@ export const getJobById = (id) => async (dispatch) => {
         payload: err.response.data,
       });
     }
+  }
+};
+
+// @route                   CREATE /api/v1/comments
+// @desc                    create comment
+// @access                  Private
+export const createComment = (comment, clearState) => async (dispatch) => {
+  try {
+    dispatch({
+      type: Types.CLEAR_ERRORS,
+    });
+    const res = await axios.post("/api/v1/comments", comment);
+
+    if (res) {
+      dispatch({
+        type: Types.GET_JOB,
+        payload: res.data.job,
+      });
+      clearState();
+    }
+  } catch (err) {
+    dispatch({
+      type: Types.GET_ERRORS,
+      payload: err.response.data,
+    });
   }
 };
 

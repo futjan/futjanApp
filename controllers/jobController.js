@@ -77,7 +77,8 @@ exports.getJobs = catchAsync(async (req, res, next) => {
 // @desc                    GET job
 // @access                  Public
 exports.getJobById = catchAsync(async (req, res, next) => {
-  const job = await Job.findById(req.params.id);
+  const job = await Job.findById(req.params.id).populate("comments");
+  // .select("+createdAt");
 
   if (!job) {
     return next(new AppError("Job not found with that id", 400, undefined));
@@ -131,4 +132,34 @@ exports.validateJob = catchAsync(async (req, res, next) => {
   }
 
   next();
+});
+
+// @route                   GET /api/v1/job/current-user-job
+// @desc                    get all job create by current user
+// @access                  Private
+exports.getAllCurrentUserJobs = catchAsync(async (req, res, next) => {
+  req.query.user = req.user._id.toString();
+  const features = new APIFeature(Job.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const jobs = await features.query;
+  const totalDoc = await Job.find({
+    user: req.user._id.toString(),
+  }).countDocuments();
+
+  // check surplus exist or not
+  if (!jobs) {
+    return next(new AppError("Surplus does not found", 404, undefined));
+  }
+
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    totalDocs: totalDoc,
+    result: jobs.length,
+    jobs,
+  });
 });

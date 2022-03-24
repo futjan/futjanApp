@@ -4,6 +4,9 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_USERS = "GET_USERS";
 export const CLEAR_USER_LOADING = "CLEAR_USER_LOADING";
 export const SET_USER_LOADING = "SET_USER_LOADING";
+export const GET_CURRENT_USER = "GET_CURRENT_USER";
+export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
+export const GET_USER_PRESET = "GET_USER_PRESET";
 
 // Surplus
 export const CREATE_SURPLUS = "CREATE_SURPLUS";
@@ -27,6 +30,7 @@ export const DELETE_JOB = "DELETE_JOB";
 export const UPDATE_JOB = "UPDATE_JOB";
 export const SET_JOB_LOADING = "SET_JOB_LOADING";
 export const CLEAR_JOB_LOADING = "CLEAR_JOB_LOADING";
+export const GET_USER_JOBS = "GET_USER_JOBS";
 
 // JOb Seeker
 export const CREATE_JOB_SEEKER = "CREATE_JOB_SEEKER";

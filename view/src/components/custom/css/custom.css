@@ -842,6 +842,12 @@ input[type="number"] {
   background: rgb(234, 243, 250);
 }
 /* JOb Seekers */
+
+/* My Account */
+.myAccount-form label::before {
+  left: -7px !important;
+}
+/* My Account */
 /* HEADER */
 @media screen and (max-width: 992px) {
   .promotion-price {

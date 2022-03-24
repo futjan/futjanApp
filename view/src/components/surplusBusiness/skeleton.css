@@ -3,6 +3,12 @@
   height: 300px;
   margin: 15px 0;
 }
+.skeleton-card-round {
+  width: 320px;
+  height: 133px;
+  border-radius: 8px;
+  /* margin: 15px 0; */
+}
 .skeleton-p {
   height: 25px;
   width: 90% !important;

@@ -27,7 +27,6 @@ const s3 = new aws.S3();
 exports.uploadFile = upload.array("photo");
 
 exports.resizeImage = catchAsync(async (req, res, next) => {
-  console.log(req.files && req.files[0]);
   if (req.files.length > 0) {
     req.files.forEach((file, i) => {
       const timeStamp = Date.now();
@@ -56,5 +55,18 @@ exports.resizeImage = catchAsync(async (req, res, next) => {
       )}`;
     });
   }
+  next();
+});
+
+exports.deleteFileFromS3 = catchAsync(async (req, res, next) => {
+  await s3.deleteObject(
+    {
+      Bucket: process.env.BUCKET,
+      Key: req.body.image,
+    },
+    (err, data) => {
+      if (err) next(new AppError("Image does not delete", 400, undefined));
+    }
+  );
   next();
 });

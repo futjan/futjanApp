@@ -9,15 +9,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
 
-const Days = [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURADAY",
-  "SUNDAY",
-];
+// const Days = [
+//   "MONDAY",
+//   "TUESDAY",
+//   "WEDNESDAY",
+//   "THURSDAY",
+//   "FRIDAY",
+//   "SATURADAY",
+//   "SUNDAY",
+// ];
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
