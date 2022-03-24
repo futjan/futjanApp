@@ -182,7 +182,6 @@ export const getCurrentUser = () => async (dispatch) => {
 // @desc          change current or logged in user password
 // @access        Private
 export const changePassword = (data, clearState) => async (dispatch) => {
-  console.log("API HIT");
   try {
     dispatch(setLoading());
     const res = await axios.post("/api/v1/users/updatePassword", data);

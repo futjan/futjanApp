@@ -2,6 +2,7 @@ import * as Types from "../components/actions/types";
 const initialState = {
   jobs: [],
   job: {},
+  privateJobs: [],
   loading: false,
   totalDocs: 0,
   result: 0,
@@ -33,14 +34,14 @@ export default function JobReducer(state = initialState, action) {
         result: action.payload.result,
         loading: false,
       };
-    // case Types.GET_CURRENT_USER_JOBS:
-    //   return {
-    //     ...state,
-    //     privateSurpluses: action.payload.surpluses,
-    //     totalDocs: action.payload.totalDocs,
-    //     result: action.payload.result,
-    //     loading: false,
-    //   };
+    case Types.GET_USER_JOBS:
+      return {
+        ...state,
+        privateJobs: action.payload.jobs,
+        totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
+        loading: false,
+      };
     case Types.GET_JOB:
       return {
         ...state,

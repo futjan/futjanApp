@@ -4,17 +4,21 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/Cities";
 import Loader from "../../utils/Loader";
-import { updateSurplus, getSurplusById } from "../actions/surplusAction";
-
-const Days = [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURADAY",
-  "SUNDAY",
-];
+import {
+  updateSurplus,
+  getSurplusById,
+  deleteImageFromCloud,
+} from "../actions/surplusAction";
+import fileURL from "../../utils/fileURL";
+// const Days = [
+//   "MONDAY",
+//   "TUESDAY",
+//   "WEDNESDAY",
+//   "THURSDAY",
+//   "FRIDAY",
+//   "SATURADAY",
+//   "SUNDAY",
+// ];
 
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
@@ -47,7 +51,7 @@ const EditSurplus = (props) => {
   const [businessType, setBusinessType] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [weeklySchedule, setWeeklySchedule] = useState([]);
+  // const [weeklySchedule, setWeeklySchedule] = useState([]);
   const [website, setWebsite] = useState("");
   const [originalPrice, setOriginalPrice] = useState(0);
   const [offeredPrice, setOfferedPrice] = useState(0);
@@ -58,7 +62,7 @@ const EditSurplus = (props) => {
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
   const [files, setFiles] = useState([]);
-
+  const [images, setImages] = useState([]);
   const [file, setFile] = useState({});
   // initialize hooks
   const dispatch = useDispatch();
@@ -85,7 +89,8 @@ const EditSurplus = (props) => {
       setCategory(surplus.surplus.category);
       setDescription(surplus.surplus.description);
       setWebsite(surplus.surplus.website);
-      setWeeklySchedule(surplus.surplus.weeklySchedule);
+      setImages(surplus.surplus.images);
+      // setWeeklySchedule(surplus.surplus.weeklySchedule);
       setOfferedPrice(surplus.surplus.offeredPrice);
       setOriginalPrice(surplus.surplus.originalPrice);
       setKeyword(surplus.surplus.keyword);
@@ -98,69 +103,6 @@ const EditSurplus = (props) => {
   useEffect(() => {
     dispatch(getSurplusById(props.id));
   }, []);
-
-  // handle onChange AutoComplete field
-  const onChangeAutoField = (e) => {
-    const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = countryList.sort().filter((v) => regex.test(v));
-    // }
-    // setCountry(value);
-    // setSuggustion([...suggustions]);
-  };
-  const onChangeAutoFieldCities = (e) => {
-    const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = cities.sort().filter((v) => regex.test(v));
-    // }
-    // setCity(value);
-    // setSuggustionCities([...suggustions]);
-  };
-  // render suggustion
-  const renderSuggustion = () => {
-    if (suggustion.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul">
-        {suggustion.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCountry(co);
-              setSuggustion([]);
-            }}
-          >
-            {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-  const renderCitySuggustion = () => {
-    if (suggustionCities.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul">
-        {suggustionCities.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCity(co);
-              setSuggustionCities([]);
-            }}
-          >
-            {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
 
   // keyword suggustion
   const onChangeAutoFieldName = (e) => {
@@ -206,21 +148,21 @@ const EditSurplus = (props) => {
   };
 
   // handle check box
-  const handleCheckBox = (checked, value) => {
-    if (checked !== true) {
-      const tempArr = weeklySchedule.filter((day) => day !== value);
-      setWeeklySchedule([...tempArr]);
-    } else {
-      const tempArr = [...weeklySchedule];
-      tempArr.push(value);
+  // const handleCheckBox = (checked, value) => {
+  //   if (checked !== true) {
+  //     const tempArr = weeklySchedule.filter((day) => day !== value);
+  //     setWeeklySchedule([...tempArr]);
+  //   } else {
+  //     const tempArr = [...weeklySchedule];
+  //     tempArr.push(value);
 
-      setWeeklySchedule([
-        ...tempArr.filter((value, index, self) => {
-          return self.indexOf(value) === index;
-        }),
-      ]);
-    }
-  };
+  //     setWeeklySchedule([
+  //       ...tempArr.filter((value, index, self) => {
+  //         return self.indexOf(value) === index;
+  //       }),
+  //     ]);
+  //   }
+  // };
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
@@ -274,11 +216,10 @@ const EditSurplus = (props) => {
         county: county.name.toLowerCase(),
         website,
         keyword: keyword.toLowerCase(),
-        weeklySchedule,
         promoteType: promoteType.filter((type) => type.promote !== "ALL"),
         originalPrice: (originalPrice * 1).toFixed(2),
         offeredPrice: (offeredPrice * 1).toFixed(2),
-
+        images,
         discount:
           offeredPrice > 0
             ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
@@ -290,20 +231,35 @@ const EditSurplus = (props) => {
 
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
-    if (files.length < 5) {
-      const tempFiles = [...files];
-      tempFiles.push(e.target.files[0]);
-      setFiles([
-        ...tempFiles.filter(
-          (file, i, filesArray) => filesArray.indexOf(file) === i
-        ),
-      ]);
+    if (e.target.files) {
+      if (files.length < 5 - images.length) {
+        const tempFiles = [...files];
+        for (let i = 0; i < e.target.files.length; i++) {
+          tempFiles.push(e.target.files[i]);
+        }
+        setFiles([
+          ...tempFiles.filter(
+            (file, i, filesArray) => filesArray.indexOf(file) === i
+          ),
+        ]);
+      }
     }
   };
 
   // deleteFileHandler
   const deleteFileHandler = (index) => {
     setFiles([...files.filter((file, i) => i !== index)]);
+  };
+
+  // delete file from cloud
+
+  const deleteFileFromCloudFunc = (file) => {
+    const data = {
+      images: images.filter((image) => image !== file),
+      id: surplus.surplus._id,
+      image: file,
+    };
+    dispatch(deleteImageFromCloud(data));
   };
   // clear state function
   const clearState = () => {
@@ -320,11 +276,12 @@ const EditSurplus = (props) => {
     setDescription("");
     setWebsite("");
     setErrors({});
-    setWeeklySchedule([""]);
+    // setWeeklySchedule([""]);
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
     setPromoteType([]);
+    setImages([]);
 
     props.setTab("SURPLUS");
   };
@@ -681,7 +638,7 @@ const EditSurplus = (props) => {
                 </div>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
@@ -719,7 +676,7 @@ const EditSurplus = (props) => {
                       </div>
                     )}
                 </div>
-              </div>
+              </div> */}
               <h4 className="post-ad-heading">Surplus Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
@@ -758,7 +715,6 @@ const EditSurplus = (props) => {
                     name="city"
                     id="input-description"
                     rows="5"
-                    id="input-review"
                     placeholder="Description"
                     className={
                       errors &&
@@ -864,7 +820,7 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-group ">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
@@ -872,68 +828,162 @@ const EditSurplus = (props) => {
                   Upload image
                 </label>
                 <div className="col-sm-10">
-                  <div
-                    className="form-control"
+                  <label
+                    className="control-label"
                     style={{
-                      minHeight: "200px",
+                      fontSize: "15px",
+                      marginBottom: "15px",
                       width: "100%",
-                      marginBottom: "10px",
-                      display: "flex",
-                      // alignItems: "center",
-                      justifyContent: "start",
-                      gap: "10px",
+                      padding: "10px",
+                      background: "#fafafa",
+                      textDecoration: "underline",
+                      border: "1px solid #ddd",
                     }}
                   >
-                    {files.length > 0
-                      ? files.map((file, i) => (
-                          <div
-                            style={{
-                              width: "100px ",
-                              height: "100px",
-
-                              position: "relative",
-                              overflow: "hidden",
-                            }}
-                          >
-                            <i
-                              className="fa fa-times-circle"
+                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
+                      Note:{" "}
+                    </span>
+                    You can add upto {images && 5 - images.length} images
+                  </label>
+                  <div>
+                    <div
+                      className={
+                        errors && errors.validation && errors.validation.files
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        marginBottom: "10px",
+                        display: "flex",
+                        // alignItems: "center",
+                        background: "transparent",
+                        justifyContent: "start",
+                        gap: "10px",
+                      }}
+                    >
+                      {files.length > 0
+                        ? files.map((file, i) => (
+                            <div
                               style={{
-                                position: "absolute",
-                                top: "2px",
-                                right: "6px",
-                                color: "#c82333",
-                                fontSize: "23px",
-                                cursor: "pointer",
+                                width: "180px ",
+                                height: "180px",
+                                background: "#eee",
+                                position: "relative",
+                                overflow: "hidden",
+                                padding: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
-                              onClick={() => deleteFileHandler(i)}
-                            ></i>
-                            <img
-                              width={100}
-                              src={URL.createObjectURL(file)}
-                              alt={`uploaded-image-${i}`}
-                            />
-                          </div>
-                        ))
-                      : null}
-                  </div>
-                  <input
-                    type="file"
-                    name="photo"
-                    value=""
-                    onChange={(e) => uploadFilesHandler(e)}
-                    placeholder="Offered Price"
-                    id="input-website"
-                    className={
-                      errors && errors.validation && errors.validation.website
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.website && (
-                    <div className="invalid-feedback">
-                      {errors.validation.website}
+                              key={i}
+                            >
+                              <i
+                                className="fa fa-times-circle"
+                                style={{
+                                  position: "absolute",
+                                  top: "2px",
+                                  right: "6px",
+                                  color: "#c82333",
+                                  fontSize: "23px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => deleteFileHandler(i)}
+                              ></i>
+                              <img
+                                width="100%"
+                                src={URL.createObjectURL(file)}
+                                alt={`uploaded-image-${i}`}
+                              />
+                            </div>
+                          ))
+                        : null}
                     </div>
-                  )}
+
+                    <input
+                      type="file"
+                      name="photo"
+                      multiple
+                      value=""
+                      onChange={(e) => uploadFilesHandler(e)}
+                      placeholder="Offered Price"
+                      id="input-website"
+                      className={
+                        errors && errors.validation && errors.validation.files
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                    />
+
+                    {errors && errors.validation && errors.validation.files && (
+                      <div className="invalid-feedback">
+                        {errors.validation.files}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="form-group ">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Images
+                </label>
+                <div className="col-sm-10">
+                  <div>
+                    <div
+                      className="form-control"
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        marginBottom: "10px",
+                        display: "flex",
+                        // alignItems: "center",
+                        background: "transparent",
+                        justifyContent: "start",
+                        gap: "10px",
+                      }}
+                    >
+                      {images.length > 0
+                        ? images.map((image, i) => (
+                            <div
+                              style={{
+                                width: "180px ",
+                                height: "180px",
+                                background: "#eee",
+                                position: "relative",
+                                overflow: "hidden",
+                                padding: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              key={i}
+                            >
+                              <i
+                                className="fa fa-times-circle"
+                                style={{
+                                  position: "absolute",
+                                  top: "2px",
+                                  right: "6px",
+                                  color: "#c82333",
+                                  fontSize: "23px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => deleteFileFromCloudFunc(image)}
+                              ></i>
+                              <img
+                                width="100%"
+                                src={fileURL(image)}
+                                alt={`uploaded-image-${i}`}
+                              />
+                            </div>
+                          ))
+                        : null}
+                    </div>
+                  </div>
                 </div>
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>

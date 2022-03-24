@@ -45,7 +45,15 @@ const Cities = (props) => {
       getOptionLabel={(option) => (option ? option.name : "")}
       value={props.city}
       onChange={(e, value) => {
-        props.setCity(value);
+        if (value === null) {
+          props.setCity({
+            name: "",
+            stateCode: "",
+            countryCode: "",
+          });
+        } else {
+          props.setCity(value);
+        }
       }}
       isOptionEqualToValue={(option, value) => {
         return option.name === value.name;

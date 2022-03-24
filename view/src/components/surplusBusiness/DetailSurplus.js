@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSurplusById, createReview } from "../actions/surplusAction";
-
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterIcon,
+  TwitterShareButton,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from "react-share";
 // import $ from "jquery";
 import Carousel from "react-multi-carousel";
 
@@ -91,11 +100,11 @@ function DetailSurplus() {
           <div className="product-view product-detail">
             <div className="product-view-inner clearfix">
               {surplusFromStore.loading === true ? (
-                <div className="content-product-left  col-md-5 col-sm-6 col-xs-12">
+                <div className="content-product-left  col-md-6 col-sm-6 col-xs-12">
                   <Skeleton count={1} className="skeleton-card-detail" />
                 </div>
               ) : (
-                <div className="content-product-left  col-md-5 col-sm-6 col-xs-12">
+                <div className="content-product-left  col-md-6 col-sm-6 col-xs-12">
                   <div
                     style={{
                       display: "flex",
@@ -109,7 +118,8 @@ function DetailSurplus() {
                         textAlign: "center",
                         flex: 1,
                         padding: "10px",
-                        background: "#fafafa",
+                        background:
+                          mapAndImage === "image" ? "#fafafa" : "#fff",
                         border: "1px solid #f5f5f5",
                         borderBottom: "none",
                         borderRight: "none",
@@ -125,7 +135,7 @@ function DetailSurplus() {
                         textAlign: "center",
                         flex: 1,
                         padding: "10px",
-                        background: "#fafafa",
+                        background: mapAndImage === "map" ? "#fafafa" : "#fff",
                         border: "1px solid #f5f5f5",
                         borderBottom: "none",
                         color: "#666",
@@ -222,7 +232,7 @@ function DetailSurplus() {
               )}
 
               {surplusFromStore.loading === true ? (
-                <div className="content-product-right col-md-7 col-sm-6 col-xs-12">
+                <div className="content-product-right col-md-6 col-sm-6 col-xs-12">
                   <Skeleton count={1} className="skeleton-p" />
                   <Skeleton count={1} className="skeleton-price-detail" />
                   <br />
@@ -238,7 +248,7 @@ function DetailSurplus() {
                   <Skeleton count={1} className="skeleton-price-detail" />
                 </div>
               ) : (
-                <div className="content-product-right col-md-7 col-sm-6 col-xs-12">
+                <div className="content-product-right col-md-6 col-sm-6 col-xs-12">
                   <div className="countdown_box">
                     <div className="countdown_inner">
                       <div className="Countdown-1"></div>
@@ -380,8 +390,16 @@ function DetailSurplus() {
 
                   <h3 style={{ margin: "0" }}>Share on</h3>
 
-                  <div class="socials" style={{ marginTop: "8px" }}>
-                    <i
+                  <div
+                    class="socials"
+                    style={{
+                      marginTop: "8px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "7px",
+                    }}
+                  >
+                    {/* <i
                       className="fa fa-brands fa-facebook-square"
                       style={{
                         fontSize: "25px",
@@ -389,26 +407,39 @@ function DetailSurplus() {
                         cursor: "pointer",
                         color: "rgba(20,110,190,1)",
                       }}
-                    ></i>
-
-                    <i
-                      className="fa fa-brands fa-twitter-square"
-                      style={{
-                        fontSize: "25px",
-                        marginRight: "8px",
-                        cursor: "pointer",
-                        color: "#1DA1F2",
-                      }}
-                    ></i>
-
-                    <i
-                      className="fa fa-brands fa-whatsapp"
-                      style={{
-                        fontSize: "25px",
-                        cursor: "pointer",
-                        color: "#25D366",
-                      }}
-                    ></i>
+                    ></i> */}
+                    <div>
+                      <FacebookShareButton
+                        url={"https://futjan.herokuapp.com/"}
+                        // quote={title}
+                      >
+                        <FacebookIcon size={22} round />
+                      </FacebookShareButton>
+                    </div>
+                    <div>
+                      <WhatsappShareButton
+                        url={"https://futjan.herokuapp.com/"}
+                        // quote={title}
+                      >
+                        <WhatsappIcon size={22} round />
+                      </WhatsappShareButton>
+                    </div>
+                    <div>
+                      <TwitterShareButton
+                        url={"https://futjan.herokuapp.com/"}
+                        // quote={title}
+                      >
+                        <TwitterIcon size={22} round />
+                      </TwitterShareButton>
+                    </div>
+                    <div>
+                      <LinkedinShareButton
+                        url={"https://futjan.herokuapp.com/"}
+                        // quote={title}
+                      >
+                        <LinkedinIcon size={22} round />
+                      </LinkedinShareButton>
+                    </div>
                   </div>
                   {/* <div className="short_description form-group">
                     <h3>OverView</h3>

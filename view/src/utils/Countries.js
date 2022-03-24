@@ -8,8 +8,6 @@ const options = [
     .map((count) => {
       return {
         name: count.name,
-        isoCode: count.isoCode,
-        phonecode: count.phonecode,
       };
     })
     .filter(
@@ -47,10 +45,14 @@ const Countries = (props) => {
       getOptionLabel={(option) => (option ? option.name : "")}
       value={props.country}
       onChange={(e, value) => {
-        props.setCountry(value);
+        if (value === null) {
+          props.setCountry({ name: "" });
+        } else {
+          props.setCountry(value);
+        }
       }}
       isOptionEqualToValue={(option, value) => {
-        return option.name === value.name;
+        return option.name.toLowerCase() === value.name.toLowerCase();
       }}
       sx={{ width: 300 }}
       renderInput={(params) => (

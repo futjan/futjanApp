@@ -223,7 +223,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 // @desc          update password
 // @access        Private
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  console.log("update Password API HIt");
   const errors = {};
   if (!req.body.currentPassword) {
     errors.currentPassword = "currend password is required";

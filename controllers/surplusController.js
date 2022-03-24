@@ -155,31 +155,50 @@ exports.deleteSurplus = catchAsync(async (req, res, next) => {
 // @desc                    update surplux
 // @access                  Private
 exports.updateSurplus = catchAsync(async (req, res, next) => {
+  req.body = JSON.parse(req.body.surplus);
+
   if (req.files.length > 0) {
     let images = [];
     req.files.forEach((file) => {
       images.push(file.key);
     });
-    req.body.images = images;
-  }
 
-  // const surplus = await SurplusBusiness.findByIdAndUpdate(
-  //   req.body.id,
-  //   req.body.surplus,
-  //   { new: true, runValidators: true }
-  // );
-  // // check surplus exist or not
-  // if (!surplus) {
-  //   return next(new AppError("Surplus not found", 404, undefined));
-  // }
-  // // send response to client
-  // res.status(200).json({
-  //   status: "success",
-  //   surplus:"",
-  // });
-  res.end();
+    req.body.images = [...req.body.images, ...images];
+  }
+  const surplus = await SurplusBusiness.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true, runValidators: true }
+  );
+  // check surplus exist or not
+  if (!surplus) {
+    return next(new AppError("Surplus not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    surplus,
+  });
+  // res.end();
 });
 
+exports.updateSurplusImage = catchAsync(async (req, res, next) => {
+  const surplus = await SurplusBusiness.findByIdAndUpdate(
+    req.body.id,
+    { images: req.body.images },
+    { new: true }
+  );
+
+  // check surplus exist or not
+  if (!surplus) {
+    return next(new AppError("Surplus not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    surplus,
+  });
+});
 // @route                   GET /api/v1/surplus/activate
 // @desc                    activate surplus
 // @access                  Private

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 import AddJob from "../job/AddJob";
 import AddJobSeeker from "../jobSeeker/AddJobSeeker";
-import Surplus from "./Surplus";
+import Surplus from "./MyAds";
 import EditSurplus from "./EditSurplus";
 import MyAccount from "./MyAccount";
 const Index = (props) => {
@@ -20,10 +19,6 @@ const Index = (props) => {
       setTab(state.active);
     }
   }, [state && state.active]);
-
-  // get state from store
-  const surplusFromStore = useSelector((state) => state.surplus);
-
   return (
     <div className="container product-detail" style={{ margin: "30px auto" }}>
       <div className="product-attribute module">

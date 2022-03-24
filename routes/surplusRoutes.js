@@ -14,13 +14,8 @@ router
     fileController.resizeImage,
     surplusController.createSurplus
   )
-  .get(surplusController.getAllSurplus)
-  .patch(
-    authController.protect,
-    fileController.uploadFile,
-    fileController.resizeImage,
-    surplusController.updateSurplus
-  );
+  .get(surplusController.getAllSurplus);
+
 // get surplus name
 router.route("/keyword").get(surplusController.surplusKeyword);
 // surplus belongs to current user
@@ -39,9 +34,22 @@ router.patch(
 //   fileController.resizeImage
 // );
 // delete and find one
+router.patch(
+  "/delete-file",
+  authController.protect,
+  fileController.deleteFileFromS3,
+  surplusController.updateSurplusImage
+);
 
 router
   .route("/:id")
   .get(surplusController.getSurplus)
+  .patch(
+    authController.protect,
+    fileController.uploadFile,
+    fileController.resizeImage,
+    surplusController.updateSurplus
+  )
   .delete(authController.protect, surplusController.deleteSurplus);
+
 module.exports = router;

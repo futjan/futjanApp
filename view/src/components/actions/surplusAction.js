@@ -51,12 +51,12 @@ export const getSurpluses =
 // @desc                    get current user surplus
 // @access                  Private
 
-export const getSurplusesPrivate = () => async (dispatch) => {
+export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
   dispatch(setLoading());
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/surplus/current-user-surplus?fields=name,category,businessType,originalPrice,offeredPrice,discount,active`
+      `/api/v1/surplus/current-user-surplus?fields=name,category,businessType,originalPrice,offeredPrice,discount,active,images&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -145,8 +145,8 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
   let formDate = new FormData();
   data.files.forEach((file) => formDate.append("photo", file));
 
-  formDate.append("surplus", data.surplus);
-  formDate.append("id", data.id);
+  formDate.append("surplus", JSON.stringify(data.surplus));
+
   const config = {
     headers: {
       "content-type": "multipart/form-data",
@@ -157,21 +157,46 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
     type: Types.CLEAR_ERRORS,
   });
   try {
-    const res = await axios.patch("/api/v1/surplus", formDate, config);
+    const res = await axios.patch(
+      `/api/v1/surplus/${data.id}`,
+      formDate,
+      config
+    );
 
     dispatch(clearLoading());
 
-    // if (res) {
-    //   dispatch({
-    //     type: Types.UPDATE_SURPLUS,
-    //     payload: res.data.surplus,
-    //   });
-    //   clearState();
-    //   dispatch({
-    //     type: Types.GET_SURPLUS,
-    //     payload: {},
-    //   });
-    // }
+    if (res) {
+      dispatch({
+        type: Types.UPDATE_SURPLUS,
+        payload: res.data.surplus,
+      });
+      clearState();
+      dispatch({
+        type: Types.GET_SURPLUS,
+        payload: {},
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
+export const deleteImageFromCloud = (data) => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const res = await axios.patch("/api/v1/surplus/delete-file", data);
+    if (res) {
+      dispatch({
+        type: Types.GET_SURPLUS,
+        payload: res.data.surplus,
+      });
+    }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {

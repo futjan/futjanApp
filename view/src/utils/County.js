@@ -37,7 +37,14 @@ const County = (props) => {
       getOptionLabel={(option) => (option ? option.name : "")}
       value={props.county}
       onChange={(e, value) => {
-        props.setCounty(value);
+        if (value === null) {
+          props.setCounty({
+            name: "",
+            isoCode: "",
+          });
+        } else {
+          props.setCounty(value);
+        }
       }}
       isOptionEqualToValue={(option, value) => {
         return option.name === value.name;

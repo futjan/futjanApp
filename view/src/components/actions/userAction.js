@@ -25,6 +25,49 @@ export const updateCurrentUser = (data) => async (dispatch) => {
   }
 };
 
+// @route                   POST /api/v1/presets
+// @desc                    create preset
+// @access                  Private
+export const savePreset = (preset) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/v1/presets", preset);
+
+    if (res) {
+      dispatch({
+        type: Type.GET_USER_PRESET,
+        payload: res.data.preset,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+
+// @route                   GET /api/v1/presets
+// @desc                    get preset
+// @access                  Private
+export const getPreset = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/v1/presets");
+
+    if (res) {
+      dispatch({
+        type: Type.GET_USER_PRESET,
+        payload: res.data.preset,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
 const setLoading = () => {
   return {
     type: Type.SET_USER_LOADING,

@@ -10,7 +10,7 @@ import Cities from "../../utils/Cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import { getPreset, savePreset } from "../actions/userAction";
 // import $ from "jquery";
 
 import "./skeleton.css";
@@ -18,17 +18,12 @@ const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
   const [city, setCity] = useState({
     name: "",
-    stateCode: "",
-    countryCode: "",
   });
   const [country, setCountry] = useState({
     name: "",
-    isoCode: "",
-    phonecode: "",
   });
   const [county, setCounty] = useState({
     name: "",
-    isoCode: "",
   });
   const [category, setCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
@@ -45,7 +40,41 @@ const SurplusBusinesses = () => {
   const dispatch = useDispatch();
   const state = useLocation().state;
   // get state from store
+  const preset = useSelector((state) => state.auth.preset);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  
   const surplusFromStore = useSelector((state) => state.surplus);
+
+  useEffect(() => {
+    dispatch(getPreset());
+  }, []);
+  useEffect(() => {
+    if (preset && preset.keyword) {
+      setKeyword(preset.keyword);
+    }
+    if (preset && preset.city) {
+      setCity({ name: preset.city, countryCode: "", stateCode: "" });
+    }
+    if (preset && preset.county) {
+      setCounty({ name: preset.county });
+    }
+    if (preset && preset.country) {
+      setCountry({ name: preset.country });
+    }
+    if (preset && preset.businessType) {
+      setBusinessType(preset.businessType);
+    }
+    if (preset && preset.category) {
+      setCategory(preset.category);
+    }
+  }, [
+    preset && preset.keyword,
+    preset && preset.country,
+    preset && preset.city,
+    preset && preset.county,
+    preset && preset.category,
+    preset && preset.businessType,
+  ]);
   // useEffect
   useEffect(() => {
     dispatch(
@@ -53,6 +82,7 @@ const SurplusBusinesses = () => {
         page,
         limit,
         sort,
+
         businessType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
@@ -70,6 +100,39 @@ const SurplusBusinesses = () => {
       )
     );
   }, []);
+  // useEffect
+  useEffect(() => {
+    dispatch(
+      getSurpluses(
+        page,
+        limit,
+        sort,
+
+        businessType.toLowerCase(),
+        category.toLowerCase(),
+        keyword.toLowerCase(),
+
+        country !== null || (country.name && country.name.length > 0)
+          ? country && country.name && country.name.toLowerCase()
+          : "",
+        county !== null || (county.name && county.name.length > 0)
+          ? county && county.name && county.name.toLowerCase()
+          : "",
+        city !== null || (city.name && city.name.length > 0)
+          ? city && city.name && city.name.toLowerCase()
+          : "",
+        setSearchedCategory
+      )
+    );
+  }, [
+    country && country.name,
+    city && city.name,
+    county && county.name,
+    category,
+    businessType,
+    keyword,
+  ]);
+
   useEffect(() => {
     if (
       (state && state.keyword) ||
@@ -90,12 +153,13 @@ const SurplusBusinesses = () => {
             ? state.keyword.toLowerCase()
             : keyword.toLowerCase(),
 
-          country !== null && country.name && country.name.length > 0
-            ? country.name.toLowerCase()
+          country !== null || (country.name && country.name.length > 0)
+            ? country && country.name && country.name.toLowerCase()
             : "",
-          county !== null && county.name && county.name.length > 0
-            ? county.name.toLowerCase()
+          county !== null || (county.name && county.name.length > 0)
+            ? county && county.name && county.name.toLowerCase()
             : "",
+
           state && state.city && state.city.length > 0
             ? state.city.toLowerCase()
             : "",
@@ -188,12 +252,12 @@ const SurplusBusinesses = () => {
   };
   // clear State
   const clearState = () => {
-    setCity({ name: "", countryCode: "", stateCode: "" });
+    setCity({ name: "" });
     setBusinessType("");
     setCategory("");
     setKeyword("");
-    setCountry({ name: "", isoCode: "", phonecode: "" });
-    setCounty({ name: "", isoCode: "" });
+    setCountry({ name: "" });
+    setCounty({ name: "" });
   };
 
   // pagination UI
@@ -243,6 +307,18 @@ const SurplusBusinesses = () => {
         ))}
       </ul>
     );
+  };
+
+  const savePresetFunc = () => {
+    const preset = {
+      country: country.name.toLowerCase(),
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      category: category,
+      businessType: businessType,
+      keyword: keyword.toLowerCase(),
+    };
+    dispatch(savePreset(preset));
   };
   return (
     <div className="res layout-1" style={{ marginTop: "20px" }}>
@@ -475,18 +551,31 @@ const SurplusBusinesses = () => {
                       ></span>{" "}
                       Search
                     </button>
-
-                    <button
-                      className="btn btn-default inverse"
-                      id="btn_resetAll"
-                      onClick={() => clearState()}
-                    >
-                      <span
-                        className="hidden fa fa-times"
-                        aria-hidden="true"
-                      ></span>{" "}
-                      Reset All
-                    </button>
+                    {isAuthenticated === true ? (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => savePresetFunc()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Save Preset
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => clearState()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Reset All
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -672,7 +761,10 @@ const SurplusBusinesses = () => {
                             <div className="left-block">
                               <div
                                 className="product-image-container  second_img  "
-                                style={{ position: "relative" }}
+                                style={{
+                                  position: "relative",
+                                  minHeight: "280px",
+                                }}
                               >
                                 <Link
                                   to={`/surplus-detail/${sur._id}`}
