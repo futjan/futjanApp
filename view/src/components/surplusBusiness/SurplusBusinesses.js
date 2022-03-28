@@ -42,7 +42,7 @@ const SurplusBusinesses = () => {
   // get state from store
   const preset = useSelector((state) => state.auth.preset);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  
+
   const surplusFromStore = useSelector((state) => state.surplus);
 
   useEffect(() => {
