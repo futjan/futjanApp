@@ -24,4 +24,4 @@ const JobType = (props) => {
     </Select>
   );
 };
-export default JobType;
+export default React.memo(JobType);

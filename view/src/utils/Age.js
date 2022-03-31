@@ -23,4 +23,4 @@ const AgeSelect = (props) => {
     </Select>
   );
 };
-export default AgeSelect;
+export default React.memo(AgeSelect);

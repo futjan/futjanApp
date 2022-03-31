@@ -61,4 +61,4 @@ const Keyword = (props) => {
   );
 };
 
-export default Keyword;
+export default React.memo(Keyword);

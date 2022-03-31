@@ -63,4 +63,4 @@ const SpecialJobs = (props) => {
     </Select>
   );
 };
-export default SpecialJobs;
+export default React.memo(SpecialJobs);

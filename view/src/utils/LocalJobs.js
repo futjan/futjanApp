@@ -51,4 +51,4 @@ const LocalJobs = (props) => {
     </Select>
   );
 };
-export default LocalJobs;
+export default React.memo(LocalJobs);

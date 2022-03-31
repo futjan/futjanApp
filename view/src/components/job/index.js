@@ -7,7 +7,7 @@ import JobType from "../../utils/JobType";
 import JobCategory from "../../utils/JobCategory";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
-import Cities from "../../utils/Cities";
+import Cities from "../../utils/cities";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
@@ -47,75 +47,73 @@ const Index = () => {
 
   // useEffect
   useEffect(() => {
-    dispatch(
-      getJobs(
-        page,
-        limit,
-        sort,
-        type.toLowerCase(),
-        category.toLowerCase(),
-        // keyword.toLowerCase(),
-        subCategory.toLowerCase(),
-        country !== null && country.name && country.name.length > 0
-          ? country.name.toLowerCase()
-          : "",
-        county !== null && county.name && county.name.length > 0
-          ? county.name.toLowerCase()
-          : "",
-        city !== null && city.name && city.name.length > 0
-          ? city.name.toLowerCase()
-          : "",
-        setSearchedCategory
-      )
-    );
+    callJobsAPI(page, limit, sort);
   }, []);
 
   useEffect(() => {
-    if (
-      location.state &&
-      location.state.category &&
-      location.state.subCategory
-    ) {
-      dispatch(
-        getJobs(
-          page,
-          limit,
-          sort,
-          type.toLowerCase(),
-          location.state && location.state.category
-            ? location.state.category.toLowerCase()
-            : category,
-          // keyword.toLowerCase(),
-          location.state && location.state.subCategory
-            ? location.state.subCategory.toLowerCase()
-            : subCategory,
-          country !== null && country.name && country.name.length > 0
-            ? country.name.toLowerCase()
-            : "",
-          county !== null && county.name && county.name.length > 0
-            ? county.name.toLowerCase()
-            : "",
-          city !== null && city.name && city.name.length > 0
-            ? city.name.toLowerCase()
-            : "",
-          setSearchedCategory
-        )
-      );
-
-      setCategory(
-        location.state && location.state.category ? location.state.category : ""
-      );
-      setSubCategory(
-        location.state && location.state.subCategory
-          ? location.state.subCategory
-          : ""
-      );
-    }
+    callJobsAPI(page, limit, sort);
   }, [
-    location.state && location.state.category,
-    location.state && location.state.subCategory,
+    page,
+    limit,
+    sort,
+    type,
+    category,
+    subCategory,
+    country.name,
+    city.name,
+    county.name,
   ]);
+  // useEffect(() => {
+  //   if (
+  //     location.state &&
+  //     location.state.category &&
+  //     location.state.subCategory
+  //   ) {
+  //     dispatch(
+  //       getJobs(
+  //         page,
+  //         limit,
+  //         sort,
+  //         type.toLowerCase(),
+  //         location.state && location.state.category
+  //           ? location.state.category.toLowerCase()
+  //           : category,
+  //         // keyword.toLowerCase(),
+  //         location.state && location.state.subCategory
+  //           ? location.state.subCategory.toLowerCase()
+  //           : subCategory,
+  //         country !== null && country.name && country.name.length > 0
+  //           ? country.name.toLowerCase()
+  //           : "",
+  //         county !== null && county.name && county.name.length > 0
+  //           ? county.name.toLowerCase()
+  //           : "",
+  //         city !== null && city.name && city.name.length > 0
+  //           ? city.name.toLowerCase()
+  //           : "",
+  //         setSearchedCategory
+  //       )
+  //     );
 
+  //   }
+  // }, [
+
+  //   location.state && location.state.subCategory,
+  // ]);
+
+  useEffect(() => {
+    setCategory(
+      location.state && location.state.category ? location.state.category : ""
+    );
+  }, [location.state && location.state.category]);
+  // update subCategory State
+  useEffect(() => {
+    setSubCategory(
+      location.state && location.state.subCategory
+        ? location.state.subCategory
+        : ""
+    );
+  }, [location.state && location.state.subCategory]);
   // call getjobs api
   // const callJobsAPI = (page, lim, sortBy) => {
   const callJobsAPI = (page, lim, sortBy) => {
@@ -200,7 +198,7 @@ const Index = () => {
                         </div>
                       </div>
                     </li> */}
-                    <li className="so-filter-options" data-option="search">
+                    {/* <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
                           <span>Country</span>
@@ -280,7 +278,7 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                    </li>
+                    </li> */}
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -377,12 +375,9 @@ const Index = () => {
                 </div>
               </div>
             </aside>
-            <a
-              href="javascript:void(0)"
-              className="open-sidebar hidden-lg hidden-md"
-            >
+            <div className="open-sidebar hidden-lg hidden-md">
               <i className="fa fa-bars"></i>Sidebar
-            </a>
+            </div>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
               style={{ padding: "0" }}
@@ -431,9 +426,9 @@ const Index = () => {
                       <h4 style={{ margin: "0", fontWeight: "100" }}>
                         Category :{" "}
                         <span>
-                          {/* {searchedCategory.length > 0
-                          ? searchedCategory.toUpperCase()
-                          : "All"} */}
+                          {searchedCategory.length > 0
+                            ? searchedCategory.toUpperCase()
+                            : "All"}
                           All
                         </span>
                       </h4>
@@ -449,7 +444,6 @@ const Index = () => {
                           value={sort}
                           onChange={(e) => {
                             setSort(e.target.value);
-                            // callJobsAPI(page, limit, e.target.value);
                           }}
                         >
                           <option value="" selected="selected">
@@ -484,32 +478,17 @@ const Index = () => {
                         <select
                           id="input-limit"
                           className="form-control"
-                          // value={limit}
-                          // onChange={(e) => {
-                          //   if (
-                          //     page * (e.target.value * 1) >
-                          //     surplusFromStore.totalDocs
-                          //   ) {
-                          //     setLimit(e.target.value * 1);
-                          //     setPage(
-                          //       Math.ceil(
-                          //         surplusFromStore.totalDocs /
-                          //           (e.target.value * 1)
-                          //       )
-                          //     );
-                          //     callJobsAPI(
-                          //       Math.ceil(
-                          //         surplusFromStore.totalDocs /
-                          //           (e.target.value * 1)
-                          //       ),
-                          //       e.target.value * 1,
-                          //       sort
-                          //     );
-                          //   } else {
-                          //     setLimit(e.target.value * 1);
-                          //     callJobsAPI(page, e.target.value, sort);
-                          //   }
-                          // }}
+                          value={limit}
+                          onChange={(e) => {
+                            if (page * (e.target.value * 1) > job.totalDocs) {
+                              setLimit(e.target.value * 1);
+                              setPage(
+                                Math.ceil(job.totalDocs / (e.target.value * 1))
+                              );
+                            } else {
+                              setLimit(e.target.value * 1);
+                            }
+                          }}
                         >
                           <option value="10">10</option>
                           <option value="50">50</option>
@@ -653,11 +632,10 @@ const Index = () => {
                           onClick={() => {
                             if (page > 1) {
                               setPage(page - 1);
-                              callJobsAPI(page - 1, limit, sort);
                             }
                           }}
                         >
-                          <a href="#">&lt;</a>
+                          <span>{"<"}</span>
                         </li>
                       ) : null}
 
@@ -669,7 +647,6 @@ const Index = () => {
                                 style={{ cursor: "pointer" }}
                                 onClick={() => {
                                   setPage(i + 1);
-                                  callJobsAPI(i + 1, limit, sort);
                                 }}
                                 key={i}
                               >
@@ -683,11 +660,10 @@ const Index = () => {
                           onClick={() => {
                             if (page <= job.totalDocs / limit) {
                               setPage(page + 1);
-                              callJobsAPI(page + 1, limit, sort);
                             }
                           }}
                         >
-                          <a href="#">&gt;</a>
+                          <span>{">"}</span>
                         </li>
                       ) : null}
                     </ul>

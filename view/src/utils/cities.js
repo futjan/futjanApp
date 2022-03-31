@@ -4,11 +4,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { City } from "country-state-city";
 import "./customCss.css";
 const Cities = (props) => {
-  const [city, setCity] = useState({
-    name: "",
-    stateCode: "",
-    countryCode: "",
-  });
   const [options, setOptions] = useState([]);
 
   // useEffect
@@ -66,4 +61,4 @@ const Cities = (props) => {
   );
 };
 
-export default Cities;
+export default React.memo(Cities);

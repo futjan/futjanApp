@@ -4,6 +4,7 @@ import Select from "@mui/material/Select";
 import "./customCss.css";
 
 const JobCategory = (props) => {
+  console.log("job Category is rendering");
   return (
     <Select
       className={
@@ -23,4 +24,4 @@ const JobCategory = (props) => {
     </Select>
   );
 };
-export default JobCategory;
+export default React.memo(JobCategory);

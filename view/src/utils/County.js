@@ -68,4 +68,4 @@ const County = (props) => {
   );
 };
 
-export default County;
+export default React.memo(County);

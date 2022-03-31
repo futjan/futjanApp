@@ -24,4 +24,4 @@ const Gender = (props) => {
     </Select>
   );
 };
-export default Gender;
+export default React.memo(Gender);

@@ -40,7 +40,7 @@ import "./css/themecss/so_megamenu.css";
 // import "./css/themecss/so-category-slider.css";
 // import "./css/themecss/so-newletter-popup.css";
 import "./css/footer/footer1.css";
-import "./css/header/header1.css";
+// import "./css/header/header1.css";
 import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";

@@ -25,4 +25,4 @@ const Qualification = (props) => {
     </Select>
   );
 };
-export default Qualification;
+export default React.memo(Qualification);

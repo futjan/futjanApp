@@ -18,6 +18,7 @@ const options = [
 ];
 
 const Countries = (props) => {
+  console.log("country component is rendering");
   const [country, setCountry] = useState({
     name: "",
     isoCode: "",
@@ -62,4 +63,4 @@ const Countries = (props) => {
   );
 };
 
-export default Countries;
+export default React.memo(Countries);

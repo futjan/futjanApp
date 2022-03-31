@@ -27,4 +27,4 @@ const SalaryType = (props) => {
     </Select>
   );
 };
-export default SalaryType;
+export default React.memo(SalaryType);

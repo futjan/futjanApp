@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
-import Cities from "../../utils/Cities";
+import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";

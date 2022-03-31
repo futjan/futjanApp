@@ -38,7 +38,7 @@ const Index = () => {
 
   // initialize hooks
   const dispatch = useDispatch();
-  const state = useLocation().state;
+
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
 
@@ -58,6 +58,10 @@ const Index = () => {
       )
     );
   }, []);
+
+  useEffect(() => {
+    callJobSeekersAPI(page, limit, sort);
+  }, [page, limit, sort, salaryType, category, subCategory, country.name]);
   //   useEffect(() => {
   //     if (
   //       (state && state.keyword) ||
@@ -433,7 +437,6 @@ const Index = () => {
                           value={sort}
                           onChange={(e) => {
                             setSort(e.target.value);
-                            callJobSeekersAPI(page, limit, e.target.value);
                           }}
                         >
                           <option value="" selected="selected">
@@ -480,16 +483,8 @@ const Index = () => {
                                   jobSeeker.totalDocs / (e.target.value * 1)
                                 )
                               );
-                              callJobSeekersAPI(
-                                Math.ceil(
-                                  jobSeeker.totalDocs / (e.target.value * 1)
-                                ),
-                                e.target.value * 1,
-                                sort
-                              );
                             } else {
                               setLimit(e.target.value * 1);
-                              callJobSeekersAPI(page, e.target.value, sort);
                             }
                           }}
                         >
@@ -616,7 +611,6 @@ const Index = () => {
                           onClick={() => {
                             if (page > 1) {
                               setPage(page - 1);
-                              // callJobSeekersAPI(page - 1, limit, sort);
                             }
                           }}
                         >
@@ -632,7 +626,6 @@ const Index = () => {
                                 style={{ cursor: "pointer" }}
                                 onClick={() => {
                                   setPage(i + 1);
-                                  // callJobSeekersAPI(i + 1, limit, sort);
                                 }}
                                 key={i}
                               >
@@ -646,7 +639,6 @@ const Index = () => {
                           onClick={() => {
                             if (page <= jobSeeker.totalDocs / limit) {
                               setPage(page + 1);
-                              callJobSeekersAPI(page + 1, limit, sort);
                             }
                           }}
                         >

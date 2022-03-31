@@ -14037,10 +14037,12 @@ div#content .col-lg-2:nth-child(6n + 1),
   float: left;
   margin-bottom: 0px !important;
 }
-.module.home-lt1 .so-listing-tabs .ltabs-item .item-inner {
+/* .module.home-lt1 .so-listing-tabs .ltabs-item .item-inner { */
+.module.home-lt1 .item-inner {
   margin: 0 15px;
 }
-.module.home-lt1 .so-listing-tabs .ltabs-wrap .ltabs-tabs-container {
+/* .module.home-lt1 .so-listing-tabs .ltabs-wrap .ltabs-tabs-container { */
+.module.home-lt1 .ltabs-tabs-container {
   margin: 0;
   position: absolute;
   right: 25px;

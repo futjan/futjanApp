@@ -6,7 +6,7 @@ import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
-import Cities from "../../utils/Cities";
+import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -77,53 +77,11 @@ const SurplusBusinesses = () => {
   ]);
   // useEffect
   useEffect(() => {
-    dispatch(
-      getSurpluses(
-        page,
-        limit,
-        sort,
-
-        businessType.toLowerCase(),
-        category.toLowerCase(),
-        keyword.toLowerCase(),
-
-        country !== null || (country.name && country.name.length > 0)
-          ? country.name.toLowerCase()
-          : "",
-        county !== null || (county.name && county.name.length > 0)
-          ? county.name.toLowerCase()
-          : "",
-        city !== null || (city.name && city.name.length > 0)
-          ? city.name.toLowerCase()
-          : "",
-        setSearchedCategory
-      )
-    );
+    callSurplusesAPI(page, limit, sort);
   }, []);
   // useEffect
   useEffect(() => {
-    dispatch(
-      getSurpluses(
-        page,
-        limit,
-        sort,
-
-        businessType.toLowerCase(),
-        category.toLowerCase(),
-        keyword.toLowerCase(),
-
-        country !== null || (country.name && country.name.length > 0)
-          ? country && country.name && country.name.toLowerCase()
-          : "",
-        county !== null || (county.name && county.name.length > 0)
-          ? county && county.name && county.name.toLowerCase()
-          : "",
-        city !== null || (city.name && city.name.length > 0)
-          ? city && city.name && city.name.toLowerCase()
-          : "",
-        setSearchedCategory
-      )
-    );
+    callSurplusesAPI(page, limit, sort);
   }, [
     country && country.name,
     city && city.name,
@@ -131,63 +89,82 @@ const SurplusBusinesses = () => {
     category,
     businessType,
     keyword,
+    page,
+    limit,
   ]);
-
+  // update business type state
   useEffect(() => {
-    if (
-      (state && state.keyword) ||
-      (state && state.city) ||
-      (state && state.type)
-    ) {
-      dispatch(
-        getSurpluses(
-          page,
-          limit,
-          sort,
-          state && state.type && state.type.length > 0
-            ? state.type.toLowerCase()
-            : businessType.toLowerCase(),
-          category.toLowerCase(),
-
-          state && state.keyword
-            ? state.keyword.toLowerCase()
-            : keyword.toLowerCase(),
-
-          country !== null || (country.name && country.name.length > 0)
-            ? country && country.name && country.name.toLowerCase()
-            : "",
-          county !== null || (county.name && county.name.length > 0)
-            ? county && county.name && county.name.toLowerCase()
-            : "",
-
-          state && state.city && state.city.length > 0
-            ? state.city.toLowerCase()
-            : "",
-
-          setSearchedCategory
-        )
-      );
-
-      if (state && state.keyword) {
-        setKeyword(state && state.keyword ? state.keyword : "");
-      }
-      if (state && state.city) {
-        setCity(
-          state && state.city && state.city.length > 0
-            ? { name: state.city, countryCode: "", stateCode: "" }
-            : ""
-        );
-      }
-      if (state && state.type) {
-        setBusinessType(state && state.type ? state.type : "");
-      }
+    if (state && state.type) {
+      setBusinessType(state.type.toLowerCase());
     }
-  }, [
-    state ||
-      (state && state.keyword) ||
-      (state && state.city) ||
-      (state && state.type),
-  ]);
+  }, [state && state.type]);
+
+  // update keyword state
+  useEffect(() => {
+    if (state && state.keyword) {
+      setKeyword(state.keyword.toLowerCase());
+    }
+  }, [state && state.keyword]);
+
+  // update city state
+  useEffect(() => {
+    if (state && state.city) {
+      setCity({ name: state.city.toLowerCase() });
+    }
+  }, [state && state.city]);
+  // useEffect(() => {
+  //   if (
+
+  //   ) {
+  //     dispatch(
+  //       getSurpluses(
+  //         page,
+  //         limit,
+  //         sort,
+  //         state && state.type && state.type.length > 0
+  //           ? state.type.toLowerCase()
+  //           : businessType.toLowerCase(),
+  //         category.toLowerCase(),
+
+  //         state && state.keyword
+  //           ? state.keyword.toLowerCase()
+  //           : keyword.toLowerCase(),
+
+  //         country !== null || (country.name && country.name.length > 0)
+  //           ? country && country.name && country.name.toLowerCase()
+  //           : "",
+  //         county !== null || (county.name && county.name.length > 0)
+  //           ? county && county.name && county.name.toLowerCase()
+  //           : "",
+
+  //         state && state.city && state.city.length > 0
+  //           ? state.city.toLowerCase()
+  //           : "",
+
+  //         setSearchedCategory
+  //       )
+  //     );
+
+  //     if (state && state.keyword) {
+  //       setKeyword(state && state.keyword ? state.keyword : "");
+  //     }
+  //     if (state && state.city) {
+  //       setCity(
+  //         state && state.city && state.city.length > 0
+  //           ? { name: state.city, countryCode: "", stateCode: "" }
+  //           : ""
+  //       );
+  //     }
+  //     if (state && state.type) {
+  //       setBusinessType(state && state.type ? state.type : "");
+  //     }
+  //   }
+  // }, [
+  //   state ||
+  //     (state && state.keyword) ||
+  //     (state && state.city) ||
+  //     (state && state.type),
+  // ]);
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
@@ -380,10 +357,15 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <Countries
-                                  setCountry={setCountry}
-                                  country={country}
-                                />
+                                {React.useMemo(
+                                  () => (
+                                    <Countries
+                                      setCountry={setCountry}
+                                      country={country}
+                                    />
+                                  ),
+                                  [country]
+                                )}
                               </div>
                             </div>
                           </div>
@@ -581,12 +563,9 @@ const SurplusBusinesses = () => {
                 </div>
               </div>
             </aside>
-            <a
-              href="javascript:void(0)"
-              className="open-sidebar hidden-lg hidden-md"
-            >
+            <div className="open-sidebar hidden-lg hidden-md">
               <i className="fa fa-bars"></i>Sidebar
-            </a>
+            </div>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
               style={{ padding: "0" }}
@@ -652,7 +631,6 @@ const SurplusBusinesses = () => {
                           value={sort}
                           onChange={(e) => {
                             setSort(e.target.value);
-                            callSurplusesAPI(page, limit, e.target.value);
                           }}
                         >
                           <option value="" selected="selected">
@@ -700,17 +678,17 @@ const SurplusBusinesses = () => {
                                     (e.target.value * 1)
                                 )
                               );
-                              callSurplusesAPI(
-                                Math.ceil(
-                                  surplusFromStore.totalDocs /
-                                    (e.target.value * 1)
-                                ),
-                                e.target.value * 1,
-                                sort
-                              );
+                              // callSurplusesAPI(
+                              //   Math.ceil(
+                              //     surplusFromStore.totalDocs /
+                              //       (e.target.value * 1)
+                              //   ),
+                              //   e.target.value * 1,
+                              //   sort
+                              // );
                             } else {
                               setLimit(e.target.value * 1);
-                              callSurplusesAPI(page, e.target.value, sort);
+                              // callSurplusesAPI(page, e.target.value, sort);
                             }
                           }}
                         >
@@ -777,12 +755,12 @@ const SurplusBusinesses = () => {
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-1 img-responsive"
                                   />
-                                  <img
+                                  {/* <img
                                     src={fileURL(sur.images && sur.images[0])}
                                     alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-2 img-responsive"
-                                  />
+                                  /> */}
                                   {sur.promoteType &&
                                   sur.promoteType.length > 0 ? (
                                     <div className="ad-promote-type-container">
@@ -879,7 +857,7 @@ const SurplusBusinesses = () => {
                           onClick={() => {
                             if (page > 1) {
                               setPage(page - 1);
-                              callSurplusesAPI(page - 1, limit, sort);
+                              // callSurplusesAPI(page - 1, limit, sort);
                             }
                           }}
                         >
@@ -895,7 +873,7 @@ const SurplusBusinesses = () => {
                                 style={{ cursor: "pointer" }}
                                 onClick={() => {
                                   setPage(i + 1);
-                                  callSurplusesAPI(i + 1, limit, sort);
+                                  // callSurplusesAPI(i + 1, limit, sort);
                                 }}
                                 key={i}
                               >
@@ -909,7 +887,7 @@ const SurplusBusinesses = () => {
                           onClick={() => {
                             if (page <= surplusFromStore.totalDocs / limit) {
                               setPage(page + 1);
-                              callSurplusesAPI(page + 1, limit, sort);
+                              // callSurplusesAPI(page + 1, limit, sort);
                             }
                           }}
                         >
