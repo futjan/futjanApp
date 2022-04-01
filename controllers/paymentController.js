@@ -1,7 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const AppError = require("../utils/appError");
 const Surplus = require("../models/SurplusBusiness");
-
+const uuid = require("uuid");
 exports.checkoutSessions = async (req, res, next) => {
   const surplus = await Surplus.findById(req.params.id);
 
@@ -29,11 +29,36 @@ exports.checkoutSessions = async (req, res, next) => {
     ],
     mode: "payment",
   });
-  console.log(session);
+  s;
   // send session to response
-
   res.status(200).json({
     status: "success",
     session,
   });
+};
+
+// stripe new method
+exports.paymentAPI = (req, res, next) => {
+  const { product, token } = req.body;
+  return stripe.customers
+    .create({
+      email: token.email,
+      source: token.id,
+    })
+    .then((customer) => {
+      stripe.charges.create({
+        amount: product.price * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        shipping: {
+          name: token.card.name,
+          address: {
+            country: token.card.country,
+          },
+        },
+      });
+    })
+    .then((result) => res.status(200).json(result))
+    .catch((err) => console.log(err));
 };

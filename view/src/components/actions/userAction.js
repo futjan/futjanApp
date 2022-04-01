@@ -29,7 +29,6 @@ export const updateCurrentUser = (data) => async (dispatch) => {
 // @desc                    create preset
 // @access                  Private
 export const savePreset = (preset) => async (dispatch) => {
-
   try {
     const res = await axios.post("/api/v1/presets", preset);
 
@@ -52,7 +51,6 @@ export const savePreset = (preset) => async (dispatch) => {
 // @desc                    get preset
 // @access                  Private
 export const getPreset = () => async (dispatch) => {
-  console.log("GET PRESET")
   try {
     const res = await axios.get("/api/v1/presets");
 

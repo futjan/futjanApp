@@ -7,6 +7,7 @@ import Loader from "../../utils/Loader";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Payment from "../payment/Payment";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
 
 // const Days = [
@@ -1170,12 +1171,13 @@ const AddSurplusBusiness = () => {
 
             <div className="buttons">
               <div className="pull-right">
-                <input
+                <Payment />
+                {/* <input
                   type="button"
                   value="Post my ad"
                   className="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
-                />
+                /> */}
               </div>
             </div>
           </form>

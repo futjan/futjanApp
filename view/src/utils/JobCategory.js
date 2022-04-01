@@ -4,7 +4,6 @@ import Select from "@mui/material/Select";
 import "./customCss.css";
 
 const JobCategory = (props) => {
-  console.log("job Category is rendering");
   return (
     <Select
       className={

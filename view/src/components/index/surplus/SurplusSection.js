@@ -15,8 +15,6 @@ const SurplusSection = () => {
   useEffect(() => {
     dispatch(getSurpluses(1, 8, "", "", "", "", "", "", "", ""));
   }, []);
-
-  console.log(surplus.surpluses);
   return (
     <section id="box-link2" className="section-style">
       <div className="container page-builder-ltr" style={{ marginTop: "20px" }}>

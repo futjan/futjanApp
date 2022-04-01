@@ -49,7 +49,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/surplus", surplusRoutes);
 app.use("/api/v1/businesstype", businessTypeRoutes);
 app.use("/api/v1/review", reviewRoutes);
-app.use("/api/v1/purching", purchingRoutes);
+app.use("/api/v1/payment", purchingRoutes);
 app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/jobseekers", jobSeekerRoutes);
 app.use("/api/v1/comments", commentRoutes);
