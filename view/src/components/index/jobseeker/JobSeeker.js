@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 import defaultUser from "../../image/default.jpg";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 const JobSeeker = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -25,6 +27,35 @@ const JobSeeker = () => {
               </div>
               <div className="modcontent">
                 <div>
+                  {jobSeeker.loading === true ? (
+                    <div style={{ display: "block", overflow: "hidden" }}>
+                      {["", "", "", "", "", "", "", ""].map((item) => (
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: "15px",
+                          }}
+                        >
+                          <Skeleton count={1} width="240px" height="300px" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : jobSeeker.jobSeekers.length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        minHeight: "300px",
+                        textShadow: "0px 2px 8px rgb(0 0 0 / 30%)",
+                      }}
+                    >
+                      <h5>0 Job Seeker found</h5>
+                    </div>
+                  ) : null}
                   {jobSeeker.jobSeekers.length > 0
                     ? jobSeeker.jobSeekers.map((candidate) => (
                         <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">

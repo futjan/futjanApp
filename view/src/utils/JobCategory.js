@@ -19,7 +19,7 @@ const JobCategory = (props) => {
     >
       <MenuItem value="">Choose</MenuItem>
       <MenuItem value="Local Job">Local Job</MenuItem>
-      <MenuItem value="Special Job">Special Job</MenuItem>
+      <MenuItem value="Special Job">Specialist Job</MenuItem>
     </Select>
   );
 };

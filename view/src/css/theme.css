@@ -7121,7 +7121,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   .time-item {
   background: rgba(0, 0, 0, 0.7);
 }
-.products-list.list-masonry
+/* .products-list.list-masonry
   .product-layout
   .product-item-container
   .left-block
@@ -7148,7 +7148,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-}
+} */
 .products-list.list-masonry
   .product-layout
   .product-item-container
@@ -10835,7 +10835,7 @@ select {
   left: 0;
 }
 
-.lib-two-img-over .img-1,
+/* .lib-two-img-over .img-1,
 .best-seller
   .so-extraslider
   .extraslider-inner
@@ -10863,8 +10863,7 @@ select {
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s ease-in-out;
-  /* -webkit-transform: rotate(0);
-  -webkit-backface-visibility: hidden; */
+  
 }
 .lib-two-img-over .img-2,
 .best-seller
@@ -10894,7 +10893,7 @@ select {
   opacity: 1;
   visibility: visible;
   transition: all 0.5s ease-in-out;
-}
+} */
 /*====================== mod title ========================*/
 .layout-1.common-home #content .content-main-w {
   clear: both;

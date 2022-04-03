@@ -250,6 +250,7 @@ input[type="number"] {
 }
 /*  Hide Arrows From Input Number */
 /* Surpluses */
+
 .products-list.list-masonry
   .product-layout
   .product-item-container
@@ -268,18 +269,17 @@ input[type="number"] {
   align-items: center;
   margin: 0;
 }
-.products-list.grid
-  .product-layout
-  .product-item-container
-  .right-block
-  .caption
-  small {
-  font-size: 13px;
-  color: #635b67;
+.product-item-container .right-block .caption small {
+  font-size: 14px;
+  color: #3c3241;
+  font-weight: 700;
 }
 .product-item-container .right-block .caption i {
   width: 20px;
-  color: #635b67 !important;
+  color: #3c3241 !important;
+}
+.product-item-container .right-block .caption h4 a {
+  color: #007fb0 !important;
 }
 
 /* Surpluses */
@@ -619,7 +619,9 @@ input[type="number"] {
   padding: 5px 15px !important;
   display: block;
   width: 100%;
-  color: #8a848d !important;
+  color: #3c3241;
+  font-weight: 600;
+  font-size: 13px;
 }
 .new-design-ul li .sub-menu ul li a:hover {
   text-decoration: underline;
@@ -728,9 +730,10 @@ input[type="number"] {
 }
 .products-list .product-layout .job-container .job-detail p {
   margin: 0 !important;
-  color: #666;
+  color: #3c3241;
   position: relative;
   font-size: 13px !important;
+  font-weight: 700;
 }
 .products-list .product-layout .job-container .job-detail p i {
   margin-right: 5px;

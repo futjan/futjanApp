@@ -1186,7 +1186,7 @@ const Header2 = () => {
                           size="large"
                           onClick={() => setJobSearch("Special Job")}
                         >
-                          Special
+                          Specialist
                         </CustomSpecialJobBtn>
                         <CustomLocalJobBtn
                           size="large"

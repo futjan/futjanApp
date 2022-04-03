@@ -5,7 +5,8 @@ import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
-
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 const SurplusSection = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -26,7 +27,37 @@ const SurplusSection = () => {
               </div>
               <div className="modcontent">
                 <div>
-                  {surplus.surpluses.length > 0
+                  {surplus.loading === true ? (
+                    <div style={{ display: "block", overflow: "hidden" }}>
+                      {["", "", "", "", "", "", "", ""].map((item) => (
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: "15px",
+                          }}
+                        >
+                          <Skeleton count={1} width="240px" height="300px" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : surplus.surpluses.length === 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        minHeight: "300px",
+                        textShadow: "0px 2px 8px rgb(0 0 0 / 30%)",
+                      }}
+                    >
+                      <h5>0 Surplus found</h5>
+                    </div>
+                  ) : null}
+
+                  {surplus.loading === false && surplus.surpluses.length > 0
                     ? surplus.surpluses.map((sur) => (
                         <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
                           <div className="item-inner product-layout transition product-grid">

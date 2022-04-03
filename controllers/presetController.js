@@ -31,7 +31,7 @@ exports.getPreset = catchAsync(async (req, res, next) => {
   );
 
   if (!preset) {
-    next(new AppError("preset not found", 400, undefined));
+    return next(new AppError("preset not found", 400, undefined));
   }
 
   res.status(200).json({

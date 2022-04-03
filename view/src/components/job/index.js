@@ -392,28 +392,59 @@ const Index = () => {
                   }}
                 >
                   <span>Job</span>
-                  <Link
-                    className="clearfix"
-                    to="/user-panel"
+                  <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      flexDirection: "column",
-                      fontSize: "14px",
-                      fontWeight: "100",
+                      gap: "15px",
                     }}
                   >
-                    <i
-                      className="fa fa-thumb-tack"
+                    <Link
+                      className="clearfix"
+                      to="/user-panel"
                       style={{
-                        fontSize: "20px",
-                        padding: "0",
-                        marginBottom: "3px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        fontSize: "14px",
+                        fontWeight: "100",
                       }}
-                    ></i>
-                    Post Ad
-                  </Link>
+                    >
+                      <i
+                        className="fa fa-thumb-tack"
+                        style={{
+                          fontSize: "20px",
+                          padding: "0",
+                          marginBottom: "3px",
+                        }}
+                      ></i>
+                      Employee
+                    </Link>
+                    <Link
+                      className="clearfix"
+                      to="/user-panel"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        fontSize: "14px",
+                        fontWeight: "100",
+                      }}
+                    >
+                      <i
+                        className="fa fa-thumb-tack"
+                        style={{
+                          fontSize: "20px",
+                          padding: "0",
+                          marginBottom: "3px",
+                        }}
+                      ></i>
+                      Employer
+                    </Link>
+                  </div>
                 </h3>
               </div>
               <div className="products-category">
@@ -429,7 +460,6 @@ const Index = () => {
                           {searchedCategory.length > 0
                             ? searchedCategory.toUpperCase()
                             : "All"}
-                          All
                         </span>
                       </h4>
                     </div>

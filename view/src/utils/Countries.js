@@ -8,6 +8,7 @@ const options = [
     .map((count) => {
       return {
         name: count.name,
+        isoCode: count.isoCode,
       };
     })
     .filter(
@@ -21,7 +22,6 @@ const Countries = (props) => {
   const [country, setCountry] = useState({
     name: "",
     isoCode: "",
-    phonecode: "",
   });
   useEffect(() => {
     if (props.for === "update") {
@@ -46,7 +46,7 @@ const Countries = (props) => {
       value={props.country}
       onChange={(e, value) => {
         if (value === null) {
-          props.setCountry({ name: "" });
+          props.setCountry({ name: "", isoCode: "" });
         } else {
           props.setCountry(value);
         }

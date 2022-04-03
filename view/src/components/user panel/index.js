@@ -120,7 +120,7 @@ const Index = (props) => {
                             checked={add === "candidiate" ? true : false}
                             name="Flat Shipping Rate"
                           />{" "}
-                          Job Seeker
+                          Employee
                           <span className="checkmark"></span>
                         </label>
                       </div>

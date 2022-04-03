@@ -18,12 +18,16 @@ const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
   const [city, setCity] = useState({
     name: "",
+    stateCode: "",
+    countryCode: "",
   });
   const [country, setCountry] = useState({
     name: "",
+    isoCode: "",
   });
   const [county, setCounty] = useState({
     name: "",
+    isoCode: "",
   });
   const [category, setCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
@@ -109,7 +113,11 @@ const SurplusBusinesses = () => {
   // update city state
   useEffect(() => {
     if (state && state.city) {
-      setCity({ name: state.city.toLowerCase() });
+      setCity({
+        name: state.city.toLowerCase(),
+        stateCode: "",
+        countryCode: "",
+      });
     }
   }, [state && state.city]);
   // useEffect(() => {
@@ -229,12 +237,12 @@ const SurplusBusinesses = () => {
   };
   // clear State
   const clearState = () => {
-    setCity({ name: "" });
+    setCity({ name: "", stateCode: "", countryCode: "" });
     setBusinessType("");
     setCategory("");
     setKeyword("");
-    setCountry({ name: "" });
-    setCounty({ name: "" });
+    setCountry({ name: "", isoCode: "" });
+    setCounty({ name: "", isoCode: "" });
   };
 
   // pagination UI
