@@ -10,7 +10,7 @@ import indianFlag from "../image/flag/india.png";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-// import { City } from "country-state-city";
+import { City } from "country-state-city";
 import "./materialUI.css";
 
 const Header2 = () => {
@@ -61,19 +61,19 @@ const Header2 = () => {
 
   // cities
   const onChangeAutoFieldCities = (e) => {
-    // const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = City.getAllCities()
-    //     .sort()
-    //     .filter((v) => regex.test(v.name))
-    //     .map((cit) => {
-    //       return { name: cit.name, countryCode: cit.countryCode };
-    //     });
-    // }
-    // setCity(value);
-    // setSuggustionCities([...suggustions]);
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggustions = City.getAllCities()
+        .sort()
+        .filter((v) => regex.test(v.name))
+        .map((cit) => {
+          return { name: cit.name, countryCode: cit.countryCode };
+        });
+    }
+    setCity(value);
+    setSuggustionCities([...suggustions]);
   };
   const renderCitySuggustion = () => {
     if (suggustionCities.length === 0) {
@@ -103,22 +103,22 @@ const Header2 = () => {
   };
   // keyword
   const onChangeAutoFieldName = (e) => {
-    // const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   if (surplusFromStore.keywords.length > 0) {
-    //     suggustions = surplusFromStore.keywords
-    //       .map((v) => v.keyword)
-    //       .filter(
-    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-    //       )
-    //       .sort()
-    //       .filter((v) => regex.test(v));
-    //   }
-    // }
-    // setKeyword(value);
-    // setSuggustion([...suggustions]);
+    const value = e.target.value;
+    let suggustions = [];
+    if (value.trim().length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      if (surplusFromStore.keywords.length > 0) {
+        suggustions = surplusFromStore.keywords
+          .map((v) => v.keyword)
+          .filter(
+            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+          )
+          .sort()
+          .filter((v) => regex.test(v));
+      }
+    }
+    setKeyword(value);
+    setSuggustion([...suggustions]);
   };
 
   const renderNameSuggustion = () => {
