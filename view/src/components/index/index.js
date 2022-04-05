@@ -1,46 +1,16 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 
-import icon1 from "../image/catalog/demo/menu/icon/icon-1.png";
-import icon3 from "../image/catalog/demo/menu/icon/icon-3.png";
-import icon5 from "../image/catalog/demo/menu/icon/icon-5.png";
-import icon9 from "../image/catalog/demo/menu/icon/icon-9.png";
-import icon6 from "../image/catalog/demo/menu/icon/icon-6.png";
-import slider1 from "../image/catalog/demo/slider/home1/slider.jpg";
-import banner1 from "../image/catalog/demo/banners/home1/bn-1.jpg";
-import banner2 from "../image/catalog/demo/banners/home1/bn-2.jpg";
 import banner3 from "../image/catalog/demo/banners/home1/bn-3.jpg";
 import banner4 from "../image/catalog/demo/banners/home1/bn-4.jpg";
-import spa1 from "../image/catalog/demo/product/spa/5-270x270.jpg";
+// import SurplusSection from "./surplus/SurplusSection";
+// import SurplusSection from ;
+const SurplusSection = lazy(() => import("./surplus/SurplusSection"));
 
-import travel from "../image/catalog/demo/product/travel/2-370x370.jpg";
-import travel5 from "../image/catalog/demo/product/travel/5-370x370.jpg";
-
-import megamenu from "../image/catalog/demo/menu/img-static-megamenu-h.jpg";
-
-import { getPreset } from "../actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
-import { getSurpluses } from "../actions/surplusAction";
-import { getJobs } from "../actions/jobAction";
-import { getJobSeekers } from "../actions/jobSeekersAction";
-import SurplusSection from "./surplus/SurplusSection";
-import Job from "./job/Job";
-import JobSeeker from "./jobseeker/JobSeeker";
-
+// import Job from "./job/Job";
+const Job = lazy(() => import("./job/Job"));
+// import JobSeeker from "./jobseeker/JobSeeker";
+const JobSeeker = lazy(() => import("./jobseeker/JobSeeker"));
 const Index = (props) => {
-  // initialize hooks
-  const dispatch = useDispatch();
-  // get state from store
-  const surplus = useSelector((state) => state.surplus);
-  const jobs = useSelector((state) => state.job);
-  const jobSeeker = useSelector((state) => state.jobSeeker);
-
-  useEffect(() => {
-    // dispatch(getPreset());
-    // dispatch(getSurpluses(1, 8, "", "", "", "", "", "", "", ""));
-    // dispatch(getJobs(1, 8, "", "", "", "", "", "", "", ""));
-    // dispatch(getJobSeekers(1, 8, "", "", "", "", "", "", "", ""));
-  });
-
   return (
     <div className="common-home res layout-1 loaded hidden-scorll">
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
