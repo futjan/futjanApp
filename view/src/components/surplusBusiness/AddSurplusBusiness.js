@@ -4,6 +4,7 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
+import SuccessMsg from "../../utils/SuccessMsg";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -56,7 +57,7 @@ const AddSurplusBusiness = () => {
   const [errors, setErrors] = useState({});
   const [suggustion, setSuggustion] = useState([]);
   const [files, setFiles] = useState([]);
-
+  const [successMsgModal, setSuccessMsgModal] = useState(false);
   const [suggustionCities, setSuggustionCities] = useState([]);
   const [suggustionState, setSuggustionState] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -309,7 +310,7 @@ const AddSurplusBusiness = () => {
           : 0,
     };
 
-    dispatch(createSurplus(obj, clearState));
+    dispatch(createSurplus(obj, clearState, setSuccess));
   };
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
@@ -354,12 +355,18 @@ const AddSurplusBusiness = () => {
     setPromoteType([]);
     setFiles([]);
   };
+
+  const setSuccess = () => {
+    setSuccessMsgModal(true);
+    setTimeout(() => setSuccessMsgModal(false), 3000);
+  };
   return (
     // <!-- Main Container  -->
     <div
       className="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
+      {successMsgModal === true ? <SuccessMsg /> : null}
       <div className="row">
         <div id="content" className="col-md-11">
           <h2 className="title" style={{ margin: "0" }}>
@@ -375,16 +382,16 @@ const AddSurplusBusiness = () => {
             <fieldset id="account">
               <h4 className="post-ad-heading">Surplus Business Details</h4>
               {/* <legend></legend> */}
-              <div className="form-group">
-                {/* <div className="col-sm-2"></div> */}
-                {errors && errors.message && (
+              {/* <div className="col-sm-2"></div> */}
+              {errors && errors.message && (
+                <div className="form-group">
                   <div className="col-sm-12">
                     <div className="alert alert-danger" role="alert">
                       {errors.message}
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="form-group">
                 <label
@@ -1171,13 +1178,13 @@ const AddSurplusBusiness = () => {
 
             <div className="buttons">
               <div className="pull-right">
-                <Payment />
-                {/* <input
+                {/* <Payment /> */}
+                <input
                   type="button"
                   value="Post my ad"
                   className="btn btn-primary"
                   onClick={(e) => createSurplusFunction(e)}
-                /> */}
+                />
               </div>
             </div>
           </form>

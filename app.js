@@ -5,6 +5,7 @@ const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const compression = require("compression");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
 const surplusRoutes = require("./routes/surplusRoutes");
@@ -35,6 +36,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 // express body-parser
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

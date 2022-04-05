@@ -22,7 +22,7 @@ import PrivateRoute from "./utils/privateRoute";
 // import UserPanel from "./components/user panel/index";
 // import AddSurplusBusiness from "./components/surplusBusiness/AddSurplusBusiness";
 // import DetailSurplus from "./components/surplusBusiness/DetailSurplus";
-
+import lazyLoader from "./components/image/477.GIF";
 // css
 
 import "./css/bootstrap/css/bootstrap.min.css";
@@ -95,7 +95,21 @@ if (localStorage.jwtToken) {
 const App = (props) => {
   return (
     <div className="App">
-      <Suspense fallback={<div></div>}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img src={lazyLoader} width="100" />
+          </div>
+        }
+      >
         <div className="common-home res layout-4">
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
             <Router>

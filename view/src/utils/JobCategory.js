@@ -18,8 +18,8 @@ const JobCategory = (props) => {
       onChange={(e) => props.setCategory(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="Local Job">Local Job</MenuItem>
-      <MenuItem value="Special Job">Specialist Job</MenuItem>
+      <MenuItem value="Local Job">Local Jobs</MenuItem>
+      <MenuItem value="Special Job">Specialist Jobs</MenuItem>
     </Select>
   );
 };

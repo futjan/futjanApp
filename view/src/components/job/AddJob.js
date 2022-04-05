@@ -166,7 +166,7 @@ const AddJob = () => {
               <h4 className="post-ad-heading">Job Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Title Name
+                  Job title
                 </label>
                 <div className="col-sm-10">
                   <input
