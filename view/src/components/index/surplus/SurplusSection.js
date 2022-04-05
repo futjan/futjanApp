@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 // import spa1 from "../../image/catalog/demo/product/spa/5-270x270.jpg";
 import { Link } from "react-router-dom";
 import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";
-import fileURL from "../../../utils/fileURL";
-import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
-import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+// const fileURL = lazy(() => import("../../../utils/fileURL"));
+import fileURL from "../../../utils/fileURL";
+// const capitalizeFirstLetter = lazy(() =>
+//   import("../../../utils/captilizeFirstLetter")
+// );
+import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 const SurplusSection = () => {
   // initialize hooks
   const dispatch = useDispatch();
