@@ -77,39 +77,41 @@ export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
 // @route                   POST /api/v1/surplus
 // @desc                    create new surplus
 // @access                  Private
-export const createSurplus = (surplus, clearState) => async (dispatch) => {
-  let formDate = new FormData();
-  surplus.files.forEach((file) => formDate.append("photo", file));
+export const createSurplus =
+  (surplus, clearState, setSuccess) => async (dispatch) => {
+    let formDate = new FormData();
+    surplus.files.forEach((file) => formDate.append("photo", file));
 
-  formDate.append("surplus", JSON.stringify(surplus));
-  const config = {
-    headers: {
-      "content-type": "multipart/form-data",
-    },
+    formDate.append("surplus", JSON.stringify(surplus));
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    dispatch(setLoading());
+    dispatch({
+      type: Types.CLEAR_ERRORS,
+    });
+    try {
+      const res = await axios.post("/api/v1/surplus", formDate, config);
+      if (res) {
+        dispatch({
+          type: Types.CREATE_SURPLUS,
+          payload: res.data.surplus,
+        });
+        clearState();
+        setSuccess();
+      }
+    } catch (err) {
+      dispatch(clearLoading());
+      if (err) {
+        dispatch({
+          type: Types.GET_ERRORS,
+          payload: err.response.data,
+        });
+      }
+    }
   };
-  dispatch(setLoading());
-  dispatch({
-    type: Types.CLEAR_ERRORS,
-  });
-  try {
-    const res = await axios.post("/api/v1/surplus", formDate, config);
-    if (res) {
-      dispatch({
-        type: Types.CREATE_SURPLUS,
-        payload: res.data.surplus,
-      });
-      clearState();
-    }
-  } catch (err) {
-    dispatch(clearLoading());
-    if (err) {
-      dispatch({
-        type: Types.GET_ERRORS,
-        payload: err.response.data,
-      });
-    }
-  }
-};
 
 // @route                   GET /api/v1/surplus/:id
 // @desc                    get surplus by id

@@ -420,7 +420,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employee
+                      Employee post ad
                     </Link>
                     <Link
                       className="clearfix"
@@ -442,7 +442,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employer
+                      Employer post ad
                     </Link>
                   </div>
                 </h3>

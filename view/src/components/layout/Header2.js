@@ -1183,16 +1183,18 @@ const Header2 = () => {
                       <h4 style={{ padding: "0 15px" }}>Browser by</h4>
                       <Stack spacing={2} direction="row">
                         <CustomSpecialJobBtn
+                          style={{fontSize:"12px"}}
                           size="large"
                           onClick={() => setJobSearch("Special Job")}
                         >
-                          Specialist
+                          Specialist Jobs
                         </CustomSpecialJobBtn>
                         <CustomLocalJobBtn
                           size="large"
+                          style={{fontSize:"12px"}}
                           onClick={() => setJobSearch("Local Job")}
                         >
-                          Local
+                          Local Jobs
                         </CustomLocalJobBtn>
                       </Stack>
                     </div>

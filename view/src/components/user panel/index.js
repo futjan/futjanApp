@@ -108,7 +108,7 @@ const Index = (props) => {
                             checked={add === "job" ? true : false}
                             name="Flat Shipping Rate"
                           />{" "}
-                          Job
+                          Employer
                           <span className="checkmark"></span>
                         </label>
                         <label
@@ -120,7 +120,7 @@ const Index = (props) => {
                             checked={add === "candidiate" ? true : false}
                             name="Flat Shipping Rate"
                           />{" "}
-                          Employee
+                          Job Seeker
                           <span className="checkmark"></span>
                         </label>
                       </div>
