@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import upworkLogo from "../image/upworkLogo.png";
 // import Loader from "../../utils/Loader";
 import fileURL from "../../utils/fileURL";
 import JobType from "../../utils/JobType";
 import JobCategory from "../../utils/JobCategory";
-import Countries from "../../utils/Countries";
-import County from "../../utils/County";
-import Cities from "../../utils/cities";
+// import Countries from "../../utils/Countries";
+// import County from "../../utils/County";
+// import Cities from "../../utils/cities";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";

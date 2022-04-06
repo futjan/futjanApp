@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import imageSkeleton from "../image/catalog/demo/product/travel/10-80x80.jpg";
 import { getJobsPrivate } from "../actions/jobAction";
 import Loader from "../../utils/Loader";
