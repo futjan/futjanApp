@@ -1,5 +1,4 @@
 import React, { lazy, useEffect } from "react";
-// import spa1 from "../../image/catalog/demo/product/spa/5-270x270.jpg";
 import { Link } from "react-router-dom";
 import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";

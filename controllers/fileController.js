@@ -32,6 +32,7 @@ exports.resizeImage = catchAsync(async (req, res, next) => {
       const timeStamp = Date.now();
       sharp(file.buffer)
         .resize(600, 600)
+        .jpeg({ quality: 80 })
         .toBuffer()
         .then(async (buffer) => {
           await s3.putObject(

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import user12 from "../image/user-12.jpg";
 import { getJobSeekerById } from "../actions/jobSeekersAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

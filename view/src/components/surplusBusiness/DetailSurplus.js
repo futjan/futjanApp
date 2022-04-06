@@ -16,7 +16,6 @@ import {
 import Carousel from "react-multi-carousel";
 
 import "react-multi-carousel/lib/styles.css";
-// import surplusImageSkeleton from "../image/catalog/demo/food/1.jpg";
 import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
 import fileURL from "../../utils/fileURL";
