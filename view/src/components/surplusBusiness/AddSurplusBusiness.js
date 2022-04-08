@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Countries from "../../utils/Countries";
+// import Countries from "../../utils/Countries";
 // import County from "../../utils/County";
 // import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
@@ -531,7 +531,7 @@ const AddSurplusBusiness = () => {
                         : "form-control"
                     }
                   /> */}
-                  <Countries setCountry={setCountry} country={country} />
+                  {/* <Countries setCountry={setCountry} country={country} /> */}
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}

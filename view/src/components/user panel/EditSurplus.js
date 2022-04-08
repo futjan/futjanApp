@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Countries from "../../utils/Countries";
+// import Countries from "../../utils/Countries";
 // import County from "../../utils/County";
 // import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
@@ -437,7 +437,7 @@ const EditSurplus = (props) => {
                   Country
                 </label>
                 <div className="col-sm-10" style={{ position: "relative" }}>
-                  <Countries setCountry={setCountry} country={country} />
+                  {/* <Countries setCountry={setCountry} country={country} /> */}
                   {/* <input
                     type="text"
                     name="city"
