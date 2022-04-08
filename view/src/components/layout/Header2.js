@@ -10,7 +10,7 @@ import indianFlag from "../image/flag/india.png";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { City } from "country-state-city";
+// import { City } from "country-state-city";
 import "./materialUI.css";
 
 const Header2 = () => {
@@ -61,19 +61,19 @@ const Header2 = () => {
 
   // cities
   const onChangeAutoFieldCities = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      suggustions = City.getAllCities()
-        .sort()
-        .filter((v) => regex.test(v.name))
-        .map((cit) => {
-          return { name: cit.name, countryCode: cit.countryCode };
-        });
-    }
-    setCity(value);
-    setSuggustionCities([...suggustions]);
+    // const value = e.target.value;
+    // let suggustions = [];
+    // if (value.trim().length > 0) {
+    //   const regex = new RegExp(`^${value}`, "i");
+    //   suggustions = City.getAllCities()
+    //     .sort()
+    //     .filter((v) => regex.test(v.name))
+    //     .map((cit) => {
+    //       return { name: cit.name, countryCode: cit.countryCode };
+    //     });
+    // }
+    // setCity(value);
+    // setSuggustionCities([...suggustions]);
   };
   const renderCitySuggustion = () => {
     if (suggustionCities.length === 0) {
@@ -1183,7 +1183,7 @@ const Header2 = () => {
                       <h4 style={{ padding: "0 15px" }}>Browser by</h4>
                       <Stack spacing={2} direction="row">
                         <CustomSpecialJobBtn
-                          style={{fontSize:"12px"}}
+                          style={{ fontSize: "12px" }}
                           size="large"
                           onClick={() => setJobSearch("Special Job")}
                         >
@@ -1191,7 +1191,7 @@ const Header2 = () => {
                         </CustomSpecialJobBtn>
                         <CustomLocalJobBtn
                           size="large"
-                          style={{fontSize:"12px"}}
+                          style={{ fontSize: "12px" }}
                           onClick={() => setJobSearch("Local Job")}
                         >
                           Local Jobs
