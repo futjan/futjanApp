@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Button from "@mui/material/Button";
 import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
 import JobCategory from "../../utils/JobCategory";
-// import Countries from "../../utils/Countries";
 import Gender from "../../utils/Gender";
+import JobType from "../../utils/JobType";
 import Loader from "../../utils/Loader";
+import fileURL from "../../utils/fileURL";
 import SalaryType from "../../utils/SalaryType";
-import AgeSelect from "../../utils/Age";
-import Qualification from "../../utils/Qualification";
-import { createJobSeeker } from "../actions/jobSeekersAction";
+import {
+  getJobById,
+  updateJob,
+  deleteImageFromCloud,
+} from "../actions/jobAction";
+
 import { useDispatch, useSelector } from "react-redux";
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
@@ -20,7 +23,7 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddJobSeeker = () => {
+const EditJob = (props) => {
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
   const [featureRate, setFeatureRate] = useState(100);
@@ -29,37 +32,56 @@ const AddJobSeeker = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Local Job");
   const [subCategory, setSubCategory] = useState("");
-  const [rate, setRate] = useState("");
+  const [type, setType] = useState("");
   const [gender, setGender] = useState("");
-  const [name, setName] = useState("");
+  const [images, setImages] = useState([]);
   const [experience, setExperience] = useState("");
   const [salaryType, setSalaryType] = useState("");
   const [qualification, setQualification] = useState("");
-  const [languages, setLanguages] = useState([]);
-  const [language, setLanguage] = useState("");
+  const [languages, setLanguages] = useState([""]);
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
-  const [country, setCountry] = useState({
-    name: "",
-    isoCode: "",
-    phonecode: "",
-  });
-  const [skills, setSkills] = useState([]);
-  const [skill, setSkill] = useState("");
-  const [cv, setCv] = useState();
-  const [profile, setProfile] = useState();
-  const [dob, setDob] = useState("");
-  const [age, setAge] = useState("");
+  const [address, setAddress] = useState("");
+  const [minSalary, setMinSalary] = useState("");
+  const [maxSalary, setMaxSalary] = useState("");
+
   // initialize hook
   const dispatch = useDispatch();
 
   // get state from redux
   const errorState = useSelector((state) => state.error);
-  const jobSeeker = useSelector((state) => state.jobSeeker);
+  const job = useSelector((state) => state.job);
   // useEffect
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
+
+  useEffect(() => {
+    dispatch(getJobById(props.id));
+  }, []);
+  useEffect(() => {
+    if (job.job._id) {
+      setImages(job.job.images ? job.job.images : []);
+      setCategory(job.job.category ? job.job.category : "");
+      setContact(job.job.contact ? job.job.contact : "");
+      setDescription(job.job.description ? job.job.description : "");
+
+      setEmail(job.job.email ? job.job.email : "");
+      setExperience(job.job.experience ? job.job.experience : "");
+      setQualification(job.job.qualification ? job.job.qualification : "");
+      setGender(job.job.gender ? job.job.gender : "");
+      setTitle(job.job.title ? job.job.title : "");
+
+      setSubCategory(job.job.subCategory ? job.job.subCategory : "");
+      setSalaryType(job.job.salaryType ? job.job.salaryType : "");
+
+      setPromoteType(job.job.promoteType ? job.job.promoteType : []);
+      setAddress(job.job.address ? job.job.address : "");
+      setType(job.job.type ? job.job.type : "");
+      setMinSalary(job.job.minSalary ? job.job.minSalary : "");
+      setMaxSalary(job.job.maxSalary ? job.job.maxSalary : "");
+    }
+  }, [job.job && job.job._id]);
   // fileUploadHandler
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
@@ -115,68 +137,60 @@ const AddJobSeeker = () => {
   };
 
   // create job function
-  const createJobFunction = () => {
+  const editJobFunction = () => {
     const job = {
-      jobTitle: title.toLowerCase(),
-      description,
-      name: name.toLowerCase(),
-      gender: gender.toLowerCase(),
-      category: category.toLowerCase(),
-      subCategory: subCategory.toLowerCase(),
-      salaryType: salaryType.toLowerCase(),
-      experience: experience.toLowerCase(),
-      qualification: qualification.toLowerCase(),
-      rate: rate * 1,
-      files: [cv, profile],
-      email: email.toLowerCase(),
-      contact,
-      promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-      country: country.name.toLowerCase(),
-      dob,
-      age,
-      skills,
+      id: props.id,
+      files,
+      job: {
+        title: title.toLowerCase(),
+        description,
+        gender: gender.toLowerCase(),
+        type: type.toLowerCase(),
+        category: category.toLowerCase(),
+        subCategory: subCategory.toLowerCase(),
+        salaryType: salaryType.toLowerCase(),
+        experience: experience.toLowerCase(),
+        qualification: qualification.toLowerCase(),
+        minSalary: minSalary * 1,
+        maxSalary: maxSalary * 1,
+        email: email.toLowerCase(),
+        contact,
+        images,
+        promoteType: promoteType.filter((type) => type.promote !== "ALL"),
+        address,
+      },
     };
-    dispatch(createJobSeeker(job, clearState));
+    dispatch(updateJob(job, clearState));
+  };
+
+  // delte image from aws
+
+  const deleteFileFromCloudFunc = (file) => {
+    const data = {
+      images: images.filter((image) => image !== file),
+      id: props.id,
+      image: file,
+    };
+    dispatch(deleteImageFromCloud(data));
   };
 
   const clearState = () => {
     setTitle("");
     setDescription("");
     setGender("");
-
+    setType("");
     setCategory("Local Job");
     setSubCategory("");
     setSalaryType("");
     setExperience("");
     setQualification("");
+    setMinSalary("");
+    setMaxSalary("");
     setEmail("");
     setContact("");
-    setAge("");
-    setDob("");
+    setAddress("");
     setPromoteType([]);
-    setLanguages([]);
-    setSkills([]);
-    setLanguage("");
-    setSkill("");
     setFiles([]);
-    setCountry({
-      name: "",
-      isoCode: "",
-      phonecode: "",
-    });
-  };
-
-  const handleSkills = (data, setData, value, setValue) => {
-    if (value.length > 0) {
-      const tempArr = [...data];
-      tempArr.push(value);
-      setData([...tempArr]);
-      setValue("");
-    }
-  };
-  const handleSkillRemove = (id, data, setData) => {
-    const tempArr = [...data];
-    setData([...tempArr.filter((skill, i) => i !== id)]);
   };
   return (
     // <!-- Main Container  -->
@@ -186,58 +200,21 @@ const AddJobSeeker = () => {
     >
       <div className="row">
         <div id="content" className="col-md-11">
-          {errors && errors.message && (
-            <div className="form-group">
-              <div
-                className="col-sm-12"
-                style={{ padding: "0", margin: "10px 0" }}
-              >
-                <div className="alert alert-danger" role="alert">
-                  {errors.message}
-                </div>
-              </div>
-            </div>
-          )}
           <h2 className="title" style={{ margin: "0" }}>
-            Create Job Seeker
+            Update Job with us
           </h2>
 
           <form
-            // action=""
+            action=""
             method="post"
             enctype="multipart/form-data"
             className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
-              <h4 className="post-ad-heading">Job Seeker Detail</h4>
+              <h4 className="post-ad-heading">Job Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Name
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    id="input-name"
-                    className={
-                      errors && errors.validation && errors.validation.name
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.name && (
-                    <div className="invalid-feedback">
-                      {errors.validation.name}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group required">
-                <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Job Title
+                  Job title
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -248,18 +225,16 @@ const AddJobSeeker = () => {
                     placeholder="Title Name"
                     id="input-name"
                     className={
-                      errors && errors.validation && errors.validation.jobTitle
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.jobTitle && (
-                      <div className="invalid-feedback">
-                        {errors.validation.jobTitle}
-                      </div>
-                    )}
+                  {errors && errors.validation && errors.validation.title && (
+                    <div className="invalid-feedback">
+                      {errors.validation.title}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group required">
@@ -308,7 +283,20 @@ const AddJobSeeker = () => {
                     )}
                 </div>
               </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Job type
+                </label>
+                <div className="col-sm-10">
+                  <JobType type={type} setType={setType} errors={errors} />
 
+                  {errors && errors.validation && errors.validation.type && (
+                    <div className="invalid-feedback">
+                      {errors.validation.type}
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Gender
@@ -347,25 +335,7 @@ const AddJobSeeker = () => {
                     )}
                 </div>
               </div>
-
-              <div className="form-group required">
-                <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Country
-                </label>
-                <div className="col-sm-10">
-                  {/* <Countries
-                    setCountry={setCountry}
-                    country={country}
-                    errors={errors}
-                  /> */}
-                  {errors && errors.validation && errors.validation.country && (
-                    <div className="invalid-feedback">
-                      {errors.validation.country}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Experience
                 </label>
@@ -377,58 +347,27 @@ const AddJobSeeker = () => {
                     onChange={(e) => setExperience(e.target.value)}
                     placeholder="experience"
                     id="input-name"
-                    className={
-                      errors &&
-                      errors.validation &&
-                      errors.validation.experience
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                    className="form-control"
                   />
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.experience && (
-                      <div className="invalid-feedback">
-                        {errors.validation.experience}
-                      </div>
-                    )}
                 </div>
               </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Qualification
                 </label>
                 <div className="col-sm-10">
-                  {/* <input
+                  <input
                     type="text"
                     name="name"
                     value={qualification}
                     onChange={(e) => setQualification(e.target.value)}
                     placeholder="qualification"
                     id="input-name"
-                    className={
-                      errors &&
-                      errors.validation &&
-                      errors.validation.qualification
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  /> */}
-                  <Qualification
-                    qualification={qualification}
-                    setQualification={setQualification}
-                    errors={errors}
+                    className="form-control"
                   />
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.qualification && (
-                      <div className="invalid-feedback">
-                        {errors.validation.qualification}
-                      </div>
-                    )}
                 </div>
               </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Contact
                 </label>
@@ -440,20 +379,11 @@ const AddJobSeeker = () => {
                     onChange={(e) => setContact(e.target.value)}
                     placeholder="contact"
                     id="input-name"
-                    className={
-                      errors && errors.validation && errors.validation.contact
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                    className="form-control"
                   />
-                  {errors && errors.validation && errors.validation.contact && (
-                    <div className="invalid-feedback">
-                      {errors.validation.contact}
-                    </div>
-                  )}
                 </div>
               </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Email
                 </label>
@@ -465,20 +395,26 @@ const AddJobSeeker = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="email"
                     id="input-name"
-                    className={
-                      errors && errors.validation && errors.validation.email
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                    className="form-control"
                   />
-                  {errors && errors.validation && errors.validation.email && (
-                    <div className="invalid-feedback">
-                      {errors.validation.email}
-                    </div>
-                  )}
                 </div>
               </div>
-
+              <div className="form-group">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Address
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="name"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="address"
+                    id="input-name"
+                    className="form-control"
+                  />
+                </div>
+              </div>
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
@@ -514,281 +450,159 @@ const AddJobSeeker = () => {
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
-                  htmlFor="input-description"
+                  htmlFor="input-website"
                 >
-                  Skills
+                  Keyword
                 </label>
                 <div className="col-sm-10">
-                  <div
-                    style={{
-                      display: "flex",
-                      // justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      color: "rgb(133, 133, 133)",
-                      gap: "10px",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {skills.length > 0 &&
-                      skills.map((skill, i) => (
-                        <span
-                          style={{
-                            padding: "8px 22px",
-                            background: "#f6fafd",
-                            borderRadius: "30px",
-                          }}
-                        >
-                          {skill}
-                          <i
-                            class="fa fa-trash"
-                            aria-hidden="true"
-                            style={{
-                              marginLeft: "10px",
-                              cursor: "pointer",
-                              color: "#f50057",
-                            }}
-                            onClick={() =>
-                              handleSkillRemove(i, skills, setSkills)
-                            }
-                          ></i>
-                        </span>
-                      ))}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <input
-                      type="text"
-                      name="skill"
-                      value={skill}
-                      onChange={(e) => setSkill(e.target.value)}
-                      placeholder="Skill"
-                      id="input-website"
-                      className={
-                        errors && errors.validation && errors.validation.skills
-                          ? "form-control is-invalid"
-                          : "form-control"
-                      }
-                      style={{ width: "40%", marginRight: "10px" }}
-                    />
-                    <Button
-                      variant="contained"
-                      onClick={() =>
-                        handleSkills(skills, setSkills, skill, setSkill)
-                      }
-                      size="large"
-                      style={{ padding: "10px" }}
-                    >
-                      Add
-                    </Button>
-                  </div>
-
-                  {errors && errors.validation && errors.validation.skills && (
+                  <input
+                    type="url"
+                    name="city"
+                    // value={keyword}
+                    // onChange={(e) => onChangeAutoFieldName(e)}
+                    placeholder="keyword (Trending or Top surplus)"
+                    id="input-website"
+                    className={
+                      errors && errors.validation && errors.validation.keyword
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {/* {renderNameSuggustion()} */}
+                  {errors && errors.validation && errors.validation.keyword && (
                     <div className="invalid-feedback">
-                      {errors.validation.skills}
+                      {errors.validation.keyword}
                     </div>
                   )}
                 </div>
               </div>
-              <div className="form-group required">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-description"
-                >
-                  Languages
-                </label>
-                <div className="col-sm-10">
-                  <div
-                    style={{
-                      display: "flex",
-                      // justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      color: "rgb(133, 133, 133)",
-                      gap: "10px",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {languages.length > 0 &&
-                      languages.map((language, i) => (
-                        <span
-                          style={{
-                            padding: "8px 22px",
-                            background: "#f6fafd",
-                            borderRadius: "30px",
-                          }}
-                        >
-                          {language}
-                          <i
-                            class="fa fa-trash"
-                            aria-hidden="true"
-                            style={{
-                              marginLeft: "10px",
-                              cursor: "pointer",
-                              color: "#f50057",
-                            }}
-                            onClick={() =>
-                              handleSkillRemove(i, languages, setLanguages)
-                            }
-                          ></i>
-                        </span>
-                      ))}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <input
-                      type="text"
-                      name="language"
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      placeholder="Language"
-                      id="input-website"
-                      className="form-control"
-                      style={{ width: "40%", marginRight: "10px" }}
-                    />
-                    <Button
-                      variant="contained"
-                      onClick={() =>
-                        handleSkills(
-                          languages,
-                          setLanguages,
-                          language,
-                          setLanguage
-                        )
-                      }
-                      size="large"
-                      style={{ padding: "10px" }}
-                    >
-                      Add
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group required">
+              <div className="form-group">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Rate
+                  Min Salary
                 </label>
                 <div className="col-sm-10 col-md-5">
                   <input
                     type="number"
                     name="city"
-                    value={rate}
-                    onChange={(e) => setRate(e.target.value * 1)}
-                    placeholder="Rate according to salart type"
+                    value={minSalary}
+                    onChange={(e) => setMinSalary(e.target.value)}
+                    placeholder="min salary"
                     id="input-website"
-                    className={
-                      errors && errors.validation && errors.validation.rate
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                    className="form-control"
                   />
-                  {errors && errors.validation && errors.validation.rate && (
-                    <div className="invalid-feedback">
-                      {errors.validation.rate}
-                    </div>
-                  )}
                 </div>
               </div>
-              <div className="form-group required">
+              <div className="form-group">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  DOB
+                  Max salary
                 </label>
                 <div className="col-sm-10 col-md-5">
                   <input
-                    type="date"
+                    type="number"
                     name="city"
-                    value={dob}
-                    onChange={(e) => setDob(e.target.value)}
-                    // placeholder="Rate according to salart type"
+                    value={maxSalary}
+                    onChange={(e) => setMaxSalary(e.target.value)}
+                    placeholder="max Salary"
                     id="input-website"
-                    className={
-                      errors && errors.validation && errors.validation.dob
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
+                    className="form-control"
                   />
-                  {errors && errors.validation && errors.validation.dob && (
-                    <div className="invalid-feedback">
-                      {errors.validation.dob}
-                    </div>
-                  )}
                 </div>
               </div>
-              <div className="form-group required">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-website"
-                >
-                  Age
-                </label>
-                <div className="col-sm-10 col-md-5">
-                  <AgeSelect age={age} setAge={setAge} errors={errors} />
-                  {errors && errors.validation && errors.validation.age && (
-                    <div className="invalid-feedback">
-                      {errors.validation.age}
-                    </div>
-                  )}
-                </div>
-              </div>
-
               <div className="form-group ">
                 <label
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Profile
+                  Upload image
                 </label>
                 <div className="col-sm-10">
-                  {profile === null ||
-                  profile === undefined ||
-                  Object.keys(profile).length === 0 ? null : (
-                    <div
-                      style={{
-                        width: "180px ",
-                        height: "180px",
-                        background: "#eee",
-                        position: "relative",
-                        overflow: "hidden",
-                        padding: "10px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-times-circle"
-                        style={{
-                          position: "absolute",
-                          top: "2px",
-                          right: "6px",
-                          color: "#c82333",
-                          fontSize: "23px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => setProfile()}
-                      ></i>
-                      <img
-                        width={100}
-                        src={URL.createObjectURL(profile)}
-                        alt={`uploaded-image-${profile}`}
-                      />
-                    </div>
-                  )}
-
+                  <label
+                    className="control-label"
+                    style={{
+                      fontSize: "15px",
+                      marginBottom: "15px",
+                      width: "100%",
+                      padding: "10px",
+                      background: "#fafafa",
+                      textDecoration: "underline",
+                      border: "1px solid #ddd",
+                    }}
+                  >
+                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
+                      Note:{" "}
+                    </span>
+                    You can add upto 5 images
+                  </label>
+                  <div
+                    className={
+                      errors && errors.validation && errors.validation.files
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      marginBottom: "10px",
+                      display: "flex",
+                      // alignItems: "center",
+                      background: "transparent",
+                      justifyContent: "start",
+                      gap: "10px",
+                    }}
+                  >
+                    {files.length > 0
+                      ? files.map((file, i) => (
+                          <div
+                            style={{
+                              width: "180px ",
+                              height: "180px",
+                              background: "#eee",
+                              position: "relative",
+                              overflow: "hidden",
+                              padding: "10px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            key={i}
+                          >
+                            <i
+                              className="fa fa-times-circle"
+                              style={{
+                                position: "absolute",
+                                top: "2px",
+                                right: "6px",
+                                color: "#c82333",
+                                fontSize: "23px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteFileHandler(i)}
+                            ></i>
+                            <img
+                              width={100}
+                              src={URL.createObjectURL(file)}
+                              alt={`uploaded-image-${i}`}
+                            />
+                          </div>
+                        ))
+                      : null}
+                  </div>
+                  {/* {errors && errors.validation && errors.validation.files && (
+                   <div className="invalid-feedback">
+                     {errors.validation.files}
+                   </div>
+                 )} */}
                   <input
                     type="file"
                     name="photo"
                     // value=""
-                    onChange={(e) => {
-                      if (e.target.files) {
-                        setProfile(e.target.files[0]);
-                      }
-                    }}
+                    onChange={(e) => uploadFilesHandler(e)}
                     placeholder="Offered Price"
                     id="input-website"
                     className={
@@ -810,30 +624,61 @@ const AddJobSeeker = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  CV
+                  Images
                 </label>
                 <div className="col-sm-10">
-                  <input
-                    type="file"
-                    name="photo"
-                    // value={cv && cv.name}
-                    onChange={(e) => {
-                      if (e.target.files) setCv(e.target.files[0]);
-                    }}
-                    placeholder="Offered Price"
-                    id="input-website"
-                    className={
-                      errors && errors.validation && errors.validation.files
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-
-                  {errors && errors.validation && errors.validation.files && (
-                    <div className="invalid-feedback">
-                      {errors.validation.files}
+                  <div>
+                    <div
+                      className="form-control"
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        marginBottom: "10px",
+                        display: "flex",
+                        // alignItems: "center",
+                        background: "transparent",
+                        justifyContent: "start",
+                        gap: "10px",
+                      }}
+                    >
+                      {images.length > 0
+                        ? images.map((image, i) => (
+                            <div
+                              style={{
+                                width: "180px ",
+                                height: "180px",
+                                background: "#eee",
+                                position: "relative",
+                                overflow: "hidden",
+                                padding: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                              key={i}
+                            >
+                              <i
+                                className="fa fa-times-circle"
+                                style={{
+                                  position: "absolute",
+                                  top: "2px",
+                                  right: "6px",
+                                  color: "#c82333",
+                                  fontSize: "23px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => deleteFileFromCloudFunc(image)}
+                              ></i>
+                              <img
+                                width="100%"
+                                src={fileURL(image)}
+                                alt={`uploaded-image-${i}`}
+                              />
+                            </div>
+                          ))
+                        : null}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
@@ -1042,15 +887,16 @@ const AddJobSeeker = () => {
                   type="button"
                   value="Post my ad"
                   className="btn btn-primary"
-                  onClick={() => createJobFunction()}
+                  onClick={() => editJobFunction()}
                 />
               </div>
             </div>
           </form>
         </div>
       </div>
-      {jobSeeker.loading === true ? <Loader /> : null}
+      {job.loading === true ? <Loader /> : null}
+      {/* <Loader /> */}
     </div>
   );
 };
-export default AddJobSeeker;
+export default EditJob;

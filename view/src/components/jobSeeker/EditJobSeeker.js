@@ -12,22 +12,23 @@ import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
 import AgeSelect from "../../utils/Age";
 import Qualification from "../../utils/Qualification";
-import { createJobSeeker } from "../actions/jobSeekersAction";
+import { getJobSeekerById, updateJobSeeker } from "../actions/jobSeekersAction";
 import { useDispatch, useSelector } from "react-redux";
+import fileURL from "../../utils/fileURL";
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddJobSeeker = () => {
+const EditJobSeeker = (props) => {
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
   const [featureRate, setFeatureRate] = useState(100);
   const [promoteType, setPromoteType] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Local Job");
+  const [category, setCategory] = useState("local job");
   const [subCategory, setSubCategory] = useState("");
   const [rate, setRate] = useState("");
   const [gender, setGender] = useState("");
@@ -47,12 +48,12 @@ const AddJobSeeker = () => {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
   const [cv, setCv] = useState();
+  const [photo, setPhoto] = useState("");
   const [profile, setProfile] = useState();
   const [dob, setDob] = useState("");
   const [age, setAge] = useState("");
   // initialize hook
   const dispatch = useDispatch();
-
   // get state from redux
   const errorState = useSelector((state) => state.error);
   const jobSeeker = useSelector((state) => state.jobSeeker);
@@ -60,7 +61,64 @@ const AddJobSeeker = () => {
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
-  // fileUploadHandler
+  useEffect(() => {
+    dispatch(getJobSeekerById(props.id));
+  }, []);
+
+  // update job seeker states
+  useEffect(() => {
+    if (jobSeeker.jobSeeker._id) {
+      setAge(jobSeeker.jobSeeker.age ? jobSeeker.jobSeeker.age : "");
+      setCategory(
+        jobSeeker.jobSeeker.category ? jobSeeker.jobSeeker.category : ""
+      );
+      setTitle(
+        jobSeeker.jobSeeker.jobTitle ? jobSeeker.jobSeeker.jobTitle : ""
+      );
+      setContact(
+        jobSeeker.jobSeeker.contact ? jobSeeker.jobSeeker.contact : ""
+      );
+      setCountry(
+        jobSeeker.jobSeeker.country
+          ? { name: jobSeeker.jobSeeker.country, isoCode: "" }
+          : { name: "", isoCode: "" }
+      );
+      setDescription(
+        jobSeeker.jobSeeker.description ? jobSeeker.jobSeeker.description : ""
+      );
+      setDob(jobSeeker.jobSeeker.dob ? jobSeeker.jobSeeker.dob : "");
+      setEmail(jobSeeker.jobSeeker.email ? jobSeeker.jobSeeker.email : "");
+      setExperience(
+        jobSeeker.jobSeeker.experience ? jobSeeker.jobSeeker.experience : ""
+      );
+      setQualification(
+        jobSeeker.jobSeeker.qualification
+          ? jobSeeker.jobSeeker.qualification
+          : ""
+      );
+      setGender(jobSeeker.jobSeeker.gender ? jobSeeker.jobSeeker.gender : "");
+      setName(jobSeeker.jobSeeker.name ? jobSeeker.jobSeeker.name : "");
+      setLanguages(
+        jobSeeker.jobSeeker.languages ? jobSeeker.jobSeeker.languages : []
+      );
+      setSkills(jobSeeker.jobSeeker.skills ? jobSeeker.jobSeeker.skills : []);
+      setTitle(jobSeeker.jobSeeker.title ? jobSeeker.jobSeeker.title : "");
+      setSubCategory(
+        jobSeeker.jobSeeker.subCategory ? jobSeeker.jobSeeker.subCategory : ""
+      );
+      setSalaryType(
+        jobSeeker.jobSeeker.salaryType ? jobSeeker.jobSeeker.salaryType : ""
+      );
+      setRate(jobSeeker.jobSeeker.rate ? jobSeeker.jobSeeker.rate : "");
+      setPromoteType(
+        jobSeeker.jobSeeker.promoteType ? jobSeeker.jobSeeker.promoteType : []
+      );
+      setProfile(
+        jobSeeker.jobSeeker.profile ? jobSeeker.jobSeeker.profile : ""
+      );
+      setDob(jobSeeker.jobSeeker.dob ? jobSeeker.jobSeeker.dob : "");
+    }
+  }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {
@@ -115,8 +173,9 @@ const AddJobSeeker = () => {
   };
 
   // create job function
-  const createJobFunction = () => {
+  const createJobSeekerFunction = () => {
     const job = {
+      id: jobSeeker.jobSeeker._id,
       jobTitle: title.toLowerCase(),
       description,
       name: name.toLowerCase(),
@@ -136,7 +195,7 @@ const AddJobSeeker = () => {
       age,
       skills,
     };
-    dispatch(createJobSeeker(job, clearState));
+    dispatch(updateJobSeeker(job, clearState));
   };
 
   const clearState = () => {
@@ -144,7 +203,8 @@ const AddJobSeeker = () => {
     setDescription("");
     setGender("");
 
-    setCategory("Local Job");
+    setPhoto("");
+    setCategory("local job");
     setSubCategory("");
     setSalaryType("");
     setExperience("");
@@ -741,7 +801,7 @@ const AddJobSeeker = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Profile
+                  Update Profile
                 </label>
                 <div className="col-sm-10">
                   {profile === null ||
@@ -805,6 +865,70 @@ const AddJobSeeker = () => {
                   )}
                 </div>
               </div>
+              {jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo && (
+                <div className="form-group ">
+                  <label
+                    className="col-sm-2 control-label"
+                    htmlFor="input-website"
+                  >
+                    Current Profile
+                  </label>
+                  <div className="col-sm-10">
+                    <div>
+                      <div
+                        className="form-control"
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          marginBottom: "10px",
+                          display: "flex",
+                          // alignItems: "center",
+                          background: "transparent",
+                          justifyContent: "start",
+                          gap: "10px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "180px ",
+                            height: "180px",
+                            background: "#eee",
+                            position: "relative",
+                            overflow: "hidden",
+                            padding: "10px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          key={jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo}
+                        >
+                          <i
+                            className="fa fa-times-circle"
+                            style={{
+                              position: "absolute",
+                              top: "2px",
+                              right: "6px",
+                              color: "#c82333",
+                              fontSize: "23px",
+                              cursor: "pointer",
+                            }}
+                            // onClick={() => deleteFileFromCloudFunc()}
+                          ></i>
+                          <img
+                            width="100%"
+                            src={fileURL(
+                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo
+                            )}
+                            alt={`uploaded-image-${
+                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="form-group ">
                 <label
                   className="col-sm-2 control-label"
@@ -1042,7 +1166,7 @@ const AddJobSeeker = () => {
                   type="button"
                   value="Post my ad"
                   className="btn btn-primary"
-                  onClick={() => createJobFunction()}
+                  onClick={() => createJobSeekerFunction()}
                 />
               </div>
             </div>
@@ -1053,4 +1177,4 @@ const AddJobSeeker = () => {
     </div>
   );
 };
-export default AddJobSeeker;
+export default EditJobSeeker;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SurplusTable from "./SurplusTable";
 import JobTable from "./JobTable";
+import JobSeekerTable from "./JobSeekerTable";
 const Surplus = (props) => {
   const [add, setAdd] = useState("surplus");
 
@@ -53,6 +54,9 @@ const Surplus = (props) => {
           ) : null}
           {add === "job" ? (
             <JobTable setTab={props.setTab} setId={props.setId} />
+          ) : null}
+          {add === "candidiate" ? (
+            <JobSeekerTable setTab={props.setTab} setId={props.setId} />
           ) : null}
         </div>
       </div>

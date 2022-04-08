@@ -16,11 +16,11 @@ const JobType = (props) => {
       onChange={(e) => props.setType(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="Freelance">Freelance</MenuItem>
-      <MenuItem value="Part time">Part time</MenuItem>
-      <MenuItem value="Full time">Full time</MenuItem>
-      <MenuItem value="Internship">Internship</MenuItem>
-      <MenuItem value="Temporary">Temporary</MenuItem>
+      <MenuItem value="freelance">Freelance</MenuItem>
+      <MenuItem value="part time">Part time</MenuItem>
+      <MenuItem value="full time">Full time</MenuItem>
+      <MenuItem value="internship">Internship</MenuItem>
+      <MenuItem value="temporary">Temporary</MenuItem>
     </Select>
   );
 };

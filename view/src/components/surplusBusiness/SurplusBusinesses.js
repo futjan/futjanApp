@@ -4,9 +4,9 @@ import fileURL from "../../utils/fileURL";
 
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-import Countries from "../../utils/Countries";
-import County from "../../utils/County";
-import Cities from "../../utils/cities";
+// import Countries from "../../utils/Countries";
+// import County from "../../utils/County";
+// import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -365,15 +365,10 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {React.useMemo(
-                                  () => (
-                                    <Countries
-                                      setCountry={setCountry}
-                                      country={country}
-                                    />
-                                  ),
-                                  [country]
-                                )}
+                                {/* <Countries
+                                  setCountry={setCountry}
+                                  country={country}
+                                /> */}
                               </div>
                             </div>
                           </div>
@@ -396,11 +391,11 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <County
+                                {/* <County
                                   country={country}
                                   setCounty={setCounty}
                                   county={county}
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>
@@ -423,12 +418,12 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <Cities
+                                {/* <Cities
                                   setCity={setCity}
                                   county={county}
                                   country={country}
                                   city={city}
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>

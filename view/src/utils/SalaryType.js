@@ -19,11 +19,11 @@ const SalaryType = (props) => {
     >
       <MenuItem value="">Choose</MenuItem>
 
-      <MenuItem value="Yearly">Yearly</MenuItem>
-      <MenuItem value="Monthly">Monthly</MenuItem>
-      <MenuItem value="Weekly">Weekly</MenuItem>
-      <MenuItem value="Daily">Daily</MenuItem>
-      <MenuItem value="Hourly">Hourly</MenuItem>
+      <MenuItem value="yearly">Yearly</MenuItem>
+      <MenuItem value="monthly">Monthly</MenuItem>
+      <MenuItem value="weekly">Weekly</MenuItem>
+      <MenuItem value="daily">Daily</MenuItem>
+      <MenuItem value="hourly">Hourly</MenuItem>
     </Select>
   );
 };

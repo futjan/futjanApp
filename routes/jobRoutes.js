@@ -20,10 +20,20 @@ router.get(
   authController.protect,
   jobController.getAllCurrentUserJobs
 );
+router.patch(
+  "/delete-image",
+  fileController.deleteFileFromS3,
+  jobController.updateJobImage
+);
 router
   .route("/:id")
   .get(jobController.getJobById)
-  .patch(authController.protect, jobController.updateJob)
+  .patch(
+    authController.protect,
+    fileController.uploadFile,
+    fileController.resizeImage,
+    jobController.updateJob
+  )
   .delete(authController.protect, jobController.deleteJob);
 
 module.exports = router;
