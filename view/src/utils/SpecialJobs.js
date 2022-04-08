@@ -30,36 +30,36 @@ const SpecialJobs = (props) => {
       <MenuItem value="Graduate TrainingInternships">
         Graduate Training & Internships
       </MenuItem>
-      <MenuItem value="Retail">Retail</MenuItem>
-      <MenuItem value="Banking">Banking</MenuItem>
-      <MenuItem value="HealthMedicine">Health & Medicine</MenuItem>
-      <MenuItem value="Scientific">Scientific</MenuItem>
-      <MenuItem value="ConstructionProperty">Construction & Property</MenuItem>
-      <MenuItem value="Human Resources">Human Resources</MenuItem>
-      <MenuItem value="SecuritySafety">Security & Safety</MenuItem>
-      <MenuItem value="Customer Service">Customer Service</MenuItem>
-      <MenuItem value="HospitalityCatering">Hospitality & Catering</MenuItem>
-      <MenuItem value="StrategyConsultancy">Strategy & Consultancy</MenuItem>
-      <MenuItem value="CharityVoluntary">Charity & Voluntary</MenuItem>
-      <MenuItem value="ITTelecoms">IT & Telecoms</MenuItem>
-      <MenuItem value="Social Care">Social Care</MenuItem>
-      <MenuItem value="Education">Education</MenuItem>
-      <MenuItem value="LeisureTourism">Leisure & Tourism</MenuItem>
-      <MenuItem value="Sales">Sales</MenuItem>
-      <MenuItem value="Engineering">Engineering</MenuItem>
-      <MenuItem value="Manufacturing">Manufacturing</MenuItem>
-      <MenuItem value="TransportLogistics">Transport & Logistics</MenuItem>
-      <MenuItem value="Energy">Energy</MenuItem>
-      <MenuItem value="MarketingPR">Marketing & PR</MenuItem>
-      <MenuItem value="Training">Training</MenuItem>
-      <MenuItem value="Estate Agency">Estate Agency</MenuItem>
-      <MenuItem value="MotoringAutomotive">Motoring & Automotive</MenuItem>
-      <MenuItem value="Legal">Legal</MenuItem>
-      <MenuItem value="FMCG">FMCG</MenuItem>
-      <MenuItem value="Media, DigitalCreative">
+      <MenuItem value="retail">Retail</MenuItem>
+      <MenuItem value="banking">Banking</MenuItem>
+      <MenuItem value="healthmedicine">Health & Medicine</MenuItem>
+      <MenuItem value="scientific">Scientific</MenuItem>
+      <MenuItem value="constructionproperty">Construction & Property</MenuItem>
+      <MenuItem value="human resources">Human Resources</MenuItem>
+      <MenuItem value="securitysafety">Security & Safety</MenuItem>
+      <MenuItem value="customer service">Customer Service</MenuItem>
+      <MenuItem value="hospitalitycatering">Hospitality & Catering</MenuItem>
+      <MenuItem value="strategyconsultancy">Strategy & Consultancy</MenuItem>
+      <MenuItem value="charityvoluntary">Charity & Voluntary</MenuItem>
+      <MenuItem value="ittelecoms">IT & Telecoms</MenuItem>
+      <MenuItem value="social care">Social Care</MenuItem>
+      <MenuItem value="education">Education</MenuItem>
+      <MenuItem value="leisuretourism">Leisure & Tourism</MenuItem>
+      <MenuItem value="sales">Sales</MenuItem>
+      <MenuItem value="engineering">Engineering</MenuItem>
+      <MenuItem value="manufacturing">Manufacturing</MenuItem>
+      <MenuItem value="transportlogistics">Transport & Logistics</MenuItem>
+      <MenuItem value="energy">Energy</MenuItem>
+      <MenuItem value="marketingpr">Marketing & PR</MenuItem>
+      <MenuItem value="training">Training</MenuItem>
+      <MenuItem value="estate agency">Estate Agency</MenuItem>
+      <MenuItem value="motoringautomotive">Motoring & Automotive</MenuItem>
+      <MenuItem value="legal">Legal</MenuItem>
+      <MenuItem value="fmcg">FMCG</MenuItem>
+      <MenuItem value="media digital creative">
         Media, Digital & Creative
       </MenuItem>
-      <MenuItem value="Other">Other</MenuItem>
+      <MenuItem value="other">Other</MenuItem>
     </Select>
   );
 };

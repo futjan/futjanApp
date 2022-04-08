@@ -79,6 +79,31 @@ exports.getJobSeekers = catchAsync(async (req, res, next) => {
     totalDocs,
   });
 });
+// @route                   GET /api/v1/jobseekers/current-user
+// @desc                    GET job seeker
+// @access                  Private
+
+exports.getPrivateJobSeeker = catchAsync(async (req, res, next) => {
+  req.query.user = req.user._id.toString();
+  const features = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const jobSeekers = await features.query;
+
+  const totalFilterDocs = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDocs = await totalFilterDocs;
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    jobSeekers,
+    totalDocs,
+  });
+});
 
 // @route                   GET /api/v1/jobseekers/:id
 // @desc                    GET job seeker

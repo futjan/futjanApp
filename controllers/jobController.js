@@ -94,6 +94,18 @@ exports.getJobById = catchAsync(async (req, res, next) => {
 // @desc                    update job
 // @access                  Private
 exports.updateJob = catchAsync(async (req, res, next) => {
+  console.log("API HIT");
+  req.body = JSON.parse(req.body.job);
+
+  if (req.files.length > 0) {
+    let images = [];
+    req.files.forEach((file) => {
+      images.push(file.key);
+    });
+
+    req.body.images = [...req.body.images, ...images];
+  }
+
   const job = await Job.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -108,6 +120,26 @@ exports.updateJob = catchAsync(async (req, res, next) => {
   });
 });
 
+// @route             PATCH /api/v1/job/delete-image
+// @desc              delete image from aws
+// @access            Private
+exports.updateJobImage = catchAsync(async (req, res, next) => {
+  const job = await Job.findByIdAndUpdate(
+    req.body.id,
+    { images: req.body.images },
+    { new: true }
+  );
+
+  // check surplus exist or not
+  if (!job) {
+    return next(new AppError("job not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    job,
+  });
+});
 // @route                   DELETE /api/v1/job/:id
 // @desc                    delete job
 // @access                  Private

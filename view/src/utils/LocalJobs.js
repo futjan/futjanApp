@@ -18,36 +18,36 @@ const LocalJobs = (props) => {
       value={props.subCategory}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="AC Technician">AC Technician</MenuItem>
-      <MenuItem value="Cook/Helper">Cook/Helper</MenuItem>
-      <MenuItem value="Operator/Technician">Operator/Technician</MenuItem>
-      <MenuItem value="Bar Tender">Bar Tender</MenuItem>
-      <MenuItem value="Delivery person">Delivery person</MenuItem>
-      <MenuItem value="Painter">Painter</MenuItem>
-      <MenuItem value="Body Guard">Body Guard</MenuItem>
-      <MenuItem value="Driver">Driver</MenuItem>
-      <MenuItem value="Plumber">Plumber</MenuItem>
-      <MenuItem value="Beautician/Salon">Beautician/Salon</MenuItem>
-      <MenuItem value="Data entry/Back office">Data entry/Back office</MenuItem>
-      <MenuItem value="BPOTelecaller">BPO & Telecaller</MenuItem>
-      <MenuItem value="Firefighter">Firefighter</MenuItem>
-      <MenuItem value="Sales/Marketing">Sales/Marketing</MenuItem>
-      <MenuItem value="Office co-ordinator">Office co-ordinator</MenuItem>
-      <MenuItem value="Helper">Helper</MenuItem>
-      <MenuItem value="Soldering operator">Soldering operator</MenuItem>
-      <MenuItem value="Nanny/Aaya">Nanny/Aaya</MenuItem>
-      <MenuItem value="Labour">Labour</MenuItem>
-      <MenuItem value="Teacher/Tutor">Teacher/Tutor</MenuItem>
-      <MenuItem value="Construction">Construction</MenuItem>
-      <MenuItem value="Maid/Servant">Maid/Servant</MenuItem>
-      <MenuItem value="Waiter">Waiter</MenuItem>
-      <MenuItem value="Control room">Control room</MenuItem>
-      <MenuItem value="Metal sheet worker/Welder">
+      <MenuItem value="ac technician">AC Technician</MenuItem>
+      <MenuItem value="cook/helper">Cook/Helper</MenuItem>
+      <MenuItem value="operator/technician">Operator/Technician</MenuItem>
+      <MenuItem value="bar tender">Bar Tender</MenuItem>
+      <MenuItem value="delivery person">Delivery person</MenuItem>
+      <MenuItem value="painter">Painter</MenuItem>
+      <MenuItem value="body guard">Body Guard</MenuItem>
+      <MenuItem value="driver">Driver</MenuItem>
+      <MenuItem value="plumber">Plumber</MenuItem>
+      <MenuItem value="beautician/salon">Beautician/Salon</MenuItem>
+      <MenuItem value="data entry/back office">Data entry/Back office</MenuItem>
+      <MenuItem value="bpotelecaller">BPO & Telecaller</MenuItem>
+      <MenuItem value="firefighter">Firefighter</MenuItem>
+      <MenuItem value="sales/marketing">Sales/Marketing</MenuItem>
+      <MenuItem value="office co-ordinator">Office co-ordinator</MenuItem>
+      <MenuItem value="helper">Helper</MenuItem>
+      <MenuItem value="soldering operator">Soldering operator</MenuItem>
+      <MenuItem value="nanny/aaya">Nanny/Aaya</MenuItem>
+      <MenuItem value="labour">Labour</MenuItem>
+      <MenuItem value="teacher/tutor">Teacher/Tutor</MenuItem>
+      <MenuItem value="construction">Construction</MenuItem>
+      <MenuItem value="maid/servant">Maid/Servant</MenuItem>
+      <MenuItem value="waiter">Waiter</MenuItem>
+      <MenuItem value="control room">Control room</MenuItem>
+      <MenuItem value="metal sheet worker/welder">
         Metal sheet worker/Welder
       </MenuItem>
-      <MenuItem value="Washer">Washer</MenuItem>
-      <MenuItem value="Office boy/peon">Office boy/peon</MenuItem>
-      <MenuItem value="Other">Other</MenuItem>
+      <MenuItem value="washer">Washer</MenuItem>
+      <MenuItem value="office boy/peon">Office boy/peon</MenuItem>
+      <MenuItem value="other">Other</MenuItem>
     </Select>
   );
 };

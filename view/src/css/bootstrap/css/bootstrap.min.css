@@ -6260,21 +6260,21 @@ button.close {
   overflow: hidden;
 } */
 .modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1050;
-  display: none;
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch;
-  outline: 0;
-  background-color: rgba(1, 1, 1, 0.4);
-  animation-name: modalAnimation;
-  animation-iteration-count: 1;
-  animation-duration: 0.4s;
-  animation-timing-function: ease-in-out;
+  position: fixed !important;
+  top: 0  !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1050 !important;
+  display: none !important;
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  outline: 0 !important;
+  background-color: rgba(1, 1, 1, 0.4) !important;
+  animation-name: modalAnimation !important;
+  animation-iteration-count: 1 !important;
+  animation-duration: 0.4s !important;
+  animation-timing-function: ease-in-out !important;
 }
 @keyframes modalAnimation {
   0% {

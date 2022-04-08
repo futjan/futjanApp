@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Countries from "../../utils/Countries";
-import County from "../../utils/County";
-import Cities from "../../utils/cities";
+// import County from "../../utils/County";
+// import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import SuccessMsg from "../../utils/SuccessMsg";
 import MenuItem from "@mui/material/MenuItem";
@@ -545,11 +545,11 @@ const AddSurplusBusiness = () => {
                   State / County
                 </label>
                 <div className="col-sm-10">
-                  <County
+                  {/* <County
                     country={country}
                     setCounty={setCounty}
                     county={county}
-                  />
+                  /> */}
                   {errors && errors.validation && errors.validation.county && (
                     <div className="invalid-feedback">
                       {errors.validation.county}
@@ -562,12 +562,12 @@ const AddSurplusBusiness = () => {
                   City
                 </label>
                 <div className="col-sm-10">
-                  <Cities
+                  {/* <Cities
                     setCity={setCity}
                     county={county}
                     country={country}
                     city={city}
-                  />
+                  /> */}
                   {errors && errors.validation && errors.validation.city && (
                     <div className="invalid-feedback">
                       {errors.validation.city}

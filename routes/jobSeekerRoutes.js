@@ -15,6 +15,11 @@ router
   )
   .get(jobSeekerController.getJobSeekers);
 
+router.get(
+  "/current-user",
+  authController.protect,
+  jobSeekerController.getPrivateJobSeeker
+);
 router
   .route("/:id")
   .get(jobSeekerController.getJobSeekerById)

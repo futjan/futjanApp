@@ -64,7 +64,6 @@ const ReportModal = () => {
                     </label>
                     <textarea
                       name="city"
-                      id="input-description"
                       rows="3"
                       id="input-review"
                       placeholder="Please provide more information"

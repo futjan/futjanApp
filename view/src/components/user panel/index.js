@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 import AddJob from "../job/AddJob";
+import EditJob from "../job/EditJob";
 import AddJobSeeker from "../jobSeeker/AddJobSeeker";
 import Surplus from "./MyAds";
 import EditSurplus from "./EditSurplus";
+import EditJobSeeker from "../jobSeeker/EditJobSeeker";
 import MyAccount from "./MyAccount";
 const Index = (props) => {
   const [tab, setTab] = useState("ADD");
@@ -152,11 +154,29 @@ const Index = (props) => {
                   </div>
                 ) : null}
 
-                {tab === "EDIT" ? (
+                {tab === "EDIT-SURPLUS" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
                       <div>
                         <EditSurplus id={id} setTab={setTab} />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "EDIT-JOB" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <div>
+                        <EditJob id={id} setTab={setTab} />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "EDIT-JOBSEEKER" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <div>
+                        <EditJobSeeker id={id} setTab={setTab} />
                       </div>
                     </div>
                   </div>

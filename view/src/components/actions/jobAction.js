@@ -161,24 +161,21 @@ export const createComment = (comment, clearState) => async (dispatch) => {
 // @route                   PATCH /api/v1/job/:id
 // @desc                    update job by id
 // @access                  Private
-export const updateSurplus = (job, clearState) => async (dispatch) => {
-  //   let formDate = new FormData();
-  //   data.files.forEach((file) => formDate.append("photo", file));
+export const updateJob = (data, clearState) => async (dispatch) => {
+  console.log("UPADRW JOB IS RUN");
+  let formDate = new FormData();
+  data.files.forEach((file) => formDate.append("photo", file));
 
-  //   formDate.append("surplus", data.surplus);
-  //   formDate.append("id", data.id);
-  //   const config = {
-  //     headers: {
-  //       "content-type": "multipart/form-data",
-  //     },
-  //   };
-  //   dispatch(setLoading());
-  //   dispatch({
-  //     type: Types.CLEAR_ERRORS,
-  //   });
+  formDate.append("job", JSON.stringify(data.job));
+
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
   try {
     // const res = await axios.patch("/api/v1/surplus", formDate, config);
-    const res = await axios.patch("/api/v1/job", job);
+    const res = await axios.patch(`/api/v1/job/${data.id}`, formDate, config);
 
     dispatch(clearLoading());
 
@@ -192,6 +189,27 @@ export const updateSurplus = (job, clearState) => async (dispatch) => {
       //     type: Types.GET_SURPLUS,
       //     payload: {},
       //   });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
+export const deleteImageFromCloud = (data) => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const res = await axios.patch("/api/v1/job/delete-image", data);
+    if (res) {
+      dispatch({
+        type: Types.GET_JOB,
+        payload: res.data.job,
+      });
     }
   } catch (err) {
     dispatch(clearLoading());

@@ -18,9 +18,9 @@ const Gender = (props) => {
       onChange={(e) => props.setGender(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="Male">Male</MenuItem>
-      <MenuItem value="Female">Female</MenuItem>
-      <MenuItem value="Anyone">Anyone</MenuItem>
+      <MenuItem value="male">Male</MenuItem>
+      <MenuItem value="female">Female</MenuItem>
+      <MenuItem value="anyone">Anyone</MenuItem>
     </Select>
   );
 };

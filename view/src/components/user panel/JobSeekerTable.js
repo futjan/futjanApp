@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import imageSkeleton from "../image/catalog/demo/product/travel/10-80x80.jpg";
-import { getJobsPrivate, deleteJob } from "../actions/jobAction";
+import {
+  getPrivateJobSeeker,
+  deleteJobSeeker,
+} from "../actions/jobSeekersAction";
 import Loader from "../../utils/Loader";
 import { Link } from "react-router-dom";
 import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import ReactPaginate from "react-paginate";
 
-const JobTable = (props) => {
+const JobSeekerTable = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
-    setPageCount(Math.ceil(jobFromStore.totalDocs / itemsPerPage));
-    dispatch(getJobsPrivate(currentPage, itemsPerPage));
+    setPageCount(Math.ceil(jobSeeker.totalDocs / itemsPerPage));
+    dispatch(getPrivateJobSeeker(currentPage, itemsPerPage));
   }, [currentPage, itemsPerPage]);
 
   // Invoke when user click to request another page.
@@ -27,37 +30,38 @@ const JobTable = (props) => {
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
-  const jobFromStore = useSelector((state) => state.job);
+  const jobSeeker = useSelector((state) => state.jobSeeker);
   // useEffect
   useEffect(() => {
-    dispatch(getJobsPrivate(currentPage, itemsPerPage));
+    dispatch(getPrivateJobSeeker(currentPage, itemsPerPage));
   }, []);
 
   return (
     <>
-      <h1>Jobs ({jobFromStore.totalDocs})</h1>
+      <h1>Jobs ({jobSeeker.totalDocs})</h1>
       <div className="table-responsive">
         <table className="table table-bordered">
           <thead>
             <tr>
               <td className="text-center">Image</td>
+              <td className="text-center">Name</td>
               <td className="text-center">Job info</td>
               {/* <td className="text-center">Original Price</td> */}
-              <td className="text-center">Job Type</td>
-              <td className="text-center">Salary</td>
+              <td className="text-center">Email</td>
+              <td className="text-center">Experience</td>
               <td className="text-center">Action</td>
             </tr>
           </thead>
           <tbody>
-            {jobFromStore.privateJobs.length > 0 ? (
-              jobFromStore.privateJobs.map((job) => (
-                <tr key={job._id}>
+            {jobSeeker.privateJobSeeker.length > 0 ? (
+              jobSeeker.privateJobSeeker.map((candidate) => (
+                <tr key={candidate._id}>
                   <td className="text-center">
                     {" "}
-                    <Link to={`/job-detail/${job._id}`}>
-                      {job.images && job.images.length > 0 ? (
+                    <Link to={`/job-detail/${candidate._id}`}>
+                      {candidate.photo ? (
                         <img
-                          src={fileURL(job.images[0])}
+                          src={fileURL(candidate.photo)}
                           // alt="Bougainvilleas on Lombard Street,  San Francisco, Tokyo"
                           // title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo"
                           className="img-thumbnail"
@@ -73,54 +77,64 @@ const JobTable = (props) => {
                       )}
                     </Link>{" "}
                   </td>
+                  <td className="text-center">
+                    <strong>
+                      {" "}
+                      <Link to={`/job-seeker-detail/${candidate._id}`}>
+                        {" "}
+                        {candidate &&
+                          candidate.name &&
+                          capitalizeFirstLetter(candidate.name)}
+                      </Link>
+                    </strong>
+                  </td>
                   <td className="text-left">
-                    <Link to={`/surplus-detail/${job._id}`}>
-                      {job.title.length > 40
+                    <Link to={`/job-seeker-detail/${candidate._id}`}>
+                      {candidate.jobTitle.length > 40
                         ? capitalizeFirstLetter(
-                            job.title.substring(0, 50) + "..."
+                            candidate.jobTitle.substring(0, 50) + "..."
                           )
-                        : capitalizeFirstLetter(job.title)}
+                        : capitalizeFirstLetter(candidate.jobTitle)}
                     </Link>{" "}
                     <br />
                     <small>
                       Categor:{" "}
-                      {job &&
-                        job.category &&
-                        capitalizeFirstLetter(job.category)}
+                      {candidate &&
+                        candidate.category &&
+                        capitalizeFirstLetter(candidate.category)}
                     </small>{" "}
                     <br />
                     <small>
                       Sub Categor:{" "}
-                      {job &&
-                        job.subCategory &&
-                        capitalizeFirstLetter(job.subCategory)}
+                      {candidate &&
+                        candidate.subCategory &&
+                        capitalizeFirstLetter(candidate.subCategory)}
                     </small>{" "}
                   </td>
+
                   <td className="text-center">
-                    {job && job.type && capitalizeFirstLetter(job.type)}
+                    {candidate &&
+                      candidate.experience &&
+                      capitalizeFirstLetter(candidate.experience)}
                   </td>
+
                   <td className="text-center">
-                    {" "}
-                    {job.minSalary > 0 && job.maxSalary > 0
-                      ? job.minSalary +
-                        " - " +
-                        job.maxSalary +
-                        " / " +
-                        job.salaryType
-                      : job.salaryType}
+                    {candidate &&
+                      candidate.email &&
+                      capitalizeFirstLetter(candidate.email)}
                   </td>
 
                   <td className="text-center">
                     <div className="input-group btn-block">
                       {
-                        job.active === true ? (
+                        candidate.active === true ? (
                           // <button
                           //   type="button"
                           //   className="btn btn-success"
                           //   onClick={() =>
                           //     dispatch(
                           //       surplusActivate({
-                          //         id: job._id,
+                          //         id: candidate._id,
                           //         active: false,
                           //       })
                           //     )
@@ -167,8 +181,8 @@ const JobTable = (props) => {
                         style={{ margin: "0 8px" }}
                         color="primary"
                         onClick={() => {
-                          props.setTab("EDIT-JOB");
-                          props.setId(job._id);
+                          props.setTab("EDIT-JOBSEEKER");
+                          props.setId(candidate._id);
                         }}
                         variant="contained"
                       >
@@ -179,7 +193,7 @@ const JobTable = (props) => {
                         size="large"
                         color="error"
                         variant="contained"
-                        onClick={() => dispatch(deleteJob(job._id))}
+                        onClick={() => dispatch(deleteJobSeeker(candidate._id))}
                       >
                         DELETE
                       </Button>
@@ -204,9 +218,9 @@ const JobTable = (props) => {
           renderOnZeroPageCount={null}
         />
       </div>
-      {jobFromStore.loading === true ? <Loader /> : null}
+      {jobSeeker.loading === true ? <Loader /> : null}
     </>
   );
 };
 
-export default JobTable;
+export default JobSeekerTable;

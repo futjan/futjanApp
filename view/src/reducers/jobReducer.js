@@ -62,6 +62,9 @@ export default function JobReducer(state = initialState, action) {
       return {
         ...state,
         jobs: state.jobs.filter((job) => job._id !== action.payload._id),
+        privateJobs: state.privateJobs.filter(
+          (job) => job._id !== action.payload._id
+        ),
         loading: false,
       };
 

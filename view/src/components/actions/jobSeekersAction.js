@@ -40,6 +40,36 @@ export const getJobSeekers =
       }
     }
   };
+// @route                   GET /api/v1/jobseekers/current-user
+// @desc                    get all private jobseeker
+// @access                  Public
+export const getPrivateJobSeeker =
+  (page, limit, sort, salaryType, category, subCategory, country) =>
+  async (dispatch) => {
+    dispatch(setLoading());
+    dispatch({ type: Types.CLEAR_ERRORS });
+    try {
+      const res = await axios.get(
+        // `/api/v1/jobseekers/current-user?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,jobTitle,rate,salaryType,photo,skills,country`
+        `/api/v1/jobseekers/current-user?fields=name,jobTitle,photo,email,category,subCategory,experience`
+        // `/api/v1/jobseekers`
+      );
+      if (res.data) {
+        dispatch({
+          type: Types.GET_PRIVATE_JOB_SEEKERS,
+          payload: res.data,
+        });
+      }
+    } catch (err) {
+      dispatch(clearLoading());
+      if (err) {
+        dispatch({
+          type: Types.GET_ERRORS,
+          payload: err.response.data,
+        });
+      }
+    }
+  };
 
 // @route                   POST /api/v1/surplus
 // @desc                    create new surplus
@@ -109,7 +139,7 @@ export const getJobSeekerById = (id) => async (dispatch) => {
 // @route                   PATCH /api/v1/jobseekers/:id
 // @desc                    update job by id
 // @access                  Private
-export const updateSurplus = (job, clearState) => async (dispatch) => {
+export const updateJobSeeker = (job, clearState) => async (dispatch) => {
   //   let formDate = new FormData();
   //   data.files.forEach((file) => formDate.append("photo", file));
 
@@ -126,7 +156,7 @@ export const updateSurplus = (job, clearState) => async (dispatch) => {
   //   });
   try {
     // const res = await axios.patch("/api/v1/surplus", formDate, config);
-    const res = await axios.patch("/api/v1/jobseekers", job);
+    const res = await axios.patch(`/api/v1/jobseekers/${job.id}`, job);
 
     dispatch(clearLoading());
 

@@ -4,6 +4,7 @@ const initialState = {
   jobSeekers: [],
   jobSeeker: {},
   totalDocs: 0,
+  privateJobSeeker: [],
   loading: false,
 };
 
@@ -23,6 +24,13 @@ export default function jobSeekerReducer(state = initialState, action) {
       return {
         ...state,
         jobSeekers: action.payload.jobSeekers,
+        totalDocs: action.payload.totalDocs,
+        loading: false,
+      };
+    case Types.GET_PRIVATE_JOB_SEEKERS:
+      return {
+        ...state,
+        privateJobSeeker: action.payload.jobSeekers,
         totalDocs: action.payload.totalDocs,
         loading: false,
       };
