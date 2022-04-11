@@ -4,6 +4,8 @@ import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 // const fileURL = lazy(() => import("../../../utils/fileURL"));
 import fileURL from "../../../utils/fileURL";
 // const capitalizeFirstLetter = lazy(() =>
@@ -71,10 +73,17 @@ const SurplusSection = () => {
                                     to={`/surplus-detail/${sur._id}`}
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                   >
-                                    <img
+                                    <LazyLoadImage
+                                      alt={"adasd"}
+                                      effect="blur"
+                                      src={fileURL(sur.images && sur.images[0])}
+                                      height="242px"
+                                      width="100%"
+                                    />
+                                    {/* <img
                                       src={fileURL(sur.images && sur.images[0])}
                                       alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"
-                                    />
+                                    /> */}
                                   </Link>
                                 </div>
                                 {sur.discount && sur.discount > 0 ? (

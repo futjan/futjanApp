@@ -132,14 +132,33 @@
 }
 /* SLider css */
 /* modal opacity*/
+.zoom-modal {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1050 !important;
+  display: none !important;
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  outline: 0 !important;
+  background-color: rgba(1, 1, 1, 0.4) !important;
+  animation-name: modalAnimation !important;
+  animation-iteration-count: 1 !important;
+  animation-duration: 0.4s !important;
+  animation-timing-function: ease-in-out !important;
+}
 .modal-opacity-0 {
   opacity: 0;
   transition: opacity 0.3s ease;
+  display: none;
 }
 
 .modal-opacity-1 {
   opacity: 1;
   transition: opacity 0.3s ease;
+  display: flex !important;
 }
 /* modal opacity*/
 /* .logo-heading::after {

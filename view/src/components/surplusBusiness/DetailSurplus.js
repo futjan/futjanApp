@@ -671,8 +671,8 @@ function DetailSurplus() {
         <div
           className={
             zoomImage === true
-              ? "modal modal-opacity-0"
-              : "modal modal-opacity-1"
+              ? " zoom-modal modal-opacity-0"
+              : "zoom-modal modal-opacity-1"
           }
           style={{
             display: "flex",
