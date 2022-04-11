@@ -6,6 +6,8 @@ import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Job = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -79,10 +81,17 @@ const Job = () => {
                                     to={`/job-detail/${job._id}`}
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                   >
-                                    <img
-                                      src={fileURL(job.images && job.images[0])}
+                                    <LazyLoadImage
                                       alt={job.title}
+                                      effect="blur"
+                                      src={fileURL(job.images && job.images[0])}
+                                      height="242px"
+                                      width="100%"
                                     />
+                                    {/* <img
+                                      src={fileURL(job.images && job.images[0])}
+                                      
+                                    /> */}
                                   </Link>
                                 </div>
                               </div>

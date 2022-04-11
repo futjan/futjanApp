@@ -7,6 +7,9 @@ import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 import defaultUser from "../../image/default.jpg";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
+
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const JobSeeker = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -65,13 +68,21 @@ const JobSeeker = () => {
                               className="job-seeker-card-img-container"
                             >
                               {candidate.photo && candidate.photo.length > 0 ? (
-                                <img
+                                <LazyLoadImage
+                                  alt={"user"}
+                                  effect="blur"
                                   src={fileURL(candidate.photo)}
-                                  alt="user"
-                                  width="70"
+                                  height="70px"
+                                  width="70px"
                                   style={{ borderRadius: "50%" }}
                                 />
                               ) : (
+                                // <img
+                                //   src={fileURL(candidate.photo)}
+                                //   alt="user"
+                                //   width="70"
+                                //   style={{ borderRadius: "50%" }}
+                                // />
                                 <img
                                   src={defaultUser}
                                   alt="user"
