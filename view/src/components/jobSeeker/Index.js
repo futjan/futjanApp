@@ -5,7 +5,7 @@ import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import { getJobSeekers } from "../actions/jobSeekersAction";
 import Skeleton from "react-loading-skeleton";
-import Countries from "../../utils/Countries";
+// import Countries from "../../utils/Countries";
 // import County from "../../utils/County";
 // import Cities from "../../utils/Cities";
 
@@ -282,10 +282,10 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <Countries
+                                {/* <Countries
                                   setCountry={setCountry}
                                   country={country}
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>

@@ -4,7 +4,7 @@ import fileURL from "../../utils/fileURL";
 
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-import Countries from "../../utils/Countries";
+// import Countries from "../../utils/Countries";
 // import County from "../../utils/County";
 // import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
@@ -365,10 +365,10 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <Countries
+                                {/* <Countries
                                   setCountry={setCountry}
                                   country={country}
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>

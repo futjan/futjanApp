@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
 import JobCategory from "../../utils/JobCategory";
-import Countries from "../../utils/Countries";
+// import Countries from "../../utils/Countries";
 import Gender from "../../utils/Gender";
 import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
@@ -353,11 +353,11 @@ const AddJobSeeker = () => {
                   Country
                 </label>
                 <div className="col-sm-10">
-                  <Countries
+                  {/* <Countries
                     setCountry={setCountry}
                     country={country}
                     errors={errors}
-                  />
+                  /> */}
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
