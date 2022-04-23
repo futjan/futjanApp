@@ -4861,7 +4861,9 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
   color: #777;
 }
 .pagination {
-  display: inline-block;
+  gap: 5px;
+  display: flex;
+  align-items: center;
   padding-left: 0;
   margin: 20px 0;
   border-radius: 4px;
@@ -4869,8 +4871,12 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 .pagination > li {
   display: inline;
 }
-.pagination > li > a,
-.pagination > li > span {
+.pagination .selected a,
+.pagination li:hover a {
+  background-color: #3b5998 !important ;
+  color: #fff !important;
+}
+.pagination > li > a {
   position: relative;
   float: left;
   padding: 6px 12px;
@@ -4879,8 +4885,15 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
   color: #337ab7;
   text-decoration: none;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border-radius: 3px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
 }
+/*
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
   margin-left: 0;
@@ -4956,7 +4969,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 .pagination-sm > li:last-child > span {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-}
+} */
 .pager {
   padding-left: 0;
   margin: 20px 0;
@@ -6261,7 +6274,7 @@ button.close {
 } */
 .modal {
   position: fixed !important;
-  top: 0  !important;
+  top: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
   left: 0 !important;
@@ -6844,7 +6857,7 @@ button.close {
   margin: 1px;
   text-indent: -999px;
   cursor: pointer;
-  background-color: #000\9;
+  background-color: #000;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #fff;
   border-radius: 10px;

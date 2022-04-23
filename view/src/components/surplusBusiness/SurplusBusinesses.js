@@ -4,15 +4,16 @@ import fileURL from "../../utils/fileURL";
 
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
-// import Countries from "../../utils/Countries";
-// import County from "../../utils/County";
-// import Cities from "../../utils/cities";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getPreset, savePreset } from "../actions/userAction";
 // import $ from "jquery";
-
+import Pagination from "../../utils/Pagination";
+import debounce from "../../utils/debounce";
 import "./skeleton.css";
 const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
@@ -36,7 +37,6 @@ const SurplusBusinesses = () => {
   const [sort, setSort] = useState("");
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
-  const [suggustionCities, setSuggustionCities] = useState([]);
   // const [lessThanPrice, setLessThanPrice] = useState("");
   // const [greaterThanPrice, setGreaterThanPrice] = useState("");
 
@@ -213,7 +213,7 @@ const SurplusBusinesses = () => {
   // }, []);
 
   // call getSurplusesAction
-  const callSurplusesAPI = (page, lim, sortBy) => {
+  const callSurplusesAPI = debounce((page, lim, sortBy) => {
     dispatch(
       getSurpluses(
         page,
@@ -234,7 +234,7 @@ const SurplusBusinesses = () => {
         setSearchedCategory
       )
     );
-  };
+  });
   // clear State
   const clearState = () => {
     setCity({ name: "", stateCode: "", countryCode: "" });
@@ -244,13 +244,6 @@ const SurplusBusinesses = () => {
     setCountry({ name: "", isoCode: "" });
     setCounty({ name: "", isoCode: "" });
   };
-
-  // pagination UI
-  let paginationUI = [];
-  while (paginationUI.length <= surplusFromStore.totalDocs / limit) {
-    paginationUI.push("");
-  }
-
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -365,10 +358,10 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <Countries
+                                <Countries
                                   setCountry={setCountry}
                                   country={country}
-                                /> */}
+                                />
                               </div>
                             </div>
                           </div>
@@ -391,11 +384,11 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <County
+                                <County
                                   country={country}
                                   setCounty={setCounty}
                                   county={county}
-                                /> */}
+                                />
                               </div>
                             </div>
                           </div>
@@ -418,12 +411,12 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <Cities
+                                <Cities
                                   setCity={setCity}
                                   county={county}
                                   country={country}
                                   city={city}
-                                /> */}
+                                />
                               </div>
                             </div>
                           </div>
@@ -851,62 +844,13 @@ const SurplusBusinesses = () => {
                       ))
                     : null}
                 </div>
-
-                <div className="product-filter product-filter-bottom filters-panel">
-                  <div className="col-sm-6 text-left">
-                    <ul className="pagination">
-                      {paginationUI.length > 5 && page > 1 ? (
-                        <li
-                          onClick={() => {
-                            if (page > 1) {
-                              setPage(page - 1);
-                              // callSurplusesAPI(page - 1, limit, sort);
-                            }
-                          }}
-                        >
-                          <a href="#">&lt;</a>
-                        </li>
-                      ) : null}
-
-                      {paginationUI.length > 0
-                        ? paginationUI.map((pag, i) =>
-                            i + 1 > 5 ? null : (
-                              <li
-                                className={i + 1 === page ? "active" : ""}
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                  setPage(i + 1);
-                                  // callSurplusesAPI(i + 1, limit, sort);
-                                }}
-                                key={i}
-                              >
-                                <span>{i + 1}</span>
-                              </li>
-                            )
-                          )
-                        : null}
-                      {paginationUI.length > 5 ? (
-                        <li
-                          onClick={() => {
-                            if (page <= surplusFromStore.totalDocs / limit) {
-                              setPage(page + 1);
-                              // callSurplusesAPI(page + 1, limit, sort);
-                            }
-                          }}
-                        >
-                          <a href="#">&gt;</a>
-                        </li>
-                      ) : null}
-                    </ul>
-                  </div>
-                  <div className="col-sm-6 text-right">
-                    Showing {page * limit - limit + 1} to{" "}
-                    {(page - 1) * limit + limit > surplusFromStore.totalDocs
-                      ? surplusFromStore.totalDocs
-                      : (page - 1) * limit + limit}{" "}
-                    of {surplusFromStore.totalDocs} ({page} Pages)
-                  </div>
-                </div>
+                <Pagination
+                  action={() => callSurplusesAPI(page, limit, sort)}
+                  totalDocs={surplusFromStore.totalDocs}
+                  currentPage={page}
+                  setCurrentPage={setPage}
+                  itemsPerPage={limit}
+                />
               </div>
             </div>
           </div>

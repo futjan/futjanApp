@@ -72,6 +72,7 @@ const jobSeekerSchema = Schema({
   },
   photo: String,
   location: String,
+
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "user",
@@ -84,6 +85,12 @@ const jobSeekerSchema = Schema({
         numberSort: Number,
       },
     ],
+  },
+  adType: {
+    type: String,
+    required: [true, "ad type is required"],
+    default: "jobseeker",
+    select: false,
   },
 });
 

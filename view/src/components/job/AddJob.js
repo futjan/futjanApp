@@ -213,7 +213,7 @@ const AddJob = () => {
                   Sub Category
                 </label>
                 <div className="col-sm-10">
-                  {category === "Local Job" ? (
+                  {category === "local job" ? (
                     <LocalJobs
                       subCategory={subCategory}
                       setSubCategory={setSubCategory}

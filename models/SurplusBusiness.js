@@ -86,6 +86,12 @@ const surplusBusiness = Schmea(
       required: true,
       default: true,
     },
+    adType: {
+      type: String,
+      required: [true, "ad type is required"],
+      default: "surplus",
+      select: false,
+    },
   },
   {
     toJSON: {

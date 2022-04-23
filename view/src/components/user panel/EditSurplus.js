@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import Countries from "../../utils/Countries";
-// import County from "../../utils/County";
-// import Cities from "../../utils/cities";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
 import {
   updateSurplus,
@@ -437,7 +437,7 @@ const EditSurplus = (props) => {
                   Country
                 </label>
                 <div className="col-sm-10" style={{ position: "relative" }}>
-                  {/* <Countries setCountry={setCountry} country={country} /> */}
+                  <Countries setCountry={setCountry} country={country} />
                   {/* <input
                     type="text"
                     name="city"
@@ -465,11 +465,11 @@ const EditSurplus = (props) => {
                   State / County
                 </label>
                 <div className="col-sm-10">
-                  {/* <County
+                  <County
                     country={country}
                     setCounty={setCounty}
                     county={county}
-                  /> */}
+                  />
                   {/* <input
                     type="text"
                     name="city"
@@ -497,12 +497,12 @@ const EditSurplus = (props) => {
                   City
                 </label>
                 <div className="col-sm-10">
-                  {/* <Cities
+                  <Cities
                     setCity={setCity}
                     county={county}
                     country={country}
                     city={city}
-                  /> */}
+                  />
                   {/* <input
                     type="text"
                     name="city"

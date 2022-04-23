@@ -40,6 +40,11 @@ const userSchema = Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  account: {
+    blocked: Boolean,
+    deactivated: Boolean,
+    deleted: Boolean,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

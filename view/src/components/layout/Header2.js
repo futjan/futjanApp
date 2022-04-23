@@ -20,7 +20,7 @@ const Header2 = () => {
   const [suggustionCities, setSuggustionCities] = useState([]);
   const [currency, setCurrency] = useState("india");
   const [country, setCountry] = useState("india");
-  const [jobSeach, setJobSearch] = useState("Special Job");
+  const [jobSeach, setJobSearch] = useState("special job");
   // initialize hooks
   const dispatch = useDispatch();
   const location = useLocation();
@@ -152,7 +152,7 @@ const Header2 = () => {
   const CustomSpecialJobBtn = styled(Button)(({ theme }) => ({
     color: "#1976d2",
     backgroundColor:
-      jobSeach === "Special Job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
+      jobSeach === "special job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
     "&:hover": {
       backgroundColor: "rgba(25, 118, 210, 0.04)",
     },
@@ -160,7 +160,7 @@ const Header2 = () => {
   const CustomLocalJobBtn = styled(Button)(({ theme }) => ({
     color: "#1976d2",
     backgroundColor:
-      jobSeach === "Local Job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
+      jobSeach === "local job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
     "&:hover": {
       backgroundColor: "rgba(25, 118, 210, 0.04)",
     },
@@ -1183,22 +1183,22 @@ const Header2 = () => {
                       <h4 style={{ padding: "0 15px" }}>Browser by</h4>
                       <Stack spacing={2} direction="row">
                         <CustomSpecialJobBtn
-                          style={{fontSize:"12px"}}
+                          style={{ fontSize: "12px" }}
                           size="large"
-                          onClick={() => setJobSearch("Special Job")}
+                          onClick={() => setJobSearch("special job")}
                         >
                           Specialist Jobs
                         </CustomSpecialJobBtn>
                         <CustomLocalJobBtn
                           size="large"
-                          style={{fontSize:"12px"}}
-                          onClick={() => setJobSearch("Local Job")}
+                          style={{ fontSize: "12px" }}
+                          onClick={() => setJobSearch("local job")}
                         >
                           Local Jobs
                         </CustomLocalJobBtn>
                       </Stack>
                     </div>
-                    {jobSeach === "Local Job" ? (
+                    {jobSeach === "local job" ? (
                       <ul className="row-list">
                         <li className="col-md-3 col-sm-4 col-xs-6 type-ul-li-nav">
                           <Link
