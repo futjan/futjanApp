@@ -5,9 +5,7 @@ import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import { getJobSeekers } from "../actions/jobSeekersAction";
 import Skeleton from "react-loading-skeleton";
-// import Countries from "../../utils/Countries";
-// import County from "../../utils/County";
-// import Cities from "../../utils/Cities";
+import Countries from "../../utils/Countries";
 
 import JobCategory from "../../utils/JobCategory";
 import LocalJobs from "../../utils/LocalJobs";
@@ -15,6 +13,7 @@ import SpecialJobs from "../../utils/SpecialJobs";
 import SalaryType from "../../utils/SalaryType";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
+import Pagination from "../../utils/Pagination";
 
 // import $ from "jquery";
 
@@ -30,7 +29,7 @@ const Index = () => {
   const [subCategory, setSubCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(1);
   const [sort, setSort] = useState("");
   const [salaryType, setSalaryType] = useState("");
   // const [lessThanPrice, setLessThanPrice] = useState("");
@@ -179,12 +178,6 @@ const Index = () => {
     setCountry({ name: "", isoCode: "", phonecode: "" });
   };
 
-  // pagination UI
-  let paginationUI = [];
-  while (paginationUI.length <= jobSeeker.totalDocs / limit) {
-    paginationUI.push("");
-  }
-
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -282,10 +275,10 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                {/* <Countries
+                                <Countries
                                   setCountry={setCountry}
                                   country={country}
-                                /> */}
+                                />
                               </div>
                             </div>
                           </div>
@@ -319,7 +312,7 @@ const Index = () => {
                                   className="input-group"
                                   style={{ width: "100%" }}
                                 >
-                                  {category === "Local Job" ? (
+                                  {category === "local job" ? (
                                     <LocalJobs
                                       subCategory={subCategory}
                                       setSubCategory={setSubCategory}
@@ -443,25 +436,7 @@ const Index = () => {
                             Default
                           </option>
 
-                          <option value="originalPrice">
-                            Original Price (Low to High)
-                          </option>
-                          <option value="-originalPrice">
-                            Original Price (High to Low)
-                          </option>
-
-                          <option value="offeredPrice">
-                            Offered Price (Low to High)
-                          </option>
-                          <option value="-offeredPrice">
-                            Offered Price (High to Low)
-                          </option>
-                          <option value="discount">
-                            Discount (Low to High)
-                          </option>
-                          <option value="-discount">
-                            Discount (High to Low)
-                          </option>
+                          <option value="createdAt">Newest</option>
                         </select>
                       </div>
                       <div className="form-group">
@@ -603,58 +578,13 @@ const Index = () => {
                     : null}
                 </div>
 
-                <div className="product-filter product-filter-bottom filters-panel">
-                  <div className="col-sm-6 text-left">
-                    <ul className="pagination">
-                      {paginationUI.length > 5 && page > 1 ? (
-                        <li
-                          onClick={() => {
-                            if (page > 1) {
-                              setPage(page - 1);
-                            }
-                          }}
-                        >
-                          <a href="#">&lt;</a>
-                        </li>
-                      ) : null}
-
-                      {paginationUI.length > 0
-                        ? paginationUI.map((pag, i) =>
-                            i + 1 > 5 ? null : (
-                              <li
-                                className={i + 1 === page ? "active" : ""}
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                  setPage(i + 1);
-                                }}
-                                key={i}
-                              >
-                                <span>{i + 1}</span>
-                              </li>
-                            )
-                          )
-                        : null}
-                      {paginationUI.length > 5 ? (
-                        <li
-                          onClick={() => {
-                            if (page <= jobSeeker.totalDocs / limit) {
-                              setPage(page + 1);
-                            }
-                          }}
-                        >
-                          <a href="#">&gt;</a>
-                        </li>
-                      ) : null}
-                    </ul>
-                  </div>
-                  <div className="col-sm-6 text-right">
-                    Showing {page * limit - limit + 1} to{" "}
-                    {(page - 1) * limit + limit > jobSeeker.totalDocs
-                      ? jobSeeker.totalDocs
-                      : (page - 1) * limit + limit}{" "}
-                    of {jobSeeker.totalDocs} ({page} Pages)
-                  </div>
-                </div>
+                <Pagination
+                  action={() => callJobSeekersAPI(page, limit, sort)}
+                  totalDocs={jobSeeker.totalDocs}
+                  currentPage={page}
+                  setCurrentPage={setPage}
+                  itemsPerPage={limit}
+                />
               </div>
             </div>
           </div>

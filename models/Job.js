@@ -41,6 +41,13 @@ const jobSchema = Sehema(
         },
       ],
     },
+
+    adType: {
+      type: String,
+      required: [true, "ad type is required"],
+      default: "job",
+      select: false,
+    },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "user",
@@ -58,7 +65,6 @@ const jobSchema = Sehema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      select: false,
     },
   },
   {

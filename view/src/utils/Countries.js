@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Country } from "country-state-city";
 import "./customCss.css";
-const options = [
-  ...Country.getAllCountries()
-    .map((count) => {
-      return {
-        name: count.name,
-        isoCode: count.isoCode,
-      };
-    })
-    .filter(
-      (country) =>
-        country.name.toLowerCase() === "united kingdom" ||
-        country.name.toLowerCase() === "india"
-    ),
-];
+
+// const Country = window.Country;
+// console.log(window);
+import { Country } from "country-state-city";
 
 const Countries = (props) => {
+  const options = [
+    ...Country.getAllCountries()
+      .map((count) => {
+        return {
+          name: count.name,
+          isoCode: count.isoCode,
+        };
+      })
+      .filter(
+        (country) =>
+          country.name.toLowerCase() === "united kingdom" ||
+          country.name.toLowerCase() === "india"
+      ),
+  ];
   const [country, setCountry] = useState({
     name: "",
     isoCode: "",

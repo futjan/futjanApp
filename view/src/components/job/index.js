@@ -15,12 +15,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "../surplusBusiness/skeleton.css";
+import Pagination from "../../utils/Pagination";
 const Index = () => {
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [searchedCategory, setSearchedCategory] = useState("");
   const [sort, setSort] = useState("");
   const [city, setCity] = useState({
@@ -148,11 +149,6 @@ const Index = () => {
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
   };
-  // pagination UI
-  let paginationUI = [];
-  while (paginationUI.length <= job.totalDocs / limit) {
-    paginationUI.push("");
-  }
   return (
     <div className="res layout-1" style={{ marginTop: "20px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -327,7 +323,7 @@ const Index = () => {
                                   className="input-group"
                                   style={{ width: "100%" }}
                                 >
-                                  {category === "Local Job" ? (
+                                  {category === "local job" ? (
                                     <LocalJobs
                                       subCategory={subCategory}
                                       setSubCategory={setSubCategory}
@@ -478,26 +474,7 @@ const Index = () => {
                           <option value="" selected="selected">
                             Default
                           </option>
-
-                          <option value="originalPrice">
-                            Original Price (Low to High)
-                          </option>
-                          <option value="-originalPrice">
-                            Original Price (High to Low)
-                          </option>
-
-                          <option value="offeredPrice">
-                            Offered Price (Low to High)
-                          </option>
-                          <option value="-offeredPrice">
-                            Offered Price (High to Low)
-                          </option>
-                          <option value="discount">
-                            Discount (Low to High)
-                          </option>
-                          <option value="-discount">
-                            Discount (High to Low)
-                          </option>
+                          <option value="createdAt">Newest</option>
                         </select>
                       </div>
                       <div className="form-group">
@@ -612,99 +589,15 @@ const Index = () => {
                         </Link>
                       ))
                     : null}
-
-                  {/* <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div className="job-container">
-                      <div className="job-image-container">
-                        <img src={upworkLogo} alt="logo" width="55" />
-                      </div>
-                      <div className="job-detail">
-                        <h5>Senior Product Designer</h5>
-                        <p>
-                          <i className="fa fa-briefcase"></i> Job type
-                        </p>
-                        <p>
-                          {" "}
-                          <i className="fa fa-money"></i> Min - Max / day
-                        </p>
-                        <span className="job-type-span">Part time</span>
-                        <span className="job-promotion-type">Featured</span>
-                      </div>
-                    </div>
-                  </div> */}
-                  {/* <div className="product-layout col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div className="job-container">
-                      <div className="job-image-container">
-                        <img src={upworkLogo} alt="logo" width="55" />
-                      </div>
-                      <div className="job-detail">
-                        <h5>Senior Product Designer</h5>
-                        <p>
-                          <i className="fa fa-briefcase"></i> Job type
-                        </p>
-                        <p>
-                          {" "}
-                          <i className="fa fa-money"></i> Min - Max / day
-                        </p>
-                        <span className="job-type-span">Part time</span>
-                        <span className="job-promotion-type">Featured</span>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
 
-                <div className="product-filter product-filter-bottom filters-panel">
-                  <div className="col-sm-6 text-left">
-                    <ul className="pagination">
-                      {paginationUI.length > 5 && page > 1 ? (
-                        <li
-                          onClick={() => {
-                            if (page > 1) {
-                              setPage(page - 1);
-                            }
-                          }}
-                        >
-                          <span>{"<"}</span>
-                        </li>
-                      ) : null}
-
-                      {paginationUI.length > 0
-                        ? paginationUI.map((pag, i) =>
-                            i + 1 > 5 ? null : (
-                              <li
-                                className={i + 1 === page ? "active" : ""}
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                  setPage(i + 1);
-                                }}
-                                key={i}
-                              >
-                                <span>{i + 1}</span>
-                              </li>
-                            )
-                          )
-                        : null}
-                      {paginationUI.length > 5 ? (
-                        <li
-                          onClick={() => {
-                            if (page <= job.totalDocs / limit) {
-                              setPage(page + 1);
-                            }
-                          }}
-                        >
-                          <span>{">"}</span>
-                        </li>
-                      ) : null}
-                    </ul>
-                  </div>
-                  <div className="col-sm-6 text-right">
-                    Showing {page * limit - limit + 1} to{" "}
-                    {(page - 1) * limit + limit > job.totalDocs
-                      ? job.totalDocs
-                      : (page - 1) * limit + limit}{" "}
-                    of {job.totalDocs} ({page} Pages)
-                  </div>
-                </div>
+                <Pagination
+                  action={() => callJobsAPI(page, limit, sort)}
+                  totalDocs={job.totalDocs}
+                  currentPage={page}
+                  setCurrentPage={setPage}
+                  itemsPerPage={limit}
+                />
               </div>
             </div>
           </div>
