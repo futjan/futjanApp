@@ -379,14 +379,28 @@ const Index = () => {
             >
               <div className="form-group clearfix">
                 <h3
-                  className="title-category "
+                  className="title-category-job "
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
                 >
-                  <span>Job</span>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
+                  >
+                    <Link to="/job">
+                      <span className="span1">Job</span>
+                    </Link>
+                    <Link to="/job-seeker">
+                      <span className="span2"> Candidate</span>
+                    </Link>
+                  </div>
                   <div
                     style={{
                       display: "flex",
