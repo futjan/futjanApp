@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
 // component
-import Header2 from "./components/layout/Header2";
+// import Header2 from "./components/layout/Header2";
 import Footer from "./components/layout/Footer";
 import PrivateRoute from "./utils/privateRoute";
 import lazyLoader from "./components/image/477.GIF";
@@ -86,7 +86,7 @@ const App = (props) => {
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
             <Router>
               <Provider store={store}>
-                <Header2 />
+                {/* <Header2 /> */}
                 <Routes>
                   <Route path="/" exact={true} element={<Index />} />
                   <Route path="/login" exact={true} element={<Login />} />

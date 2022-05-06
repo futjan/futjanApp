@@ -8,7 +8,6 @@ import SuccessMsg from "../../utils/SuccessMsg";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Payment from "../payment/Payment";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
 
 // const Days = [
@@ -292,10 +291,10 @@ const AddSurplusBusiness = () => {
       address,
       postCode,
       files,
-      city: city.name.toLowerCase(),
       businessType: businessType.toLowerCase(),
       description,
       category: category.toLowerCase(),
+      city: city.name.toLowerCase(),
       county: county.name.toLowerCase(),
       country: country.name.toLowerCase(),
       keyword: keyword.toLowerCase(),
@@ -340,9 +339,10 @@ const AddSurplusBusiness = () => {
     setContact("");
     setAddress("");
     setPostCode("");
-    setCity({ name: "", stateCode: "", countryCode: "" });
     setBusinessType("");
+    setCity({ name: "", stateCode: "", countryCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
     setCategory("");
     setDescription("");
     setWebsite("");
@@ -351,7 +351,6 @@ const AddSurplusBusiness = () => {
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
-    setCounty({ name: "", isoCode: "" });
     setPromoteType([]);
     setFiles([]);
   };

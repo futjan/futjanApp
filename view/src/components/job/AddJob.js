@@ -10,6 +10,9 @@ import Gender from "../../utils/Gender";
 import JobType from "../../utils/JobType";
 import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import { createJob } from "../actions/jobAction";
 import { useDispatch, useSelector } from "react-redux";
 const adpromotionType = [
@@ -39,6 +42,20 @@ const AddJob = () => {
   const [address, setAddress] = useState("");
   const [minSalary, setMinSalary] = useState("");
   const [maxSalary, setMaxSalary] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
 
   // initialize hook
   const dispatch = useDispatch();
@@ -120,6 +137,9 @@ const AddJob = () => {
       files,
       maxSalary: maxSalary * 1,
       email: email.toLowerCase(),
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      country: country.name.toLowerCase(),
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
       address,
@@ -144,6 +164,9 @@ const AddJob = () => {
     setAddress("");
     setPromoteType([]);
     setFiles([]);
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
   };
   return (
     // <!-- Main Container  -->
@@ -286,6 +309,54 @@ const AddJob = () => {
                         {errors.validation.salaryType}
                       </div>
                     )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Country
+                </label>
+                <div className="col-sm-10">
+                  <Countries setCountry={setCountry} country={country} />
+                  {errors && errors.validation && errors.validation.country && (
+                    <div className="invalid-feedback">
+                      {errors.validation.country}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  County
+                </label>
+                <div className="col-sm-10">
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
+                  />
+                  {errors && errors.validation && errors.validation.county && (
+                    <div className="invalid-feedback">
+                      {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group">

@@ -38,6 +38,18 @@ const jobSchema = Sehema(
       type: String,
       required: [true, "Salary type is required"],
     },
+    country: {
+      type: String,
+      required: [true, "Country is required"],
+    },
+    county: {
+      type: String,
+      required: [true, "State is required"],
+    },
+    city: {
+      type: String,
+      required: [true, "City is required"],
+    },
     promoteType: {
       type: [
         {
