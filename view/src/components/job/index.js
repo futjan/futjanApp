@@ -4,9 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import fileURL from "../../utils/fileURL";
 import JobType from "../../utils/JobType";
 import JobCategory from "../../utils/JobCategory";
-// import Countries from "../../utils/Countries";
-// import County from "../../utils/County";
-// import Cities from "../../utils/cities";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
+import debounce from "../../utils/debounce";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
@@ -116,7 +117,7 @@ const Index = () => {
   }, [location.state && location.state.subCategory]);
   // call getjobs api
   // const callJobsAPI = (page, lim, sortBy) => {
-  const callJobsAPI = (page, lim, sortBy) => {
+  const callJobsAPI = debounce((page, lim, sortBy) => {
     dispatch(
       getJobs(
         page,
@@ -138,7 +139,7 @@ const Index = () => {
         setSearchedCategory
       )
     );
-  };
+  });
 
   // clear State
   const clearState = () => {
@@ -193,7 +194,7 @@ const Index = () => {
                         </div>
                       </div>
                     </li> */}
-                    {/* <li className="so-filter-options" data-option="search">
+                    <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
                           <span>Country</span>
@@ -273,7 +274,7 @@ const Index = () => {
                           </div>
                         </div>
                       </div>
-                    </li> */}
+                    </li>
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">

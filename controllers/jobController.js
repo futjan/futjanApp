@@ -35,6 +35,9 @@ exports.create = catchAsync(async (req, res, next) => {
     address: req.body.address,
     subCategory: req.body.subCategory,
     promoteType: req.body.promoteType,
+    country: req.body.country,
+    city: req.body.city,
+    county: req.body.county,
     images,
   });
 
