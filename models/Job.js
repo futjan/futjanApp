@@ -5,6 +5,11 @@ const Sehema = mongoose.Schema;
 
 const jobSchema = Sehema(
   {
+    adType: {
+      type: String,
+      required: [true, "Ad type is required"],
+      default: "job",
+    },
     title: {
       type: String,
       required: [true, "Job title is required"],
@@ -61,6 +66,8 @@ const jobSchema = Sehema(
     email: String,
     contact: String,
     address: String,
+    skills: [String],
+
     images: [String],
     createdAt: {
       type: Date,

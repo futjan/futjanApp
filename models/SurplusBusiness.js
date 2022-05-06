@@ -3,6 +3,11 @@ const Schmea = mongoose.Schema;
 
 const surplusBusiness = Schmea(
   {
+    adType: {
+      type: String,
+      required: [true, "Ad type is required"],
+      default: "surplus",
+    },
     keyword: {
       type: String,
       required: [true, "keyword is required"],

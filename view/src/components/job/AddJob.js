@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import SpecialJobs from "../../utils/SpecialJobs";
+import Qualification from "../../utils/Qualification";
 import LocalJobs from "../../utils/LocalJobs";
 import JobCategory from "../../utils/JobCategory";
 import Gender from "../../utils/Gender";
@@ -308,7 +309,7 @@ const AddJob = () => {
                   Qualification
                 </label>
                 <div className="col-sm-10">
-                  <input
+                  {/* <input
                     type="text"
                     name="name"
                     value={qualification}
@@ -316,6 +317,11 @@ const AddJob = () => {
                     placeholder="qualification"
                     id="input-name"
                     className="form-control"
+                  /> */}
+                  <Qualification
+                    qualification={qualification}
+                    setQualification={setQualification}
+                    errors={errors}
                   />
                 </div>
               </div>

@@ -318,24 +318,23 @@ const Index = () => {
                                   setCategory={setCategory}
                                 />
                               </div>
-                              {category.length > 0 ? (
-                                <div
-                                  className="input-group"
-                                  style={{ width: "100%" }}
-                                >
-                                  {category === "local job" ? (
-                                    <LocalJobs
-                                      subCategory={subCategory}
-                                      setSubCategory={setSubCategory}
-                                    />
-                                  ) : (
-                                    <SpecialJobs
-                                      subCategory={subCategory}
-                                      setSubCategory={setSubCategory}
-                                    />
-                                  )}
-                                </div>
-                              ) : null}
+
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                {category === "local job" ? (
+                                  <LocalJobs
+                                    subCategory={subCategory}
+                                    setSubCategory={setSubCategory}
+                                  />
+                                ) : (
+                                  <SpecialJobs
+                                    subCategory={subCategory}
+                                    setSubCategory={setSubCategory}
+                                  />
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -395,10 +394,10 @@ const Index = () => {
                     }}
                   >
                     <Link to="/job">
-                      <span className="span1">Job</span>
+                      <span className="span1">Jobs</span>
                     </Link>
                     <Link to="/job-seeker">
-                      <span className="span2"> Candidate</span>
+                      <span className="span2">Job Seekers</span>
                     </Link>
                   </div>
                   <div
@@ -489,6 +488,7 @@ const Index = () => {
                             Default
                           </option>
                           <option value="createdAt">Newest</option>
+                          <option value="-createdAt">Oldest</option>
                         </select>
                       </div>
                       <div className="form-group">

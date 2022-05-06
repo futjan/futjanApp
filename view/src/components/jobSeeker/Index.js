@@ -29,7 +29,7 @@ const Index = () => {
   const [subCategory, setSubCategory] = useState("");
   const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
   const [salaryType, setSalaryType] = useState("");
   // const [lessThanPrice, setLessThanPrice] = useState("");
@@ -155,7 +155,7 @@ const Index = () => {
   // }, []);
 
   // call getSurplusesAction
-  const callJobSeekersAPI = (page, lim, sortBy) => {
+  const callJobSeekersAPI = (page) => {
     dispatch(
       getJobSeekers(
         page,
@@ -307,24 +307,23 @@ const Index = () => {
                                   setCategory={setCategory}
                                 />
                               </div>
-                              {category.length > 0 ? (
-                                <div
-                                  className="input-group"
-                                  style={{ width: "100%" }}
-                                >
-                                  {category === "local job" ? (
-                                    <LocalJobs
-                                      subCategory={subCategory}
-                                      setSubCategory={setSubCategory}
-                                    />
-                                  ) : (
-                                    <SpecialJobs
-                                      subCategory={subCategory}
-                                      setSubCategory={setSubCategory}
-                                    />
-                                  )}
-                                </div>
-                              ) : null}
+
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                {category === "local job" ? (
+                                  <LocalJobs
+                                    subCategory={subCategory}
+                                    setSubCategory={setSubCategory}
+                                  />
+                                ) : (
+                                  <SpecialJobs
+                                    subCategory={subCategory}
+                                    setSubCategory={setSubCategory}
+                                  />
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -371,36 +370,81 @@ const Index = () => {
             >
               <div className="form-group clearfix">
                 <h3
-                  className="title-category "
+                  className="title-category-job "
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
                 >
-                  <span>Candidate</span>
-                  <Link
-                    className="clearfix"
-                    to="/user-panel"
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
+                  >
+                    <Link to="/job-seeker">
+                      <span className="span2">Job Seekers</span>
+                    </Link>
+                    <Link to="/job">
+                      <span className="span1">Jobs</span>
+                    </Link>
+                  </div>
+                  <div
                     style={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      flexDirection: "column",
-                      fontSize: "14px",
-                      fontWeight: "100",
+                      gap: "15px",
                     }}
                   >
-                    <i
-                      className="fa fa-thumb-tack"
+                    <Link
+                      className="clearfix"
+                      to="/user-panel"
                       style={{
-                        fontSize: "20px",
-                        padding: "0",
-                        marginBottom: "3px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        fontSize: "14px",
+                        fontWeight: "100",
                       }}
-                    ></i>
-                    Post Ad
-                  </Link>
+                    >
+                      <i
+                        className="fa fa-thumb-tack"
+                        style={{
+                          fontSize: "20px",
+                          padding: "0",
+                          marginBottom: "3px",
+                        }}
+                      ></i>
+                      Employee post ad
+                    </Link>
+                    <Link
+                      className="clearfix"
+                      to="/user-panel"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        fontSize: "14px",
+                        fontWeight: "100",
+                      }}
+                    >
+                      <i
+                        className="fa fa-thumb-tack"
+                        style={{
+                          fontSize: "20px",
+                          padding: "0",
+                          marginBottom: "3px",
+                        }}
+                      ></i>
+                      Employer post ad
+                    </Link>
+                  </div>
                 </h3>
               </div>
               <div className="products-category">
@@ -437,6 +481,7 @@ const Index = () => {
                           </option>
 
                           <option value="createdAt">Newest</option>
+                          <option value="-createdAt">Oldest</option>
                         </select>
                       </div>
                       <div className="form-group">

@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 // job Seeker Schema
 
 const jobSeekerSchema = Schema({
-  jobTitle: {
+  adType: {
+    type: String,
+    required: [true, "Ad type is required"],
+    default: "jobseeker",
+  },
+  title: {
     type: String,
     required: [true, "Job Title is required"],
   },

@@ -31,7 +31,7 @@ const Register = lazy(() => import("./components/auth/Register"));
 const Aboutus = lazy(() => import("./components/about us/Aboutus"));
 const Contactus = lazy(() => import("./components/contact us/Contactus"));
 const Job = lazy(() => import("./components/job/index"));
-const JobDetail = lazy(() => import("./components/jobs/JobDetail"));
+const JobDetail = lazy(() => import("./components/job/JobDetail"));
 const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const ChangePassword = lazy(() => import("./components/user/ChangePassword"));

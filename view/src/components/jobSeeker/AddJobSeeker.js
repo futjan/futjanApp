@@ -117,7 +117,7 @@ const AddJobSeeker = () => {
   // create job function
   const createJobFunction = () => {
     const job = {
-      jobTitle: title.toLowerCase(),
+      title: title.toLowerCase(),
       description,
       name: name.toLowerCase(),
       gender: gender.toLowerCase(),

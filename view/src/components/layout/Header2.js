@@ -1959,7 +1959,7 @@ const Header2 = () => {
             <li>
               <NavLink to="/job-seeker" className="type-links">
                 <i className="fa fa-user"></i>
-                Candidate
+                Job Seekers
               </NavLink>
             </li>
             <li className="with-sub-menu">
