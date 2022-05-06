@@ -384,7 +384,7 @@ const JobDetail = () => {
                         }}
                       />
                     </div>
-                  ) : job.job && job.job.skills.length > 0 ? (
+                  ) : job.job && job.job.skills && job.job.skills.length > 0 ? (
                     job.job.skills.map((skill, i) => (
                       <span
                         style={{
