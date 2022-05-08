@@ -8,6 +8,16 @@ import defaultUser from "../image/default.jpg";
 import Skeleton from "react-loading-skeleton";
 import "../surplusBusiness/skeleton.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterIcon,
+  TwitterShareButton,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from "react-share";
 
 const JobDetail = () => {
   // initialize hooks
@@ -315,6 +325,125 @@ const JobDetail = () => {
                         </p>
                       )}
                     </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: "rgb(255 187 0 / 20%)",
+                        padding: "15px 18px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
+                      {job.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {job.job && job.job.country
+                            ? job.job.country &&
+                              capitalizeFirstLetter(job.job.country)
+                            : "-------"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: "rgb(103 135 254 / 20%)",
+                        padding: "15px 18px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
+                      {job.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {job.job && job.job.contact
+                            ? job.job && job.job.contact
+                            : "-------"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <h3 style={{ margin: "0" }}>Share on</h3>
+
+                <div
+                  class="socials"
+                  style={{
+                    marginTop: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "7px",
+                  }}
+                >
+                  <div>
+                    <FacebookShareButton
+                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                      // quote={title}
+                    >
+                      <FacebookIcon size={22} round />
+                    </FacebookShareButton>
+                  </div>
+                  <div>
+                    <WhatsappShareButton
+                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                      // quote={title}
+                    >
+                      <WhatsappIcon size={22} round />
+                    </WhatsappShareButton>
+                  </div>
+                  <div>
+                    <TwitterShareButton
+                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                      // quote={title}
+                    >
+                      <TwitterIcon size={22} round />
+                    </TwitterShareButton>
+                  </div>
+                  <div>
+                    <LinkedinShareButton
+                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                      // quote={title}
+                    >
+                      <LinkedinIcon size={22} round />
+                    </LinkedinShareButton>
                   </div>
                 </div>
               </div>

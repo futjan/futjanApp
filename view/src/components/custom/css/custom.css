@@ -757,6 +757,7 @@ input[type="number"] {
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
+  line-height: 19px;
 }
 .products-list .product-layout .job-container .job-image-container {
   width: 80px;
@@ -795,7 +796,7 @@ input[type="number"] {
   color: #3b5998;
   font-size: 13px;
   font-weight: 600;
-  text-transform: lowercase;
+  text-transform: capitalize;
 }
 .products-list .product-layout .job-container .job-promotion-type {
   background: #ff5e0054;
@@ -805,6 +806,7 @@ input[type="number"] {
   font-size: 13px;
   font-weight: 600;
   margin-left: 10px;
+  text-transform: capitalize;
 }
 /* JOB Page */
 /* JOb Seekers */

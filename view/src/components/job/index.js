@@ -11,6 +11,7 @@ import debounce from "../../utils/debounce";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
 import { getJobs } from "../actions/jobAction";
+import { getPreset, savePreset } from "../actions/userAction";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { useSelector, useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
@@ -43,10 +44,35 @@ const Index = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   // get state from store
-
+  const preset = useSelector((state) => state.auth.preset);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const job = useSelector((state) => state.job);
 
   // useEffect
+  useEffect(() => {
+    dispatch(getPreset());
+  }, []);
+  useEffect(() => {
+    if (preset && preset.city) {
+      setCity({ name: preset.city, countryCode: "", stateCode: "" });
+    }
+    if (preset && preset.county) {
+      setCounty({ name: preset.county });
+    }
+    if (preset && preset.country) {
+      setCountry({ name: preset.country });
+    }
+
+    if (preset && preset.category) {
+      setCategory(preset.category);
+    }
+  }, [
+    preset && preset.country,
+    preset && preset.city,
+    preset && preset.county,
+    preset && preset.category,
+  ]);
+
   useEffect(() => {
     callJobsAPI(page, limit, sort);
   }, []);
@@ -149,6 +175,16 @@ const Index = () => {
     setSubCategory("");
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
+  };
+
+  const savePresetFunc = () => {
+    const preset = {
+      country: country.name.toLowerCase(),
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      category: category,
+    };
+    dispatch(savePreset(preset));
   };
   return (
     <div className="res layout-1" style={{ marginTop: "20px" }}>
@@ -354,8 +390,32 @@ const Index = () => {
                       ></span>{" "}
                       Search
                     </button>
-
-                    <button
+                    {isAuthenticated === true ? (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => savePresetFunc()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Save Preset
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => clearState()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Reset All
+                      </button>
+                    )}
+                    {/* <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => clearState()}
@@ -365,7 +425,7 @@ const Index = () => {
                         aria-hidden="true"
                       ></span>{" "}
                       Reset All
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -429,7 +489,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employee post ad
+                      Job Seeker ad
                     </Link>
                     <Link
                       className="clearfix"
@@ -451,7 +511,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employer post ad
+                      Job ad
                     </Link>
                   </div>
                 </h3>
@@ -568,11 +628,26 @@ const Index = () => {
                               <h5>
                                 {job.title && capitalizeFirstLetter(job.title)}
                               </h5>
+
                               <p>
                                 <i className="fa fa-briefcase"></i>{" "}
                                 {job.subCategory &&
                                   capitalizeFirstLetter(job.subCategory)}
                               </p>
+                              {job.country ? (
+                                job.country && (
+                                  <p>
+                                    <i class="fa fa-map-marker"></i>
+                                    {job.country &&
+                                      capitalizeFirstLetter(job.country)}
+                                  </p>
+                                )
+                              ) : (
+                                <p>
+                                  <i class="fa fa-map-marker"></i>
+                                  -------
+                                </p>
+                              )}
                               <p>
                                 {" "}
                                 <i className="fa fa-money"></i>

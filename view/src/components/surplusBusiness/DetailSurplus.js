@@ -408,7 +408,7 @@ function DetailSurplus() {
                     ></i> */}
                     <div>
                       <FacebookShareButton
-                        url={"https://futjan.herokuapp.com/"}
+                        url={`http://www.futjan.com/surplus-detail/${surplusFromStore.surplus._id}`}
                         // quote={title}
                       >
                         <FacebookIcon size={22} round />
@@ -416,7 +416,7 @@ function DetailSurplus() {
                     </div>
                     <div>
                       <WhatsappShareButton
-                        url={"https://futjan.herokuapp.com/"}
+                        url={`http://www.futjan.com/surplus-detail/${surplusFromStore.surplus._id}`}
                         // quote={title}
                       >
                         <WhatsappIcon size={22} round />
@@ -424,7 +424,7 @@ function DetailSurplus() {
                     </div>
                     <div>
                       <TwitterShareButton
-                        url={"https://futjan.herokuapp.com/"}
+                        url={`http://www.futjan.com/surplus-detail/${surplusFromStore.surplus._id}`}
                         // quote={title}
                       >
                         <TwitterIcon size={22} round />
@@ -432,7 +432,7 @@ function DetailSurplus() {
                     </div>
                     <div>
                       <LinkedinShareButton
-                        url={"https://futjan.herokuapp.com/"}
+                        url={`http://www.futjan.com/surplus-detail/${surplusFromStore.surplus._id}`}
                         // quote={title}
                       >
                         <LinkedinIcon size={22} round />

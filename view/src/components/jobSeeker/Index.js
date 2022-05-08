@@ -4,9 +4,10 @@ import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import { getJobSeekers } from "../actions/jobSeekersAction";
+import { getPreset, savePreset } from "../actions/userAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
-
+import debounce from "../../utils/debounce";
 import JobCategory from "../../utils/JobCategory";
 import LocalJobs from "../../utils/LocalJobs";
 import SpecialJobs from "../../utils/SpecialJobs";
@@ -40,8 +41,22 @@ const Index = () => {
 
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
-
+  const preset = useSelector((state) => state.auth.preset);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   // useEffect
+  useEffect(() => {
+    dispatch(getPreset());
+  }, []);
+  useEffect(() => {
+    if (preset && preset.country) {
+      setCountry({ name: preset.country });
+    }
+
+    if (preset && preset.category) {
+      setCategory(preset.category);
+    }
+  }, [preset && preset.country, preset && preset.category]);
+
   useEffect(() => {
     dispatch(
       getJobSeekers(
@@ -155,7 +170,7 @@ const Index = () => {
   // }, []);
 
   // call getSurplusesAction
-  const callJobSeekersAPI = (page) => {
+  const callJobSeekersAPI = debounce((page) => {
     dispatch(
       getJobSeekers(
         page,
@@ -169,13 +184,20 @@ const Index = () => {
           : ""
       )
     );
-  };
+  });
   // clear State
   const clearState = () => {
     setCategory("");
     setSubCategory("");
     setSalaryType("");
     setCountry({ name: "", isoCode: "", phonecode: "" });
+  };
+  const savePresetFunc = () => {
+    const preset = {
+      country: country.name.toLowerCase(),
+      category: category,
+    };
+    dispatch(savePreset(preset));
   };
 
   const onChangeAutoFieldName = (e) => {
@@ -342,18 +364,31 @@ const Index = () => {
                       ></span>{" "}
                       Search
                     </button>
-
-                    <button
-                      className="btn btn-default inverse"
-                      id="btn_resetAll"
-                      onClick={() => clearState()}
-                    >
-                      <span
-                        className="hidden fa fa-times"
-                        aria-hidden="true"
-                      ></span>{" "}
-                      Reset All
-                    </button>
+                    {isAuthenticated === true ? (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => savePresetFunc()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Save Preset
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-default inverse"
+                        id="btn_resetAll"
+                        onClick={() => clearState()}
+                      >
+                        <span
+                          className="hidden fa fa-times"
+                          aria-hidden="true"
+                        ></span>{" "}
+                        Reset All
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -420,7 +455,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employee post ad
+                      Job Seeker ad
                     </Link>
                     <Link
                       className="clearfix"
@@ -442,7 +477,7 @@ const Index = () => {
                           marginBottom: "3px",
                         }}
                       ></i>
-                      Employer post ad
+                      Job ad
                     </Link>
                   </div>
                 </h3>

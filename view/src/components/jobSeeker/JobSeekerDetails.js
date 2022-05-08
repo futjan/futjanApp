@@ -8,7 +8,16 @@ import defaultUser from "../image/default.jpg";
 import Skeleton from "react-loading-skeleton";
 import "../surplusBusiness/skeleton.css";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterIcon,
+  TwitterShareButton,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from "react-share";
 const JobSeekerDetails = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -218,9 +227,10 @@ const JobSeekerDetails = () => {
                         />
                       ) : (
                         <p style={{ margin: "0" }}>
-                          {jobSeeker.jobSeeker &&
-                            jobSeeker.jobSeeker.country &&
-                            capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.country
+                            ? jobSeeker.jobSeeker.country &&
+                              capitalizeFirstLetter(jobSeeker.jobSeeker.country)
+                            : "-------"}
                         </p>
                       )}
                     </div>
@@ -236,7 +246,7 @@ const JobSeekerDetails = () => {
                   >
                     <div
                       style={{
-                        background: "rgb(255 0 122 / 20%)",
+                        background: "rgb(103 135 254 / 20%)",
                         padding: "15px 18px",
                         borderRadius: "5px",
                         display: "flex",
@@ -244,20 +254,28 @@ const JobSeekerDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <i
-                        class="fa fa-language"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                      <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
                     </div>
                     <div>
-                      <h4 style={{ margin: "0 0 2px 0" }}>Languages</h4>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Payment</h4>
                       {jobSeeker.loading === true ? (
                         <Skeleton
                           count={1}
                           style={{ height: "18px", width: "150px" }}
                         />
                       ) : (
-                        <p style={{ margin: "0" }}>English</p>
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate
+                            ? jobSeeker.jobSeeker &&
+                              jobSeeker.jobSeeker.rate + " / "
+                            : ""}{" "}
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType
+                            ? jobSeeker.jobSeeker.salaryType &&
+                              capitalizeFirstLetter(
+                                jobSeeker.jobSeeker.salaryType
+                              )
+                            : ""}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -291,10 +309,56 @@ const JobSeekerDetails = () => {
                         />
                       ) : (
                         <p style={{ margin: "0" }}>
-                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact}
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact
+                            ? jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact
+                            : "-------"}
                         </p>
                       )}
                     </div>
+                  </div>
+                </div>
+                <h3 style={{ margin: "0" }}>Share on</h3>
+
+                <div
+                  class="socials"
+                  style={{
+                    marginTop: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "7px",
+                  }}
+                >
+                  <div>
+                    <FacebookShareButton
+                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                      // quote={title}
+                    >
+                      <FacebookIcon size={22} round />
+                    </FacebookShareButton>
+                  </div>
+                  <div>
+                    <WhatsappShareButton
+                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                      // quote={title}
+                    >
+                      <WhatsappIcon size={22} round />
+                    </WhatsappShareButton>
+                  </div>
+                  <div>
+                    <TwitterShareButton
+                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                      // quote={title}
+                    >
+                      <TwitterIcon size={22} round />
+                    </TwitterShareButton>
+                  </div>
+                  <div>
+                    <LinkedinShareButton
+                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                      // quote={title}
+                    >
+                      <LinkedinIcon size={22} round />
+                    </LinkedinShareButton>
                   </div>
                 </div>
               </div>
