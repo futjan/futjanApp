@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import LOGO from "../image/logo2.jpeg";
+import LOGO from "../image/logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
@@ -224,11 +224,12 @@ const Header2 = () => {
               >
                 <img
                   alt="Your Store"
-                  style={{ width: "30px", height: "40px" }}
+                  width="100"
+                  // style={{ width: "30px", height: "40px" }}
                   title="Your Store"
                   src={LOGO}
                 />
-                <h3 className="logo-heading">FUTJAN</h3>
+                {/* <h3 className="logo-heading">FUTJAN</h3> */}
               </Link>
             </div>
             <div className="header-center-right col-lg-7 col-md-7 col-sm-8 col-xs-11">
