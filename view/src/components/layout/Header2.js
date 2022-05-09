@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import LOGO from "../image/logo.png";
+import LOGO from "../image/Logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
