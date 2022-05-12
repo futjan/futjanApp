@@ -11,6 +11,9 @@ module.exports = function validateSurplus(data) {
   data.type = !isEmpty(data.type) ? data.type : "";
   data.gender = !isEmpty(data.gender) ? data.gender : "";
   data.salaryType = !isEmpty(data.salaryType) ? data.salaryType : "";
+  data.country = !isEmpty(data.country) ? data.country : "";
+  data.county = !isEmpty(data.county) ? data.county : "";
+  data.city = !isEmpty(data.city) ? data.city : "";
 
   if (Validator.isEmpty(data.title)) {
     errors.title = "Title is required";
@@ -36,6 +39,15 @@ module.exports = function validateSurplus(data) {
   }
   if (Validator.isEmpty(data.description)) {
     errors.description = "description is required";
+  }
+  if (Validator.isEmpty(data.country)) {
+    errors.country = "country is required";
+  }
+  if (Validator.isEmpty(data.county)) {
+    errors.county = "county is required";
+  }
+  if (Validator.isEmpty(data.city)) {
+    errors.city = "city is required";
   }
   //   if (
   //     data.files.length === 0 ||

@@ -1,4 +1,7 @@
 /* Global */
+.primary-color {
+  color: #3b5998 !important;
+}
 /* MOdal */
 .modal {
   display: block; /* Hidden by default */

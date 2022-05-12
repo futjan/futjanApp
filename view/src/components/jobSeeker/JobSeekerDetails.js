@@ -168,6 +168,45 @@ const JobSeekerDetails = () => {
                   >
                     <div
                       style={{
+                        background: "rgb(255 187 0 / 20%)",
+                        padding: "15px 18px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Date Posted</h4>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker &&
+                            jobSeeker.jobSeeker.createdAt &&
+                            new Date(
+                              jobSeeker.jobSeeker.createdAt
+                            ).toDateString()}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    <div
+                      style={{
                         background: "rgb(103 135 254 / 20%)",
                         padding: "15px 18px",
                         borderRadius: "5px",
@@ -317,50 +356,86 @@ const JobSeekerDetails = () => {
                     </div>
                   </div>
                 </div>
-                <h3 style={{ margin: "0" }}>Share on</h3>
+                {jobSeeker.loading !== true ? (
+                  <>
+                    <h3 style={{ margin: "0" }}>Share on</h3>
 
-                <div
-                  class="socials"
-                  style={{
-                    marginTop: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "7px",
-                  }}
-                >
-                  <div>
-                    <FacebookShareButton
-                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                      // quote={title}
+                    <div
+                      class="socials"
+                      style={{
+                        marginTop: "8px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "7px",
+                      }}
                     >
-                      <FacebookIcon size={22} round />
-                    </FacebookShareButton>
-                  </div>
-                  <div>
-                    <WhatsappShareButton
-                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                      // quote={title}
-                    >
-                      <WhatsappIcon size={22} round />
-                    </WhatsappShareButton>
-                  </div>
-                  <div>
-                    <TwitterShareButton
-                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                      // quote={title}
-                    >
-                      <TwitterIcon size={22} round />
-                    </TwitterShareButton>
-                  </div>
-                  <div>
-                    <LinkedinShareButton
-                      url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                      // quote={title}
-                    >
-                      <LinkedinIcon size={22} round />
-                    </LinkedinShareButton>
-                  </div>
-                </div>
+                      <div>
+                        <FacebookShareButton
+                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                          // quote={title}
+                        >
+                          <FacebookIcon size={22} round />
+                        </FacebookShareButton>
+                      </div>
+                      <div>
+                        <WhatsappShareButton
+                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                          // quote={title}
+                        >
+                          <WhatsappIcon size={22} round />
+                        </WhatsappShareButton>
+                      </div>
+                      <div>
+                        <TwitterShareButton
+                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                          // quote={title}
+                        >
+                          <TwitterIcon size={22} round />
+                        </TwitterShareButton>
+                      </div>
+                      <div>
+                        <LinkedinShareButton
+                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
+                          // quote={title}
+                        >
+                          <LinkedinIcon size={22} round />
+                        </LinkedinShareButton>
+                      </div>
+                    </div>
+                    <div id="product">
+                      <div
+                        className="box-cart clearfix"
+                        style={{ margin: "0" }}
+                      >
+                        <div className="form-group box-info-product">
+                          <div className="option quantity">
+                            <div className="add-to-links wish_comp">
+                              <ul className="blank">
+                                <li className="wishlist">
+                                  <a>
+                                    <i className="fa fa-heart"></i>
+                                    Favourite
+                                  </a>
+                                </li>
+
+                                <li
+                                  className="compare"
+                                  // onClick={(e) => closeReportModal(e)}
+                                >
+                                  <a>
+                                    <i className="fa fa-exclamation-triangle"></i>
+                                    Report
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
             <div class="row">

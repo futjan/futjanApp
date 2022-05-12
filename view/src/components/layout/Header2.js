@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import LOGO from "../image/logo.png";
+import LOGO from "../image/Logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
@@ -151,18 +151,20 @@ const Header2 = () => {
 
   const CustomSpecialJobBtn = styled(Button)(({ theme }) => ({
     color: "#1976d2",
+    fontWeight: jobSeach === "special job" ? "700" : "500",
     backgroundColor:
-      jobSeach === "special job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
+      jobSeach === "special job" ? "rgba(25, 118, 210 , 0.1)" : "transparent",
     "&:hover": {
-      backgroundColor: "rgba(25, 118, 210, 0.04)",
+      backgroundColor: "rgba(25, 118, 210 , 0.1)",
     },
   }));
   const CustomLocalJobBtn = styled(Button)(({ theme }) => ({
     color: "#1976d2",
+    fontWeight: jobSeach === "local job" ? "700" : "500",
     backgroundColor:
-      jobSeach === "local job" ? "rgba(25, 118, 210, 0.04)" : "transparent",
+      jobSeach === "local job" ? "rgba(25, 118, 210 , 0.1)" : "transparent",
     "&:hover": {
-      backgroundColor: "rgba(25, 118, 210, 0.04)",
+      backgroundColor: "rgba(25, 118, 210 , 0.1)",
     },
   }));
   return (

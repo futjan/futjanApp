@@ -7,6 +7,8 @@ import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
 import JobCategory from "../../utils/JobCategory";
 import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import Gender from "../../utils/Gender";
 import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
@@ -39,10 +41,19 @@ const AddJobSeeker = () => {
   const [language, setLanguage] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
   const [country, setCountry] = useState({
     name: "",
     isoCode: "",
     phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
   });
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
@@ -131,6 +142,9 @@ const AddJobSeeker = () => {
       email: email.toLowerCase(),
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
+
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
       country: country.name.toLowerCase(),
       dob,
       age,
@@ -159,11 +173,9 @@ const AddJobSeeker = () => {
     setLanguage("");
     setSkill("");
     setFiles([]);
-    setCountry({
-      name: "",
-      isoCode: "",
-      phonecode: "",
-    });
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
   };
 
   const handleSkills = (data, setData, value, setValue) => {
@@ -361,6 +373,41 @@ const AddJobSeeker = () => {
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  State / County
+                </label>
+                <div className="col-sm-10">
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
+                  />
+                  {errors && errors.validation && errors.validation.county && (
+                    <div className="invalid-feedback">
+                      {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
                     </div>
                   )}
                 </div>

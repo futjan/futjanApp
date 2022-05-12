@@ -25,6 +25,8 @@ const Index = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [searchedCategory, setSearchedCategory] = useState("");
+  const [keyword, setKeyword] = useState("");
+
   const [sort, setSort] = useState("");
   const [city, setCity] = useState({
     name: "",
@@ -43,6 +45,7 @@ const Index = () => {
   // initialize hooks
   const dispatch = useDispatch();
   const location = useLocation();
+  const { pathname } = useLocation();
   // get state from store
   const preset = useSelector((state) => state.auth.preset);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -89,6 +92,7 @@ const Index = () => {
     country.name,
     city.name,
     county.name,
+    keyword.toLowerCase(),
   ]);
   // useEffect(() => {
   //   if (
@@ -151,7 +155,7 @@ const Index = () => {
         sortBy,
         type.toLowerCase(),
         category.toLowerCase(),
-        // keyword.toLowerCase(),
+        keyword.toLowerCase(),
         subCategory.toLowerCase(),
         country !== null && country.name && country.name.length > 0
           ? country.name.toLowerCase()
@@ -172,6 +176,7 @@ const Index = () => {
     setCity({ name: "", countryCode: "", stateCode: "" });
     setType("");
     setCategory("");
+    setKeyword("");
     setSubCategory("");
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
@@ -182,7 +187,10 @@ const Index = () => {
       country: country.name.toLowerCase(),
       city: city.name.toLowerCase(),
       county: county.name.toLowerCase(),
-      category: category,
+      category: category.toLowerCase(),
+      subCategory: subCategory.toLowerCase(),
+      type: type.toLowerCase(),
+      keyword: keyword.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
@@ -199,7 +207,7 @@ const Index = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
-                    {/* <li className="so-filter-options" data-option="search">
+                    <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
                           <span>Keyword</span>
@@ -221,15 +229,16 @@ const Index = () => {
                                   name="text_search"
                                   id="text_search"
                                   value={keyword}
-                                  onChange={(e) => onChangeAutoFieldName(e)}
+                                  // onChange={(e) => onChangeAutoFieldName(e)}
+                                  onChange={(e) => setKeyword(e.target.name)}
                                 />
-                                {renderNameSuggustion()}
+                                {/* {renderNameSuggustion()} */}
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </li> */}
+                    </li>
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -454,7 +463,10 @@ const Index = () => {
                       gap: "20px",
                     }}
                   >
-                    <Link to="/job">
+                    <Link
+                      to="/job"
+                      className={pathname === "/job" ? "primary-color" : ""}
+                    >
                       <span className="span1">Jobs</span>
                     </Link>
                     <Link to="/job-seeker">

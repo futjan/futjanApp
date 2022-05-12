@@ -402,50 +402,88 @@ const JobDetail = () => {
                     </div>
                   </div>
                 </div>
-                <h3 style={{ margin: "0" }}>Share on</h3>
 
-                <div
-                  class="socials"
-                  style={{
-                    marginTop: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "7px",
-                  }}
-                >
-                  <div>
-                    <FacebookShareButton
-                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
-                      // quote={title}
+                {job.loading !== true ? (
+                  <>
+                    <h3 style={{ margin: "0" }}>Share on</h3>
+
+                    <div
+                      class="socials"
+                      style={{
+                        marginTop: "8px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "7px",
+                      }}
                     >
-                      <FacebookIcon size={22} round />
-                    </FacebookShareButton>
-                  </div>
-                  <div>
-                    <WhatsappShareButton
-                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
-                      // quote={title}
-                    >
-                      <WhatsappIcon size={22} round />
-                    </WhatsappShareButton>
-                  </div>
-                  <div>
-                    <TwitterShareButton
-                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
-                      // quote={title}
-                    >
-                      <TwitterIcon size={22} round />
-                    </TwitterShareButton>
-                  </div>
-                  <div>
-                    <LinkedinShareButton
-                      url={`http://www.futjan.com/job-detail/${job.job._id}`}
-                      // quote={title}
-                    >
-                      <LinkedinIcon size={22} round />
-                    </LinkedinShareButton>
-                  </div>
-                </div>
+                      <div>
+                        <FacebookShareButton
+                          url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                          // quote={title}
+                        >
+                          <FacebookIcon size={22} round />
+                        </FacebookShareButton>
+                      </div>
+                      <div>
+                        <WhatsappShareButton
+                          url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                          // quote={title}
+                        >
+                          <WhatsappIcon size={22} round />
+                        </WhatsappShareButton>
+                      </div>
+                      <div>
+                        <TwitterShareButton
+                          url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                          // quote={title}
+                        >
+                          <TwitterIcon size={22} round />
+                        </TwitterShareButton>
+                      </div>
+                      <div>
+                        <LinkedinShareButton
+                          url={`http://www.futjan.com/job-detail/${job.job._id}`}
+                          // quote={title}
+                        >
+                          <LinkedinIcon size={22} round />
+                        </LinkedinShareButton>
+                      </div>
+                    </div>
+
+                    <div id="product">
+                      <div
+                        className="box-cart clearfix"
+                        style={{ margin: "0" }}
+                      >
+                        <div className="form-group box-info-product">
+                          <div className="option quantity">
+                            <div className="add-to-links wish_comp">
+                              <ul className="blank">
+                                <li className="wishlist">
+                                  <a>
+                                    <i className="fa fa-heart"></i>
+                                    Favourite
+                                  </a>
+                                </li>
+
+                                <li
+                                  className="compare"
+                                  // onClick={(e) => closeReportModal(e)}
+                                >
+                                  <a>
+                                    <i className="fa fa-exclamation-triangle"></i>
+                                    Report
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="clearfix"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
             <div class="row">
