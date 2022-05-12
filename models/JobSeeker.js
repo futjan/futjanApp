@@ -37,6 +37,14 @@ const jobSeekerSchema = Schema({
     type: String,
     required: [true, "country is required"],
   },
+  county: {
+    type: String,
+    required: [true, "county is required"],
+  },
+  city: {
+    type: String,
+    required: [true, "city is required"],
+  },
   gender: {
     type: String,
     required: [true, "gender is required"],
@@ -90,6 +98,10 @@ const jobSeekerSchema = Schema({
         numberSort: Number,
       },
     ],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
   adType: {
     type: String,

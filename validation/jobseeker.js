@@ -19,6 +19,8 @@ module.exports = function validateJobSeeker(data) {
   data.email = !isEmpty(data.email) ? data.email : "";
   data.contact = !isEmpty(data.contact) ? data.contact : "";
   data.country = !isEmpty(data.country) ? data.country : "";
+  data.county = !isEmpty(data.county) ? data.county : "";
+  data.city = !isEmpty(data.city) ? data.city : "";
 
   if (Validator.isEmpty(data.jobTitle)) {
     errors.jobTitle = "job title is required";
@@ -67,6 +69,15 @@ module.exports = function validateJobSeeker(data) {
   }
   if (Validator.isEmpty(data.country)) {
     errors.country = "country is required";
+  }
+  if (Validator.isEmpty(data.country)) {
+    errors.country = "country is required";
+  }
+  if (Validator.isEmpty(data.county)) {
+    errors.county = "county is required";
+  }
+  if (Validator.isEmpty(data.city)) {
+    errors.city = "city is required";
   }
   if (
     data.skills.length === 0 ||

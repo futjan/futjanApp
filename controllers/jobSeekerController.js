@@ -40,6 +40,8 @@ exports.create = catchAsync(async (req, res, next) => {
     skills: req.body.skills,
     rate: req.body.rate,
     country: req.body.country,
+    county: req.body.county,
+    city: req.body.city,
     salaryType: req.body.salaryType,
     promoteType: req.body.promoteType,
     photo,

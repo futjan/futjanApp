@@ -326,7 +326,7 @@ const AddJob = () => {
               </div>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
-                  County
+                  State / County
                 </label>
                 <div className="col-sm-10">
                   <County

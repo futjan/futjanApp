@@ -8,10 +8,13 @@ import { getPreset, savePreset } from "../actions/userAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import debounce from "../../utils/debounce";
+
+import JobType from "../../utils/JobType";
 import JobCategory from "../../utils/JobCategory";
-import LocalJobs from "../../utils/LocalJobs";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import SpecialJobs from "../../utils/SpecialJobs";
-import SalaryType from "../../utils/SalaryType";
+import LocalJobs from "../../utils/LocalJobs";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import Pagination from "../../utils/Pagination";
@@ -20,11 +23,22 @@ import Pagination from "../../utils/Pagination";
 
 import "../surplusBusiness/skeleton.css";
 const Index = () => {
-  //   const [businessType, setBusinessType] = useState("");
+  const [type, setType] = useState("");
+
+  const [keyword, setKeyword] = useState("");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
   const [country, setCountry] = useState({
     name: "",
     isoCode: "",
     phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
   });
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
@@ -38,7 +52,8 @@ const Index = () => {
 
   // initialize hooks
   const dispatch = useDispatch();
-
+  console.log(useLocation());
+  const { pathname } = useLocation();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
   const preset = useSelector((state) => state.auth.preset);
@@ -48,6 +63,12 @@ const Index = () => {
     dispatch(getPreset());
   }, []);
   useEffect(() => {
+    if (preset && preset.city) {
+      setCity({ name: preset.city, countryCode: "", stateCode: "" });
+    }
+    if (preset && preset.county) {
+      setCounty({ name: preset.county });
+    }
     if (preset && preset.country) {
       setCountry({ name: preset.country });
     }
@@ -55,27 +76,30 @@ const Index = () => {
     if (preset && preset.category) {
       setCategory(preset.category);
     }
-  }, [preset && preset.country, preset && preset.category]);
+  }, [
+    preset && preset.country,
+    preset && preset.city,
+    preset && preset.county,
+    preset && preset.category,
+  ]);
 
   useEffect(() => {
-    dispatch(
-      getJobSeekers(
-        page,
-        limit,
-        sort,
-        salaryType.toLowerCase(),
-        category.toLowerCase(),
-        subCategory.toLowerCase(),
-        country !== null || (country.name && country.name.length > 0)
-          ? country.name.toLowerCase()
-          : ""
-      )
-    );
+    callJobSeekersAPI(page, limit, sort);
   }, []);
 
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
-  }, [page, limit, sort, salaryType, category, subCategory, country.name]);
+  }, [
+    page,
+    limit,
+    sort,
+    salaryType,
+    category,
+    subCategory,
+    country.name,
+    city.name,
+    county.name,
+  ]);
   //   useEffect(() => {
   //     if (
   //       (state && state.keyword) ||
@@ -181,6 +205,12 @@ const Index = () => {
         subCategory.toLowerCase(),
         country !== null || (country.name && country.name.length > 0)
           ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+        city !== null && city.name && city.name.length > 0
+          ? city.name.toLowerCase()
           : ""
       )
     );
@@ -190,16 +220,22 @@ const Index = () => {
     setCategory("");
     setSubCategory("");
     setSalaryType("");
+    setCity({ name: "", countryCode: "", stateCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
   };
   const savePresetFunc = () => {
     const preset = {
       country: country.name.toLowerCase(),
-      category: category,
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      category: category.toLowerCase(),
+      subCategory: subCategory.toLowerCase(),
+      type: type.toLowerCase(),
+      keyword: keyword.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
-
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
     let suggustions = [];
@@ -258,7 +294,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Payment type</span>
+                          <span>Keyword</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -271,10 +307,16 @@ const Index = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <SalaryType
-                                  salaryType={salaryType}
-                                  setSalaryType={setSalaryType}
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  name="text_search"
+                                  id="text_search"
+                                  value={keyword}
+                                  // onChange={(e) => onChangeAutoFieldName(e)}
+                                  onChange={(e) => setKeyword(e.target.name)}
                                 />
+                                {/* {renderNameSuggustion()} */}
                               </div>
                             </div>
                           </div>
@@ -307,7 +349,84 @@ const Index = () => {
                         </div>
                       </div>
                     </li>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>State / County</span>
+                        </div>
+                        <i className="fa fa-chevron-down"></i>
+                      </div>
 
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <County
+                                  country={country}
+                                  setCounty={setCounty}
+                                  county={county}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>City</span>
+                        </div>
+                        <i className="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <Cities
+                                  setCity={setCity}
+                                  county={county}
+                                  country={country}
+                                  city={city}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="so-filter-options" data-option="search">
+                      <div className="so-filter-heading">
+                        <div className="so-filter-heading-text">
+                          <span>Type</span>
+                        </div>
+                        <i className="fa fa-chevron-down"></i>
+                      </div>
+
+                      <div className="so-filter-content-opts">
+                        <div className="so-filter-content-opts-container">
+                          <div className="so-filter-option" data-type="search">
+                            <div className="so-option-container">
+                              <div
+                                className="input-group"
+                                style={{ width: "100%" }}
+                              >
+                                <JobType type={type} setType={setType} />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -389,6 +508,17 @@ const Index = () => {
                         Reset All
                       </button>
                     )}
+                    {/* <button
+                      className="btn btn-default inverse"
+                      id="btn_resetAll"
+                      onClick={() => clearState()}
+                    >
+                      <span
+                        className="hidden fa fa-times"
+                        aria-hidden="true"
+                      ></span>{" "}
+                      Reset All
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -420,7 +550,12 @@ const Index = () => {
                       gap: "20px",
                     }}
                   >
-                    <Link to="/job-seeker">
+                    <Link
+                      to="/job-seeker"
+                      className={
+                        pathname === "/job-seeker" ? "primary-color" : ""
+                      }
+                    >
                       <span className="span2">Job Seekers</span>
                     </Link>
                     <Link to="/job">
