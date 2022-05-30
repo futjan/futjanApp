@@ -7905,7 +7905,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   width: 40px;
 }
 .title-category-job .span2::after {
-  width: 105px;
+  width: 103px;
 }
 .products-category .form-group .short-by {
   margin-right: 10px;
@@ -9640,7 +9640,7 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   -webkit-transition: all 0.3s ease-in-out 0s;
   -moz-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
-  z-index: 9;
+  z-index: 1;
 }
 .producttab .tabsslider .nav-tabs li.active .tab:after,
 .producttab .tabsslider .nav-tabs li:hover .tab:after {
@@ -9651,7 +9651,7 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   left: 0;
   position: absolute;
   bottom: -1px;
-  z-index: 9;
+  z-index: 1;
 }
 .producttab .tabsslider .nav-tabs li .tab i {
   margin-right: 8px;
@@ -9663,6 +9663,7 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   margin: 0;
   border: solid 1px #e3e1e1;
   margin-top: -1px;
+  z-index: 1;
   position: relative;
 }
 

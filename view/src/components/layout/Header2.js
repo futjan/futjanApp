@@ -50,23 +50,23 @@ const Header2 = () => {
   };
 
   // show sub menu
-  const subMenu = () => {
-    if (
-      document.getElementById("sub-menu") &&
-      document.getElementById("sub-menu-content")
-    )
-      if (
-        document.getElementById("sub-menu").classList.contains("d-block") &&
-        document
-          .getElementById("sub-menu-content")
-          .classList.contains("d-block")
-      ) {
-        document.getElementById("sub-menu").classList.remove("d-block");
-        document.getElementById("sub-menu-content").classList.remove("d-block");
-      } else {
-        document.getElementById("sub-menu").classList.add("d-block");
-        document.getElementById("sub-menu-content").classList.add("d-block");
-      }
+  const subMenu = (target, id, id2) => {
+    if (document.getElementById(id) && document.getElementById(id2)) {
+      document.getElementById(id).classList.toggle("d-block");
+      document.getElementById(id2).classList.toggle("d-block");
+    }
+    // if (
+    //   document.getElementById("sub-menu").classList.contains("d-block") &&
+    //   document
+    //     .getElementById("sub-menu-content")
+    //     .classList.contains("d-block")
+    // ) {
+    //   document.getElementById("sub-menu").classList.remove("d-block");
+    //   document.getElementById("sub-menu-content").classList.remove("d-block");
+    // } else {
+    //   document.getElementById("sub-menu").classList.add("d-block");
+    //   document.getElementById("sub-menu-content").classList.add("d-block");
+    // }
   };
 
   // cities
@@ -458,7 +458,13 @@ const Header2 = () => {
                                                 alignItems: "center",
                                                 flexDirection: "column",
                                               }}
-                                              onClick={() => subMenu()}
+                                              onClick={(e) =>
+                                                subMenu(
+                                                  e.target,
+                                                  "sub-menu-1",
+                                                  "sub-menu-content-1"
+                                                )
+                                              }
                                             >
                                               {" "}
                                               <i
@@ -474,11 +480,11 @@ const Header2 = () => {
                                             <div
                                               className="sub-menu"
                                               style={{ width: "100%" }}
-                                              id="sub-menu"
+                                              id="sub-menu-1"
                                             >
                                               <div
                                                 className="content"
-                                                id="sub-menu-content"
+                                                id="sub-menu-content-1"
                                               >
                                                 <div>
                                                   <ul className="row-list">
@@ -735,7 +741,13 @@ const Header2 = () => {
                                       alignItems: "center",
                                       flexDirection: "column",
                                     }}
-                                    onClick={() => subMenu()}
+                                    onClick={(e) =>
+                                      subMenu(
+                                        e.target,
+                                        "sub-menu-2",
+                                        "sub-menu-content-2"
+                                      )
+                                    }
                                   >
                                     {" "}
                                     <i
@@ -751,11 +763,11 @@ const Header2 = () => {
                                   <div
                                     className="sub-menu"
                                     style={{ width: "100%" }}
-                                    id="sub-menu"
+                                    id="sub-menu-2"
                                   >
                                     <div
                                       className="content"
-                                      id="sub-menu-content"
+                                      id="sub-menu-content-2"
                                     >
                                       <div>
                                         <ul className="row-list">
@@ -1007,7 +1019,13 @@ const Header2 = () => {
                                         alignItems: "center",
                                         flexDirection: "column",
                                       }}
-                                      onClick={() => subMenu()}
+                                      onClick={(e) =>
+                                        subMenu(
+                                          e.target,
+                                          "sub-menu-3",
+                                          "sub-menu-content-3"
+                                        )
+                                      }
                                     >
                                       {" "}
                                       <i
@@ -1023,11 +1041,11 @@ const Header2 = () => {
                                     <div
                                       className="sub-menu"
                                       style={{ width: "100%" }}
-                                      id="sub-menu"
+                                      id="sub-menu-3"
                                     >
                                       <div
                                         className="content"
-                                        id="sub-menu-content"
+                                        id="sub-menu-content-3"
                                       >
                                         <div>
                                           <ul className="row-list">

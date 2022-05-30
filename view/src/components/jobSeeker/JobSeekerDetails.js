@@ -28,6 +28,20 @@ const JobSeekerDetails = () => {
   useEffect(() => {
     dispatch(getJobSeekerById(id));
   }, []);
+
+  // close report modal
+  const closeReportModal = (e) => {
+    e.preventDefault();
+    if (
+      document.getElementById("so_sociallogin") &&
+      e.target !== document.getElementById("block-popup-login")
+    ) {
+      document.getElementById("so_sociallogin").classList.add("in");
+      document.getElementById("so_sociallogin").classList.add("d-block");
+      // document.getElementsByTagName("body")[0].classList.add("modal-open");
+    }
+  };
+
   return (
     <div class="main-container container" style={{ margin: "20px auto" }}>
       <div class="row" style={{ padding: "10px 20px " }}>
@@ -215,6 +229,50 @@ const JobSeekerDetails = () => {
                         alignItems: "center",
                       }}
                     >
+                      <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Salary Type</h4>
+                      {jobSeeker.loading === true ? (
+                        <Skeleton
+                          count={1}
+                          style={{ height: "18px", width: "150px" }}
+                        />
+                      ) : (
+                        <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate
+                            ? jobSeeker.jobSeeker &&
+                              jobSeeker.jobSeeker.rate + " / "
+                            : ""}{" "}
+                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType
+                            ? jobSeeker.jobSeeker.salaryType &&
+                              capitalizeFirstLetter(
+                                jobSeeker.jobSeeker.salaryType
+                              )
+                            : ""}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "15px",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: "rgb(103 135 254 / 20%)",
+                        padding: "15px 18px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <i
                         className="fa fa-intersex"
                         style={{ fontSize: "22px" }}
@@ -274,50 +332,7 @@ const JobSeekerDetails = () => {
                       )}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(103 135 254 / 20%)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
-                    </div>
-                    <div>
-                      <h4 style={{ margin: "0 0 2px 0" }}>Payment</h4>
-                      {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
-                      ) : (
-                        <p style={{ margin: "0" }}>
-                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate
-                            ? jobSeeker.jobSeeker &&
-                              jobSeeker.jobSeeker.rate + " / "
-                            : ""}{" "}
-                          {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType
-                            ? jobSeeker.jobSeeker.salaryType &&
-                              capitalizeFirstLetter(
-                                jobSeeker.jobSeeker.salaryType
-                              )
-                            : ""}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+
                   <div
                     style={{
                       fontSize: "16px",
@@ -420,7 +435,7 @@ const JobSeekerDetails = () => {
 
                                 <li
                                   className="compare"
-                                  // onClick={(e) => closeReportModal(e)}
+                                  onClick={(e) => closeReportModal(e)}
                                 >
                                   <a>
                                     <i className="fa fa-exclamation-triangle"></i>

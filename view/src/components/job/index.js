@@ -461,11 +461,23 @@ const Index = () => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       gap: "20px",
+                      height: "39px",
                     }}
                   >
                     <Link
                       to="/job"
-                      className={pathname === "/job" ? "primary-color" : ""}
+                      style={
+                        pathname === "/job"
+                          ? {
+                              height: "100%",
+                              padding: "11px",
+                              fontSize: "16px",
+                              color: "#ddd",
+                              background: "#3b5998",
+                              borderRadius: "4px",
+                            }
+                          : {}
+                      }
                     >
                       <span className="span1">Jobs</span>
                     </Link>

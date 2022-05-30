@@ -271,7 +271,7 @@ const JobDetail = () => {
                       <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
                     </div>
                     <div>
-                      <h4 style={{ margin: "0 0 2px 0" }}>Payment</h4>
+                      <h4 style={{ margin: "0 0 2px 0" }}>Salary Type</h4>
                       {job.loading === true ? (
                         <Skeleton
                           count={1}

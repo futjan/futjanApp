@@ -552,8 +552,17 @@ const Index = () => {
                   >
                     <Link
                       to="/job-seeker"
-                      className={
-                        pathname === "/job-seeker" ? "primary-color" : ""
+                      style={
+                        pathname === "/job-seeker"
+                          ? {
+                              height: "100%",
+                              padding: "11px",
+                              fontSize: "16px",
+                              color: "#ddd",
+                              background: "#3b5998",
+                              borderRadius: "4px",
+                            }
+                          : {}
                       }
                     >
                       <span className="span2">Job Seekers</span>

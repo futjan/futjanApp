@@ -340,7 +340,175 @@ function DetailSurplus() {
                       </span>
                     ) : null}
                   </div>
-                  <div className="product-box-desc">
+                  <div class="about-text">
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(255 187 0 / 20%)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <i
+                          class="fa fa-compass"
+                          style={{ fontSize: "22px" }}
+                        ></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>Date Posted</h4>
+                        {surplusFromStore.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p style={{ margin: "0" }}>
+                            {surplusFromStore.surplus &&
+                              surplusFromStore.surplus.createdAt &&
+                              new Date(
+                                surplusFromStore.surplus.createdAt
+                              ).toDateString()}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(103 135 254 / 20%)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>Business Type</h4>
+                        {surplusFromStore.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p style={{ margin: "0" }}>
+                            {surplusFromStore.surplus &&
+                              surplusFromStore.surplus.businessType &&
+                              capitalizeFirstLetter(
+                                surplusFromStore.surplus.businessType
+                              )}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(255 187 0 / 20%)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <i
+                          class="fa fa-compass"
+                          style={{ fontSize: "22px" }}
+                        ></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
+                        {surplusFromStore.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p style={{ margin: "0" }}>
+                            {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.city
+                              ? surplusFromStore.surplus.city &&
+                                capitalizeFirstLetter(
+                                  surplusFromStore.surplus.city
+                                )
+                              : "-------"}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(103 135 254 / 20%)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
+                        {surplusFromStore.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p style={{ margin: "0" }}>
+                            {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.contact
+                              ? surplusFromStore.surplus &&
+                                surplusFromStore.surplus.contact
+                              : "-------"}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {/* <div className="product-box-desc">
                     <div className="inner-box-desc">
                       <div className="model">
                         <span>Category: </span>{" "}
@@ -384,7 +552,7 @@ function DetailSurplus() {
                         <span>For Collection/Delivery contact seller </span>{" "}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <h3 style={{ marginBottom: "8px" }}>location</h3> */}
 
