@@ -182,9 +182,11 @@ const Header2 = () => {
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
       <div className="header-center">
-        <Link to="/adminpanel" style={{ display: "flex" }}>
-          Adminpanel
-        </Link>
+        {auth.isAuthenticated === true ? (
+          <Link to="/adminpanel" style={{ display: "flex" }}>
+            Adminpanel
+          </Link>
+        ) : null}
         <ul
           className="top-link list-inline"
           style={{ position: "absolute", top: "0", right: "0" }}
