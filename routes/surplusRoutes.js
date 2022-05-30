@@ -15,7 +15,8 @@ router
     surplusController.createSurplus
   )
   .get(surplusController.getAllSurplus);
-
+// get admin-only surplus
+router.route("/admin-only").get(surplusController.getAdminSurplus);
 // get surplus name
 router.route("/keyword").get(surplusController.surplusKeyword);
 // surplus belongs to current user
@@ -24,7 +25,7 @@ router
   .get(authController.protect, surplusController.getAllCurrentUserSurplus);
 router.patch(
   "/activate",
-  authController.protect,
+  // authController.protect,
   surplusController.surplusActivate
 );
 
@@ -50,6 +51,9 @@ router
     fileController.resizeImage,
     surplusController.updateSurplus
   )
-  .delete(authController.protect, surplusController.deleteSurplus);
+  .delete(
+    // authController.protect,
+    surplusController.deleteSurplus
+  );
 
 module.exports = router;

@@ -323,7 +323,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Type</span>
+                          <span>Job Type</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>

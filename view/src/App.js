@@ -1,5 +1,10 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -9,7 +14,6 @@ import Footer from "./components/layout/Footer";
 import PrivateRoute from "./utils/privateRoute";
 import lazyLoader from "./components/image/477.GIF";
 // css
-
 import "./css/bootstrap/css/bootstrap.min.css";
 import "./css/font-awesome/css/font-awesome.min.css";
 import "./css/themecss/so_sociallogin.css";
@@ -35,6 +39,7 @@ const JobDetail = lazy(() => import("./components/job/JobDetail"));
 const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const ChangePassword = lazy(() => import("./components/user/ChangePassword"));
+const AdminPanel = lazy(() => import("./adminpanel/Index"));
 const SurplusBusinesses = lazy(() =>
   import("./components/surplusBusiness/SurplusBusinesses")
 );
@@ -45,6 +50,7 @@ const AddJobSeeker = lazy(() => import("./components/jobSeeker/AddJobSeeker"));
 const JobSeekerDetails = lazy(() =>
   import("./components/jobSeeker/JobSeekerDetails")
 );
+const PageNotFound = lazy(() => import("./components/404 Page/Page404"));
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
@@ -65,6 +71,7 @@ if (localStorage.jwtToken) {
 }
 
 const App = (props) => {
+  const { pathname } = useLocation();
   return (
     <div className="App">
       <Suspense
@@ -84,89 +91,95 @@ const App = (props) => {
       >
         <div className="common-home res layout-4">
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
-            <Router>
-              <Provider store={store}>
-                <Header2 />
-                <Routes>
-                  <Route path="/" exact={true} element={<Index />} />
-                  <Route path="/login" exact={true} element={<Login />} />
-                  <Route path="/signup" exact={true} element={<Register />} />
-                  <Route
-                    path="/forget-password"
-                    exact={true}
-                    element={<ForgetPassword />}
-                  />
-                  <Route
-                    path="/:token"
-                    exact={true}
-                    element={<ResetPassword />}
-                  />
-                  <Route path="/about-us" exact={true} element={<Aboutus />} />
-                  <Route
-                    path="/contact-us"
-                    exact={true}
-                    element={<Contactus />}
-                  />
-                  <Route
-                    path="/job-detail/:id"
-                    exact={true}
-                    element={<JobDetail />}
-                  />
-                  <Route path="/job" exact={true} element={<Job />} />
-                  <Route path="/add-job" exact={true} element={<AddJob />} />
-                  <Route
-                    path="/job-seeker"
-                    exact={true}
-                    element={<JobSeeker />}
-                  />
-                  <Route
-                    path="/job-seeker-detail/:id"
-                    exact={true}
-                    element={<JobSeekerDetails />}
-                  />
-                  <Route
-                    path="/add-job-seeker"
-                    exact={true}
-                    element={<AddJobSeeker />}
-                  />
+            <Provider store={store}>
+              {pathname === "/adminpanel" ? null : <Header2 />}
 
-                  <Route path="/business" exact={true} element={<Job />} />
-                  {/* <Route
-                    path="/add-surplus"
-                    exact
-                    element={<AddSurplusBusiness />}
-                  /> */}
-                  <Route
-                    path="/surplus"
-                    exact
-                    element={<SurplusBusinesses />}
-                  />
+              <Routes>
+                <Route path="/login" exact={true} element={<Login />} />
+                <Route path="/" exact={true} element={<Index />} />
+                <Route path="/signup" exact={true} element={<Register />} />
+                <Route
+                  path="/forget-password"
+                  exact={true}
+                  element={<ForgetPassword />}
+                />
+                <Route
+                  path="/reset-password/:token"
+                  exact={true}
+                  element={<ResetPassword />}
+                />
+                <Route path="/about-us" exact={true} element={<Aboutus />} />
+                <Route
+                  path="/contact-us"
+                  exact={true}
+                  element={<Contactus />}
+                />
+
+                <Route path="/job" exact={true} element={<Job />} />
+                <Route path="/add-job" exact={true} element={<AddJob />} />
+                <Route
+                  path="/job-seeker"
+                  exact={true}
+                  element={<JobSeeker />}
+                />
+                <Route
+                  path="/job-seeker-detail/:id"
+                  exact={true}
+                  element={<JobSeekerDetails />}
+                />
+                <Route
+                  path="/add-job-seeker"
+                  exact={true}
+                  element={<AddJobSeeker />}
+                />
+
+                <Route path="/business" exact={true} element={<Job />} />
+
+                <Route path="/surplus" exact element={<SurplusBusinesses />} />
+                <Route
+                  path="/user-panel"
+                  exact={true}
+                  element={<PrivateRoute from="/user-panel" />}
+                >
                   <Route
                     path="/user-panel"
                     exact={true}
-                    element={<PrivateRoute from="/user-panel" />}
-                  >
-                    <Route
-                      path="/user-panel"
-                      exact={true}
-                      element={<UserPanel />}
-                    />
-                    <Route
-                      path="/user-panel/change-password"
-                      exact={true}
-                      element={<ChangePassword />}
-                    />
-                  </Route>
-
-                  <Route
-                    path="/surplus-detail/:id"
-                    exact
-                    element={<DetailSurplus />}
+                    element={<UserPanel />}
                   />
-                </Routes>
-                <Footer />
-              </Provider>
-            </Router>
+                  <Route
+                    path="/user-panel/change-password"
+                    exact={true}
+                    element={<ChangePassword />}
+                  />
+                </Route>
+
+                <Route
+                  path="/adminpanel"
+                  exact={true}
+                  element={<PrivateRoute from="/adminpanel" />}
+                >
+                  <Route
+                    path="/adminpanel"
+                    exact={true}
+                    element={<AdminPanel />}
+                  />
+                </Route>
+
+                <Route
+                  path="/surplus-detail/:id"
+                  exact
+                  element={<DetailSurplus />}
+                />
+                <Route
+                  path="/job-detail/:id"
+                  exact={true}
+                  element={<JobDetail />}
+                />
+
+                <Route path="*" element={PageNotFound} />
+              </Routes>
+              <Footer />
+            </Provider>
           </div>
         </div>
       </Suspense>

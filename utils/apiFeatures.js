@@ -12,12 +12,20 @@ class APIFeature {
     excludeFields.forEach((el) => delete queryObj[el]);
     const excludeEmptyField = Object.keys(queryObj);
     excludeEmptyField.forEach((el) => {
-      if (!queryObj[el] || queryObj[el].length === 0 || queryObj[el] == 0) {
+      // if (!queryObj[el] || queryObj[el].length === 0 || queryObj[el] == 0) {
+      if (
+        !queryObj[el] ||
+        queryObj[el] == undefined ||
+        queryObj[el].length === 0 ||
+        queryObj[el] == 0
+      ) {
         delete queryObj[el];
       }
     });
 
     // 2B) Advance filtering
+    queryObj.deleted = false;
+    console.log(queryObj, "queryOBJ");
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
     this.query.find(JSON.parse(queryStr));

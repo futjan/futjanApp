@@ -24,6 +24,93 @@ export const updateCurrentUser = (data) => async (dispatch) => {
     });
   }
 };
+// @route                   GET /api/v1/user/all-users
+// @desc                    get all users
+// @access                  admin-only
+export const getAllUsers = (page, limit) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.get(
+      `/api/v1/users/all-users?page=${page}&limit=${limit}&fields=name,email,blocked`
+    );
+    if (res) {
+      dispatch({
+        type: Type.GET_USERS,
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+// @route                   GET /api/v1/user/blocked/:id
+// @desc                    blocked user
+// @access                  admin-only
+export const blockedUser = (id, data) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.patch(`/api/v1/users/blocked/${id}`, data);
+    if (res) {
+      dispatch({
+        type: Type.BLOCKED_USER,
+        payload: res.data.user,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+
+// @route                   GET /api/v1/user/deleted/:id
+// @desc                    deleted user
+// @access                  admin-only
+export const deletedUser = (id, data) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.patch(`/api/v1/users/deleted/${id}`, data);
+    if (res) {
+      dispatch({
+        type: Type.DELETED_USER,
+        payload: res.data.user,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+// @route                   GET /api/v1/user/:id
+// @desc                     user by id
+// @access                  admin-only
+export const getUser = (id) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.get(`/api/v1/users/${id}`);
+    if (res) {
+      dispatch({
+        type: Type.GET_USER,
+        payload: res.data.user,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
 
 // @route                   POST /api/v1/presets
 // @desc                    create preset

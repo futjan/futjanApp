@@ -14,7 +14,8 @@ router
     jobController.create
   )
   .get(jobController.getJobs);
-
+router.patch("/activate", jobController.jobActivate);
+router.get("/admin-only", jobController.getAdminJobs);
 router.get(
   "/current-user-job",
   authController.protect,

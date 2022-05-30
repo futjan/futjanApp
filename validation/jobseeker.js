@@ -3,7 +3,7 @@ const Validator = require("validator");
 
 module.exports = function validateJobSeeker(data) {
   let errors = {};
-  data.jobTitle = !isEmpty(data.jobTitle) ? data.jobTitle : "";
+  data.title = !isEmpty(data.title) ? data.title : "";
   data.name = !isEmpty(data.name) ? data.name : "";
   data.description = !isEmpty(data.description) ? data.description : "";
   data.category = !isEmpty(data.category) ? data.category : "";
@@ -22,8 +22,8 @@ module.exports = function validateJobSeeker(data) {
   data.county = !isEmpty(data.county) ? data.county : "";
   data.city = !isEmpty(data.city) ? data.city : "";
 
-  if (Validator.isEmpty(data.jobTitle)) {
-    errors.jobTitle = "job title is required";
+  if (Validator.isEmpty(data.title)) {
+    errors.title = "job title is required";
   }
   if (Validator.isEmpty(data.name)) {
     errors.name = "name is required";

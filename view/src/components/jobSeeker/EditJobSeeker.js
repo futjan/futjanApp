@@ -72,9 +72,7 @@ const EditJobSeeker = (props) => {
       setCategory(
         jobSeeker.jobSeeker.category ? jobSeeker.jobSeeker.category : ""
       );
-      setTitle(
-        jobSeeker.jobSeeker.jobTitle ? jobSeeker.jobSeeker.jobTitle : ""
-      );
+      setTitle(jobSeeker.jobSeeker.title ? jobSeeker.jobSeeker.title : "");
       setContact(
         jobSeeker.jobSeeker.contact ? jobSeeker.jobSeeker.contact : ""
       );
@@ -176,7 +174,7 @@ const EditJobSeeker = (props) => {
   const createJobSeekerFunction = () => {
     const job = {
       id: jobSeeker.jobSeeker._id,
-      jobTitle: title.toLowerCase(),
+      title: title.toLowerCase(),
       description,
       name: name.toLowerCase(),
       gender: gender.toLowerCase(),
@@ -308,18 +306,16 @@ const EditJobSeeker = (props) => {
                     placeholder="Title Name"
                     id="input-name"
                     className={
-                      errors && errors.validation && errors.validation.jobTitle
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.jobTitle && (
-                      <div className="invalid-feedback">
-                        {errors.validation.jobTitle}
-                      </div>
-                    )}
+                  {errors && errors.validation && errors.validation.title && (
+                    <div className="invalid-feedback">
+                      {errors.validation.title}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group required">

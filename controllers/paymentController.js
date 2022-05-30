@@ -17,7 +17,7 @@ exports.checkoutSessions = async (req, res, next) => {
         price_data: {
           currency: "usd",
           product_data: {
-            name: surplus.name,
+            name: surplus.title,
             images: [
               `https://futjan.s3.ap-south-1.amazonaws.com/${surplus.images[0]}`,
             ],

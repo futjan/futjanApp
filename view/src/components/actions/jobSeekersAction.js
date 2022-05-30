@@ -21,7 +21,7 @@ export const getJobSeekers =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/jobseekers?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,jobTitle,rate,salaryType,photo,skills,country`
+        `/api/v1/jobseekers?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,title,rate,salaryType,photo,skills,country`
         // `/api/v1/jobseekers`
       );
       if (res.data) {
@@ -40,6 +40,56 @@ export const getJobSeekers =
       }
     }
   };
+// @route                   GET /api/v1/jobseekers/admin-only
+// @desc                    get all job
+// @access                  admin only
+export const getAdminJobSeekers = (page, limit) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.get(
+      `/api/v1/jobseekers/admin-only?&page=${page}&limit=${limit}&fields=name,title,active,photo,skills`
+      // `/api/v1/jobseekers`
+    );
+    if (res.data) {
+      dispatch({
+        type: Types.GET_ADMIN_JOBSEEKERS,
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
+// @route                   PATCH /api/v1/jobseekers/activate
+// @desc                    activate jobseeker
+// @access                  Private
+export const activateJobSeeker = (data) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.patch(`/api/v1/jobseekers/activate`, data);
+    if (res.data) {
+      dispatch({
+        type: Types.ACTIVATE_JOBSEEKER,
+        payload: res.data.jobSeeker,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
 // @route                   GET /api/v1/jobseekers/current-user
 // @desc                    get all private jobseeker
 // @access                  Public
@@ -50,8 +100,8 @@ export const getPrivateJobSeeker =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        // `/api/v1/jobseekers/current-user?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,jobTitle,rate,salaryType,photo,skills,country`
-        `/api/v1/jobseekers/current-user?fields=name,jobTitle,photo,email,category,subCategory,experience`
+        // `/api/v1/jobseekers/current-user?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,title,rate,salaryType,photo,skills,country`
+        `/api/v1/jobseekers/current-user?fields=name,title,photo,email,category,subCategory,experience`
         // `/api/v1/jobseekers`
       );
       if (res.data) {
@@ -193,6 +243,7 @@ export const deleteJobSeeker = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/v1/jobseekers/${id}`);
     if (res) {
+      console.log(res.data.jobSeeker);
       dispatch({
         type: Types.DELETE_JOB_SEEKER,
         payload: res.data.jobSeeker,

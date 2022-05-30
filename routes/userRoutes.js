@@ -21,4 +21,8 @@ router
   .route("/current-user")
   .get(authController.protect, authController.getCurrentUser)
   .patch(authController.protect, userController.updateCurrentUser);
+router.get("/all-users", authController.getAllUsers);
+router.patch("/deleted/:id", authController.deletedUser);
+router.patch("/blocked/:id", authController.blockedUser);
+router.route("/:id").get(authController.getUserById);
 module.exports = router;

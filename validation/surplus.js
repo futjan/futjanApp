@@ -4,7 +4,7 @@ const Validator = require("validator");
 module.exports = function validateSurplus(data) {
   let errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : "";
+  data.title = !isEmpty(data.title) ? data.title : "";
   data.contact = !isEmpty(data.contact) ? data.contact : "";
   data.address = !isEmpty(data.address) ? data.address : "";
   data.postCode = !isEmpty(data.postCode) ? data.postCode : "";
@@ -16,8 +16,8 @@ module.exports = function validateSurplus(data) {
   data.keyword = !isEmpty(data.keyword) ? data.keyword : "";
   data.county = !isEmpty(data.county) ? data.county : "";
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = "Name is required";
+  if (Validator.isEmpty(data.title)) {
+    errors.title = "title is required";
   }
   if (Validator.isEmpty(data.county)) {
     errors.county = "State is required";

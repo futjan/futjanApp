@@ -83,7 +83,7 @@ const jobSeekerSchema = Schema({
     type: String,
     required: [true, "description is required"],
   },
-  photo: String,
+  images: String,
   location: String,
 
   user: {
@@ -103,10 +103,15 @@ const jobSeekerSchema = Schema({
     type: Date,
     default: Date.now(),
   },
-  adType: {
-    type: String,
-    required: [true, "ad type is required"],
-    default: "jobseeker",
+  active: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
+    required: true,
     select: false,
   },
 });

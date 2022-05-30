@@ -285,7 +285,7 @@ const AddSurplusBusiness = () => {
     e.preventDefault();
 
     const obj = {
-      name: name.toLowerCase(),
+      title: name.toLowerCase(),
       company: company.toLowerCase(),
       contact,
       address,
@@ -742,14 +742,14 @@ const AddSurplusBusiness = () => {
                     placeholder="Title Name"
                     id="input-name"
                     className={
-                      errors && errors.validation && errors.validation.name
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.name && (
+                  {errors && errors.validation && errors.validation.title && (
                     <div className="invalid-feedback">
-                      {errors.validation.name}
+                      {errors.validation.title}
                     </div>
                   )}
                 </div>

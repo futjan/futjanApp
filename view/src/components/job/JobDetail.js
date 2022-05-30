@@ -90,8 +90,8 @@ const JobDetail = () => {
                 ) : (
                   <p style={{ margin: "0" }}>
                     {job.job &&
-                      job.job.jobTitle &&
-                      capitalizeFirstLetter(job.job.jobTitle)}
+                      job.job.title &&
+                      capitalizeFirstLetter(job.job.title)}
                   </p>
                 )} */}
                 {job.loading === true ? (

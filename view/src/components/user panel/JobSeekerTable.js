@@ -90,11 +90,11 @@ const JobSeekerTable = (props) => {
                   </td>
                   <td className="text-left">
                     <Link to={`/job-seeker-detail/${candidate._id}`}>
-                      {candidate.jobTitle.length > 40
+                      {candidate.title.length > 40
                         ? capitalizeFirstLetter(
-                            candidate.jobTitle.substring(0, 50) + "..."
+                            candidate.title.substring(0, 50) + "..."
                           )
-                        : capitalizeFirstLetter(candidate.jobTitle)}
+                        : capitalizeFirstLetter(candidate.title)}
                     </Link>{" "}
                     <br />
                     <small>

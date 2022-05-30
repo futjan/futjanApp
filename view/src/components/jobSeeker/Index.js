@@ -407,7 +407,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Type</span>
+                          <span>Job Type</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -753,8 +753,8 @@ const Index = () => {
                               </p>
                               <p className="job-seeker-card-jobtitle">
                                 {" "}
-                                {candidate.jobTitle &&
-                                  capitalizeFirstLetter(candidate.jobTitle)}
+                                {candidate.title &&
+                                  capitalizeFirstLetter(candidate.title)}
                               </p>
                             </div>
                             <div className="job-seeker-country-container">

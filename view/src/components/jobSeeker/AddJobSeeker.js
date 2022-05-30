@@ -260,18 +260,16 @@ const AddJobSeeker = () => {
                     placeholder="Title Name"
                     id="input-name"
                     className={
-                      errors && errors.validation && errors.validation.jobTitle
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.jobTitle && (
-                      <div className="invalid-feedback">
-                        {errors.validation.jobTitle}
-                      </div>
-                    )}
+                  {errors && errors.validation && errors.validation.title && (
+                    <div className="invalid-feedback">
+                      {errors.validation.title}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group required">

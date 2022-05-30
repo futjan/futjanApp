@@ -5,6 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const crypto = require("crypto");
 const Validator = require("validator");
 const isEmpty = require("../validation/is-empty");
+const APIFeature = require("../utils/apiFeatures");
 const validateRegisterInput = require("../validation/register");
 const { promisify } = require("util");
 const sendEmail = require("../utils/email");
@@ -62,10 +63,18 @@ exports.login = catchAsync(async (req, res, next) => {
       new AppError("username or password incorrect!", 400, undefined)
     );
   }
+  // 3) check user blocked or not
+  if (!user || user.blocked === true) {
+    return next(new AppError("user blocked!", 400, undefined));
+  }
   // 3) if everything OK then send token to user
-  const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: 3600,
-  });
+  const token = await jwt.sign(
+    { id: user._id, name: user.name, role: user.role },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: 3600,
+    }
+  );
 
   res.status(200).json({
     status: "success",
@@ -261,5 +270,83 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "success",
     message: "user successfully update password!",
+  });
+});
+
+// @route              /api/v1/user/all-users
+// @desc               get all user
+// @access             Private
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  console.log(req.query);
+  const features = new APIFeature(User.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const users = await features.query;
+
+  const totalFilterDocs = new APIFeature(User.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDocs = await totalFilterDocs;
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    users,
+    result: users.length,
+    totalDocs,
+  });
+});
+
+// @route                   /api/v1/user/:id
+// @desc                    get user by id
+// @access                  admin-only
+exports.getUserById = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(new AppError("User not found", 404, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+    user,
+  });
+});
+
+// @route                  /api/v1/user/blocked
+// @desc                   blocked user
+// @access                 admin-only
+exports.blockedUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { blocked: req.body.blocked },
+    { new: true, runValidators: true }
+  );
+  if (!user) {
+    return next(new AppError("user not found", 404, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+    user,
+  });
+});
+// @route                  /api/v1/user/deleted
+// @desc                   deleted user
+// @access                 admin-only
+exports.deletedUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { deleted: req.body.blocked },
+    { new: true, runValidators: true }
+  );
+  if (!user) {
+    return next(new AppError("user not found", 404, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+    user,
   });
 });

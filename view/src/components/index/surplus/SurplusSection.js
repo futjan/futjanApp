@@ -98,12 +98,12 @@ const SurplusSection = () => {
                                 <div className="caption">
                                   <h4>
                                     <Link to={`/surplus-detail/${sur._id}`}>
-                                      {sur.name && sur.name.length > 50
+                                      {sur.title && sur.title.length > 50
                                         ? capitalizeFirstLetter(
-                                            sur.name.substring(0, 50) + "..."
+                                            sur.title.substring(0, 50) + "..."
                                           )
-                                        : sur.name &&
-                                          capitalizeFirstLetter(sur.name)}
+                                        : sur.title &&
+                                          capitalizeFirstLetter(sur.title)}
                                     </Link>
                                   </h4>
                                   <div>

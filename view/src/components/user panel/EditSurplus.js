@@ -77,7 +77,7 @@ const EditSurplus = (props) => {
   }, [errorState]);
   useEffect(() => {
     if (surplus.surplus._id) {
-      setName(surplus.surplus.name);
+      setName(surplus.surplus.title);
       setCompany(surplus.surplus.company);
       setContact(surplus.surplus.contact);
       setAddress(surplus.surplus.address);
@@ -203,7 +203,7 @@ const EditSurplus = (props) => {
       id: props.id,
       files,
       surplus: {
-        name: name.toLowerCase(),
+        title: name.toLowerCase(),
         company: company.toLowerCase(),
         contact,
         address,
@@ -692,14 +692,14 @@ const EditSurplus = (props) => {
                     placeholder="Name"
                     id="input-name"
                     className={
-                      errors && errors.validation && errors.validation.name
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.name && (
+                  {errors && errors.validation && errors.validation.title && (
                     <div className="invalid-feedback">
-                      {errors.validation.name}
+                      {errors.validation.title}
                     </div>
                   )}
                 </div>

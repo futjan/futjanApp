@@ -45,10 +45,20 @@ const userSchema = Schema({
     deactivated: Boolean,
     deleted: Boolean,
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+    required: true,
+    select: false,
+  },
+  blocked: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
-    select: false,
   },
 });
 

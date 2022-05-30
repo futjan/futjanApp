@@ -25,7 +25,7 @@ exports.createSurplus = catchAsync(async (req, res, next) => {
   // create surplus
   const surplus = await SurplusBusiness.create({
     user: req.user._id.toString(),
-    name: req.body.name,
+    title: req.body.title,
     company: req.body.company,
     contact: req.body.contac,
     contact: req.body.contact,
@@ -113,13 +113,44 @@ exports.getAllCurrentUserSurplus = catchAsync(async (req, res, next) => {
   });
 });
 
+// @route                   GET /api/v1/surplus/admin-only
+// @desc                    get all surplus
+// access                   only admin
+exports.getAdminSurplus = catchAsync(async (req, res, next) => {
+  const features = new APIFeature(SurplusBusiness.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const surpluses = await features.query;
+  const totalFilterDocs = new APIFeature(SurplusBusiness.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDoc = await totalFilterDocs;
+
+  // check surplus exist or not
+  if (!surpluses) {
+    return next(new AppError("Surplus does not found", 404, undefined));
+  }
+
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    totalDocs: totalDoc,
+    result: surpluses.length,
+    surpluses,
+  });
+});
+
 // @route                   GET /api/v1/surplus/:id
 // @desc                    get surplus by id
 // access                   Private
 exports.getSurplus = catchAsync(async (req, res, next) => {
-  const surplus = await SurplusBusiness.findById(req.params.id).populate(
-    "reviews"
-  );
+  const surplus = await SurplusBusiness.findOne({
+    _id: req.params.id,
+    $or: [{ deleted: false }, { deleted: undefined }],
+  }).populate("reviews");
 
   // check surplux exist or not
   if (!surplus) {
@@ -137,7 +168,11 @@ exports.getSurplus = catchAsync(async (req, res, next) => {
 // @desc                    delete surplux
 // @access                  Private
 exports.deleteSurplus = catchAsync(async (req, res, next) => {
-  const surplus = await SurplusBusiness.findByIdAndDelete(req.params.id).select(
+  const surplus = await SurplusBusiness.findByIdAndUpdate(
+    req.params.id,
+    { deleted: true },
+    { new: true, runValidators: true }
+  ).select(
     "-name -company -__v -description -originalPrice -offeredPrice -discount -active -businessType -address -category -city -country -contact -postCode -weeklySchedule -user -website -createdAt"
   );
   // check surplux exist or not
@@ -203,7 +238,7 @@ exports.updateSurplusImage = catchAsync(async (req, res, next) => {
 // @desc                    activate surplus
 // @access                  Private
 exports.surplusActivate = catchAsync(async (req, res, next) => {
-  req.query.user = req.user._id.toString();
+  // req.query.user = req.user._id.toString();
   const surplus = await SurplusBusiness.findByIdAndUpdate(
     req.body.id,
     { active: req.body.active },

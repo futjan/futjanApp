@@ -91,8 +91,8 @@ const JobSeekerDetails = () => {
                 ) : (
                   <p style={{ margin: "0" }}>
                     {jobSeeker.jobSeeker &&
-                      jobSeeker.jobSeeker.jobTitle &&
-                      capitalizeFirstLetter(jobSeeker.jobSeeker.jobTitle)}
+                      jobSeeker.jobSeeker.title &&
+                      capitalizeFirstLetter(jobSeeker.jobSeeker.title)}
                   </p>
                 )}
                 {jobSeeker.loading === true ? (

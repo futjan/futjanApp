@@ -1,5 +1,6 @@
 import * as Types from "../components/actions/types";
 const initialState = {
+  adminJobs: [],
   jobs: [],
   job: {},
   privateJobs: [],
@@ -34,6 +35,14 @@ export default function JobReducer(state = initialState, action) {
         result: action.payload.result,
         loading: false,
       };
+    case Types.GET_ADMIN_JOBS:
+      return {
+        ...state,
+        adminJobs: action.payload.jobs,
+        totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
+        loading: false,
+      };
     case Types.GET_USER_JOBS:
       return {
         ...state,
@@ -46,6 +55,18 @@ export default function JobReducer(state = initialState, action) {
       return {
         ...state,
         job: action.payload,
+        loading: false,
+      };
+    case Types.ACTIVATE_JOB:
+      return {
+        ...state,
+        adminJobs: state.adminJobs.map((job) =>
+          job._id === action.payload._id ? action.payload : job
+        ),
+        job: action.payload,
+        privateJobs: state.privateJobs.map((job) =>
+          job._id === action.payload._id ? action.payload : job
+        ),
         loading: false,
       };
     case Types.UPDATE_JOB:

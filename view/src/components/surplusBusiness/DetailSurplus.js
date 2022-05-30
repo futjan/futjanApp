@@ -254,9 +254,11 @@ function DetailSurplus() {
                   </div>
                   <div className="title-product">
                     {surplusFromStore.surplus &&
-                      surplusFromStore.surplus.name && (
+                      surplusFromStore.surplus.title && (
                         <h1>
-                          {capitalizeFirstLetter(surplusFromStore.surplus.name)}
+                          {capitalizeFirstLetter(
+                            surplusFromStore.surplus.title
+                          )}
                         </h1>
                       )}
                   </div>
@@ -554,7 +556,7 @@ function DetailSurplus() {
                                   <div className="col" style={{ padding: "0" }}>
                                     <p style={{ margin: "0" }}>
                                       <strong>
-                                        {review.user && review.user.name}
+                                        {review.user && review.user.title}
                                       </strong>
                                     </p>
                                     <p style={{ margin: "0" }}>

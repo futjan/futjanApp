@@ -106,8 +106,8 @@ const JobSeeker = () => {
                               </p>
                               <p className="job-seeker-card-jobtitle">
                                 {" "}
-                                {candidate.jobTitle &&
-                                  capitalizeFirstLetter(candidate.jobTitle)}
+                                {candidate.title &&
+                                  capitalizeFirstLetter(candidate.title)}
                               </p>
                             </div>
                             <div className="job-seeker-country-container">

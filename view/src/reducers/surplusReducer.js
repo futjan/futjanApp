@@ -1,5 +1,6 @@
 import * as Types from "../components/actions/types";
 const initialState = {
+  adminSurpluses: [],
   surpluses: [],
   privateSurpluses: [],
   surplus: {},
@@ -35,6 +36,14 @@ export default function SurplusReducer(state = initialState, action) {
         result: action.payload.result,
         loading: false,
       };
+    case Types.GET_ADMIN_SURPLUSES:
+      return {
+        ...state,
+        adminSurpluses: action.payload.surpluses,
+        totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
+        loading: false,
+      };
     case Types.GET_CURRENT_USER_SURPLUSES:
       return {
         ...state,
@@ -62,11 +71,16 @@ export default function SurplusReducer(state = initialState, action) {
       };
     case Types.ACTIVATE_SURPLUS:
       return {
-        ...state,
+        surplus: action.payload,
+
         privateSurpluses: state.privateSurpluses.map((surplus) =>
           surplus._id === action.payload._id ? action.payload : surplus
         ),
+        adminSurpluses: state.adminSurpluses.map((surplus) =>
+          surplus._id === action.payload._id ? action.payload : surplus
+        ),
         loading: false,
+        ...state,
       };
     case Types.DELETE_SURPLUS:
       return {
@@ -77,6 +91,11 @@ export default function SurplusReducer(state = initialState, action) {
         privateSurpluses: state.privateSurpluses.filter(
           (surplus) => surplus._id !== action.payload._id
         ),
+
+        adminSurpluses: state.adminSurpluses.filter(
+          (surplus) => surplus._id !== action.payload._id
+        ),
+
         loading: false,
       };
     case Types.GET_SURPLUS_KEYWORDS:

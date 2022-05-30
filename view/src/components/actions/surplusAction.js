@@ -22,7 +22,7 @@ export const getSurpluses =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=name,category,city,images,originalPrice,offeredPrice,discount,promoteType`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=title,category,city,images,originalPrice,offeredPrice,discount,promoteType`
       );
       if (res.data) {
         dispatch({
@@ -47,6 +47,32 @@ export const getSurpluses =
     }
   };
 
+// @route                   GET /api/v1/surplus/admin-only
+// @desc                    get all surplus
+// access                   only admin
+export const getAdminSurplus = (page, limit) => async (dispatch) => {
+  dispatch(setLoading());
+  try {
+    const res = await axios.get(
+      `/api/v1/surplus/admin-only?page=${page}&limit=${limit}&fields=title,active,images,category,deleted`
+    );
+    if (res.data) {
+      dispatch({
+        type: Types.GET_ADMIN_SURPLUSES,
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
 // @route                   GET /api/v1/surplus/current-user-surplus
 // @desc                    get current user surplus
 // @access                  Private
@@ -56,7 +82,7 @@ export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/surplus/current-user-surplus?fields=name,category,businessType,originalPrice,offeredPrice,discount,active,images&page=${page}&limit=${limit}`
+      `/api/v1/surplus/current-user-surplus?fields=title,category,businessType,originalPrice,offeredPrice,discount,active,images&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -214,12 +240,12 @@ export const deleteImageFromCloud = (data) => async (dispatch) => {
 // @access                  Private
 export const surplusActivate = (data) => async (dispatch) => {
   dispatch(setLoading());
-  dispatch({
-    type: Types.CLEAR_ERRORS,
-  });
+  console.log("Action hit");
   try {
     const res = await axios.patch("/api/v1/surplus/activate", data);
     if (res) {
+      console.log("response given");
+      console.log(res.data.surplus);
       dispatch({
         type: Types.ACTIVATE_SURPLUS,
         payload: res.data.surplus,

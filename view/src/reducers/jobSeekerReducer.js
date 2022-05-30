@@ -2,8 +2,10 @@ import * as Types from "../components/actions/types";
 
 const initialState = {
   jobSeekers: [],
+  adminJobSeekers: [],
   jobSeeker: {},
   totalDocs: 0,
+  result: 0,
   privateJobSeeker: [],
   loading: false,
 };
@@ -25,6 +27,15 @@ export default function jobSeekerReducer(state = initialState, action) {
         ...state,
         jobSeekers: action.payload.jobSeekers,
         totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
+        loading: false,
+      };
+    case Types.GET_ADMIN_JOBSEEKERS:
+      return {
+        ...state,
+        adminJobSeekers: action.payload.jobSeekers,
+        totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
         loading: false,
       };
     case Types.GET_PRIVATE_JOB_SEEKERS:
@@ -32,6 +43,7 @@ export default function jobSeekerReducer(state = initialState, action) {
         ...state,
         privateJobSeeker: action.payload.jobSeekers,
         totalDocs: action.payload.totalDocs,
+        result: action.payload.result,
         loading: false,
       };
 
@@ -41,7 +53,18 @@ export default function jobSeekerReducer(state = initialState, action) {
         jobSeeker: action.payload,
         loading: false,
       };
-
+    case Types.ACTIVATE_JOBSEEKER:
+      return {
+        ...state,
+        adminJobSeekers: state.adminJobSeekers.map((cand) =>
+          cand._id === action.payload._id ? action.payload : cand
+        ),
+        jobSeeker: action.payload,
+        privateJobSeeker: state.privateJobSeeker.map((cand) =>
+          cand._id === action.payload._id ? action.payload : cand
+        ),
+        loading: false,
+      };
     case Types.UPDATE_JOB_SEEKER:
       return {
         ...state,
@@ -54,6 +77,14 @@ export default function jobSeekerReducer(state = initialState, action) {
       return {
         ...state,
         jobSeekers: state.jobSeekers.filter(
+          (jobSeeker) => jobSeeker._id !== action.payload._id
+        ),
+
+        adminJobSeekers: state.adminJobSeekers.filter(
+          (jobSeeker) => jobSeeker._id !== action.payload._id
+        ),
+
+        privateJobSeeker: state.privateJobSeeker.filter(
           (jobSeeker) => jobSeeker._id !== action.payload._id
         ),
       };

@@ -41,6 +41,33 @@ export const getJobs =
     }
   };
 
+// @route                   GET /api/v1/job/admin-only
+// @desc                    get all job
+// @access                  admin only
+export const getAdminJobs = (page, limit) => async (dispatch) => {
+  dispatch(setLoading());
+  dispatch({ type: Types.CLEAR_ERRORS });
+  try {
+    const res = await axios.get(
+      `/api/v1/job/admin-only?page=${page}&limit=${limit}`
+    );
+    if (res.data) {
+      dispatch({
+        type: Types.GET_ADMIN_JOBS,
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
 // @route                   GET /api/v1/surplus/current-user-surplus
 // @desc                    get current user surplus
 // @access                  Private
@@ -221,20 +248,20 @@ export const deleteImageFromCloud = (data) => async (dispatch) => {
     }
   }
 };
-// @route                   PATCH /api/v1/surplus/activate
-// @desc                    activate surplus
+// @route                   PATCH /api/v1/job/activate
+// @desc                    activate job
 // @access                  Private
-export const surplusActivate = (data) => async (dispatch) => {
+export const jobActivate = (data) => async (dispatch) => {
   dispatch(setLoading());
   dispatch({
     type: Types.CLEAR_ERRORS,
   });
   try {
-    const res = await axios.patch("/api/v1/surplus/activate", data);
+    const res = await axios.patch("/api/v1/job/activate", data);
     if (res) {
       dispatch({
-        type: Types.ACTIVATE_SURPLUS,
-        payload: res.data.surplus,
+        type: Types.ACTIVATE_JOB,
+        payload: res.data.job,
       });
     }
   } catch (err) {

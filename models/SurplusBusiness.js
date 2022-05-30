@@ -12,7 +12,7 @@ const surplusBusiness = Schmea(
       type: String,
       required: [true, "keyword is required"],
     },
-    name: {
+    title: {
       type: String,
       required: [true, "Name is required"],
     },
@@ -71,7 +71,6 @@ const surplusBusiness = Schmea(
     createdAt: {
       type: Date,
       default: Date.now(),
-      select: false,
     },
     promoteType: {
       type: [
@@ -95,6 +94,12 @@ const surplusBusiness = Schmea(
       type: String,
       required: [true, "ad type is required"],
       default: "surplus",
+      select: false,
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+      required: true,
       select: false,
     },
   },

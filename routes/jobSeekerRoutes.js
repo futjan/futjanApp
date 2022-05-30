@@ -14,6 +14,8 @@ router
     jobSeekerController.create
   )
   .get(jobSeekerController.getJobSeekers);
+router.get("/admin-only", jobSeekerController.getAdminJobSeekers);
+router.patch("/activate", jobSeekerController.jobSeekerActivate);
 
 router.get(
   "/current-user",

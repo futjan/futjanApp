@@ -24,7 +24,7 @@ exports.create = catchAsync(async (req, res, next) => {
 
   const jobSeeker = await JobSeeker.create({
     user: req.user._id.toString(),
-    jobTitle: req.body.jobTitle,
+    title: req.body.title,
     description: req.body.description,
     category: req.body.category,
     subCategory: req.body.subCategory,
@@ -44,7 +44,7 @@ exports.create = catchAsync(async (req, res, next) => {
     city: req.body.city,
     salaryType: req.body.salaryType,
     promoteType: req.body.promoteType,
-    photo,
+    images: photo,
     cv,
   });
 
@@ -62,6 +62,7 @@ exports.create = catchAsync(async (req, res, next) => {
 // @desc                    GET job seekers
 // @access                  Public
 exports.getJobSeekers = catchAsync(async (req, res, next) => {
+  req.query.active = true;
   const features = new APIFeature(JobSeeker.find(), req.query)
     .filter()
     .sort()
@@ -79,6 +80,30 @@ exports.getJobSeekers = catchAsync(async (req, res, next) => {
     status: "success",
     jobSeekers,
     totalDocs,
+  });
+});
+// @route                   GET /api/v1/jobseekers/admin-only
+// @desc                    GET job seekers
+// @access                  Public
+exports.getAdminJobSeekers = catchAsync(async (req, res, next) => {
+  const features = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const jobSeekers = await features.query;
+
+  const totalFilterDocs = new APIFeature(JobSeeker.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDocs = await totalFilterDocs;
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    jobSeekers,
+    totalDocs,
+    result: jobSeekers.length,
   });
 });
 // @route                   GET /api/v1/jobseekers/current-user
@@ -104,6 +129,7 @@ exports.getPrivateJobSeeker = catchAsync(async (req, res, next) => {
     status: "success",
     jobSeekers,
     totalDocs,
+    result: jobSeekers.length,
   });
 });
 
@@ -125,6 +151,26 @@ exports.getJobSeekerById = catchAsync(async (req, res, next) => {
   });
 });
 
+// @route                   GET /api/v1/jobseekers/activate
+// @desc                    activate job seeker
+// @access                  Private
+exports.jobSeekerActivate = catchAsync(async (req, res, next) => {
+  // req.query.user = req.user._id.toString();
+  const jobSeeker = await JobSeeker.findByIdAndUpdate(
+    req.body.id,
+    { active: req.body.active },
+    { new: true, runValidators: true }
+  );
+  // check jobSeeker exist or not
+  if (!jobSeeker) {
+    return next(new AppError("jobSeeker not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    jobSeeker,
+  });
+});
 // @route                   PATCH /api/v1/jobseekers/:id
 // @desc                    update job seeker
 // @access                  Private
@@ -147,7 +193,11 @@ exports.updateJobSeeker = catchAsync(async (req, res, next) => {
 // @desc                    delete job
 // @access                  Private
 exports.deleteJobSeeker = catchAsync(async (req, res, next) => {
-  const jobSeeker = await JobSeeker.findByIdAndDelete(req.params.id);
+  const jobSeeker = await JobSeeker.findByIdAndUpdate(
+    req.params.id,
+    { deleted: true },
+    { new: true, runValidators: true }
+  );
 
   if (!jobSeeker) {
     return next(new AppError("Failed to delete job Seeker", 400, undefined));

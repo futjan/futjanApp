@@ -75,6 +75,30 @@ exports.getJobs = catchAsync(async (req, res, next) => {
     totalDocs,
   });
 });
+// @route                   GET /api/v1/job/admin-only
+// @desc                    GET jobs
+// @access                  admin only
+exports.getAdminJobs = catchAsync(async (req, res, next) => {
+  const features = new APIFeature(Job.find(), req.query)
+    .filter()
+    .sort()
+    .limitField()
+    .pagination();
+
+  const jobs = await features.query;
+
+  const totalFilterDocs = new APIFeature(Job.find(), req.query)
+    .filter()
+    .totalFilterDocs();
+  const totalDocs = await totalFilterDocs;
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    jobs,
+    totalDocs,
+    result: jobs.length,
+  });
+});
 
 // @route                   GET /api/v1/job/:id
 // @desc                    GET job
@@ -93,6 +117,26 @@ exports.getJobById = catchAsync(async (req, res, next) => {
   });
 });
 
+// @route                   GET /api/v1/job/activate
+// @desc                    activate job
+// @access                  Private
+exports.jobActivate = catchAsync(async (req, res, next) => {
+  // req.query.user = req.user._id.toString();
+  const job = await Job.findByIdAndUpdate(
+    req.body.id,
+    { active: req.body.active },
+    { new: true, runValidators: true }
+  );
+  // check job exist or not
+  if (!job) {
+    return next(new AppError("job not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    job,
+  });
+});
 // @route                   PATCH /api/v1/job/:id
 // @desc                    update job
 // @access                  Private

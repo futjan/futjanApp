@@ -55,8 +55,18 @@ const Header2 = () => {
       document.getElementById("sub-menu") &&
       document.getElementById("sub-menu-content")
     )
-      document.getElementById("sub-menu").classList.toggle("d-none");
-    document.getElementById("sub-menu-content").classList.toggle("d-none");
+      if (
+        document.getElementById("sub-menu").classList.contains("d-block") &&
+        document
+          .getElementById("sub-menu-content")
+          .classList.contains("d-block")
+      ) {
+        document.getElementById("sub-menu").classList.remove("d-block");
+        document.getElementById("sub-menu-content").classList.remove("d-block");
+      } else {
+        document.getElementById("sub-menu").classList.add("d-block");
+        document.getElementById("sub-menu-content").classList.add("d-block");
+      }
   };
 
   // cities
@@ -172,6 +182,9 @@ const Header2 = () => {
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
       <div className="header-center">
+        <Link to="/adminpanel" style={{ display: "flex" }}>
+          Adminpanel
+        </Link>
         <ul
           className="top-link list-inline"
           style={{ position: "absolute", top: "0", right: "0" }}

@@ -73,11 +73,11 @@ const SurplusTable = (props) => {
                   </td>
                   <td className="text-left">
                     <Link to={`/surplus-detail/${surplus._id}`}>
-                      {surplus.name.length > 40
+                      {surplus.title.length > 40
                         ? capitalizeFirstLetter(
-                            surplus.name.substring(0, 50) + "..."
+                            surplus.title.substring(0, 50) + "..."
                           )
-                        : capitalizeFirstLetter(surplus.name)}
+                        : capitalizeFirstLetter(surplus.title)}
                     </Link>{" "}
                     <br />
                     <small>

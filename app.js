@@ -17,6 +17,7 @@ const jobRoutes = require("./routes/jobRoutes");
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const presetRoutes = require("./routes/presetRoutes");
 const globalErrorHandler = require("./controllers/errorController");
+const reportRoutes = require("./routes/reportRoutes");
 
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
@@ -56,6 +57,7 @@ app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/jobseekers", jobSeekerRoutes);
 app.use("/api/v1/comments", commentRoutes);
 app.use("/api/v1/presets", presetRoutes);
+app.use("/api/v1/report", reportRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
