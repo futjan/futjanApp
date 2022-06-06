@@ -6,6 +6,8 @@ import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import Skeleton from "react-loading-skeleton";
+import ReportModal from "../modal/ReportModal";
+import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import {
@@ -33,17 +35,33 @@ const JobSeekerDetails = () => {
   const closeReportModal = (e) => {
     e.preventDefault();
     if (
-      document.getElementById("so_sociallogin") &&
+      document.getElementById("so_sociallogin_3") &&
       e.target !== document.getElementById("block-popup-login")
     ) {
-      document.getElementById("so_sociallogin").classList.add("in");
-      document.getElementById("so_sociallogin").classList.add("d-block");
+      document.getElementById("so_sociallogin_3").classList.add("in");
+      document.getElementById("so_sociallogin_3").classList.add("d-block");
       // document.getElementsByTagName("body")[0].classList.add("modal-open");
     }
   };
 
   return (
     <div class="main-container container" style={{ margin: "20px auto" }}>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          right: "50px",
+          zIndex: "1200",
+        }}
+      >
+        <MessagePopup />
+      </div>
+      <ReportModal
+        modalId1="so_sociallogin_3"
+        model="jobseekers"
+        id={jobSeeker && jobSeeker.jobSeeker && jobSeeker.jobSeeker._id}
+        modalId2="cancel-report-btn_3"
+      />
       <div class="row" style={{ padding: "10px 20px " }}>
         <div id="content" class="col-sm-12">
           <div class="about-us about-demo-3">
@@ -156,6 +174,7 @@ const JobSeekerDetails = () => {
                         style={{ marginRight: "5px" }}
                       ></i>{" "}
                       <span>
+                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.currency}{" "}
                         {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate} /{" "}
                         {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType}
                       </span>

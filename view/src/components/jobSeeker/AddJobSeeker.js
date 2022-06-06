@@ -11,6 +11,7 @@ import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import Gender from "../../utils/Gender";
 import Loader from "../../utils/Loader";
+import Currency from "../../utils/Currency";
 import SalaryType from "../../utils/SalaryType";
 import AgeSelect from "../../utils/Age";
 import Qualification from "../../utils/Qualification";
@@ -22,7 +23,7 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddJobSeeker = () => {
+const AddJobSeeker = (props) => {
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
   const [featureRate, setFeatureRate] = useState(100);
@@ -40,6 +41,7 @@ const AddJobSeeker = () => {
   const [languages, setLanguages] = useState([]);
   const [language, setLanguage] = useState("");
   const [email, setEmail] = useState("");
+  const [currency, setCurrency] = useState("");
   const [contact, setContact] = useState("");
   const [city, setCity] = useState({
     name: "",
@@ -149,15 +151,16 @@ const AddJobSeeker = () => {
       dob,
       age,
       skills,
+      currency,
     };
-    dispatch(createJobSeeker(job, clearState));
+    dispatch(createJobSeeker(job, clearState, setSuccessModal));
   };
 
   const clearState = () => {
     setTitle("");
     setDescription("");
     setGender("");
-
+    setCurrency("");
     setCategory("Local Job");
     setSubCategory("");
     setSalaryType("");
@@ -176,6 +179,11 @@ const AddJobSeeker = () => {
     setCity({ name: "", stateCode: "", countryCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
+  };
+
+  const setSuccessModal = (tit) => {
+    props.setTitle(tit);
+    props.successModalFunc();
   };
 
   const handleSkills = (data, setData, value, setValue) => {
@@ -713,20 +721,48 @@ const AddJobSeeker = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Rate
+                  Currency
                 </label>
                 <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Rate
+                </label>
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={rate}
                     onChange={(e) => setRate(e.target.value * 1)}
-                    placeholder="Rate according to salart type"
+                    defaultValue="0"
+                    placeholder="Rate according to salary type"
                     id="input-website"
                     className={
                       errors && errors.validation && errors.validation.rate
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.rate && (

@@ -92,8 +92,12 @@ const SurplusTable = (props) => {
                         capitalizeFirstLetter(surplus.businessType)}
                     </small>{" "}
                   </td>
-                  <td className="text-center">$ {surplus.originalPrice}</td>
-                  <td className="text-center">$ {surplus.offeredPrice}</td>
+                  <td className="text-center">
+                    {surplus && surplus.currency} {surplus.originalPrice}
+                  </td>
+                  <td className="text-center">
+                    {surplus && surplus.currency} {surplus.offeredPrice}
+                  </td>
                   {/* <td className="text-left">Product 8</td> */}
                   <td className="text-center">
                     <div className="input-group btn-block">

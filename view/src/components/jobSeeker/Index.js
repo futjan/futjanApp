@@ -47,8 +47,22 @@ const Index = () => {
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
   const [salaryType, setSalaryType] = useState("");
-  // const [lessThanPrice, setLessThanPrice] = useState("");
-  // const [greaterThanPrice, setGreaterThanPrice] = useState("");
+
+  const [typePreset, setTypePreset] = useState("");
+  const [cityPreset, setCityPreset] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [countryPreset, setCountryPreset] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [countyPreset, setCountyPreset] = useState({
+    name: "",
+    isoCode: "",
+  });
 
   // initialize hooks
   const dispatch = useDispatch();
@@ -56,33 +70,8 @@ const Index = () => {
   const { pathname } = useLocation();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
-  const preset = useSelector((state) => state.auth.preset);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   // useEffect
-  useEffect(() => {
-    dispatch(getPreset());
-  }, []);
-  useEffect(() => {
-    if (preset && preset.city) {
-      setCity({ name: preset.city, countryCode: "", stateCode: "" });
-    }
-    if (preset && preset.county) {
-      setCounty({ name: preset.county });
-    }
-    if (preset && preset.country) {
-      setCountry({ name: preset.country });
-    }
-
-    if (preset && preset.category) {
-      setCategory(preset.category);
-    }
-  }, [
-    preset && preset.country,
-    preset && preset.city,
-    preset && preset.county,
-    preset && preset.category,
-  ]);
-
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
   }, []);
@@ -100,64 +89,6 @@ const Index = () => {
     city.name,
     county.name,
   ]);
-  //   useEffect(() => {
-  //     if (
-  //       (state && state.keyword) ||
-  //       (state && state.city) ||
-  //       (state && state.type)
-  //     ) {
-  //       dispatch(
-  //         getSurpluses(
-  //           page,
-  //           limit,
-  //           sort,
-  //           state && state.type && state.type.length > 0
-  //             ? state.type.toLowerCase()
-  //             : businessType.toLowerCase(),
-  //           category.toLowerCase(),
-
-  //           state && state.keyword
-  //             ? state.keyword.toLowerCase()
-  //             : keyword.toLowerCase(),
-
-  //           country !== null && country.name && country.name.length > 0
-  //             ? country.name.toLowerCase()
-  //             : "",
-  //           county !== null && county.name && county.name.length > 0
-  //             ? county.name.toLowerCase()
-  //             : "",
-  //           state && state.city && state.city.length > 0
-  //             ? state.city.toLowerCase()
-  //             : "",
-
-  //           setSearchedCategory
-  //         )
-  //       );
-
-  //       if (state && state.keyword) {
-  //         setKeyword(state && state.keyword ? state.keyword : "");
-  //       }
-  //       if (state && state.city) {
-  //         setCity(
-  //           state && state.city && state.city.length > 0
-  //             ? { name: state.city, countryCode: "", stateCode: "" }
-  //             : ""
-  //         );
-  //       }
-  //       if (state && state.type) {
-  //         setBusinessType(state && state.type ? state.type : "");
-  //       }
-  //     }
-  //   }, [
-  //     state ||
-  //       (state && state.keyword) ||
-  //       (state && state.city) ||
-  //       (state && state.type),
-  //   ]);
-  //   useEffect(() => {
-  //     dispatch(getSurplusKeywords());
-  //   }, []);
-
   // useEffect to run jquery
   // useEffect(() => {
   //   $(".so-filter-heading").on("click", function () {
@@ -223,16 +154,18 @@ const Index = () => {
     setCity({ name: "", countryCode: "", stateCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
+    setTypePreset("");
+    setType("");
+    setCityPreset({ name: "", countryCode: "", stateCode: "" });
+    setCountryPreset({ name: "", isoCode: "", phonecode: "" });
+    setCountyPreset({ name: "", isoCode: "" });
   };
   const savePresetFunc = () => {
     const preset = {
-      country: country.name.toLowerCase(),
-      city: city.name.toLowerCase(),
-      county: county.name.toLowerCase(),
-      category: category.toLowerCase(),
-      subCategory: subCategory.toLowerCase(),
-      type: type.toLowerCase(),
-      keyword: keyword.toLowerCase(),
+      country: countryPreset.name.toLowerCase(),
+      city: cityPreset.name.toLowerCase(),
+      county: countyPreset.name.toLowerCase(),
+      type: typePreset.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
@@ -483,32 +416,7 @@ const Index = () => {
                       ></span>{" "}
                       Search
                     </button>
-                    {isAuthenticated === true ? (
-                      <button
-                        className="btn btn-default inverse"
-                        id="btn_resetAll"
-                        onClick={() => savePresetFunc()}
-                      >
-                        <span
-                          className="hidden fa fa-times"
-                          aria-hidden="true"
-                        ></span>{" "}
-                        Save Preset
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-default inverse"
-                        id="btn_resetAll"
-                        onClick={() => clearState()}
-                      >
-                        <span
-                          className="hidden fa fa-times"
-                          aria-hidden="true"
-                        ></span>{" "}
-                        Reset All
-                      </button>
-                    )}
-                    {/* <button
+                    <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
                       onClick={() => clearState()}
@@ -518,9 +426,153 @@ const Index = () => {
                         aria-hidden="true"
                       ></span>{" "}
                       Reset All
-                    </button> */}
+                    </button>
                   </div>
                 </div>
+                {isAuthenticated === true ? (
+                  <>
+                    <h3 className="modtitle">
+                      <span>Job Seeker Alert</span>
+                    </h3>
+                    <div className="modcontent">
+                      <ul>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>Job Type</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <JobType
+                                      type={typePreset}
+                                      setType={setTypePreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>Country</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <Countries
+                                      setCountry={setCountryPreset}
+                                      country={countryPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>State / County</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <County
+                                      country={countryPreset}
+                                      setCounty={setCountyPreset}
+                                      county={countyPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>City</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <Cities
+                                      setCity={setCityPreset}
+                                      county={countyPreset}
+                                      country={countryPreset}
+                                      city={cityPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+
+                      <div className="clear_filter">
+                        <button
+                          className="btn btn-default inverse"
+                          id="btn_resetAll"
+                          onClick={() => savePresetFunc()}
+                        >
+                          <span
+                            className="hidden fa fa-times"
+                            aria-hidden="true"
+                          ></span>{" "}
+                          Save job seeker alert
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </aside>
             <a
@@ -777,6 +829,7 @@ const Index = () => {
                               <div>
                                 <i className="fa fa-money"></i>{" "}
                                 <span>
+                                  {candidate && candidate.currency}{" "}
                                   {candidate.rate} / {candidate.salaryType}
                                 </span>
                               </div>
@@ -785,7 +838,9 @@ const Index = () => {
                               {candidate.skills &&
                                 candidate.skills.map((skill) => (
                                   <span className="job-seeker-skill-span">
-                                    {skill && capitalizeFirstLetter(skill)}
+                                    {skill && skill.length > 7
+                                      ? skill.substring(0, 6) + ".."
+                                      : capitalizeFirstLetter(skill)}
                                   </span>
                                 ))}
                             </div>

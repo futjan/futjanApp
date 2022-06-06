@@ -121,6 +121,7 @@ const JobSeeker = () => {
                               <div>
                                 <i className="fa fa-money"></i>{" "}
                                 <span>
+                                  {candidate && candidate.currency}{" "}
                                   {candidate.rate} / {candidate.salaryType}
                                 </span>
                               </div>

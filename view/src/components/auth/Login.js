@@ -68,9 +68,9 @@ const Login = (props) => {
                 <a href="#">Login</a>
               </li>
             </ul>
-            <div id="content" className="col-md-9">
+            <div id="content" className="col-md-12">
               <div className="row">
-                <div className="col-sm-6">
+                {/* <div className="col-sm-6">
                   <div className="well ">
                     <h2>New Customer</h2>
                     <p>
@@ -85,7 +85,7 @@ const Login = (props) => {
                       Continue
                     </Link>
                   </div>
-                </div>
+                </div> */}
                 <div className="col-sm-6">
                   <div className="well col-sm-12">
                     <h2>Returning Customer</h2>
@@ -206,7 +206,7 @@ const Login = (props) => {
                 </div>
               </div>
             </div>
-            <aside className="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
+            {/* <aside className="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
               <span id="close-sidebar" className="fa fa-times"></span>
               <div className="module">
                 <h3 className="modtitle">
@@ -259,7 +259,7 @@ const Login = (props) => {
                   </ul>
                 </div>
               </div>
-            </aside>
+            </aside> */}
           </div>
         </div>
 

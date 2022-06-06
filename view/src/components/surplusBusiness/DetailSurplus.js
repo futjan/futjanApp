@@ -13,7 +13,7 @@ import {
   LinkedinIcon,
 } from "react-share";
 import Carousel from "react-multi-carousel";
-
+import MessagePopup from "../../utils/MessagePopup";
 import "react-multi-carousel/lib/styles.css";
 import ReportModal from "../modal/ReportModal";
 import profileThumbNail from "../image/profile-thumbnail.png";
@@ -81,18 +81,33 @@ function DetailSurplus() {
   const closeReportModal = (e) => {
     e.preventDefault();
     if (
-      document.getElementById("so_sociallogin") &&
+      document.getElementById("so_sociallogin_1") &&
       e.target !== document.getElementById("block-popup-login")
     ) {
-      document.getElementById("so_sociallogin").classList.add("in");
-      document.getElementById("so_sociallogin").classList.add("d-block");
+      document.getElementById("so_sociallogin_1").classList.add("in");
+      document.getElementById("so_sociallogin_1").classList.add("d-block");
       // document.getElementsByTagName("body")[0].classList.add("modal-open");
     }
   };
 
   return (
     <div className="container product-detail" style={{ marginTop: "30px" }}>
-      <ReportModal />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          right: "50px",
+          zIndex: "1200",
+        }}
+      >
+        <MessagePopup />
+      </div>
+      <ReportModal
+        modalId1="so_sociallogin_1"
+        model="surplus"
+        id={surplusFromStore.surplus && surplusFromStore.surplus._id}
+        modalId2="cancel-report-btn_1"
+      />
       <div className="row">
         <div id="content" className="col-md-12 col-sm-12 col-xs-12">
           <div className="product-view product-detail">
@@ -203,27 +218,32 @@ function DetailSurplus() {
                       id="thumb-slider"
                       className="full_slider category-slider-inner products-list yt-content-slider"
                     >
-                      <Carousel responsive={responsive}>
-                        {surplusFromStore.surplus.images &&
-                          surplusFromStore.surplus.images.map((image, i) => (
-                            <div
-                              className="owl2-item "
-                              style={{ padding: "4px" }}
-                              key={i}
-                            >
-                              <img
-                                src={fileURL(image)}
-                                className={
-                                  i === activeImage
-                                    ? "detail-page-slide active"
-                                    : "detail-page-slide"
-                                }
-                                onClick={() => setActiveImage(i)}
-                                alt={image}
-                              />
-                            </div>
-                          ))}
-                      </Carousel>
+                      {surplusFromStore.surplus &&
+                        surplusFromStore.surplus.images && (
+                          <Carousel responsive={responsive}>
+                            {surplusFromStore.surplus.images &&
+                              surplusFromStore.surplus.images.map(
+                                (image, i) => (
+                                  <div
+                                    className="owl2-item "
+                                    style={{ padding: "4px" }}
+                                    key={i}
+                                  >
+                                    <img
+                                      src={fileURL(image)}
+                                      className={
+                                        i === activeImage
+                                          ? "detail-page-slide active"
+                                          : "detail-page-slide"
+                                      }
+                                      onClick={() => setActiveImage(i)}
+                                      alt={image}
+                                    />
+                                  </div>
+                                )
+                              )}
+                          </Carousel>
+                        )}
                     </div>
                   ) : null}
                 </div>
@@ -309,7 +329,9 @@ function DetailSurplus() {
                         id="price-old"
                         style={{ fontWeight: "100" }}
                       >
-                        ₹{surplusFromStore.surplus.originalPrice}
+                        {surplusFromStore.surplus &&
+                          surplusFromStore.surplus.currency}{" "}
+                        {surplusFromStore.surplus.originalPrice}
                       </span>
                     ) : null}
                     <span
@@ -323,11 +345,15 @@ function DetailSurplus() {
                       {surplusFromStore.surplus.originalPrice &&
                       surplusFromStore.surplus.offeredPrice > 0 ? (
                         <span id="price-special">
-                          ₹ {surplusFromStore.surplus.offeredPrice}
+                          {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.currency}{" "}
+                          {surplusFromStore.surplus.offeredPrice}
                         </span>
                       ) : (
                         <span id="price-special">
-                          ₹ {surplusFromStore.surplus.originalPrice}
+                          {surplusFromStore.surplus &&
+                            surplusFromStore.surplus.currency}{" "}
+                          {surplusFromStore.surplus.originalPrice}
                         </span>
                       )}
                     </span>
@@ -643,6 +669,35 @@ function DetailSurplus() {
                   </div>
                 </div>
               )}
+              {/* <div id="product">
+                <div className="box-cart clearfix" style={{ margin: "0" }}>
+                  <div className="form-group box-info-product">
+                    <div className="option quantity">
+                      <div className="add-to-links wish_comp">
+                        <ul className="blank">
+                          <li className="wishlist">
+                            <a>
+                              <i className="fa fa-heart"></i>
+                              Favourite
+                            </a>
+                          </li>
+
+                          <li
+                            className="compare"
+                            onClick={(e) => closeReportModal(e)}
+                          >
+                            <a>
+                              <i className="fa fa-exclamation-triangle"></i>
+                              Report
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="clearfix"></div>
+                  </div>
+                </div>
+              </div> */}
             </div>
           </div>
           <div className="product-attribute module">

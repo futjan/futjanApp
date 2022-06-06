@@ -6,6 +6,8 @@ import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import Skeleton from "react-loading-skeleton";
+import ReportModal from "../modal/ReportModal";
+import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import {
@@ -29,8 +31,38 @@ const JobDetail = () => {
   useEffect(() => {
     dispatch(getJobById(id));
   }, []);
+
+  // close report modal
+  const closeReportModal = (e) => {
+    e.preventDefault();
+    if (
+      document.getElementById("so_sociallogin_2") &&
+      e.target !== document.getElementById("block-popup-login")
+    ) {
+      document.getElementById("so_sociallogin_2").classList.add("in");
+      document.getElementById("so_sociallogin_2").classList.add("d-block");
+      // document.getElementsByTagName("body")[0].classList.add("modal-open");
+    }
+  };
+
   return (
     <div class="main-container container" style={{ margin: "20px auto" }}>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          right: "50px",
+          zIndex: "1200",
+        }}
+      >
+        <MessagePopup />
+      </div>
+      <ReportModal
+        modalId1="so_sociallogin_2"
+        model="jobs"
+        id={job && job.job && job.job._id}
+        modalId2="cancel-report-btn_2"
+      />
       <div class="row" style={{ padding: "10px 20px " }}>
         <div id="content" class="col-sm-12">
           <div class="about-us about-demo-3">
@@ -155,7 +187,9 @@ const JobDetail = () => {
                       ></i>{" "}
                       <span>
                         {job.job && job.job.minSalary
-                          ? job.job.minSalary + "-" + job.job.maxSalary
+                          ? `${job && job.currency} ${job.job.minSalary} - ${
+                              job.job.maxSalary
+                            }`
                           : ""}{" "}
                         / {job.job && job.job.salaryType}
                       </span>
@@ -468,7 +502,7 @@ const JobDetail = () => {
 
                                 <li
                                   className="compare"
-                                  // onClick={(e) => closeReportModal(e)}
+                                  onClick={(e) => closeReportModal(e)}
                                 >
                                   <a>
                                     <i className="fa fa-exclamation-triangle"></i>

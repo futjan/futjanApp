@@ -22,7 +22,7 @@ export const getSurpluses =
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=title,category,city,images,originalPrice,offeredPrice,discount,promoteType`
+        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=title,category,city,images,originalPrice,offeredPrice,discount,promoteType,currency`
       );
       if (res.data) {
         dispatch({
@@ -82,7 +82,7 @@ export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/surplus/current-user-surplus?fields=title,category,businessType,originalPrice,offeredPrice,discount,active,images&page=${page}&limit=${limit}`
+      `/api/v1/surplus/current-user-surplus?fields=title,category,businessType,originalPrice,offeredPrice,discount,active,currency,images&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -126,7 +126,7 @@ export const createSurplus =
           payload: res.data.surplus,
         });
         clearState();
-        setSuccess();
+        setSuccess(res.data.surplus && res.data.surplus.title);
       }
     } catch (err) {
       dispatch(clearLoading());

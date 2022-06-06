@@ -4,7 +4,8 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
-import SuccessMsg from "../../utils/SuccessMsg";
+// import SuccessMsg from "../../utils/SuccessMsg";
+import Currency from "../../utils/Currency";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -25,7 +26,7 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddSurplusBusiness = () => {
+const AddSurplusBusiness = (props) => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
@@ -62,6 +63,7 @@ const AddSurplusBusiness = () => {
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
+  const [currency, setCurrency] = useState("");
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -77,6 +79,14 @@ const AddSurplusBusiness = () => {
   }, []);
   // useEffect(() => {
 
+  // set currency when country change
+  useEffect(() => {
+    if (country.name === "india") {
+      setCurrency("₹");
+    } else if (country.name === "united kingdom") {
+      setCurrency("£");
+    }
+  }, [country.name]);
   // }, []);
   // handle onChange AutoComplete field
   const onChangeAutoField = (e) => {
@@ -303,6 +313,7 @@ const AddSurplusBusiness = () => {
       weeklySchedule,
       originalPrice: (originalPrice * 1).toFixed(2),
       offeredPrice: (offeredPrice * 1).toFixed(2),
+      currency,
       discount:
         offeredPrice > 0
           ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
@@ -353,11 +364,12 @@ const AddSurplusBusiness = () => {
     setKeyword("");
     setPromoteType([]);
     setFiles([]);
+    setCurrency("");
   };
 
-  const setSuccess = () => {
-    setSuccessMsgModal(true);
-    setTimeout(() => setSuccessMsgModal(false), 3000);
+  const setSuccess = (tit) => {
+    props.setTitle(tit);
+    props.successModalFunc();
   };
   return (
     // <!-- Main Container  -->
@@ -365,7 +377,7 @@ const AddSurplusBusiness = () => {
       className="main-container container"
       style={{ position: "relative", marginTop: "30px" }}
     >
-      {successMsgModal === true ? <SuccessMsg /> : null}
+      {/* {successMsgModal === true ? <SuccessMsg /> : null} */}
       <div className="row">
         <div id="content" className="col-md-11">
           <h2 className="title" style={{ margin: "0" }}>
@@ -818,22 +830,49 @@ const AddSurplusBusiness = () => {
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
+                  htmlFor="input-currency"
+                >
+                  Currency
+                </label>
+                <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
                   Original Price
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(e.target.value)}
                     placeholder="Original Price"
-                    id="input-website"
                     className={
                       errors && errors.validation && errors.validation.website
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.website && (
@@ -850,18 +889,22 @@ const AddSurplusBusiness = () => {
                 >
                   Offered Price
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={offeredPrice}
                     onChange={(e) => setOfferedPrice(e.target.value)}
-                    placeholder="Offered Price"
+                    placeholder="Offered Price "
                     id="input-website"
                     className={
                       errors && errors.validation && errors.validation.website
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.website && (

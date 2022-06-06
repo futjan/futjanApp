@@ -102,11 +102,9 @@ const JobTable = (props) => {
                   <td className="text-center">
                     {" "}
                     {job.minSalary > 0 && job.maxSalary > 0
-                      ? job.minSalary +
-                        " - " +
-                        job.maxSalary +
-                        " / " +
-                        job.salaryType
+                      ? `${job && job.currency} ${job.minSalary} - ${
+                          job.maxSalary
+                        } / ${job.salaryType}`
                       : job.salaryType}
                   </td>
 

@@ -1084,7 +1084,8 @@
   ul.megamenu
   > li
   > .clearfix
-  strong {
+  strong,
+strong {
   font-weight: bold;
   position: relative;
   top: 7px;

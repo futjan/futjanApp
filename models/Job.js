@@ -3,7 +3,7 @@ const Sehema = mongoose.Schema;
 
 // job Schema
 
-const jobSchema = Sehema(
+const jobSchema = new Sehema(
   {
     title: {
       type: String,
@@ -74,7 +74,11 @@ const jobSchema = Sehema(
     contact: String,
     address: String,
     skills: [String],
-
+    currency: {
+      type: String,
+      required: [true, "Currency"],
+      enum: ["£", "₹"],
+    },
     images: [String],
     active: {
       type: Boolean,

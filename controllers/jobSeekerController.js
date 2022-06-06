@@ -45,6 +45,7 @@ exports.create = catchAsync(async (req, res, next) => {
     salaryType: req.body.salaryType,
     promoteType: req.body.promoteType,
     images: photo,
+    currency: req.body.currency,
     cv,
   });
 

@@ -118,11 +118,11 @@ const Job = () => {
                                     <i className="fa fa-money"></i>
                                     <small>
                                       {job.minSalary > 0 && job.maxSalary > 0
-                                        ? job.minSalary +
-                                          " - " +
-                                          job.maxSalary +
-                                          " / " +
-                                          job.salaryType
+                                        ? ` ${job && job.currency} ${
+                                            job.minSalary
+                                          } - ${job.maxSalary} / ${
+                                            job.salaryType
+                                          }`
                                         : job.salaryType}
                                     </small>
                                   </div>

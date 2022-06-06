@@ -2899,7 +2899,7 @@ div.required .control-label:before {
   border: 1px solid #ddd;
   background: #fff;
   border-radius: 5px;
-  overflow: hidden;
+  /* overflow: hidden; */
   border-top: 2px solid #ff5e00;
 }
 .content-aside .module h3.modtitle {
@@ -5693,8 +5693,8 @@ a {
   color: #666;
 }
 a:hover {
-  text-decoration: none;
-  color: #ff5e00;
+    /* text-decoration: none;
+    color: #ff5e00; */
 }
 
 a,

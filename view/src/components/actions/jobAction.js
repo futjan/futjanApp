@@ -77,7 +77,7 @@ export const getJobsPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/job/current-user-job?fields=title,category,subCategory,images,salaryType,type,minSalary,maxSalary&page=${page}&limit=${limit}`
+      `/api/v1/job/current-user-job?fields=currency,title,category,subCategory,images,salaryType,type,minSalary,maxSalary&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -98,40 +98,42 @@ export const getJobsPrivate = (page, limit) => async (dispatch) => {
 // @route                   POST /api/v1/surplus
 // @desc                    create new surplus
 // @access                  Private
-export const createJob = (job, clearState) => async (dispatch) => {
-  let formDate = new FormData();
-  job.files.forEach((file) => formDate.append("photo", file));
+export const createJob =
+  (job, clearState, setSuccessModal) => async (dispatch) => {
+    let formDate = new FormData();
+    job.files.forEach((file) => formDate.append("photo", file));
 
-  formDate.append("job", JSON.stringify(job));
-  const config = {
-    headers: {
-      "content-type": "multipart/form-data",
-    },
+    formDate.append("job", JSON.stringify(job));
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    dispatch(setLoading());
+    dispatch({
+      type: Types.CLEAR_ERRORS,
+    });
+    try {
+      const res = await axios.post("/api/v1/job", formDate, config);
+      // const res = await axios.post("/api/v1/job", job);
+      if (res) {
+        dispatch({
+          type: Types.CREATE_JOB,
+          payload: res.data.job,
+        });
+        clearState();
+        setSuccessModal(res.data && res.data.job && res.data.job.title);
+      }
+    } catch (err) {
+      dispatch(clearLoading());
+      if (err) {
+        dispatch({
+          type: Types.GET_ERRORS,
+          payload: err.response.data,
+        });
+      }
+    }
   };
-  dispatch(setLoading());
-  dispatch({
-    type: Types.CLEAR_ERRORS,
-  });
-  try {
-    const res = await axios.post("/api/v1/job", formDate, config);
-    // const res = await axios.post("/api/v1/job", job);
-    if (res) {
-      dispatch({
-        type: Types.CREATE_JOB,
-        payload: res.data.job,
-      });
-      clearState();
-    }
-  } catch (err) {
-    dispatch(clearLoading());
-    if (err) {
-      dispatch({
-        type: Types.GET_ERRORS,
-        payload: err.response.data,
-      });
-    }
-  }
-};
 
 // @route                   GET /api/v1/job/:id
 // @desc                    get surplus by id

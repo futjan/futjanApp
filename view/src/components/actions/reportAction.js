@@ -4,7 +4,7 @@ import axios from "axios";
 // @route                   POST /ap1/v1/report
 // @desc                    create report
 // @access                  Private
-export const createReport = (data) => async (dispatch) => {
+export const createReport = (data, clearState) => async (dispatch) => {
   try {
     dispatch(setLoading());
 
@@ -15,6 +15,7 @@ export const createReport = (data) => async (dispatch) => {
         type: Type.CREATE_REPORT,
         payload: res.data.report,
       });
+      clearState();
     }
   } catch (err) {
     dispatch(clearLoading());

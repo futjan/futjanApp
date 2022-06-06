@@ -4,12 +4,18 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
 import { getSurplusKeywords } from "../actions/surplusAction";
-import { Select, MenuItem } from "@mui/material";
+import { Select } from "@mui/material";
 import ukFlag from "../image/flag/uk.png";
 import indianFlag from "../image/flag/india.png";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import IconButton from "@mui/material/IconButton";
+import SideBar from "./SideBar";
+// import MenuIcon from "@mui/icons-material/Menu";
+// import AccountCircle from "@mui/icons-material/AccountCircle";
 // import { City } from "country-state-city";
 import "./materialUI.css";
 
@@ -21,6 +27,23 @@ const Header2 = () => {
   const [currency, setCurrency] = useState("india");
   const [country, setCountry] = useState("india");
   const [jobSeach, setJobSearch] = useState("special job");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const [state, setState] = React.useState({
+    left: false,
+  });
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   // initialize hooks
   const dispatch = useDispatch();
   const location = useLocation();
@@ -55,18 +78,6 @@ const Header2 = () => {
       document.getElementById(id).classList.toggle("d-block");
       document.getElementById(id2).classList.toggle("d-block");
     }
-    // if (
-    //   document.getElementById("sub-menu").classList.contains("d-block") &&
-    //   document
-    //     .getElementById("sub-menu-content")
-    //     .classList.contains("d-block")
-    // ) {
-    //   document.getElementById("sub-menu").classList.remove("d-block");
-    //   document.getElementById("sub-menu-content").classList.remove("d-block");
-    // } else {
-    //   document.getElementById("sub-menu").classList.add("d-block");
-    //   document.getElementById("sub-menu-content").classList.add("d-block");
-    // }
   };
 
   // cities
@@ -85,79 +96,79 @@ const Header2 = () => {
     // setCity(value);
     // setSuggustionCities([...suggustions]);
   };
-  const renderCitySuggustion = () => {
-    if (suggustionCities.length === 0) {
-      return null;
-    }
-    return (
-      <ul
-        className="autoComplete-ul"
-        style={{ top: "40px", left: "0", width: "100%" }}
-      >
-        {suggustionCities.map((co, i) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCity(co.name);
-              setSuggustionCities([]);
-            }}
-            key={i}
-          >
-            <Link to="/surplus" state={{ city: co.name }}>
-              {co.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  // const renderCitySuggustion = () => {
+  //   if (suggustionCities.length === 0) {
+  //     return null;
+  //   }
+  //   return (
+  //     <ul
+  //       className="autoComplete-ul"
+  //       style={{ top: "40px", left: "0", width: "100%" }}
+  //     >
+  //       {suggustionCities.map((co, i) => (
+  //         <li
+  //           className="autoComplete-li"
+  //           onClick={() => {
+  //             setCity(co.name);
+  //             setSuggustionCities([]);
+  //           }}
+  //           key={i}
+  //         >
+  //           <Link to="/surplus" state={{ city: co.name }}>
+  //             {co.name}
+  //           </Link>
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // };
   // keyword
-  const onChangeAutoFieldName = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    if (value.trim().length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
-      if (surplusFromStore.keywords.length > 0) {
-        suggustions = surplusFromStore.keywords
-          .map((v) => v.keyword)
-          .filter(
-            (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-          )
-          .sort()
-          .filter((v) => regex.test(v));
-      }
-    }
-    setKeyword(value);
-    setSuggustion([...suggustions]);
-  };
+  // const onChangeAutoFieldName = (e) => {
+  //   const value = e.target.value;
+  //   let suggustions = [];
+  //   if (value.trim().length > 0) {
+  //     const regex = new RegExp(`^${value}`, "i");
+  //     if (surplusFromStore.keywords.length > 0) {
+  //       suggustions = surplusFromStore.keywords
+  //         .map((v) => v.keyword)
+  //         .filter(
+  //           (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
+  //         )
+  //         .sort()
+  //         .filter((v) => regex.test(v));
+  //     }
+  //   }
+  //   setKeyword(value);
+  //   setSuggustion([...suggustions]);
+  // };
 
-  const renderNameSuggustion = () => {
-    if (suggustion.length === 0) {
-      return null;
-    }
+  // const renderNameSuggustion = () => {
+  //   if (suggustion.length === 0) {
+  //     return null;
+  //   }
 
-    return (
-      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co, i) => (
-          <li
-            onClick={() => {
-              setKeyword(co);
-              setSuggustion([]);
-            }}
-            key={i}
-          >
-            <Link
-              to="/surplus"
-              className="autoComplete-li"
-              state={{ keyword: co }}
-            >
-              {co}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  //   return (
+  //     <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
+  //       {suggustion.map((co, i) => (
+  //         <li
+  //           onClick={() => {
+  //             setKeyword(co);
+  //             setSuggustion([]);
+  //           }}
+  //           key={i}
+  //         >
+  //           <Link
+  //             to="/surplus"
+  //             className="autoComplete-li"
+  //             state={{ keyword: co }}
+  //           >
+  //             {co}
+  //           </Link>
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // };
 
   const CustomSpecialJobBtn = styled(Button)(({ theme }) => ({
     color: "#1976d2",
@@ -177,16 +188,17 @@ const Header2 = () => {
       backgroundColor: "rgba(25, 118, 210 , 0.1)",
     },
   }));
+
   return (
     // <!-- Header Container  -->
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
       <div className="header-center">
-        {auth.isAuthenticated === true ? (
+        {/* {auth.isAuthenticated === true ? (
           <Link to="/adminpanel" style={{ display: "flex" }}>
             Adminpanel
           </Link>
-        ) : null}
+        ) : null} */}
         <ul
           className="top-link list-inline"
           style={{ position: "absolute", top: "0", right: "0" }}
@@ -265,12 +277,12 @@ const Header2 = () => {
                         className="autosearch-input form-control"
                         type="text"
                         value={keyword}
-                        onChange={(e) => onChangeAutoFieldName(e)}
+                        // onChange={(e) => onChangeAutoFieldName(e)}
                         autoComplete="off"
                         placeholder="Restaurant, Jobs, Business, Stock "
                         name="search"
                       />
-                      {renderNameSuggustion()}
+                      {/* {renderNameSuggustion()} */}
                       <div
                         className="select_category filter_type  icon-select"
                         // style={{ display: "none" }}
@@ -279,7 +291,7 @@ const Header2 = () => {
                           className="form-control no-border"
                           name="category_id"
                           placeholder="Location"
-                          onChange={(e) => onChangeAutoFieldCities(e)}
+                          // onChange={(e) => onChangeAutoFieldCities(e)}
                           value={city}
                           style={{
                             width: "100%",
@@ -289,7 +301,7 @@ const Header2 = () => {
                             borderRadius: "4px",
                           }}
                         />
-                        {renderCitySuggustion()}
+                        {/* {renderCitySuggustion()} */}
                       </div>
                       <span className="input-group-btn">
                         <Link
@@ -320,12 +332,7 @@ const Header2 = () => {
                                   id="show-megamenu"
                                   data-toggle="collapse"
                                   className="navbar-toggle"
-                                  onClick={() =>
-                                    showSideNavBar(
-                                      "megamenu-wrapper-1",
-                                      "megamenu-wrapper-1-wrapper"
-                                    )
-                                  }
+                                  onClick={() => setState({ left: true })}
                                 >
                                   <div>
                                     <span className="icon-bar"></span>
@@ -333,280 +340,6 @@ const Header2 = () => {
                                     <span className="icon-bar"></span>
                                   </div>
                                   <span>Menu</span>
-                                </div>
-                              </div>
-
-                              <div
-                                style={{
-                                  position: "fixed",
-                                  width: "100%",
-                                  height: "100%",
-                                  background: "rgba(0,0,0,0.5)",
-                                  top: 0,
-                                  left: 0,
-                                  zIndex: 1000,
-                                  visibility: "hidden",
-                                  transition: "all 0.2s linear",
-                                  opacity: "0",
-                                }}
-                                id="megamenu-wrapper-1-wrapper"
-                                onClick={(e) => {
-                                  if (
-                                    e.target ===
-                                    document.getElementById(
-                                      "megamenu-wrapper-1-wrapper"
-                                    )
-                                  ) {
-                                    closeSideNavBar(
-                                      "megamenu-wrapper-1",
-                                      "megamenu-wrapper-1-wrapper"
-                                    );
-                                  }
-                                }}
-                              >
-                                <div
-                                  className="megamenu-wrapper"
-                                  id="megamenu-wrapper-1"
-                                  style={{ zIndex: "1001" }}
-                                >
-                                  <span
-                                    id="remove-megamenu"
-                                    className="fa fa-times"
-                                    onClick={() =>
-                                      closeSideNavBar(
-                                        "megamenu-wrapper-1",
-                                        "megamenu-wrapper-1-wrapper"
-                                      )
-                                    }
-                                  ></span>
-                                  <div className="megamenu-pattern">
-                                    <div className="container">
-                                      <ul
-                                        className="megamenu"
-                                        data-transition="slide"
-                                        data-animationtime="500"
-                                      >
-                                        <li className="full-width menu-home with-sub-menu hover">
-                                          <p className="close-menu"></p>
-
-                                          <NavLink
-                                            className="clearfix"
-                                            to="/user-panel"
-                                            state={{ active: "ADD" }}
-                                            style={{
-                                              display: "flex",
-                                              justifyContent: "center",
-                                              alignItems: "center",
-                                              flexDirection: "column",
-                                            }}
-                                            onClick={() =>
-                                              closeSideNavBar(
-                                                "megamenu-wrapper-1",
-                                                "megamenu-wrapper-1-wrapper"
-                                              )
-                                            }
-                                          >
-                                            <i
-                                              className="fa fa-thumb-tack"
-                                              style={{
-                                                fontSize: "20px",
-                                                padding: "0",
-                                              }}
-                                            ></i>
-                                            <strong>Post Ad</strong>
-                                          </NavLink>
-                                        </li>
-                                        {auth.isAuthenticated !== true ? (
-                                          <li className="full-width menu-home with-sub-menu hover">
-                                            <p className="close-menu"></p>
-
-                                            <NavLink
-                                              className="clearfix"
-                                              to="/login"
-                                              style={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                flexDirection: "column",
-                                              }}
-                                              onClick={() =>
-                                                closeSideNavBar(
-                                                  "megamenu-wrapper-1",
-                                                  "megamenu-wrapper-1-wrapper"
-                                                )
-                                              }
-                                            >
-                                              {" "}
-                                              <i
-                                                className="fa fa-user"
-                                                style={{
-                                                  fontSize: "20px",
-                                                  padding: "0",
-                                                }}
-                                              ></i>
-                                              <strong>Login / Register</strong>
-                                            </NavLink>
-                                          </li>
-                                        ) : null}
-                                        {auth.isAuthenticated === true ? (
-                                          <li className="full-width menu-home with-sub-menu hover menu-link">
-                                            <p className="close-menu"></p>
-
-                                            <div
-                                              className="clearfix"
-                                              style={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                flexDirection: "column",
-                                              }}
-                                              onClick={(e) =>
-                                                subMenu(
-                                                  e.target,
-                                                  "sub-menu-1",
-                                                  "sub-menu-content-1"
-                                                )
-                                              }
-                                            >
-                                              {" "}
-                                              <i
-                                                className="fa fa-bars"
-                                                style={{
-                                                  fontSize: "20px",
-                                                  padding: "0",
-                                                }}
-                                              ></i>
-                                              <strong>Menu</strong>
-                                              <b className="caret"></b>
-                                            </div>
-                                            <div
-                                              className="sub-menu"
-                                              style={{ width: "100%" }}
-                                              id="sub-menu-1"
-                                            >
-                                              <div
-                                                className="content"
-                                                id="sub-menu-content-1"
-                                              >
-                                                <div>
-                                                  <ul className="row-list">
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "ACCOUNT",
-                                                        }}
-                                                      >
-                                                        <i
-                                                          className="fa fa-user"
-                                                          // style={{ fontSize: "20px", padding: "0" }}
-                                                        ></i>{" "}
-                                                        My Account
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "SURPLUS",
-                                                        }}
-                                                      >
-                                                        <i className="fa fa-archive"></i>{" "}
-                                                        My Ad
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "ADD",
-                                                          navigate:
-                                                            "/user-panel",
-                                                        }}
-                                                      >
-                                                        <i className="fa fa-archive"></i>{" "}
-                                                        Post ad
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "MESSAGE",
-                                                        }}
-                                                      >
-                                                        <i
-                                                          className="fa fa-envelope"
-                                                          // style={{ fontSize: "20px", padding: "0" }}
-                                                        ></i>{" "}
-                                                        Message
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "ALERT",
-                                                        }}
-                                                      >
-                                                        <i className="fa fa-bell"></i>
-                                                        My Alerts
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                        state={{
-                                                          active: "FAVOURITE",
-                                                        }}
-                                                      >
-                                                        <i
-                                                          className="fa fa-heart"
-                                                          // style={{ fontSize: "20px", padding: "0" }}
-                                                        ></i>{" "}
-                                                        My Favourites
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <Link
-                                                        className="subcategory_item"
-                                                        to="/user-panel"
-                                                      >
-                                                        <i
-                                                          className="fa fa-question-circle"
-                                                          // style={{ fontSize: "20px", padding: "0" }}
-                                                        ></i>{" "}
-                                                        Help
-                                                      </Link>
-                                                    </li>
-                                                    <li>
-                                                      <a
-                                                        onClick={() =>
-                                                          dispatch(logoutUser())
-                                                        }
-                                                      >
-                                                        <i
-                                                          className="fa fa-power-off"
-                                                          // style={{ fontSize: "20px", padding: "0" }}
-                                                        ></i>
-                                                        Logout
-                                                      </a>
-                                                    </li>
-                                                  </ul>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </li>
-                                        ) : null}
-                                      </ul>
-                                    </div>
-                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -638,12 +371,7 @@ const Header2 = () => {
                           id="show-megamenu"
                           data-toggle="collapse"
                           className="navbar-toggle"
-                          onClick={() =>
-                            showSideNavBar(
-                              "megamenu-wrapper-2",
-                              "megamenu-wrapper-2-wrapper"
-                            )
-                          }
+                          onClick={() => setState({ left: true })}
                         >
                           <div>
                             <span className="icon-bar"></span>
@@ -654,16 +382,6 @@ const Header2 = () => {
                         </div>
                       </div>
                       <div className="megamenu-wrapper" id="megamenu-wrapper-2">
-                        <span
-                          id="remove-megamenu"
-                          className="fa fa-times"
-                          onClick={() =>
-                            closeSideNavBar(
-                              "megamenu-wrapper-2",
-                              "megamenu-wrapper-2-wrapper"
-                            )
-                          }
-                        ></span>
                         <div className="megamenu-pattern">
                           <div className="container">
                             <ul
@@ -732,175 +450,109 @@ const Header2 = () => {
                                 </li>
                               ) : null}
                               {auth.isAuthenticated === true ? (
-                                <li className="full-width menu-home with-sub-menu hover menu-link">
-                                  <p className="close-menu"></p>
-
-                                  <div
-                                    className="clearfix"
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      flexDirection: "column",
-                                    }}
-                                    onClick={(e) =>
-                                      subMenu(
-                                        e.target,
-                                        "sub-menu-2",
-                                        "sub-menu-content-2"
-                                      )
-                                    }
-                                  >
-                                    {" "}
-                                    <i
-                                      className="fa fa-bars"
-                                      style={{
-                                        fontSize: "20px",
-                                        padding: "0",
-                                      }}
-                                    ></i>
-                                    <strong>Menu</strong>
-                                    <b className="caret"></b>
-                                  </div>
-                                  <div
-                                    className="sub-menu"
-                                    style={{ width: "100%" }}
-                                    id="sub-menu-2"
+                                // <li className="full-width menu-home with-sub-menu  hover menu-link">
+                                <li className="full-width menu-home  hover menu-link">
+                                  <IconButton
+                                    size="large"
+                                    // className="material-ui-menu"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
                                   >
                                     <div
-                                      className="content"
-                                      id="sub-menu-content-2"
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        flexDirection: "column",
+                                        lineHeight: "10px",
+                                        color: "#222",
+                                      }}
+                                      className="clearfix"
                                     >
-                                      <div>
-                                        <ul className="row-list">
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "ACCOUNT" }}
-                                            >
-                                              <i
-                                                className="fa fa-user"
-                                                // style={{ fontSize: "20px", padding: "0" }}
-                                              ></i>{" "}
-                                              My Account
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "SURPLUS" }}
-                                            >
-                                              <i className="fa fa-archive"></i>{" "}
-                                              My Ad
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "ADD" }}
-                                            >
-                                              <i className="fa fa-archive"></i>{" "}
-                                              Post ad
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "MESSAGE" }}
-                                            >
-                                              <i
-                                                className="fa fa-envelope"
-                                                // style={{ fontSize: "20px", padding: "0" }}
-                                              ></i>{" "}
-                                              Message
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "ALERT" }}
-                                            >
-                                              <i className="fa fa-bell"></i>
-                                              My Alerts
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                              state={{ active: "FAVOURITE" }}
-                                            >
-                                              <i
-                                                className="fa fa-heart"
-                                                // style={{ fontSize: "20px", padding: "0" }}
-                                              ></i>{" "}
-                                              My Favourites
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/user-panel"
-                                            >
-                                              <i
-                                                className="fa fa-question-circle"
-                                                // style={{ fontSize: "20px", padding: "0" }}
-                                              ></i>{" "}
-                                              Help
-                                            </Link>
-                                          </li>
-                                          <li>
-                                            <Link
-                                              className="subcategory_item"
-                                              to="/"
-                                              onClick={() =>
-                                                dispatch(logoutUser())
-                                              }
-                                            >
-                                              <i
-                                                className="fa fa-power-off"
-                                                // style={{ fontSize: "20px", padding: "0" }}
-                                              ></i>
-                                              Logout
-                                            </Link>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                      <i
+                                        className="fa fa-bars"
+                                        style={{
+                                          fontSize: "20px",
+                                          padding: "0",
+                                        }}
+                                      ></i>
+                                      <strong>Menu</strong>
                                     </div>
-                                  </div>
+                                  </IconButton>
+                                  <Menu
+                                    id="menu-appbar"
+                                    className="material-ui-menu"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                      vertical: "top",
+                                      horizontal: "right",
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                      vertical: "top",
+                                      horizontal: "right",
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                  >
+                                    <MenuItem
+                                      linkButton={true}
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/user-panel"
+                                      state={{ active: "ACCOUNT" }}
+                                    >
+                                      <i className="fa fa-user"></i>
+                                      &nbsp;&nbsp;&nbsp; My Account
+                                    </MenuItem>
+
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/user-panel"
+                                      state={{ active: "SURPLUS" }}
+                                    >
+                                      <i className="fa fa-archive"></i>
+                                      &nbsp;&nbsp;&nbsp; My Ad
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/user-panel"
+                                      state={{ active: "ADD" }}
+                                    >
+                                      <i className="fa fa-thumb-tack"></i>
+                                      &nbsp;&nbsp;&nbsp; Post ad
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/user-panel"
+                                      state={{ active: "MESSAGE" }}
+                                    >
+                                      <i className="fa fa-envelope"></i>
+                                      &nbsp;&nbsp;&nbsp; Message
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        handleClose();
+                                        dispatch(logoutUser());
+                                      }}
+                                    >
+                                      <i className="fa fa-power-off"></i>
+                                      &nbsp;&nbsp;&nbsp; Logout
+                                    </MenuItem>
+                                  </Menu>
                                 </li>
                               ) : null}
-                              {/* {auth.isAuthenticated === true ? (
-                                <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-                                  <a
-                                    className="clearfix"
-                                   
-                                  >
-                                    <strong>LOGOUT</strong>
-                                    <span className="labelopencart"></span>
-                                  </a>
-                                </li>
-                              ) : null} */}
-
-                              {/* <li className="deal-h5 hidden">
-                              <p className="close-menu"></p>
-                              <a href="#" className="clearfix">
-                                <strong>
-                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
-                                </strong>
-                              </a>
-                            </li> */}
                             </ul>
                           </div>
                         </div>
                       </div>
-                      <div
+                      {/* <div
                         style={{
                           position: "fixed",
                           width: "100%",
@@ -927,12 +579,12 @@ const Header2 = () => {
                             );
                           }
                         }}
-                      >
-                        <div
+                      > */}
+                      {/* <div
                           className="megamenu-wrapper"
                           id="megamenu-wrapper-2"
-                        >
-                          <span
+                        > */}
+                      {/* <span
                             id="remove-megamenu"
                             className="fa fa-times"
                             onClick={() =>
@@ -941,244 +593,19 @@ const Header2 = () => {
                                 "megamenu-wrapper-2-wrapper"
                               )
                             }
-                          ></span>
-                          <div className="megamenu-pattern">
-                            <div className="container">
-                              <ul
+                          ></span> */}
+                      {/* <div className="megamenu-pattern"> */}
+                      {/* <div className="container"> */}
+                      {/* <ul
                                 className="megamenu"
                                 data-transition="slide"
                                 data-animationtime="500"
                               >
-                                <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-
-                                  <NavLink
-                                    className="clearfix"
-                                    to="/user-panel"
-                                    state={{ active: "ADD" }}
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      flexDirection: "column",
-                                    }}
-                                    onClick={() =>
-                                      closeSideNavBar(
-                                        "megamenu-wrapper-2",
-                                        "megamenu-wrapper-2-wrapper"
-                                      )
-                                    }
-                                  >
-                                    <i
-                                      className="fa fa-thumb-tack"
-                                      style={{ fontSize: "20px", padding: "0" }}
-                                    ></i>
-                                    <strong>Post Ad</strong>
-                                  </NavLink>
-                                </li>
-                                {auth.isAuthenticated !== true ? (
-                                  <li className="full-width menu-home with-sub-menu hover">
-                                    <p className="close-menu"></p>
-
-                                    <NavLink
-                                      className="clearfix"
-                                      to="/login"
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        flexDirection: "column",
-                                      }}
-                                      state={{ from: location.pathname }}
-                                      onClick={() =>
-                                        closeSideNavBar(
-                                          "megamenu-wrapper-2",
-                                          "megamenu-wrapper-2-wrapper"
-                                        )
-                                      }
-                                    >
-                                      {" "}
-                                      <i
-                                        className="fa fa-user"
-                                        style={{
-                                          fontSize: "20px",
-                                          padding: "0",
-                                        }}
-                                      ></i>
-                                      <strong>Login/Register</strong>
-                                    </NavLink>
-                                  </li>
-                                ) : null}
-                                {auth.isAuthenticated === true ? (
-                                  <li className="full-width menu-home with-sub-menu hover menu-link">
-                                    <p className="close-menu"></p>
-
-                                    <div
-                                      className="clearfix"
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        flexDirection: "column",
-                                      }}
-                                      onClick={(e) =>
-                                        subMenu(
-                                          e.target,
-                                          "sub-menu-3",
-                                          "sub-menu-content-3"
-                                        )
-                                      }
-                                    >
-                                      {" "}
-                                      <i
-                                        className="fa fa-bars"
-                                        style={{
-                                          fontSize: "20px",
-                                          padding: "0",
-                                        }}
-                                      ></i>
-                                      <strong>Menu</strong>
-                                      <b className="caret"></b>
-                                    </div>
-                                    <div
-                                      className="sub-menu"
-                                      style={{ width: "100%" }}
-                                      id="sub-menu-3"
-                                    >
-                                      <div
-                                        className="content"
-                                        id="sub-menu-content-3"
-                                      >
-                                        <div>
-                                          <ul className="row-list">
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "ACCOUNT" }}
-                                              >
-                                                <i
-                                                  className="fa fa-user"
-                                                  // style={{ fontSize: "20px", padding: "0" }}
-                                                ></i>{" "}
-                                                My Account
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "SURPLUS" }}
-                                              >
-                                                <i className="fa fa-archive"></i>{" "}
-                                                My Ad
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "ADD" }}
-                                              >
-                                                <i className="fa fa-archive"></i>{" "}
-                                                Post ad
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "MESSAGE" }}
-                                              >
-                                                <i
-                                                  className="fa fa-envelope"
-                                                  // style={{ fontSize: "20px", padding: "0" }}
-                                                ></i>{" "}
-                                                Message
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "ALERT" }}
-                                              >
-                                                <i className="fa fa-bell"></i>
-                                                My Alerts
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                                state={{ active: "FAVOURITE" }}
-                                              >
-                                                <i
-                                                  className="fa fa-heart"
-                                                  // style={{ fontSize: "20px", padding: "0" }}
-                                                ></i>{" "}
-                                                My Favourites
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/user-panel"
-                                              >
-                                                <i
-                                                  className="fa fa-question-circle"
-                                                  // style={{ fontSize: "20px", padding: "0" }}
-                                                ></i>{" "}
-                                                Help
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                className="subcategory_item"
-                                                to="/"
-                                                onClick={() =>
-                                                  dispatch(logoutUser())
-                                                }
-                                              >
-                                                <i
-                                                  className="fa fa-power-off"
-                                                  // style={{ fontSize: "20px", padding: "0" }}
-                                                ></i>
-                                                Logout
-                                              </Link>
-                                            </li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                ) : null}
-                                {/* {auth.isAuthenticated === true ? (
-                                <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-                                  <a
-                                    className="clearfix"
-                                   
-                                  >
-                                    <strong>LOGOUT</strong>
-                                    <span className="labelopencart"></span>
-                                  </a>
-                                </li>
-                              ) : null} */}
-
-                                {/* <li className="deal-h5 hidden">
-                              <p className="close-menu"></p>
-                              <a href="#" className="clearfix">
-                                <strong>
-                                  <img src="image/catalog/demo/menu/hot-block.png" alt="">Buy This Theme! 
-                                </strong>
-                              </a>
-                            </li> */}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                              </ul> */}
+                      {/* </div> */}
+                      {/* </div> */}
+                      {/* </div>
+                      </div> */}
                     </div>
                   </nav>
                 </div>
@@ -2152,6 +1579,11 @@ const Header2 = () => {
         </div>
         <hr className="new-design-hr" />
       </div>
+      <SideBar
+        state={state}
+        setState={setState}
+        isAuthenticated={auth.isAuthenticated}
+      />
     </header>
   );
 };

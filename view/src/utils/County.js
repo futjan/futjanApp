@@ -51,7 +51,7 @@ const County = (props) => {
       }}
       sx={{ width: 300 }}
       renderInput={(params) => (
-        <TextField {...params} placeholder="Choose County" />
+        <TextField {...params} placeholder="Choose State/County" />
       )}
       //   renderOption={(props, option) =>
       //     props.country &&

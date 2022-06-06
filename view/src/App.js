@@ -96,8 +96,8 @@ const App = (props) => {
 
               <Routes>
                 <Route path="/login" exact={true} element={<Login />} />
-                <Route path="/" exact={true} element={<Index />} />
                 <Route path="/signup" exact={true} element={<Register />} />
+                <Route path="/" exact={true} element={<Index />} />
                 <Route
                   path="/forget-password"
                   exact={true}
@@ -116,7 +116,7 @@ const App = (props) => {
                 />
 
                 <Route path="/job" exact={true} element={<Job />} />
-                <Route path="/add-job" exact={true} element={<AddJob />} />
+                {/* <Route path="/add-job" exact={true} element={<AddJob />} /> */}
                 <Route
                   path="/job-seeker"
                   exact={true}
@@ -127,13 +127,11 @@ const App = (props) => {
                   exact={true}
                   element={<JobSeekerDetails />}
                 />
-                <Route
+                {/* <Route
                   path="/add-job-seeker"
                   exact={true}
                   element={<AddJobSeeker />}
-                />
-
-                <Route path="/business" exact={true} element={<Job />} />
+                /> */}
 
                 <Route path="/surplus" exact element={<SurplusBusinesses />} />
                 <Route

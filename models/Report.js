@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // review Schema
-const reportSchema = Schema(
+const reportSchema = new Schema(
   {
     reason: {
       type: String,

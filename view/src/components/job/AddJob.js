@@ -12,6 +12,7 @@ import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
+import Currency from "../../utils/Currency";
 import Cities from "../../utils/cities";
 import { createJob } from "../actions/jobAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +22,7 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
-const AddJob = () => {
+const AddJob = (props) => {
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
   const [featureRate, setFeatureRate] = useState(100);
@@ -42,6 +43,7 @@ const AddJob = () => {
   const [address, setAddress] = useState("");
   const [minSalary, setMinSalary] = useState("");
   const [maxSalary, setMaxSalary] = useState("");
+  const [currency, setCurrency] = useState("");
   const [city, setCity] = useState({
     name: "",
     stateCode: "",
@@ -143,11 +145,13 @@ const AddJob = () => {
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
       address,
+      currency,
     };
-    dispatch(createJob(job, clearState));
+    dispatch(createJob(job, clearState, setSuccessModal));
   };
 
   const clearState = () => {
+    setCurrency("");
     setTitle("");
     setDescription("");
     setGender("");
@@ -167,6 +171,11 @@ const AddJob = () => {
     setCity({ name: "", stateCode: "", countryCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
+  };
+
+  const setSuccessModal = (tit) => {
+    props.setTitle(tit);
+    props.successModalFunc();
   };
   return (
     // <!-- Main Container  -->
@@ -510,9 +519,36 @@ const AddJob = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Min Salary
+                  Currency
                 </label>
                 <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Min Salary
+                </label>
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
@@ -520,7 +556,7 @@ const AddJob = () => {
                     onChange={(e) => setMinSalary(e.target.value)}
                     placeholder="min salary"
                     id="input-website"
-                    className="form-control"
+                    className="form-control currency-container"
                   />
                 </div>
               </div>
@@ -531,7 +567,11 @@ const AddJob = () => {
                 >
                   Max salary
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
@@ -539,7 +579,7 @@ const AddJob = () => {
                     onChange={(e) => setMaxSalary(e.target.value)}
                     placeholder="max Salary"
                     id="input-website"
-                    className="form-control"
+                    className="form-control currency-container"
                   />
                 </div>
               </div>

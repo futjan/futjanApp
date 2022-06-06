@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
+const passport = require("../controllers/socialLogin");
 
 // signup route
 router.post("/signup", authController.signup);
@@ -25,4 +26,12 @@ router.get("/all-users", authController.getAllUsers);
 router.patch("/deleted/:id", authController.deletedUser);
 router.patch("/blocked/:id", authController.blockedUser);
 router.route("/:id").get(authController.getUserById);
+
+// social login
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
 module.exports = router;

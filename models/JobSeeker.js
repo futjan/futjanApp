@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // job Seeker Schema
 
-const jobSeekerSchema = Schema({
+const jobSeekerSchema = new Schema({
   adType: {
     type: String,
     required: [true, "Ad type is required"],
@@ -82,6 +82,11 @@ const jobSeekerSchema = Schema({
   description: {
     type: String,
     required: [true, "description is required"],
+  },
+  currency: {
+    type: String,
+    required: [true, "Currency"],
+    enum: ["£", "₹"],
   },
   images: String,
   location: String,

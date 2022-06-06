@@ -7,10 +7,12 @@ import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
+import BusinessType from "../../utils/BusinessType";
+import BusinessCategory from "../../utils/BusinessCategory";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
-import { getPreset, savePreset } from "../actions/userAction";
+import { savePreset } from "../actions/userAction";
 // import $ from "jquery";
 import Pagination from "../../utils/Pagination";
 import debounce from "../../utils/debounce";
@@ -37,48 +39,30 @@ const SurplusBusinesses = () => {
   const [sort, setSort] = useState("");
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
-  // const [lessThanPrice, setLessThanPrice] = useState("");
-  // const [greaterThanPrice, setGreaterThanPrice] = useState("");
+  const [typePreset, setTypePreset] = useState("");
+  const [cityPreset, setCityPreset] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [countryPreset, setCountryPreset] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [countyPreset, setCountyPreset] = useState({
+    name: "",
+    isoCode: "",
+  });
 
   // initialize hooks
   const dispatch = useDispatch();
   const state = useLocation().state;
   // get state from store
-  const preset = useSelector((state) => state.auth.preset);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const surplusFromStore = useSelector((state) => state.surplus);
 
-  useEffect(() => {
-    dispatch(getPreset());
-  }, []);
-  useEffect(() => {
-    if (preset && preset.keyword) {
-      setKeyword(preset.keyword);
-    }
-    if (preset && preset.city) {
-      setCity({ name: preset.city, countryCode: "", stateCode: "" });
-    }
-    if (preset && preset.county) {
-      setCounty({ name: preset.county });
-    }
-    if (preset && preset.country) {
-      setCountry({ name: preset.country });
-    }
-    if (preset && preset.businessType) {
-      setBusinessType(preset.businessType);
-    }
-    if (preset && preset.category) {
-      setCategory(preset.category);
-    }
-  }, [
-    preset && preset.keyword,
-    preset && preset.country,
-    preset && preset.city,
-    preset && preset.county,
-    preset && preset.category,
-    preset && preset.businessType,
-  ]);
   // useEffect
   useEffect(() => {
     callSurplusesAPI(page, limit, sort);
@@ -120,59 +104,6 @@ const SurplusBusinesses = () => {
       });
     }
   }, [state && state.city]);
-  // useEffect(() => {
-  //   if (
-
-  //   ) {
-  //     dispatch(
-  //       getSurpluses(
-  //         page,
-  //         limit,
-  //         sort,
-  //         state && state.type && state.type.length > 0
-  //           ? state.type.toLowerCase()
-  //           : businessType.toLowerCase(),
-  //         category.toLowerCase(),
-
-  //         state && state.keyword
-  //           ? state.keyword.toLowerCase()
-  //           : keyword.toLowerCase(),
-
-  //         country !== null || (country.name && country.name.length > 0)
-  //           ? country && country.name && country.name.toLowerCase()
-  //           : "",
-  //         county !== null || (county.name && county.name.length > 0)
-  //           ? county && county.name && county.name.toLowerCase()
-  //           : "",
-
-  //         state && state.city && state.city.length > 0
-  //           ? state.city.toLowerCase()
-  //           : "",
-
-  //         setSearchedCategory
-  //       )
-  //     );
-
-  //     if (state && state.keyword) {
-  //       setKeyword(state && state.keyword ? state.keyword : "");
-  //     }
-  //     if (state && state.city) {
-  //       setCity(
-  //         state && state.city && state.city.length > 0
-  //           ? { name: state.city, countryCode: "", stateCode: "" }
-  //           : ""
-  //       );
-  //     }
-  //     if (state && state.type) {
-  //       setBusinessType(state && state.type ? state.type : "");
-  //     }
-  //   }
-  // }, [
-  //   state ||
-  //     (state && state.keyword) ||
-  //     (state && state.city) ||
-  //     (state && state.type),
-  // ]);
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
@@ -243,6 +174,10 @@ const SurplusBusinesses = () => {
     setKeyword("");
     setCountry({ name: "", isoCode: "" });
     setCounty({ name: "", isoCode: "" });
+    setTypePreset("");
+    setCityPreset({ name: "", countryCode: "", stateCode: "" });
+    setCountryPreset({ name: "", isoCode: "", phonecode: "" });
+    setCountyPreset({ name: "", isoCode: "" });
   };
   const onChangeAutoFieldName = (e) => {
     const value = e.target.value;
@@ -289,12 +224,10 @@ const SurplusBusinesses = () => {
 
   const savePresetFunc = () => {
     const preset = {
-      country: country.name.toLowerCase(),
-      city: city.name.toLowerCase(),
-      county: county.name.toLowerCase(),
-      category: category,
-      businessType: businessType,
-      keyword: keyword.toLowerCase(),
+      country: countryPreset.name.toLowerCase(),
+      city: cityPreset.name.toLowerCase(),
+      county: countyPreset.name.toLowerCase(),
+      type: businessType.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
@@ -439,43 +372,10 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <select
-                                  className="form-control"
-                                  onChange={(e) =>
-                                    setBusinessType(e.target.value)
-                                  }
-                                  value={businessType}
-                                >
-                                  <option value="">Choose type</option>
-                                  <option value="Bakery">Bakery</option>
-                                  <option value="Beverage Shop">
-                                    Beverage Shop
-                                  </option>
-                                  <option value="Convenience store">
-                                    Convenience store
-                                  </option>
-                                  <option value="Cafe">Cafe</option>
-                                  <option value="Fruit/Vegetable store">
-                                    Fruit/Vegetable store
-                                  </option>
-                                  <option value="Hotel">Hotel</option>
-                                  <option value="Pastry shop">
-                                    Pastry shop
-                                  </option>
-                                  <option value="Producers/Manufacturers">
-                                    Producers/Manufacturers
-                                  </option>
-                                  <option value="Restaurant">Restaurant</option>
-                                  <option value="Supermarkets">
-                                    Supermarkets
-                                  </option>
-                                  <option value="Takeaway">Takeaway</option>
-                                  <option value="Wholesalers">
-                                    Wholesalers
-                                  </option>
-                                  <option value="Cafe">Cafe</option>
-                                  <option value="Other">Other </option>
-                                </select>
+                                <BusinessType
+                                  setBusinessType={setBusinessType}
+                                  businessType={businessType}
+                                />
                               </div>
                             </div>
                           </div>
@@ -498,7 +398,11 @@ const SurplusBusinesses = () => {
                                 className="input-group"
                                 style={{ width: "100%" }}
                               >
-                                <select
+                                <BusinessCategory
+                                  category={category}
+                                  setCategory={setCategory}
+                                />
+                                {/* <select
                                   className="form-control"
                                   onChange={(e) => setCategory(e.target.value)}
                                   value={category}
@@ -510,7 +414,7 @@ const SurplusBusinesses = () => {
                                   <option value="Groceries">Groceries</option>
                                   <option value="Meals">Meals</option>
                                   <option value="Other">Other</option>
-                                </select>
+                                </select> */}
                               </div>
                             </div>
                           </div>
@@ -530,33 +434,138 @@ const SurplusBusinesses = () => {
                       ></span>{" "}
                       Search
                     </button>
-                    {isAuthenticated === true ? (
-                      <button
-                        className="btn btn-default inverse"
-                        id="btn_resetAll"
-                        onClick={() => savePresetFunc()}
-                      >
-                        <span
-                          className="hidden fa fa-times"
-                          aria-hidden="true"
-                        ></span>{" "}
-                        Save Preset
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-default inverse"
-                        id="btn_resetAll"
-                        onClick={() => clearState()}
-                      >
-                        <span
-                          className="hidden fa fa-times"
-                          aria-hidden="true"
-                        ></span>{" "}
-                        Reset All
-                      </button>
-                    )}
+
+                    <button
+                      className="btn btn-default inverse"
+                      id="btn_resetAll"
+                      onClick={() => clearState()}
+                    >
+                      <span
+                        className="hidden fa fa-times"
+                        aria-hidden="true"
+                      ></span>{" "}
+                      Reset All
+                    </button>
                   </div>
                 </div>
+                {isAuthenticated === true ? (
+                  <>
+                    <h3
+                      className="modtitle"
+                      style={{ borderTop: "1px solid #ddd" }}
+                    >
+                      <span>Surplus Alert</span>
+                    </h3>
+                    <div className="modcontent">
+                      <ul>
+                        {" "}
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>Country</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <Countries
+                                      setCountry={setCountryPreset}
+                                      country={countryPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>State / County</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <County
+                                      country={countryPreset}
+                                      setCounty={setCountyPreset}
+                                      county={countyPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li className="so-filter-options" data-option="search">
+                          <div className="so-filter-heading">
+                            <div className="so-filter-heading-text">
+                              <span>City</span>
+                            </div>
+                            <i className="fa fa-chevron-down"></i>
+                          </div>
+
+                          <div className="so-filter-content-opts">
+                            <div className="so-filter-content-opts-container">
+                              <div
+                                className="so-filter-option"
+                                data-type="search"
+                              >
+                                <div className="so-option-container">
+                                  <div
+                                    className="input-group"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <Cities
+                                      setCity={setCityPreset}
+                                      county={countyPreset}
+                                      country={countryPreset}
+                                      city={cityPreset}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <div className="clear_filter">
+                        <button
+                          className="btn btn-default inverse"
+                          id="btn_resetAll"
+                          onClick={() => savePresetFunc()}
+                        >
+                          <span
+                            className="hidden fa fa-times"
+                            aria-hidden="true"
+                          ></span>{" "}
+                          Save surplus alert
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </aside>
             <div className="open-sidebar hidden-lg hidden-md">
@@ -815,17 +824,19 @@ const SurplusBusinesses = () => {
                                     {sur.originalPrice &&
                                     sur.offeredPrice > 0 ? (
                                       <span className="price-new">
-                                        ${sur.offeredPrice}
+                                        {sur && sur.currency} {sur.offeredPrice}
                                       </span>
                                     ) : (
                                       <span className="price-new">
-                                        ${sur.originalPrice}
+                                        {sur && sur.currency}{" "}
+                                        {sur.originalPrice}
                                       </span>
                                     )}{" "}
                                     {sur.originalPrice &&
                                     sur.offeredPrice > 0 ? (
                                       <span className="price-old">
-                                        ${sur.originalPrice}
+                                        {sur && sur.currency}{" "}
+                                        {sur.originalPrice}
                                       </span>
                                     ) : null}
                                   </div>

@@ -10,7 +10,7 @@ exports.createReport = catchAsync(async (req, res, next) => {
   const report = await Report.create({
     reason: req.body.reason,
     description: req.body.description,
-    user: req.body.user,
+    user: req.user.id,
     ad: req.body.adId,
     onModel: req.body.model,
   });

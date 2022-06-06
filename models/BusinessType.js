@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const businessType = Schema({
+const businessType = new Schema({
   type: {
     type: String,
     required: [true, "Business type is required"],

@@ -1,7 +1,164 @@
 /* Global */
+.currency-icon {
+  position: absolute;
+  top: 0px;
+  width: 40px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+}
+.currency-container {
+  padding-left: 50px !important ;
+}
 .primary-color {
   color: #3b5998 !important;
 }
+/* Drawer message */
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  position: relative !important;
+  z-index: -1;
+}
+
+.sender .msg-container {
+  justify-content: flex-start;
+}
+.sender .msg {
+  background-color: #3b5998 !important;
+  color: #fff !important;
+}
+.receiver .msg-container {
+  justify-content: flex-end;
+}
+.sender {
+  text-align: left;
+  margin-top: 10px;
+}
+.receiver {
+  text-align: right;
+  margin-top: 10px;
+}
+.msg-container {
+  display: flex;
+  text-align: left !important;
+  gap: 10px;
+  width: 100%;
+  align-items: flex-start;
+}
+.msg-container img {
+  border-radius: 50%;
+}
+
+.msg-container .msg {
+  padding: 10px 15px;
+  background: #d8d8d8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  max-width: 320px;
+}
+.msg p {
+  margin: 0;
+}
+.converstions {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+
+.converstions img {
+  border-radius: 50%;
+}
+.converstions .msg p {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+}
+.converstions .msg .text {
+  font-size: 11px !important;
+  font-weight: 100 !important ;
+  color: #a9a9aa !important;
+}
+.converstions .msg {
+  line-height: 20px;
+}
+.msg-send {
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  background: #fff;
+  padding: 15px 30px;
+  gap: 10px;
+}
+.msg-send textarea {
+  border: 1px solid #ccc;
+  width: 80%;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 6px 10px;
+  outline: none !important;
+}
+.MuiAccordionSummary-root.Mui-expanded {
+  min-height: 45px !important;
+}
+
+.message-pop {
+  padding: 10px 15px;
+  box-sizing: border-box;
+  height: 250px;
+  overflow-y: auto;
+}
+.message-pop .sender-pop .msg {
+  background: #f5f5f5;
+  color: #5e5e5e;
+}
+.message-pop .sender-pop {
+  line-height: 20px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.message-pop .msg {
+  padding: 4px 12px;
+
+  max-width: 80%;
+  border-radius: 10px;
+}
+.message-pop .receiver-pop {
+  margin-top: 5px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 20px;
+}
+.message-pop .receiver-pop .msg {
+  background: #3b5998;
+  color: #fff;
+}
+.conversation-pop {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 1px solid #ddd;
+}
+.conversation-pop textarea {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 85%;
+  padding: 1px 10px;
+  box-sizing: border-box;
+}
+/* Drawer message */
 /* MOdal */
 .modal {
   display: block; /* Hidden by default */
@@ -940,9 +1097,29 @@ input[type="number"] {
 .myAccount-form label::before {
   left: -7px !important;
 }
+.productName {
+  position: relative;
+}
+.productName::after {
+  content: "";
+  background-color: #3b5998;
+  width: 97%;
+  position: absolute;
+  height: 1px;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
 /* My Account */
 /* HEADER */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
+  .material-ui-menu {
+    display: none !important;
+  }
+  #megamenu-wrapper-2 {
+    display: none !important;
+  }
   .promotion-price {
     display: flex;
     flex-direction: column;

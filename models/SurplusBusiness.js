@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schmea = mongoose.Schema;
 
-const surplusBusiness = Schmea(
+const surplusBusiness = new Schmea(
   {
     adType: {
       type: String,
@@ -67,7 +67,11 @@ const surplusBusiness = Schmea(
     },
     website: String,
     images: [String],
-
+    currency: {
+      type: String,
+      required: [true, "Currency"],
+      enum: ["£", "₹"],
+    },
     createdAt: {
       type: Date,
       default: Date.now(),

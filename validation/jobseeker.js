@@ -55,9 +55,6 @@ module.exports = function validateJobSeeker(data) {
   if (Validator.isEmpty(data.experience)) {
     errors.experience = "experience is required";
   }
-  if (data.rate > 0) {
-    errors.rate = "rate is required";
-  }
   if (Validator.isEmpty(data.contact)) {
     errors.contact = "contact is required";
   }

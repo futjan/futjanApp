@@ -44,6 +44,7 @@ exports.createSurplus = catchAsync(async (req, res, next) => {
     county: req.body.county,
     promoteType: req.body.promoteType,
     images,
+    currency: req.body.currency,
   });
   // send response to client
   res.status(201).json({

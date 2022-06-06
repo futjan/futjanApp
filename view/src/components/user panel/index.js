@@ -8,10 +8,15 @@ import Surplus from "./MyAds";
 import EditSurplus from "./EditSurplus";
 import EditJobSeeker from "../jobSeeker/EditJobSeeker";
 import MyAccount from "./MyAccount";
+import FullScreenModal from "../../utils/FullScreenModal";
+import Message from "./Messages";
+
 const Index = (props) => {
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
   const [add, setAdd] = useState("surplus");
+  const [title, setTitle] = useState("");
   // initialize hooks
   const state = useLocation().state;
 
@@ -127,11 +132,31 @@ const Index = (props) => {
                         </label>
                       </div>
                       <div>
-                        {add === "surplus" ? <AddSurplusBusiness /> : null}
-                        {add === "job" ? <AddJob /> : null}
-                        {add === "candidiate" ? <AddJobSeeker /> : null}
+                        {add === "surplus" ? (
+                          <AddSurplusBusiness
+                            setTitle={setTitle}
+                            successModalFunc={() => setOpenSuccessModal(true)}
+                          />
+                        ) : null}
+                        {add === "job" ? (
+                          <AddJob
+                            setTitle={setTitle}
+                            successModalFunc={() => setOpenSuccessModal(true)}
+                          />
+                        ) : null}
+                        {add === "candidiate" ? (
+                          <AddJobSeeker
+                            setTitle={setTitle}
+                            successModalFunc={() => setOpenSuccessModal(true)}
+                          />
+                        ) : null}
                       </div>
                     </div>
+                    <FullScreenModal
+                      open={openSuccessModal}
+                      title={title}
+                      setOpen={setOpenSuccessModal}
+                    />
                   </div>
                 ) : null}
 
@@ -140,6 +165,15 @@ const Index = (props) => {
                     <div className="tab-pane active" id="tab-description">
                       <div>
                         <Surplus setTab={setTab} setId={setId} />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "MESSAGE" ? (
+                  <div className="tab-content" style={{ padding: "0" }}>
+                    <div className="tab-pane active" id="tab-description">
+                      <div style={{ position: "relative" }}>
+                        <Message />
                       </div>
                     </div>
                   </div>

@@ -1,24 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { createReport } from "../actions/reportAction";
+import { useDispatch } from "react-redux";
 
-const ReportModal = () => {
+const ReportModal = (props) => {
+  const [reason, setReason] = useState("");
+  const [description, setDescription] = useState("");
+  // initialize hook
+  const dispatch = useDispatch();
   // close report modal
   const closeReportModal = (e) => {
     e.preventDefault();
-    if (document.getElementById("so_sociallogin")) {
+    if (document.getElementById(props.modalId1)) {
       if (
-        e.target === document.getElementById("so_sociallogin") ||
-        e.target === document.getElementById("cancel-report-btn")
+        e.target === document.getElementById(props.modalId1) ||
+        e.target === document.getElementById(props.modalId2)
       ) {
-        document.getElementById("so_sociallogin").classList.remove("in");
-        document.getElementById("so_sociallogin").classList.remove("d-block");
+        document.getElementById(props.modalId1).classList.remove("in");
+        document.getElementById(props.modalId1).classList.remove("d-block");
         // document.getElementsByTagName("body")[0].classList.remove("modal-open");
       }
     }
   };
+  // report p
+  const createReportFunc = () => {
+    const obj = {
+      reason: reason.toLowerCase(),
+      description: description.toLowerCase(),
+      adId: props.id,
+      model: props.model,
+    };
+    dispatch(createReport(obj, clearState));
+  };
+  const clearState = () => {
+    setReason("");
+    setDescription("");
+  };
   return (
     <div
       className="modal fade"
-      id="so_sociallogin"
+      id={props.modalId1}
       tabIndex="-1"
       role="dialog"
       onClick={(e) => closeReportModal(e)}
@@ -41,25 +61,67 @@ const ReportModal = () => {
                   data-hasrequired="* Required Fields"
                 >
                   <div style={{ margin: "20px 0", width: "100%" }}>
-                    <label className="container-radio">
-                      <input type="radio" checked name="Flat Shipping Rate" />{" "}
+                    <label
+                      className="container-radio"
+                      onClick={(e) => setReason("This is illegal/fraudulent")}
+                    >
+                      <input
+                        type="radio"
+                        checked={
+                          reason === "This is illegal/fraudulent" ? true : false
+                        }
+                        name="Flat Shipping Rate"
+                      />{" "}
                       This is illegal/fraudulent
                       <span className="checkmark"></span>
                     </label>
-                    <label className="container-radio">
-                      <input type="radio" name="Flat Shipping Rate" /> This ad
-                      is spam
+                    <label
+                      className="container-radio"
+                      onClick={(e) => setReason("This ad is spam")}
+                    >
+                      <input
+                        type="radio"
+                        name="Flat Shipping Rate"
+                        checked={reason === "This ad is spam" ? true : false}
+                      />{" "}
+                      This ad is spam
                       <span className="checkmark"></span>
                     </label>
-                    <label className="container-radio">
-                      <input type="radio" name="Flat Shipping Rate" /> This ad
-                      is in the wrong category
+                    <label
+                      className="container-radio"
+                      onClick={(e) =>
+                        setReason("This ad is in the wrong category")
+                      }
+                    >
+                      <input
+                        type="radio"
+                        name="Flat Shipping Rate"
+                        checked={
+                          reason === "This ad is in the wrong category"
+                            ? true
+                            : false
+                        }
+                      />{" "}
+                      This ad is in the wrong category
                       <span className="checkmark"></span>
                     </label>
 
-                    <label className="container-radio">
-                      <input type="radio" name="Flat Shipping Rate" /> The ad
-                      goes against posting rules
+                    <label
+                      className="container-radio"
+                      onClick={(e) =>
+                        setReason("The ad goes against posting rules")
+                      }
+                    >
+                      <input
+                        type="radio"
+                        name="Flat Shipping Rate"
+                        checked={
+                          reason === "The ad goes against posting rules"
+                            ? true
+                            : false
+                        }
+                      />{" "}
+                      The ad goes against posting rules
                       <span className="checkmark"></span>
                     </label>
                     <textarea
@@ -68,6 +130,7 @@ const ReportModal = () => {
                       id="input-review"
                       placeholder="Please provide more information"
                       className="form-control"
+                      onChange={(e) => setDescription(e.target.value)}
                       // className={
                       //   errors &&
                       //   errors.validation &&
@@ -94,11 +157,15 @@ const ReportModal = () => {
                         className="btn "
                         style={{ flex: "1" }}
                         onClick={(e) => closeReportModal(e)}
-                        id="cancel-report-btn"
+                        id={props.modalId2}
                       >
                         Cancel
                       </button>
-                      <button className="btn-primary btn" style={{ flex: "1" }}>
+                      <button
+                        className="btn-primary btn"
+                        style={{ flex: "1" }}
+                        onClick={() => createReportFunc()}
+                      >
                         Report
                       </button>
                     </div>

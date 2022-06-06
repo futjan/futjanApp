@@ -38,6 +38,7 @@ exports.create = catchAsync(async (req, res, next) => {
     country: req.body.country,
     city: req.body.city,
     county: req.body.county,
+    currency: req.body.currency,
     images,
   });
 

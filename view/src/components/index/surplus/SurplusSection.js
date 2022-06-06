@@ -125,17 +125,20 @@ const SurplusSection = () => {
                                       {sur.originalPrice &&
                                       sur.offeredPrice > 0 ? (
                                         <span className="price-new">
-                                          ${sur.offeredPrice}
+                                          {sur && sur.currency}{" "}
+                                          {sur.offeredPrice}
                                         </span>
                                       ) : (
                                         <span className="price-new">
-                                          ${sur.originalPrice}
+                                          {sur && sur.currency}
+                                          {sur.originalPrice}
                                         </span>
                                       )}{" "}
                                       {sur.originalPrice &&
                                       sur.offeredPrice > 0 ? (
                                         <span className="price-old">
-                                          ${sur.originalPrice}
+                                          {sur && sur.currency}{" "}
+                                          {sur.originalPrice}
                                         </span>
                                       ) : null}
                                     </div>

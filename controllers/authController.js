@@ -117,6 +117,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// restrictTO
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(new AppError("You do not have permission", 403, undefined));
+    }
+    next();
+  };
+};
 // @route         GET /api/v1/users/current-user
 // @desc          get current or logged in user
 // @access        Private
