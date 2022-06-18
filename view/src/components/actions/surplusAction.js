@@ -150,6 +150,7 @@ export const getSurplusById = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/surplus/${id}`);
     if (res) {
+      console.log(res.data);
       dispatch({
         type: Types.GET_SURPLUS,
         payload: res.data.surplus,
@@ -216,6 +217,7 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
 };
 
 export const deleteImageFromCloud = (data) => async (dispatch) => {
+  console.log(data);
   try {
     dispatch(setLoading());
     const res = await axios.patch("/api/v1/surplus/delete-file", data);

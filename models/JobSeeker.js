@@ -83,6 +83,10 @@ const jobSeekerSchema = new Schema({
     type: String,
     required: [true, "description is required"],
   },
+  ad_id: {
+    type: String,
+    required: true,
+  },
   currency: {
     type: String,
     required: [true, "Currency"],

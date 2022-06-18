@@ -11,6 +11,7 @@ import Gender from "../../utils/Gender";
 import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
 import AgeSelect from "../../utils/Age";
+import Currency from "../../utils/Currency";
 import Qualification from "../../utils/Qualification";
 import { getJobSeekerById, updateJobSeeker } from "../actions/jobSeekersAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +40,7 @@ const EditJobSeeker = (props) => {
   const [languages, setLanguages] = useState([]);
   const [language, setLanguage] = useState("");
   const [email, setEmail] = useState("");
+  const [currency, setCurrency] = useState("£");
   const [contact, setContact] = useState("");
   const [country, setCountry] = useState({
     name: "",
@@ -86,6 +88,9 @@ const EditJobSeeker = (props) => {
       );
       setDob(jobSeeker.jobSeeker.dob ? jobSeeker.jobSeeker.dob : "");
       setEmail(jobSeeker.jobSeeker.email ? jobSeeker.jobSeeker.email : "");
+      setCurrency(
+        jobSeeker.jobSeeker.currency ? jobSeeker.jobSeeker.currency : ""
+      );
       setExperience(
         jobSeeker.jobSeeker.experience ? jobSeeker.jobSeeker.experience : ""
       );
@@ -191,6 +196,7 @@ const EditJobSeeker = (props) => {
       country: country.name.toLowerCase(),
       dob,
       age,
+      currency,
       skills,
     };
     dispatch(updateJobSeeker(job, clearState));
@@ -200,7 +206,6 @@ const EditJobSeeker = (props) => {
     setTitle("");
     setDescription("");
     setGender("");
-
     setPhoto("");
     setCategory("local job");
     setSubCategory("");
@@ -217,11 +222,10 @@ const EditJobSeeker = (props) => {
     setLanguage("");
     setSkill("");
     setFiles([]);
-    setCountry({
-      name: "",
-      isoCode: "",
-      phonecode: "",
-    });
+    // setCity({ name: "", stateCode: "", countryCode: "" });
+    // setCounty({ name: "", isoCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    props.setTab("SURPLUS");
   };
 
   const handleSkills = (data, setData, value, setValue) => {
@@ -718,7 +722,29 @@ const EditJobSeeker = (props) => {
                   </div>
                 </div>
               </div>
-
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Currency
+                </label>
+                <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
@@ -726,18 +752,23 @@ const EditJobSeeker = (props) => {
                 >
                   Rate
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={rate}
                     onChange={(e) => setRate(e.target.value * 1)}
-                    placeholder="Rate according to salart type"
+                    defaultValue="0"
+                    placeholder="Rate according to salary type"
                     id="input-website"
                     className={
                       errors && errors.validation && errors.validation.rate
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.rate && (

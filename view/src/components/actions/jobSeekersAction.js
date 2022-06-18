@@ -101,7 +101,7 @@ export const getPrivateJobSeeker =
     try {
       const res = await axios.get(
         // `/api/v1/jobseekers/current-user?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,title,rate,salaryType,photo,skills,country`
-        `/api/v1/jobseekers/current-user?fields=name,title,photo,email,category,subCategory,experience`
+        `/api/v1/jobseekers/current-user?fields=name,title, active,images,category,subCategory&limit=${limit}&page=${page}`
         // `/api/v1/jobseekers`
       );
       if (res.data) {

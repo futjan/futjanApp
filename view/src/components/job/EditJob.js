@@ -9,7 +9,11 @@ import Gender from "../../utils/Gender";
 import JobType from "../../utils/JobType";
 import Loader from "../../utils/Loader";
 import fileURL from "../../utils/fileURL";
+import Currency from "../../utils/Currency";
 import SalaryType from "../../utils/SalaryType";
+import Countries from "../../utils/Countries";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import {
   getJobById,
   updateJob,
@@ -17,6 +21,7 @@ import {
 } from "../actions/jobAction";
 
 import { useDispatch, useSelector } from "react-redux";
+
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
@@ -44,6 +49,21 @@ const EditJob = (props) => {
   const [address, setAddress] = useState("");
   const [minSalary, setMinSalary] = useState("");
   const [maxSalary, setMaxSalary] = useState("");
+  const [currency, setCurrency] = useState("£");
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [country, setCountry] = useState({
+    name: "",
+    isoCode: "",
+    phonecode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
 
   // initialize hook
   const dispatch = useDispatch();
@@ -71,7 +91,9 @@ const EditJob = (props) => {
       setQualification(job.job.qualification ? job.job.qualification : "");
       setGender(job.job.gender ? job.job.gender : "");
       setTitle(job.job.title ? job.job.title : "");
-
+      setCity({ name: job.job.city, countryCode: "", stateCode: "" });
+      setCountry({ name: job.job.country, isoCode: "", phonecode: "" });
+      setCounty({ name: job.job.county, isoCode: "" });
       setSubCategory(job.job.subCategory ? job.job.subCategory : "");
       setSalaryType(job.job.salaryType ? job.job.salaryType : "");
 
@@ -80,6 +102,7 @@ const EditJob = (props) => {
       setType(job.job.type ? job.job.type : "");
       setMinSalary(job.job.minSalary ? job.job.minSalary : "");
       setMaxSalary(job.job.maxSalary ? job.job.maxSalary : "");
+      setCurrency(job.job.currency ? job.job.currency : "");
     }
   }, [job.job && job.job._id]);
   // fileUploadHandler
@@ -156,6 +179,7 @@ const EditJob = (props) => {
         email: email.toLowerCase(),
         contact,
         images,
+        currency,
         promoteType: promoteType.filter((type) => type.promote !== "ALL"),
         address,
       },
@@ -163,6 +187,12 @@ const EditJob = (props) => {
     dispatch(updateJob(job, clearState));
   };
 
+  // update images after aws delelte
+  useEffect(() => {
+    if (job.job && job.job.images) {
+      setImages(job.job.images);
+    }
+  }, [job.job && job.job.images]);
   // delte image from aws
 
   const deleteFileFromCloudFunc = (file) => {
@@ -191,6 +221,11 @@ const EditJob = (props) => {
     setAddress("");
     setPromoteType([]);
     setFiles([]);
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
+    setImages([]);
+    props.setTab("SURPLUS");
   };
   return (
     // <!-- Main Container  -->
@@ -333,6 +368,54 @@ const EditJob = (props) => {
                         {errors.validation.salaryType}
                       </div>
                     )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Country
+                </label>
+                <div className="col-sm-10">
+                  <Countries setCountry={setCountry} country={country} />
+                  {errors && errors.validation && errors.validation.country && (
+                    <div className="invalid-feedback">
+                      {errors.validation.country}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  State / County
+                </label>
+                <div className="col-sm-10">
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
+                  />
+                  {errors && errors.validation && errors.validation.county && (
+                    <div className="invalid-feedback">
+                      {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group">
@@ -481,9 +564,36 @@ const EditJob = (props) => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
-                  Min Salary
+                  Currency
                 </label>
                 <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Min Salary
+                </label>
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
@@ -491,7 +601,7 @@ const EditJob = (props) => {
                     onChange={(e) => setMinSalary(e.target.value)}
                     placeholder="min salary"
                     id="input-website"
-                    className="form-control"
+                    className="form-control currency-container"
                   />
                 </div>
               </div>
@@ -502,7 +612,11 @@ const EditJob = (props) => {
                 >
                   Max salary
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
@@ -510,7 +624,7 @@ const EditJob = (props) => {
                     onChange={(e) => setMaxSalary(e.target.value)}
                     placeholder="max Salary"
                     id="input-website"
-                    className="form-control"
+                    className="form-control currency-container"
                   />
                 </div>
               </div>

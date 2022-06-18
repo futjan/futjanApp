@@ -77,7 +77,7 @@ export const getJobsPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/job/current-user-job?fields=currency,title,category,subCategory,images,salaryType,type,minSalary,maxSalary&page=${page}&limit=${limit}`
+      `/api/v1/job/current-user-job?fields=title,category,subCategory,images,active,&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -191,7 +191,7 @@ export const createComment = (comment, clearState) => async (dispatch) => {
 // @desc                    update job by id
 // @access                  Private
 export const updateJob = (data, clearState) => async (dispatch) => {
-  console.log("UPADRW JOB IS RUN");
+  dispatch(setLoading());
   let formDate = new FormData();
   data.files.forEach((file) => formDate.append("photo", file));
 
@@ -205,8 +205,6 @@ export const updateJob = (data, clearState) => async (dispatch) => {
   try {
     // const res = await axios.patch("/api/v1/surplus", formDate, config);
     const res = await axios.patch(`/api/v1/job/${data.id}`, formDate, config);
-
-    dispatch(clearLoading());
 
     if (res) {
       dispatch({

@@ -8,6 +8,10 @@ const surplusBusiness = new Schmea(
       required: [true, "Ad type is required"],
       default: "surplus",
     },
+    ad_id: {
+      type: String,
+      required: true,
+    },
     keyword: {
       type: String,
       required: [true, "keyword is required"],

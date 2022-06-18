@@ -4,6 +4,10 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
+import Currency from "../../utils/Currency";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import {
   updateSurplus,
   getSurplusById,
@@ -47,7 +51,7 @@ const EditSurplus = (props) => {
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
-
+  const [featureRate, setFeatureRate] = useState(100);
   const [businessType, setBusinessType] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -64,6 +68,7 @@ const EditSurplus = (props) => {
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [file, setFile] = useState({});
+  const [currency, setCurrency] = useState("£");
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -76,7 +81,7 @@ const EditSurplus = (props) => {
     setErrors(errorState);
   }, [errorState]);
   useEffect(() => {
-    if (surplus.surplus._id) {
+    if (surplus.surplus?._id) {
       setName(surplus.surplus.title);
       setCompany(surplus.surplus.company);
       setContact(surplus.surplus.contact);
@@ -99,10 +104,17 @@ const EditSurplus = (props) => {
       }
     }
   }, [surplus.surplus && surplus.surplus._id]);
-
   useEffect(() => {
     dispatch(getSurplusById(props.id));
   }, []);
+  // set currency when country change
+  useEffect(() => {
+    if (country.name === "india") {
+      setCurrency("₹");
+    } else if (country.name === "united kingdom") {
+      setCurrency("£");
+    }
+  }, [country.name]);
 
   // keyword suggustion
   const onChangeAutoFieldName = (e) => {
@@ -146,23 +158,6 @@ const EditSurplus = (props) => {
       </ul>
     );
   };
-
-  // handle check box
-  // const handleCheckBox = (checked, value) => {
-  //   if (checked !== true) {
-  //     const tempArr = weeklySchedule.filter((day) => day !== value);
-  //     setWeeklySchedule([...tempArr]);
-  //   } else {
-  //     const tempArr = [...weeklySchedule];
-  //     tempArr.push(value);
-
-  //     setWeeklySchedule([
-  //       ...tempArr.filter((value, index, self) => {
-  //         return self.indexOf(value) === index;
-  //       }),
-  //     ]);
-  //   }
-  // };
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
@@ -220,6 +215,7 @@ const EditSurplus = (props) => {
         originalPrice: (originalPrice * 1).toFixed(2),
         offeredPrice: (offeredPrice * 1).toFixed(2),
         images,
+        currency,
         discount:
           offeredPrice > 0
             ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
@@ -251,14 +247,23 @@ const EditSurplus = (props) => {
     setFiles([...files.filter((file, i) => i !== index)]);
   };
 
+  // updates images when deleted from aws
+  useEffect(() => {
+    if (surplus.surplus && surplus.surplus.images) {
+      setImages(surplus.surplus.images);
+    }
+  }, [
+    surplus.surplus && surplus.surplus.images && surplus.surplus.images.length,
+  ]);
   // delete file from cloud
 
   const deleteFileFromCloudFunc = (file) => {
     const data = {
       images: images.filter((image) => image !== file),
-      id: surplus.surplus._id,
+      id: surplus.surplus?._id,
       image: file,
     };
+
     dispatch(deleteImageFromCloud(data));
   };
   // clear state function
@@ -269,18 +274,20 @@ const EditSurplus = (props) => {
     setContact("");
     setAddress("");
     setPostCode("");
-    setCity("");
     setBusinessType("");
-    setCountry("");
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
     setCategory("");
     setDescription("");
     setWebsite("");
     setErrors({});
-    // setWeeklySchedule([""]);
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
     setPromoteType([]);
+    setFiles([]);
+    setCurrency("");
     setImages([]);
 
     props.setTab("SURPLUS");
@@ -318,7 +325,7 @@ const EditSurplus = (props) => {
                   className="col-sm-2 control-label"
                   htmlFor="input-company"
                 >
-                  Company
+                  Name / Company
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -438,26 +445,12 @@ const EditSurplus = (props) => {
                 </label>
                 <div className="col-sm-10" style={{ position: "relative" }}>
                   <Countries setCountry={setCountry} country={country} />
-                  {/* <input
-                    type="text"
-                    name="city"
-                    value={country}
-                    // onChange={(e) => setCountry(e.target.value)}
-                    onChange={(e) => onChangeAutoField(e)}
-                    placeholder="Country"
-                    id="input-country"
-                    className={
-                      errors && errors.validation && errors.validation.country
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  /> */}
+
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
                     </div>
                   )}
-                  {/* {renderSuggustion()} */}
                 </div>
               </div>
               <div className="form-group required">
@@ -470,21 +463,7 @@ const EditSurplus = (props) => {
                     setCounty={setCounty}
                     county={county}
                   />
-                  {/* <input
-                    type="text"
-                    name="city"
-                    value={city}
-                    // onChange={(e) => setCity(e.target.value)}
-                    onChange={(e) => onChangeAutoFieldCities(e)}
-                    placeholder="City"
-                    id="input-city"
-                    className={
-                      errors && errors.validation && errors.validation.city
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  /> */}
-                  {/* {renderCitySuggustion()} */}
+
                   {errors && errors.validation && errors.validation.city && (
                     <div className="invalid-feedback">
                       {errors.validation.city}
@@ -503,21 +482,7 @@ const EditSurplus = (props) => {
                     country={country}
                     city={city}
                   />
-                  {/* <input
-                    type="text"
-                    name="city"
-                    value={city}
-                    // onChange={(e) => setCity(e.target.value)}
-                    onChange={(e) => onChangeAutoFieldCities(e)}
-                    placeholder="City"
-                    id="input-city"
-                    className={
-                      errors && errors.validation && errors.validation.city
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {renderCitySuggustion()} */}
+
                   {errors && errors.validation && errors.validation.city && (
                     <div className="invalid-feedback">
                       {errors.validation.city}
@@ -638,50 +603,10 @@ const EditSurplus = (props) => {
                   )}
                 </div>
               </div>
-
-              {/* <div className="form-group">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-website"
-                >
-                  Weekly Schedule
-                </label>
-                <div className="col-sm-10">
-                  <div className="checkout-content confirm-section">
-                    {Days.map((day, i) => (
-                      <div className="checkbox check-newsletter">
-                        <label htmlFor={day} className="container-checkbox">
-                          <input
-                            type="checkbox"
-                            name={day}
-                            value={day}
-                            checked={
-                              weeklySchedule.indexOf(day) !== -1 ? true : false
-                            }
-                            id={day}
-                            onChange={(e) =>
-                              handleCheckBox(e.target.checked, day)
-                            }
-                          />{" "}
-                          {day}
-                          <span className="checkmark"></span>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.weeklySchedule && (
-                      <div className="invalid-feedback">
-                        {errors.validation.weeklySchedule}
-                      </div>
-                    )}
-                </div>
-              </div> */}
               <h4 className="post-ad-heading">Surplus Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Name
+                  Title Name
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -768,22 +693,49 @@ const EditSurplus = (props) => {
               <div className="form-group required">
                 <label
                   className="col-sm-2 control-label"
+                  htmlFor="input-currency"
+                >
+                  Currency
+                </label>
+                <div className="col-sm-10 col-md-5">
+                  <Currency
+                    currency={currency}
+                    setCurrency={setCurrency}
+                    country={country.name}
+                    errors={errors}
+                  />
+
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.currency && (
+                      <div className="invalid-feedback">
+                        {errors.validation.currency}
+                      </div>
+                    )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label
+                  className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
                   Original Price
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(e.target.value)}
                     placeholder="Original Price"
-                    id="input-website"
                     className={
                       errors && errors.validation && errors.validation.website
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.website && (
@@ -800,18 +752,22 @@ const EditSurplus = (props) => {
                 >
                   Offered Price
                 </label>
-                <div className="col-sm-10 col-md-5">
+                <div
+                  className="col-sm-10 col-md-5"
+                  style={{ position: "relative" }}
+                >
+                  <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
                     name="city"
                     value={offeredPrice}
                     onChange={(e) => setOfferedPrice(e.target.value)}
-                    placeholder="Offered Price"
+                    placeholder="Offered Price "
                     id="input-website"
                     className={
                       errors && errors.validation && errors.validation.website
-                        ? "form-control is-invalid"
-                        : "form-control"
+                        ? "form-control is-invalid currency-container"
+                        : "form-control currency-container"
                     }
                   />
                   {errors && errors.validation && errors.validation.website && (
@@ -1005,7 +961,7 @@ const EditSurplus = (props) => {
                     <span style={{ fontWeight: "600", fontSize: "16px" }}>
                       Note:{" "}
                     </span>
-                    Promote ad option is optional. You can post ad free
+                    Promote your Ad options are optional. You can post Ad free
                   </label>
                   <label
                     className="control-label"
@@ -1019,7 +975,7 @@ const EditSurplus = (props) => {
                       {adpromotionType.map((type) => (
                         <label
                           htmlFor={type.promote}
-                          className="container-checkbox border-bottom"
+                          className="container-checkbox border-bottom promotion-price"
                         >
                           <span>
                             <input
@@ -1054,7 +1010,7 @@ const EditSurplus = (props) => {
                               </span>
                             ) : null}
                             {type.promote === "FEATURED"
-                              ? "Have your Ad appear at the top of the category listings for 3, 7 or 14 days."
+                              ? "Have your Ad appear at the top of the category listings for 14, 30 or 60 days."
                               : type.promote === "URGENT"
                               ? "Let people know you want to sell, rent or hire quickly"
                               : type.promote === "SPOTLIGHT"
@@ -1070,7 +1026,31 @@ const EditSurplus = (props) => {
                                 fontWeight: "600",
                               }}
                             >
-                              14 days-INR 100
+                              <FormControl
+                                variant="standard"
+                                sx={{ m: 1, minWidth: 130 }}
+                              >
+                                <Select
+                                  labelId="demo-simple-select-standard-label"
+                                  id="demo-simple-select-standard"
+                                  value={featureRate}
+                                  onChange={(e) =>
+                                    setFeatureRate(e.target.value * 1)
+                                  }
+                                  // label="Age"
+                                >
+                                  <MenuItem value={100}>
+                                    14 days - 100 INR
+                                  </MenuItem>
+                                  <MenuItem value={250}>
+                                    30 days - 250 INR
+                                  </MenuItem>
+                                  <MenuItem value={500}>
+                                    60 days - 500 INR
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                              {/* 14 days-INR 100 */}
                             </span>
                           ) : null}
 
@@ -1080,9 +1060,10 @@ const EditSurplus = (props) => {
                                 float: "right",
                                 color: "#e52815",
                                 fontWeight: "600",
+                                minWidth: "135px",
                               }}
                             >
-                              7 days-INR 150
+                              7 days - 150 INR
                             </span>
                           ) : null}
 
@@ -1092,9 +1073,10 @@ const EditSurplus = (props) => {
                                 float: "right",
                                 color: "#52a744",
                                 fontWeight: "600",
+                                minWidth: "135px",
                               }}
                             >
-                              7 days-INR 350
+                              7 days - 350 INR
                             </span>
                           ) : null}
                         </label>
@@ -1119,7 +1101,7 @@ const EditSurplus = (props) => {
                         ? (promoteType.filter(
                             (type) => type.promote === "FEATURED"
                           ).length > 0
-                            ? 100
+                            ? featureRate
                             : 0) +
                           (promoteType.filter(
                             (type) => type.promote === "URGENT"

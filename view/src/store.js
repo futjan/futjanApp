@@ -6,7 +6,7 @@ const initialState = {};
 
 const middleware = [thunk];
 let stopReduxOnProductionMode =
-  process.env.NODE_ENV !== "production"
+  process.env.NODE_ENV === "production"
     ? compose(applyMiddleware(...middleware))
     : compose(
         applyMiddleware(...middleware),

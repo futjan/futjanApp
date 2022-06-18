@@ -50,7 +50,6 @@ const AddSurplusBusiness = (props) => {
   const [businessType, setBusinessType] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [weeklySchedule, setWeeklySchedule] = useState([]);
   const [website, setWebsite] = useState("");
   const [originalPrice, setOriginalPrice] = useState(0);
   const [offeredPrice, setOfferedPrice] = useState(0);
@@ -63,7 +62,7 @@ const AddSurplusBusiness = (props) => {
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("£");
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
@@ -243,21 +242,21 @@ const AddSurplusBusiness = (props) => {
     );
   };
   // handle check box
-  const handleCheckBox = (checked, value) => {
-    if (checked !== true) {
-      const tempArr = weeklySchedule.filter((day) => day !== value);
-      setWeeklySchedule([...tempArr]);
-    } else {
-      const tempArr = [...weeklySchedule];
-      tempArr.push(value);
+  // const handleCheckBox = (checked, value) => {
+  //   if (checked !== true) {
+  //     const tempArr = weeklySchedule.filter((day) => day !== value);
+  //     setWeeklySchedule([...tempArr]);
+  //   } else {
+  //     const tempArr = [...weeklySchedule];
+  //     tempArr.push(value);
 
-      setWeeklySchedule([
-        ...tempArr.filter((value, index, self) => {
-          return self.indexOf(value) === index;
-        }),
-      ]);
-    }
-  };
+  //     setWeeklySchedule([
+  //       ...tempArr.filter((value, index, self) => {
+  //         return self.indexOf(value) === index;
+  //       }),
+  //     ]);
+  //   }
+  // };
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
@@ -310,7 +309,6 @@ const AddSurplusBusiness = (props) => {
       keyword: keyword.toLowerCase(),
       website,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-      weeklySchedule,
       originalPrice: (originalPrice * 1).toFixed(2),
       offeredPrice: (offeredPrice * 1).toFixed(2),
       currency,
@@ -358,7 +356,6 @@ const AddSurplusBusiness = (props) => {
     setDescription("");
     setWebsite("");
     setErrors({});
-    setWeeklySchedule([""]);
     setOfferedPrice(0);
     setOriginalPrice(0);
     setKeyword("");
@@ -528,27 +525,12 @@ const AddSurplusBusiness = (props) => {
                   Country
                 </label>
                 <div className="col-sm-10" style={{ position: "relative" }}>
-                  {/* <input
-                    type="text"
-                    name="city"
-                    value={country}
-                    // onChange={(e) => setCountry(e.target.value)}
-                    onChange={(e) => onChangeAutoField(e)}
-                    placeholder="Country"
-                    id="input-country"
-                    className={
-                      errors && errors.validation && errors.validation.country
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  /> */}
                   <Countries setCountry={setCountry} country={country} />
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
                     </div>
                   )}
-                  {/* {renderSuggustion()} */}
                 </div>
               </div>
               <div className="form-group required">
@@ -700,46 +682,6 @@ const AddSurplusBusiness = (props) => {
                   )}
                 </div>
               </div>
-
-              {/* <div className="form-group">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-website"
-                >
-                  Weekly Schedule
-                </label>
-                <div className="col-sm-10">
-                  <div className="checkout-content confirm-section">
-                    {Days.map((day, i) => (
-                      <div className="checkbox check-newsletter">
-                        <label htmlFor={day} className="container-checkbox">
-                          <input
-                            type="checkbox"
-                            name={day}
-                            value={day}
-                            checked={
-                              weeklySchedule.indexOf(day) !== -1 ? true : false
-                            }
-                            id={day}
-                            onChange={(e) =>
-                              handleCheckBox(e.target.checked, day)
-                            }
-                          />{" "}
-                          {day}
-                          <span className="checkmark"></span>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.weeklySchedule && (
-                      <div className="invalid-feedback">
-                        {errors.validation.weeklySchedule}
-                      </div>
-                    )}
-                </div>
-              </div> */}
               <h4 className="post-ad-heading">Surplus Details</h4>
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">

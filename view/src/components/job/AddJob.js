@@ -43,7 +43,7 @@ const AddJob = (props) => {
   const [address, setAddress] = useState("");
   const [minSalary, setMinSalary] = useState("");
   const [maxSalary, setMaxSalary] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("£");
   const [city, setCity] = useState({
     name: "",
     stateCode: "",
@@ -69,7 +69,14 @@ const AddJob = (props) => {
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
-  // fileUploadHandler
+  // set currency when country change
+  useEffect(() => {
+    if (country.name === "india") {
+      setCurrency("₹");
+    } else if (country.name === "united kingdom") {
+      setCurrency("£");
+    }
+  }, [country.name]);
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {

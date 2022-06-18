@@ -74,6 +74,10 @@ const jobSchema = new Sehema(
     contact: String,
     address: String,
     skills: [String],
+    ad_id: {
+      type: String,
+      required: true,
+    },
     currency: {
       type: String,
       required: [true, "Currency"],

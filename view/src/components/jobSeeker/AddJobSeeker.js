@@ -41,7 +41,8 @@ const AddJobSeeker = (props) => {
   const [languages, setLanguages] = useState([]);
   const [language, setLanguage] = useState("");
   const [email, setEmail] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("£");
+
   const [contact, setContact] = useState("");
   const [city, setCity] = useState({
     name: "",
@@ -73,7 +74,14 @@ const AddJobSeeker = (props) => {
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
-  // fileUploadHandler
+  // set currency when country change
+  useEffect(() => {
+    if (country.name === "india") {
+      setCurrency("₹");
+    } else if (country.name === "united kingdom") {
+      setCurrency("£");
+    }
+  }, [country.name]);
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {
