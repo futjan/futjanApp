@@ -40,6 +40,11 @@ const userSchema = new Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  role: {
+    type: String,
+    required: true,
+    default: "user",
+  },
   account: {
     blocked: Boolean,
     deactivated: Boolean,

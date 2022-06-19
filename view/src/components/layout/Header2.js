@@ -261,7 +261,13 @@ const Header2 = () => {
                 {/* <h3 className="logo-heading">FUTJAN</h3> */}
               </Link>
             </div>
-            <div className="header-center-right col-lg-7 col-md-7 col-sm-8 col-xs-11">
+            <div
+              className={
+                auth.user && auth.user.role === "admin"
+                  ? "header-center-right col-lg-6 col-md-6 col-sm-8 col-xs-11"
+                  : "header-center-right col-lg-7 col-md-7 col-sm-8 col-xs-11"
+              }
+            >
               <div className="header_search">
                 <div
                   id="sosearchpro"
@@ -353,7 +359,11 @@ const Header2 = () => {
               </div>
             </div>
             <div
-              className="header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
+              className={
+                auth.user && auth.user.role === "admin"
+                  ? "header-cart-phone col-lg-4 col-md-4 col-sm-1 col-xs-1"
+                  : "header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
+              }
               style={{
                 display: "flex",
                 justifyContent: "start",
@@ -446,6 +456,33 @@ const Header2 = () => {
                                       }}
                                     ></i>
                                     <strong>Login/Register</strong>
+                                  </NavLink>
+                                </li>
+                              ) : null}
+                              {auth.isAuthenticated === true &&
+                              auth.user &&
+                              auth.user.role === "admin" ? (
+                                <li className="full-width menu-home with-sub-menu hover">
+                                  <p className="close-menu"></p>
+
+                                  <NavLink
+                                    className="clearfix"
+                                    to="/adminpanel"
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <i
+                                      className="fa fa-desktop"
+                                      style={{
+                                        fontSize: "20px",
+                                        padding: "0",
+                                      }}
+                                    ></i>
+                                    <strong>Adminpanel</strong>
                                   </NavLink>
                                 </li>
                               ) : null}
