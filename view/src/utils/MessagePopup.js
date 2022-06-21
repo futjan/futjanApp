@@ -38,7 +38,13 @@ export default function MessagePopup({ receiverId }) {
   // socket io
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("ws://www.futjan.com");
+    socket.current = io("http://www.futjan.com");
+    return () => {
+      socket.current.close();
+    };
+  }, [auth.user]);
+
+  useEffect(() => {
     socket.current.on("getmessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -46,19 +52,13 @@ export default function MessagePopup({ receiverId }) {
         createdAt: Date.now(),
       });
     });
-  }, []);
-
-  // useEffect(() => {
-  //   socket.current.on("getmessage", (data) => {
-  //     setArrivalMessage({
-  //       sender: data.senderId,
-  //       text: data.text,
-  //       createdAt: Date.now(),
-  //     });
-  //   });
-  // }, [socket.current]);
+    return () => {
+      socket.current.off("getmessage");
+    };
+  }, [socket]);
 
   // on new message arrival or conversation updat
+
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -76,19 +76,11 @@ export default function MessagePopup({ receiverId }) {
   }, [auth.user && auth.user.id]);
 
   // get messages on currentChat changes
-  useEffect(() => {
-    if (currentChat && currentChat._id) {
-      dispatch(getMessages(currentChat && currentChat._id));
-    }
-  }, [currentChat]);
-
   const messages = useSelector((state) => state.message.messages);
-
   useEffect(() => {
-    if (messages) {
-      setChats([...messages]);
-    }
-  }, [messages.length]);
+    dispatch(getMessages(currentChat && currentChat._id));
+    setChats([...messages]);
+  }, [currentChat]);
 
   useEffect(() => {
     setCurrentChat(conversation);
@@ -112,14 +104,22 @@ export default function MessagePopup({ receiverId }) {
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
+      setNewMessage("");
     }
   };
 
   const startConversation = () => {
     dispatch(createSingleConversation({ receiver: receiverId }));
   };
+
+  const scrollRef = useRef();
+
+  // scroll
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chats]);
   return (
-    <div>
+    <div ref={scrollRef}>
       <Accordion
         sx={{
           width: "260px",

@@ -13,7 +13,6 @@ export const createMessage = (data, setNewMessage) => async (dispatch) => {
 
     if (res) {
       setNewMessage("");
-
       dispatch({
         type: Type.CREATE_MESSAGE,
         payload: res.data.message,

@@ -64,9 +64,10 @@
 }
 .converstions {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  gap: 10px;
+  gap: 15px;
+  text-transform: capitalize;
 }
 
 .converstions img {

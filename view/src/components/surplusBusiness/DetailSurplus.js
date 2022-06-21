@@ -93,20 +93,23 @@ function DetailSurplus() {
   return (
     <div className="container product-detail" style={{ marginTop: "30px" }}>
       {surplusFromStore.loading === false ? (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "0",
-            right: "50px",
-            zIndex: "1200",
-          }}
-        >
-          <MessagePopup
-            receiverId={
-              surplusFromStore.surplus && surplusFromStore.surplus.user
-            }
-          />
-        </div>
+        surplusFromStore.surplus &&
+        surplusFromStore.surplus.user === auth.user.id ? null : (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "0",
+              right: "50px",
+              zIndex: "1200",
+            }}
+          >
+            <MessagePopup
+              receiverId={
+                surplusFromStore.surplus && surplusFromStore.surplus.user
+              }
+            />
+          </div>
+        )
       ) : null}
 
       <ReportModal

@@ -72,6 +72,7 @@ const Index = (props) => {
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [chatUser, setChatUser] = useState("");
 
   // get state from store
   const auth = useSelector((state) => state.auth);
@@ -79,7 +80,7 @@ const Index = (props) => {
     (state) => state.conversation.conversations
   );
   const messages = useSelector((state) => state.message.messages);
-
+  const scrollRef = useRef();
   // initialize hook
   const dispatch = useDispatch();
   // useEffect
@@ -98,7 +99,13 @@ const Index = (props) => {
   // socket io setup
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("ws://www.futjan.com");
+    socket.current = io("http://www.futjan.com");
+    return () => {
+      socket.current.close();
+    };
+  }, [auth.user]);
+
+  useEffect(() => {
     socket.current.on("getmessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -106,7 +113,11 @@ const Index = (props) => {
         createdAt: Date.now(),
       });
     });
-  }, []);
+    return () => {
+      socket.current.off("getmessage");
+    };
+  }, [socket]);
+
   // useEffect(() => {
 
   // }, [socket]);
@@ -120,22 +131,18 @@ const Index = (props) => {
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
     socket.current.on("getusers", (users) => {
-      // console.log(users);
+      console.log(users);
     });
   }, [auth.user && auth.user.id]);
 
   useEffect(() => {
-    if (currentChat && currentChat._id) {
-      dispatch(getMessages(currentChat && currentChat._id));
-    }
-  }, [currentChat]);
-
-  useEffect(() => {
-    if (messages) {
-      setChats([...messages]);
-    }
-  }, [messages.length]);
-
+    dispatch(getMessages(currentChat && currentChat._id));
+    setChats([...messages]);
+  }, [currentChat, chatUser]);
+  const getMessageOfCurrentChat = async (conver) => {
+    await dispatch(getMessages(conver._id));
+    setChats([...messages]);
+  };
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
       const message = {
@@ -154,40 +161,46 @@ const Index = (props) => {
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
+      setNewMessage("");
     }
   };
 
-  return (
+  // scroll
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chats]);
+  return conversations.length > 0 ? (
     <Box sx={{ display: "flex" }}>
-      {/* <CssBaseline /> */}
-      {/* <AppBar position="fixed" open={open}> */}
       <AppBar
         position="absolute"
         open={open}
         sx={{ background: "#3b5998", boxShadow: "none" }}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ textTransform: "capitalize" }}
           >
-            {/* <MenuIcon /> */}
-            Conversations
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Chats
+            {chatUser}
           </Typography>
         </Toolbar>
       </AppBar>
-      <div style={{ position: "relative", width: drawerWidth }}>
+      <div
+        style={{
+          position: "relative",
+          width: drawerWidth,
+          background: "#f5f5f5",
+          borderRight: "1px solid #ddd",
+        }}
+      >
         <Drawer
           sx={{
             zIndex: "1",
             position: "relative",
             width: drawerWidth,
+            background: "#f5f5f5",
             flexShrink: 0,
             "& .MuiDrawer-paper": {
               width: drawerWidth,
@@ -210,17 +223,9 @@ const Index = (props) => {
               fontSize: "16px",
             }}
           >
-            Conversation
-            {/* <IconButton onClick={handleDrawerClose}> */}
-            {/* {theme.direction === "ltr"
-                ? //   <ChevronLeftIcon />
-                  "L"
-                : //   <ChevronRightIcon />
-                  "R"} */}
-            {/* </IconButton> */}
+            Chats
           </DrawerHeader>
-          {/* <Divider /> */}
-          <List>
+          <List sx={{ margin: "0", padding: "0" }}>
             {conversations.length > 0
               ? conversations.map((conversation) => (
                   <Conversation
@@ -228,6 +233,8 @@ const Index = (props) => {
                     currentUser={auth.user}
                     setCurrentChat={setCurrentChat}
                     currentChat={currentChat}
+                    getMessageOfCurrentChat={getMessageOfCurrentChat}
+                    setChatUser={setChatUser}
                   />
                 ))
               : null}
@@ -246,37 +253,54 @@ const Index = (props) => {
             position: "relative",
           }}
         >
-          {/* <DrawerHeader /> */}
           {currentChat
             ? chats.length > 0
               ? chats.map((m) => (
                   <Message
                     message={m}
                     currentUser={auth.user && auth.user.id}
+                    ref={scrollRef}
                   />
                 ))
               : null
             : null}
         </Main>
-        <div className="msg-send">
-          <textarea
-            rows={1}
-            placeholder="message"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            color="success"
-            size="large"
-            endIcon={<SendIcon sx={{ fontSize: "14px" }} />}
-            onClick={(e) => handleSubmit(e)}
-          >
-            Send
-          </Button>
-        </div>
+        {currentChat ? (
+          <div className="msg-send">
+            <textarea
+              rows={1}
+              placeholder="message"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              size="large"
+              endIcon={<SendIcon sx={{ fontSize: "14px" }} />}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Send
+            </Button>
+          </div>
+        ) : null}
       </div>
     </Box>
+  ) : (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "200px",
+        background: "#fff",
+      }}
+    >
+      <p style={{ margin: "0", fontSize: "18px", color: "#666666" }}>
+        No conversation avalable{" "}
+      </p>
+    </div>
   );
 };
 export default Index;
