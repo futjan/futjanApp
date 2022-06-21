@@ -171,9 +171,8 @@ const Index = (props) => {
   }, [chats]);
   return conversations.length > 0 ? (
     <Box sx={{ display: "flex" }}>
-      <AppBar
-        position="absolute"
-        open={open}
+      {/* <AppBar
+        position="relative"
         sx={{ background: "#3b5998", boxShadow: "none" }}
       >
         <Toolbar>
@@ -186,45 +185,29 @@ const Index = (props) => {
             {chatUser}
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <div
         style={{
           position: "relative",
-          width: drawerWidth,
+          width: "300px",
           background: "#f5f5f5",
           borderRight: "1px solid #ddd",
         }}
       >
-        <Drawer
-          sx={{
-            zIndex: "1",
-            position: "relative",
-            width: drawerWidth,
-            background: "#f5f5f5",
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader
-            // sx={{ background: "#3b5998", color: "#fff", border: "none" }}
-            sx={{
+        <div style={{ fontSize: "18px", background: "#fff" }}>
+          <div
+            style={{
+              fontSize: "18px",
               background: "#fff",
-              color: "#000",
-              border: "none",
-              textAlign: "left",
+              padding: "20px",
+              height: "70px",
               display: "flex",
               justifyContent: "flex-start",
-              fontSize: "16px",
+              alignItems: "center",
             }}
           >
             Chats
-          </DrawerHeader>
+          </div>
           <List sx={{ margin: "0", padding: "0" }}>
             {conversations.length > 0
               ? conversations.map((conversation) => (
@@ -239,14 +222,29 @@ const Index = (props) => {
                 ))
               : null}
           </List>
-        </Drawer>
+        </div>
       </div>
       <div style={{ position: "relative", width: "100%" }}>
+        <div
+          style={{
+            color: "#fff",
+            fontSize: "18px",
+            background: "#3b5998",
+            padding: "20px",
+            height: "70px",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            textTransform: "capitalize",
+          }}
+        >
+          {chatUser}
+        </div>
         <Main
           open={open}
           sx={{
             background: "#f5f5f5",
-            padding: "72px 20px 20px 20px",
+            padding: "20px",
             minHeight: "200px",
             maxHeight: "500px",
             overflowY: "auto",
