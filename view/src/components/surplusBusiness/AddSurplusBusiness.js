@@ -292,7 +292,7 @@ const AddSurplusBusiness = (props) => {
   // create surplux function
   const createSurplusFunction = (e) => {
     e.preventDefault();
-
+    const date = new Date();
     const obj = {
       title: name.toLowerCase(),
       company: company.toLowerCase(),
@@ -316,6 +316,7 @@ const AddSurplusBusiness = (props) => {
         offeredPrice > 0
           ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
           : 0,
+      ad_id: date.getTime(),
     };
 
     dispatch(createSurplus(obj, clearState, setSuccess));
@@ -364,8 +365,9 @@ const AddSurplusBusiness = (props) => {
     setCurrency("");
   };
 
-  const setSuccess = (tit) => {
+  const setSuccess = (tit, id) => {
     props.setTitle(tit);
+    props.setAdId(id);
     props.successModalFunc();
   };
   return (

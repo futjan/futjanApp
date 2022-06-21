@@ -2,6 +2,7 @@ import * as Type from "../components/actions/types";
 
 const initialState = {
   conversations: [],
+  conversation: {},
   loading: false,
 };
 
@@ -19,11 +20,25 @@ export default function conversationReducer(state = initialState, action) {
       };
     case Type.GET_CONVERSATIONS:
       return {
+        ...state,
         loading: false,
         conversations: action.payload,
       };
+    case Type.GET_CONVERSATION:
+      return {
+        ...state,
+        loading: false,
+        conversation: action.payload,
+      };
+    case Type.CREATE_CONVERSATION_SINGLE:
+      return {
+        ...state,
+        loading: false,
+        conversation: action.payload,
+      };
     case Type.CREATE_CONVERSATION:
       return {
+        ...state,
         loading: false,
         conversations: [...state.conversations, action.payload],
       };

@@ -19,11 +19,13 @@ export default function messageReducer(state = initialState, action) {
       };
     case Type.GET_MESSAGES:
       return {
+        ...state,
         loading: false,
         messages: action.payload,
       };
     case Type.CREATE_MESSAGE:
       return {
+        ...state,
         loading: false,
         messages: [...state.messages, action.payload],
       };

@@ -47,16 +47,18 @@ const JobDetail = () => {
 
   return (
     <div class="main-container container" style={{ margin: "20px auto" }}>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "0",
-          right: "50px",
-          zIndex: "1200",
-        }}
-      >
-        <MessagePopup />
-      </div>
+      {job.loading === false ? (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0",
+            right: "50px",
+            zIndex: "1200",
+          }}
+        >
+          <MessagePopup receiverId={job.job.user} />
+        </div>
+      ) : null}
       <ReportModal
         modalId1="so_sociallogin_2"
         model="jobs"

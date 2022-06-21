@@ -71,7 +71,6 @@ export default function Products() {
     dispatch(getAllUsers(page, rowsPerPage));
   }, []);
 
-  console.log(auth.users);
   return (
     <Page title="Dashboard: Surplus">
       <Container>

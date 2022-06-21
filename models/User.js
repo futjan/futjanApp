@@ -40,6 +40,7 @@ const userSchema = new Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  profile: String,
   role: {
     type: String,
     required: true,

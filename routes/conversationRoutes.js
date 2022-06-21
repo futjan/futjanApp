@@ -4,6 +4,12 @@ const authController = require("../controllers/authController");
 router
   .route("/")
   .post(authController.protect, conversationController.create)
-  .get(authController.protect, conversationController.getConversation);
+  .get(authController.protect, conversationController.getConversations);
 
+router
+  .route("/single/:reveiverId")
+  .get(authController.protect, conversationController.getConversation);
+router
+  .route("/user/:id")
+  .get(authController.protect, conversationController.getUser);
 module.exports = router;

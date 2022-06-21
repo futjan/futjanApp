@@ -122,7 +122,10 @@ export const createJob =
           payload: res.data.job,
         });
         clearState();
-        setSuccessModal(res.data && res.data.job && res.data.job.title);
+        setSuccessModal(
+          res.data && res.data.job && res.data.job.title,
+          res.data && res.data.job && res.data.job.ad_id
+        );
       }
     } catch (err) {
       dispatch(clearLoading());

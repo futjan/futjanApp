@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+
 import IconButton from "@mui/material/IconButton";
-// import MenuIcon from '@mui/icons-material/Menu';
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import DefaultImage from "../image/default.jpg";
+import SendIcon from "@mui/icons-material/Send";
+
+import Conversation from "./Conversation";
+import Message from "./Message";
+
 import { getConversations } from "../actions/conversationAction";
+import { getMessages, createMessage } from "../actions/messageAction";
 import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -67,9 +67,19 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Index = (props) => {
-  const [conversations, setConversations] = useState([]);
-
   const [open, setOpen] = React.useState(true);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [newMessage, setNewMessage] = useState("");
+  const [chats, setChats] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+
+  // get state from store
+  const auth = useSelector((state) => state.auth);
+  const conversations = useSelector(
+    (state) => state.conversation.conversations
+  );
+  const messages = useSelector((state) => state.message.messages);
+
   // initialize hook
   const dispatch = useDispatch();
   // useEffect
@@ -83,6 +93,68 @@ const Index = (props) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  // socket io setup
+  const socket = useRef();
+  useEffect(() => {
+    socket.current = io("ws://futjan.com");
+    socket.current.on("getmessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+  // useEffect(() => {
+
+  // }, [socket]);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setChats((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("adduser", auth.user && auth.user.id);
+    socket.current.on("getusers", (users) => {
+      // console.log(users);
+    });
+  }, [auth.user && auth.user.id]);
+
+  useEffect(() => {
+    if (currentChat && currentChat._id) {
+      dispatch(getMessages(currentChat && currentChat._id));
+    }
+  }, [currentChat]);
+
+  useEffect(() => {
+    if (messages) {
+      setChats([...messages]);
+    }
+  }, [messages.length]);
+
+  const handleSubmit = async (e) => {
+    if (newMessage.length > 0) {
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        conversationId: currentChat._id,
+      };
+      const receiverId = currentChat.members.find(
+        (member) => member !== auth.user.id
+      );
+      socket.current.emit("sendmessage", {
+        senderId: auth.user && auth.user.id,
+        receiverId: receiverId,
+        text: newMessage,
+      });
+
+      setChats([...chats, message]);
+      dispatch(createMessage(message, setNewMessage));
+    }
   };
 
   return (
@@ -149,57 +221,16 @@ const Index = (props) => {
           </DrawerHeader>
           {/* <Divider /> */}
           <List>
-            <ListItem
-              sx={{
-                width: "100%",
-                borderBottom: "1px solid #ddd",
-                padding: "0",
-              }}
-            >
-              <ListItemButton>
-                <div className="converstions">
-                  <img src={DefaultImage} width="40" />
-                  <div className="msg">
-                    <p className="name">John</p>
-                    <p className="text">OK</p>
-                  </div>
-                </div>
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              sx={{
-                width: "100%",
-                borderBottom: "1px solid #ddd",
-                padding: "0",
-              }}
-            >
-              <ListItemButton>
-                <div className="converstions">
-                  <img src={DefaultImage} width="40" />
-                  <div className="msg">
-                    <p className="name">John</p>
-                    <p className="text">OK</p>
-                  </div>
-                </div>
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              sx={{
-                width: "100%",
-                borderBottom: "1px solid #ddd",
-                padding: "0",
-              }}
-            >
-              <ListItemButton>
-                <div className="converstions">
-                  <img src={DefaultImage} width="40" />
-                  <div className="msg">
-                    <p className="name">John</p>
-                    <p className="text">OK</p>
-                  </div>
-                </div>
-              </ListItemButton>
-            </ListItem>
+            {conversations.length > 0
+              ? conversations.map((conversation) => (
+                  <Conversation
+                    conversation={conversation}
+                    currentUser={auth.user}
+                    setCurrentChat={setCurrentChat}
+                    currentChat={currentChat}
+                  />
+                ))
+              : null}
           </List>
         </Drawer>
       </div>
@@ -216,55 +247,31 @@ const Index = (props) => {
           }}
         >
           {/* <DrawerHeader /> */}
-          <div className="sender">
-            <div className="msg-container">
-              <img src={DefaultImage} width="40" />
-              <div className="msg">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do
-                </p>
-              </div>
-            </div>
-            <small>1 hour</small>
-          </div>
-          <div className="sender">
-            <div className="msg-container">
-              <img src={DefaultImage} width="40" />
-              <div className="msg">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do
-                </p>
-              </div>
-            </div>
-            <small>1 hour</small>
-          </div>
-          <div className="receiver">
-            <div className="msg-container">
-              <img src={DefaultImage} width="40" />
-              <div className="msg">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do
-                </p>
-              </div>
-            </div>
-            <small>1 hour</small>
-          </div>
-          <div className="receiver">
-            <div className="msg-container">
-              <img src={DefaultImage} width="40" />
-              <div className="msg">
-                <p>ok</p>
-              </div>
-            </div>
-            <small>1 hour</small>
-          </div>
+          {currentChat
+            ? chats.length > 0
+              ? chats.map((m) => (
+                  <Message
+                    message={m}
+                    currentUser={auth.user && auth.user.id}
+                  />
+                ))
+              : null
+            : null}
         </Main>
         <div className="msg-send">
-          <textarea rows={1} placeholder="message" />
-          <Button variant="contained" color="success" size="large">
+          <textarea
+            rows={1}
+            placeholder="message"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            endIcon={<SendIcon sx={{ fontSize: "14px" }} />}
+            onClick={(e) => handleSubmit(e)}
+          >
             Send
           </Button>
         </div>

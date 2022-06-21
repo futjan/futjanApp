@@ -71,7 +71,6 @@ export default function Products() {
     dispatch(getAdminJobs(page, rowsPerPage));
   }, []);
 
-  console.log(job);
   return (
     <Page title="Dashboard: Surplus">
       <Container>

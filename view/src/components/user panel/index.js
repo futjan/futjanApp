@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 import AddJob from "../job/AddJob";
@@ -10,6 +10,7 @@ import EditJobSeeker from "../jobSeeker/EditJobSeeker";
 import MyAccount from "./MyAccount";
 import FullScreenModal from "../../utils/FullScreenModal";
 import Message from "./Messages";
+import { io } from "socket.io-client";
 
 const Index = (props) => {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -17,6 +18,7 @@ const Index = (props) => {
   const [id, setId] = useState("");
   const [add, setAdd] = useState("surplus");
   const [title, setTitle] = useState("");
+  const [adId, setAdId] = useState("");
   // initialize hooks
   const state = useLocation().state;
 
@@ -26,6 +28,11 @@ const Index = (props) => {
       setTab(state.active);
     }
   }, [state && state.active]);
+
+  const socket = useRef();
+  useEffect(() => {
+    socket.current = io("ws://futjan.com");
+  }, []);
   return (
     <div className="container product-detail" style={{ margin: "30px auto" }}>
       <div className="product-attribute module">
@@ -135,18 +142,21 @@ const Index = (props) => {
                         {add === "surplus" ? (
                           <AddSurplusBusiness
                             setTitle={setTitle}
+                            setAdId={setAdId}
                             successModalFunc={() => setOpenSuccessModal(true)}
                           />
                         ) : null}
                         {add === "job" ? (
                           <AddJob
                             setTitle={setTitle}
+                            setAdId={setAdId}
                             successModalFunc={() => setOpenSuccessModal(true)}
                           />
                         ) : null}
                         {add === "candidiate" ? (
                           <AddJobSeeker
                             setTitle={setTitle}
+                            setAdId={setAdId}
                             successModalFunc={() => setOpenSuccessModal(true)}
                           />
                         ) : null}
@@ -156,6 +166,7 @@ const Index = (props) => {
                       open={openSuccessModal}
                       title={title}
                       setOpen={setOpenSuccessModal}
+                      adId={adId}
                     />
                   </div>
                 ) : null}

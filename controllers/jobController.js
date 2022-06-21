@@ -142,7 +142,6 @@ exports.jobActivate = catchAsync(async (req, res, next) => {
 // @desc                    update job
 // @access                  Private
 exports.updateJob = catchAsync(async (req, res, next) => {
-  console.log("API HIT");
   req.body = JSON.parse(req.body.job);
 
   if (req.files.length > 0) {

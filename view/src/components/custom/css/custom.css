@@ -158,6 +158,16 @@
   padding: 1px 10px;
   box-sizing: border-box;
 }
+.MuiSvgIcon-root {
+  font-size: 15px !important;
+}
+.message-pop-summary,
+.MuiAccordionSummary-content {
+  margin: 0 !important;
+}
+.MuiAccordionSummary-root {
+  margin: 0 !important;
+}
 /* Drawer message */
 /* MOdal */
 .modal {

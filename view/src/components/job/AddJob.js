@@ -132,6 +132,8 @@ const AddJob = (props) => {
 
   // create job function
   const createJobFunction = () => {
+    const date = new Date();
+
     const job = {
       title: title.toLowerCase(),
       description,
@@ -153,6 +155,7 @@ const AddJob = (props) => {
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
       address,
       currency,
+      ad_id: date.getTime(),
     };
     dispatch(createJob(job, clearState, setSuccessModal));
   };
@@ -180,8 +183,9 @@ const AddJob = (props) => {
     setCounty({ name: "", isoCode: "" });
   };
 
-  const setSuccessModal = (tit) => {
+  const setSuccessModal = (tit, id) => {
     props.setTitle(tit);
+    props.setAdId(id);
     props.successModalFunc();
   };
   return (

@@ -66,7 +66,7 @@ const Index = () => {
 
   // initialize hooks
   const dispatch = useDispatch();
-  console.log(useLocation());
+
   const { pathname } = useLocation();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);

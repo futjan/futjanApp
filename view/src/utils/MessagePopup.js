@@ -1,15 +1,123 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { format } from "timeago.js";
 import Button from "@mui/material/Button";
+import { io } from "socket.io-client";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  getConversation,
+  createSingleConversation,
+} from "../components/actions/conversationAction";
+import {
+  getMessages,
+  createMessage,
+} from "../components/actions/messageAction";
 
-export default function MessagePopup() {
+export default function MessagePopup({ receiverId }) {
+  const [currentChat, setCurrentChat] = useState(null);
+  const [newMessage, setNewMessage] = useState("");
+  const [chats, setChats] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState(null);
   const auth = useSelector((state) => state.auth);
+  const conversation = useSelector((state) => state.conversation.conversation);
+  // initialize hook
+  const dispatch = useDispatch();
+  // useEffect
+  useEffect(() => {
+    dispatch(getConversation(receiverId));
+  }, []);
+  useEffect(() => {
+    dispatch(getConversation(receiverId));
+  }, [auth && auth.user]);
+  // socket io
+  const socket = useRef();
+  useEffect(() => {
+    socket.current = io("ws://futjan.com");
+    socket.current.on("getmessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
 
+  // useEffect(() => {
+  //   socket.current.on("getmessage", (data) => {
+  //     setArrivalMessage({
+  //       sender: data.senderId,
+  //       text: data.text,
+  //       createdAt: Date.now(),
+  //     });
+  //   });
+  // }, [socket.current]);
+
+  // on new message arrival or conversation updat
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setChats((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  // }, [currentChat]);
+
+  // add user to server
+  useEffect(() => {
+    socket.current.emit("adduser", auth.user && auth.user.id);
+    socket.current.on("getusers", (users) => {
+      // console.log(users);
+    });
+  }, [auth.user && auth.user.id]);
+
+  // get messages on currentChat changes
+  useEffect(() => {
+    if (currentChat && currentChat._id) {
+      dispatch(getMessages(currentChat && currentChat._id));
+    }
+  }, [currentChat]);
+
+  const messages = useSelector((state) => state.message.messages);
+
+  useEffect(() => {
+    if (messages) {
+      setChats([...messages]);
+    }
+  }, [messages.length]);
+
+  useEffect(() => {
+    setCurrentChat(conversation);
+  }, [conversation && conversation._id]);
+
+  const handleSubmit = async (e) => {
+    if (newMessage.length > 0) {
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        conversationId: currentChat._id,
+      };
+      const receiverId = await currentChat.members.find(
+        (member) => member !== auth.user.id
+      );
+      socket.current.emit("sendmessage", {
+        senderId: auth.user.id,
+        receiverId: receiverId,
+        text: newMessage,
+      });
+
+      setChats([...chats, message]);
+      dispatch(createMessage(message, setNewMessage));
+    }
+  };
+
+  const startConversation = () => {
+    dispatch(createSingleConversation({ receiver: receiverId }));
+  };
   return (
     <div>
       <Accordion
@@ -29,6 +137,7 @@ export default function MessagePopup() {
             minHeight: "40px",
             margin: "0",
           }}
+          className="message-pop-summary"
           // expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -38,21 +147,70 @@ export default function MessagePopup() {
         {auth.isAuthenticated === true ? (
           <>
             <div className="message-pop">
-              <div className="sender-pop">
-                <div className="msg">Under Processing</div>
-                <small>1 hour</small>
-              </div>
-              <div className="receiver-pop">
-                <div className="msg">Under Processing</div>
-                <small>1 hour</small>
-              </div>
+              {currentChat && Object.keys(currentChat).length > 0 ? (
+                <>
+                  <small
+                    style={{
+                      width: "100%",
+                      display: "block",
+                      textAlign: "center",
+                    }}
+                  >
+                    We will reply you soon
+                  </small>
+                  {chats.length > 0
+                    ? chats.map((m) => (
+                        // <div className="sender-pop">
+                        <div
+                          className={
+                            m.sender !== auth.user.id
+                              ? "sender-pop"
+                              : "receiver-pop"
+                          }
+                        >
+                          <div className="msg">{m.text}</div>
+                          <small>{format(m.created_at)}</small>
+                        </div>
+                      ))
+                    : null}
+                </>
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => startConversation()}
+                  >
+                    Start conversation
+                  </Button>
+                </div>
+              )}
             </div>
-            <div className="conversation-pop">
-              <textarea rows={1} />
-              <Button variant="contained" color="primary">
-                Send
-              </Button>
-            </div>
+            {currentChat &&
+            Object.keys(currentChat).length > 0 &&
+            Object.getPrototypeOf(currentChat) === Object.prototype ? (
+              <div className="conversation-pop">
+                <textarea
+                  rows={1}
+                  value={newMessage}
+                  style={{ outline: "none" }}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                />
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  <SendIcon fontSize="large" />
+                </IconButton>
+              </div>
+            ) : null}
           </>
         ) : (
           <div
@@ -60,6 +218,7 @@ export default function MessagePopup() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              height: "100px",
             }}
           >
             <Link to="/login"> Login to start messages </Link>

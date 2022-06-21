@@ -14,7 +14,7 @@ import Slide from "@mui/material/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const FullScreenModal = ({ open, title, setOpen }) => {
+const FullScreenModal = ({ open, title, setOpen, adId }) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -59,7 +59,7 @@ const FullScreenModal = ({ open, title, setOpen }) => {
             component="div"
           >
             Thanks for posting your ad '
-            <span className="productName">{title}</span>'
+            <span className="productName">{title}</span>' (AD ID : {adId} )
           </Typography>
           <br />
           <Typography sx={{ ml: 2, flex: 1 }} variant="p" component="div">

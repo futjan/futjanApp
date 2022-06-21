@@ -126,7 +126,10 @@ export const createSurplus =
           payload: res.data.surplus,
         });
         clearState();
-        setSuccess(res.data.surplus && res.data.surplus.title);
+        setSuccess(
+          res.data.surplus && res.data.surplus.title,
+          res.data.surplus && res.data.surplus.ad_id
+        );
       }
     } catch (err) {
       dispatch(clearLoading());
@@ -150,7 +153,6 @@ export const getSurplusById = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/surplus/${id}`);
     if (res) {
-      console.log(res.data);
       dispatch({
         type: Types.GET_SURPLUS,
         payload: res.data.surplus,
@@ -217,7 +219,6 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
 };
 
 export const deleteImageFromCloud = (data) => async (dispatch) => {
-  console.log(data);
   try {
     dispatch(setLoading());
     const res = await axios.patch("/api/v1/surplus/delete-file", data);
@@ -242,12 +243,10 @@ export const deleteImageFromCloud = (data) => async (dispatch) => {
 // @access                  Private
 export const surplusActivate = (data) => async (dispatch) => {
   dispatch(setLoading());
-  console.log("Action hit");
+
   try {
     const res = await axios.patch("/api/v1/surplus/activate", data);
     if (res) {
-      console.log("response given");
-      console.log(res.data.surplus);
       dispatch({
         type: Types.ACTIVATE_SURPLUS,
         payload: res.data.surplus,
