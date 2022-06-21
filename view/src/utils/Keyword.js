@@ -27,7 +27,6 @@ const Keyword = (props) => {
   return (
     <Autocomplete
       className="autosearch-input form-control"
-      disablePortal
       autoHighlight={true}
       id="combo-box-demo"
       placeholder="Choose Country"

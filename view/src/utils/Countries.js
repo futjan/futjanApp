@@ -40,7 +40,6 @@ const Countries = (props) => {
           ? "form-control is-invalid"
           : "form-control"
       }
-      disablePortal
       autoHighlight={true}
       id="combo-box-demo"
       placeholder="Choose Country"

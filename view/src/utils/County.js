@@ -31,7 +31,6 @@ const County = (props) => {
   return (
     <Autocomplete
       className="form-control"
-      disablePortal
       id="combo-box-demo"
       options={options}
       getOptionLabel={(option) => (option ? option.name : "")}

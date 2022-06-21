@@ -31,7 +31,7 @@ const Index = (props) => {
 
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("ws://futjan.com");
+    socket.current = io("ws://www.futjan.com");
   }, []);
   return (
     <div className="container product-detail" style={{ margin: "30px auto" }}>

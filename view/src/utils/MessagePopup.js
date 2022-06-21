@@ -38,7 +38,7 @@ export default function MessagePopup({ receiverId }) {
   // socket io
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("ws://futjan.com");
+    socket.current = io("ws://www.futjan.com");
     socket.current.on("getmessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
