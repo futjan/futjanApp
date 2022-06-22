@@ -228,6 +228,9 @@
 .MuiMenuItem-root {
   font-size: 16px !important;
 }
+.MuiAutocomplete-popper {
+  inset: auto 0 !important;
+}
 .MuiAutocomplete-input {
   font-size: 16px !important;
 }

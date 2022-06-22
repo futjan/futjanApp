@@ -41,7 +41,7 @@ const Countries = (props) => {
           : "form-control"
       }
       autoHighlight={true}
-      id="combo-box-demo"
+      disablePortal={true}
       placeholder="Choose Country"
       options={options}
       getOptionLabel={(option) => (option ? option.name : "")}

@@ -10,7 +10,6 @@ export default function Conversation({
   currentUser,
   setCurrentChat,
   currentChat,
-  getMessageOfCurrentChat,
   setChatUser,
 }) {
   const [user, setUser] = useState(null);
@@ -80,7 +79,7 @@ export default function Conversation({
       }
       onClick={() => {
         setCurrentChat(conversation);
-        getMessageOfCurrentChat(conversation);
+
         setChatUser(user && user.name);
       }}
     >

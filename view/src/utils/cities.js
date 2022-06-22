@@ -60,7 +60,7 @@ const Cities = (props) => {
       return (
         <Autocomplete
           className="form-control"
-          id="combo-box-demo"
+          disablePortal={true}
           options={options}
           getOptionLabel={(option) => (option ? option.name : "")}
           value={props.city}

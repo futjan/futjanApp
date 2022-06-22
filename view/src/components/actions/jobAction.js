@@ -1,6 +1,7 @@
 import * as Types from "./types";
 import axios from "axios";
-
+import { setNotification, clearNotification } from "./notificationAction";
+import { logoutUser } from "./authAction";
 // @route                   GET /api/v1/job
 // @desc                    get all job
 // @access                  Public
@@ -126,10 +127,24 @@ export const createJob =
           res.data && res.data.job && res.data.job.title,
           res.data && res.data.job && res.data.job.ad_id
         );
+        dispatch(setNotification("Ad successfully posted!", "success"));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
       }
     } catch (err) {
       dispatch(clearLoading());
       if (err) {
+        dispatch(setNotification(err.response.data.message, "error"));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
+
+        if (err.response.data.message === "jwt expired") {
+          dispatch(logoutUser());
+        }
         dispatch({
           type: Types.GET_ERRORS,
           payload: err.response.data,
@@ -181,8 +196,22 @@ export const createComment = (comment, clearState) => async (dispatch) => {
         payload: res.data.job,
       });
       clearState();
+      dispatch(setNotification("Comment Added to ad successfully!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
+    dispatch(setNotification(err.response.data.message, "error"));
+
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, 5000);
+
+    if (err.response.data.message === "jwt expired") {
+      dispatch(logoutUser());
+    }
     dispatch({
       type: Types.GET_ERRORS,
       payload: err.response.data,
@@ -219,10 +248,24 @@ export const updateJob = (data, clearState) => async (dispatch) => {
       //     type: Types.GET_SURPLUS,
       //     payload: {},
       //   });
+      dispatch(setNotification("Ad successfully updated!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -240,10 +283,23 @@ export const deleteImageFromCloud = (data) => async (dispatch) => {
         type: Types.GET_JOB,
         payload: res.data.job,
       });
+      dispatch(setNotification("Image successfully deleted!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
+    dispatch(setNotification(err.response.data.message, "error"));
+
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, 5000);
     dispatch(clearLoading());
     if (err) {
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -266,10 +322,24 @@ export const jobActivate = (data) => async (dispatch) => {
         type: Types.ACTIVATE_JOB,
         payload: res.data.job,
       });
+      dispatch(setNotification("Ad activation completed!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -293,10 +363,24 @@ export const deleteJob = (id) => async (dispatch) => {
         type: Types.DELETE_JOB,
         payload: res.data.job,
       });
+      dispatch(setNotification("Ad successfully deleted!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -348,6 +432,9 @@ export const createReview = (review, clearState) => async (dispatch) => {
       clearState();
     }
   } catch (err) {
+    if (err.response.data.message === "jwt expired") {
+      dispatch(logoutUser());
+    }
     dispatch({
       type: Types.GET_ERRORS,
       payload: err.response.data,

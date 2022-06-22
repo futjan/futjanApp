@@ -31,7 +31,7 @@ const County = (props) => {
   return (
     <Autocomplete
       className="form-control"
-      id="combo-box-demo"
+      disablePortal={true}
       options={options}
       getOptionLabel={(option) => (option ? option.name : "")}
       value={props.county}
@@ -52,17 +52,6 @@ const County = (props) => {
       renderInput={(params) => (
         <TextField {...params} placeholder="Choose State/County" />
       )}
-      //   renderOption={(props, option) =>
-      //     props.country &&
-      //     props.country.name.length > 0 &&
-      //     props.country !== null ? (
-      //       <li {...props} key={option.key}>
-      //         {option.name}
-      //       </li>
-      //     ) : (
-      //       <li {...props}>Please Select Country First</li>
-      //     )
-      //   }
     />
   );
 };

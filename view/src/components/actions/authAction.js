@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import { setNotification, clearNotification } from "./notificationAction";
 
 import {
   GET_ERRORS,
@@ -27,6 +28,11 @@ export const registerUser = (userData, clearState) => (dispatch) => {
   axios
     .post("/api/v1/users/signup", userData)
     .then((res) => {
+      dispatch(setNotification("User successfully registered!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
       clearState();
       dispatch(clearLoading());
       dispatch({
@@ -73,6 +79,11 @@ export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
       dispatch(setCurrentUser(decoded));
       dispatch(clearLoading());
       pushToIndex();
+      dispatch(setNotification("User login!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     })
     .catch((err) => {
       dispatch(clearLoading());
@@ -105,6 +116,11 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  dispatch(setNotification("User logout!", "success"));
+
+  setTimeout(() => {
+    dispatch(clearNotification());
+  }, 5000);
 };
 
 // @route   POST /api/v1/users/forgetpassword

@@ -6,6 +6,7 @@ import jobSeekerReducer from "./jobSeekerReducer";
 import reportReducer from "./reportReducer";
 import messageReducer from "./messageReducer";
 import conversationReducer from "./conversationReducer";
+import notificationReducer from "./notificationReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -17,4 +18,5 @@ export default combineReducers({
   report: reportReducer,
   message: messageReducer,
   conversation: conversationReducer,
+  notification: notificationReducer,
 });

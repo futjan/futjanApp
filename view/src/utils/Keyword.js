@@ -28,7 +28,7 @@ const Keyword = (props) => {
     <Autocomplete
       className="autosearch-input form-control"
       autoHighlight={true}
-      id="combo-box-demo"
+      disablePortal={true}
       placeholder="Choose Country"
       options={keywords}
       getOptionLabel={(option) => (option ? option.keyword : "")}

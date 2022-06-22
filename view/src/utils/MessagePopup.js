@@ -30,10 +30,14 @@ export default function MessagePopup({ receiverId }) {
   const dispatch = useDispatch();
   // useEffect
   useEffect(() => {
-    dispatch(getConversation(receiverId));
+    if (receiverId) {
+      dispatch(getConversation(receiverId));
+    }
   }, []);
   useEffect(() => {
-    dispatch(getConversation(receiverId));
+    if (receiverId) {
+      dispatch(getConversation(receiverId));
+    }
   }, [auth && auth.user]);
   // socket io
   const socket = useRef();
@@ -78,8 +82,15 @@ export default function MessagePopup({ receiverId }) {
   // get messages on currentChat changes
   const messages = useSelector((state) => state.message.messages);
   useEffect(() => {
-    dispatch(getMessages(currentChat && currentChat._id));
-    setChats([...messages]);
+    if (chats.length === 0) {
+      setChats(messages);
+    }
+  }, [messages]);
+  useEffect(() => {
+    if (currentChat && currentChat._id) {
+      dispatch(getMessages(currentChat && currentChat._id));
+      setChats([...messages]);
+    }
   }, [currentChat]);
 
   useEffect(() => {

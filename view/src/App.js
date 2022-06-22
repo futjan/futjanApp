@@ -5,9 +5,13 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { Provider } from "react-redux";
-import jwt_decode from "jwt-decode";
+import { Provider, useSelector } from "react-redux";
 
+import jwt_decode from "jwt-decode";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 // component
 import Header2 from "./components/layout/Header2";
 import Footer from "./components/layout/Footer";
@@ -22,12 +26,16 @@ import "./css/footer/footer1.css";
 import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";
-import store from "./store";
+
 import setAuthToken from "./utils/setAuthToken";
 // stylesheet
 import "./components/custom/css/custom.css";
 // action
+import Grow from "@mui/material/Grow";
+
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
+import store from "./store";
+
 // lazy loading component
 const Index = lazy(() => import("./components//index/index"));
 const Login = lazy(() => import("./components/auth/Login"));
@@ -54,6 +62,7 @@ const PageNotFound = lazy(() => import("./components/404 Page/Page404"));
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
+
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -70,8 +79,13 @@ if (localStorage.jwtToken) {
   }
 }
 
+function GrowTransition(props) {
+  return <Grow {...props} />;
+}
 const App = (props) => {
   const { pathname } = useLocation();
+
+  const notification = useSelector((state) => state.notification);
   return (
     <div className="App">
       <Suspense
@@ -91,93 +105,122 @@ const App = (props) => {
       >
         <div className="common-home res layout-4">
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
-            <Provider store={store}>
-              {pathname === "/adminpanel" ? null : <Header2 />}
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={notification.loading}
+              TransitionComponent={GrowTransition}
+              sx={{
+                boxShadow: 3,
+                background: "#fff",
+                borderRadius: "5px",
+                minWidth: "300px",
+              }}
+            >
+              <Alert
+                sx={{
+                  background: "#fff",
+                  width: "100%",
+                  fontSize: "15px",
+                  borderRadius: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                iconMapping={{
+                  success: (
+                    <CheckCircleOutlineIcon
+                      fontSize="medium"
+                      sx={{ width: "25px", height: "25px" }}
+                    />
+                  ),
+                  error: (
+                    <ErrorOutlineIcon
+                      fontSize="medium"
+                      sx={{ width: "25px", height: "25px" }}
+                    />
+                  ),
+                }}
+                severity={notification.type}
+              >
+                {notification.message}
+              </Alert>
+            </Snackbar>
+            {pathname === "/adminpanel" ? null : <Header2 />}
 
-              <Routes>
-                <Route path="/login" exact={true} element={<Login />} />
-                <Route path="/signup" exact={true} element={<Register />} />
-                <Route path="/" exact={true} element={<Index />} />
-                <Route
-                  path="/forget-password"
-                  exact={true}
-                  element={<ForgetPassword />}
-                />
-                <Route
-                  path="/reset-password/:token"
-                  exact={true}
-                  element={<ResetPassword />}
-                />
-                <Route path="/about-us" exact={true} element={<Aboutus />} />
-                <Route
-                  path="/contact-us"
-                  exact={true}
-                  element={<Contactus />}
-                />
+            <Routes>
+              <Route path="/login" exact={true} element={<Login />} />
+              <Route path="/signup" exact={true} element={<Register />} />
+              <Route path="/" exact={true} element={<Index />} />
+              <Route
+                path="/forget-password"
+                exact={true}
+                element={<ForgetPassword />}
+              />
+              <Route
+                path="/reset-password/:token"
+                exact={true}
+                element={<ResetPassword />}
+              />
+              <Route path="/about-us" exact={true} element={<Aboutus />} />
+              <Route path="/contact-us" exact={true} element={<Contactus />} />
 
-                <Route path="/job" exact={true} element={<Job />} />
-                {/* <Route path="/add-job" exact={true} element={<AddJob />} /> */}
-                <Route
-                  path="/job-seeker"
-                  exact={true}
-                  element={<JobSeeker />}
-                />
-                <Route
-                  path="/job-seeker-detail/:id"
-                  exact={true}
-                  element={<JobSeekerDetails />}
-                />
-                {/* <Route
+              <Route path="/job" exact={true} element={<Job />} />
+              {/* <Route path="/add-job" exact={true} element={<AddJob />} /> */}
+              <Route path="/job-seeker" exact={true} element={<JobSeeker />} />
+              <Route
+                path="/job-seeker-detail/:id"
+                exact={true}
+                element={<JobSeekerDetails />}
+              />
+              {/* <Route
                   path="/add-job-seeker"
                   exact={true}
                   element={<AddJobSeeker />}
                 /> */}
 
-                <Route path="/surplus" exact element={<SurplusBusinesses />} />
+              <Route path="/surplus" exact element={<SurplusBusinesses />} />
+              <Route
+                path="/user-panel"
+                exact={true}
+                element={<PrivateRoute from="/user-panel" />}
+              >
                 <Route
                   path="/user-panel"
                   exact={true}
-                  element={<PrivateRoute from="/user-panel" />}
-                >
-                  <Route
-                    path="/user-panel"
-                    exact={true}
-                    element={<UserPanel />}
-                  />
-                  <Route
-                    path="/user-panel/change-password"
-                    exact={true}
-                    element={<ChangePassword />}
-                  />
-                </Route>
+                  element={<UserPanel />}
+                />
+                <Route
+                  path="/user-panel/change-password"
+                  exact={true}
+                  element={<ChangePassword />}
+                />
+              </Route>
 
+              <Route
+                path="/adminpanel"
+                exact={true}
+                element={<PrivateRoute from="/adminpanel" />}
+              >
                 <Route
                   path="/adminpanel"
                   exact={true}
-                  element={<PrivateRoute from="/adminpanel" />}
-                >
-                  <Route
-                    path="/adminpanel"
-                    exact={true}
-                    element={<AdminPanel />}
-                  />
-                </Route>
-
-                <Route
-                  path="/surplus-detail/:id"
-                  exact
-                  element={<DetailSurplus />}
+                  element={<AdminPanel />}
                 />
-                <Route
-                  path="/job-detail/:id"
-                  exact={true}
-                  element={<JobDetail />}
-                />
+              </Route>
 
-                <Route path="*" element={PageNotFound} />
-              </Routes>
-              <Footer />
-            </Provider>
+              <Route
+                path="/surplus-detail/:id"
+                exact
+                element={<DetailSurplus />}
+              />
+              <Route
+                path="/job-detail/:id"
+                exact={true}
+                element={<JobDetail />}
+              />
+
+              <Route path="*" element={PageNotFound} />
+            </Routes>
+            <Footer />
           </div>
         </div>
       </Suspense>

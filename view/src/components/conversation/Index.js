@@ -123,6 +123,12 @@ const Index = (props) => {
   // }, [socket]);
 
   useEffect(() => {
+    if (chats.length === 0) {
+      setChats(messages);
+    }
+  }, [messages]);
+
+  useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setChats((prev) => [...prev, arrivalMessage]);
@@ -136,13 +142,12 @@ const Index = (props) => {
   }, [auth.user && auth.user.id]);
 
   useEffect(() => {
-    dispatch(getMessages(currentChat && currentChat._id));
-    setChats([...messages]);
-  }, [currentChat, chatUser]);
-  const getMessageOfCurrentChat = async (conver) => {
-    await dispatch(getMessages(conver._id));
-    setChats([...messages]);
-  };
+    if (currentChat && currentChat._id) {
+      dispatch(getMessages(currentChat && currentChat._id));
+      setChats([...messages]);
+    }
+  }, [currentChat]);
+
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
       const message = {
@@ -216,7 +221,6 @@ const Index = (props) => {
                     currentUser={auth.user}
                     setCurrentChat={setCurrentChat}
                     currentChat={currentChat}
-                    getMessageOfCurrentChat={getMessageOfCurrentChat}
                     setChatUser={setChatUser}
                   />
                 ))

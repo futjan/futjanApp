@@ -199,7 +199,7 @@ const Header2 = () => {
             Adminpanel
           </Link>
         ) : null} */}
-        <ul
+        {/* <ul
           className="top-link list-inline"
           style={{ position: "absolute", top: "0", right: "0" }}
         >
@@ -216,20 +216,8 @@ const Header2 = () => {
               </MenuItem>
             </Select>
           </li>
-          {/* <li class="currency">
-            <Select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            >
-              <MenuItem value="uk">
-                <p style={{ margin: "0" }}>£</p>
-              </MenuItem>
-              <MenuItem value="india">
-                <p style={{ margin: "0" }}>₹</p>
-              </MenuItem>
-            </Select>
-          </li> */}
-        </ul>
+          
+        </ul> */}
         <div className="container">
           <div
             className="row d-sm-block"
@@ -534,7 +522,39 @@ const Header2 = () => {
                                     }}
                                     open={Boolean(anchorEl)}
                                     onClose={handleClose}
+                                    sx={{ padding: "0" }}
                                   >
+                                    {auth.user && (
+                                      <MenuItem
+                                        linkButton={true}
+                                        onClick={handleClose}
+                                        component={"div"}
+                                        sx={{
+                                          // background: "rgba(0, 0, 0, 0.04)",
+                                          borderBottom: "1px solid #ddd",
+                                          ":hover": {
+                                            background: "#fff",
+                                          },
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "flex-start",
+                                            flexDirection: "column",
+                                            textTransform: "capitalize",
+                                          }}
+                                        >
+                                          <p style={{ margin: "0" }}>
+                                            {auth.user && auth.user.name}
+                                          </p>
+                                          <small style={{ color: "#a7a7a7" }}>
+                                            {auth.user && auth.user.role}
+                                          </small>
+                                        </div>
+                                      </MenuItem>
+                                    )}
+
                                     <MenuItem
                                       linkButton={true}
                                       onClick={handleClose}

@@ -1,5 +1,7 @@
 import * as Types from "./types";
 import axios from "axios";
+import { setNotification, clearNotification } from "./notificationAction";
+import { logoutUser } from "./authAction";
 
 // @route                   GET /api/v1/jobseekers
 // @desc                    get all job
@@ -79,10 +81,25 @@ export const activateJobSeeker = (data) => async (dispatch) => {
         type: Types.ACTIVATE_JOBSEEKER,
         payload: res.data.jobSeeker,
       });
+      dispatch(setNotification("Ad activation completed!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -151,10 +168,25 @@ export const createJobSeeker =
         setSuccessModal(
           res.data && res.data.jobSeeker && res.data.jobSeeker.title
         );
+        dispatch(setNotification("Ad successfully posted!", "success"));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
       }
     } catch (err) {
       dispatch(clearLoading());
       if (err) {
+        dispatch(setNotification(err.response.data.message, "error"));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
+
+        if (err.response.data.message === "jwt expired") {
+          dispatch(logoutUser());
+        }
+
         dispatch({
           type: Types.GET_ERRORS,
           payload: err.response.data,
@@ -224,10 +256,25 @@ export const updateJobSeeker = (job, clearState) => async (dispatch) => {
       //     type: Types.GET_SURPLUS,
       //     payload: {},
       //   });
+      dispatch(setNotification("Ad successfully updated!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
@@ -247,15 +294,28 @@ export const deleteJobSeeker = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/v1/jobseekers/${id}`);
     if (res) {
-      console.log(res.data.jobSeeker);
       dispatch({
         type: Types.DELETE_JOB_SEEKER,
         payload: res.data.jobSeeker,
       });
+      dispatch(setNotification("Ad successfully deleted!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
     dispatch(clearLoading());
     if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,
