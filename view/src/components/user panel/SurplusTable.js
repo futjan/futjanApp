@@ -99,6 +99,12 @@ const SurplusTable = (props) => {
               label: "Title",
             },
             {
+              id: "ad_id",
+              numeric: false,
+              disablePadding: false,
+              label: "AD ID",
+            },
+            {
               id: "category",
               numeric: false,
               disablePadding: false,
@@ -262,6 +268,19 @@ const SurplusTable = (props) => {
                     </p>
                   ) : (
                     "No Discount"
+                  )
+                ) : (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "18px", width: "100%" }}
+                  />
+                )}
+                <h5 style={{ margin: "0" }}>Views</h5>
+                {surplus && surplus.surplus && surplus.loading !== true ? (
+                  surplus && surplus.surplus && surplus.surplus.views ? (
+                    <p>{surplus.surplus.views}</p>
+                  ) : (
+                    0
                   )
                 ) : (
                   <Skeleton

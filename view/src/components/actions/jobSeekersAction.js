@@ -118,7 +118,7 @@ export const getPrivateJobSeeker =
     try {
       const res = await axios.get(
         // `/api/v1/jobseekers/current-user?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=name,title,rate,salaryType,photo,skills,country`
-        `/api/v1/jobseekers/current-user?fields=name,title, active,images,category,subCategory&limit=${limit}&page=${page}`
+        `/api/v1/jobseekers/current-user?fields=name,title, ad_id,active,images,category,subCategory&limit=${limit}&page=${page}`
         // `/api/v1/jobseekers`
       );
       if (res.data) {
@@ -275,6 +275,21 @@ export const updateJobSeeker = (job, clearState) => async (dispatch) => {
         dispatch(logoutUser());
       }
 
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+// @route                   PATCH /ap1/v1/jobseekers/views
+// @desc                    update views
+// @access                  Public
+export const updateViews = (data) => async (dispatch) => {
+  try {
+    await axios.patch("/api/v1/jobseekers/views", data);
+  } catch (err) {
+    if (err) {
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,

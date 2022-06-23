@@ -19,7 +19,7 @@ import {
   createMessage,
 } from "../components/actions/messageAction";
 
-export default function MessagePopup({ receiverId }) {
+export default function MessagePopup({ receiverId, title }) {
   const [currentChat, setCurrentChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState([]);
@@ -153,7 +153,7 @@ export default function MessagePopup({ receiverId }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontSize: "16px" }}>Message us</Typography>
+          <Typography sx={{ fontSize: "16px" }}>{title}</Typography>
         </AccordionSummary>
         {auth.isAuthenticated === true ? (
           <>

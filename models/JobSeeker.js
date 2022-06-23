@@ -25,6 +25,7 @@ const jobSeekerSchema = new Schema({
     type: [String],
     required: [true, "Skill is required"],
   },
+  address: String,
   salaryType: {
     type: String,
     required: [true, "payment type is required"],
@@ -123,6 +124,7 @@ const jobSeekerSchema = new Schema({
     required: true,
     select: false,
   },
+  views: Number,
 });
 
 module.exports = JobSeeker = mongoose.model("jobseekers", jobSeekerSchema);

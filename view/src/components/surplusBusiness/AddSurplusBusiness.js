@@ -51,8 +51,8 @@ const AddSurplusBusiness = (props) => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
-  const [originalPrice, setOriginalPrice] = useState(0);
-  const [offeredPrice, setOfferedPrice] = useState(0);
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [offeredPrice, setOfferedPrice] = useState("");
   const [errors, setErrors] = useState({});
   const [suggustion, setSuggustion] = useState([]);
   const [files, setFiles] = useState([]);
@@ -357,8 +357,8 @@ const AddSurplusBusiness = (props) => {
     setDescription("");
     setWebsite("");
     setErrors({});
-    setOfferedPrice(0);
-    setOriginalPrice(0);
+    setOfferedPrice("");
+    setOriginalPrice("");
     setKeyword("");
     setPromoteType([]);
     setFiles([]);

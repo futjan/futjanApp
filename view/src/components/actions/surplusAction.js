@@ -83,7 +83,7 @@ export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/surplus/current-user-surplus?fields=title,category,businessType,originalPrice,offeredPrice,discount,active,currency,images&page=${page}&limit=${limit}`
+      `/api/v1/surplus/current-user-surplus?fields=title,category,businessType,ad_id,originalPrice,offeredPrice,discount,active,currency,images&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -191,6 +191,7 @@ export const getSurplusById = (id) => async (dispatch) => {
 // @desc                    update surplus by id
 // @access                  Private
 export const updateSurplus = (data, clearState) => async (dispatch) => {
+  console.log(data);
   let formDate = new FormData();
   data.files.forEach((file) => formDate.append("photo", file));
 
@@ -251,6 +252,22 @@ export const updateSurplus = (data, clearState) => async (dispatch) => {
   }
 };
 
+// @route                   PATCH /ap1/v1/surplus/views
+// @desc                    update views
+// @access                  Public
+export const updateViews = (data) => async (dispatch) => {
+  try {
+    await axios.patch("/api/v1/surplus/views", data);
+  } catch (err) {
+    if (err) {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
 export const deleteImageFromCloud = (data) => async (dispatch) => {
   try {
     dispatch(setLoading());
@@ -295,6 +312,7 @@ export const surplusActivate = (data) => async (dispatch) => {
   try {
     const res = await axios.patch("/api/v1/surplus/activate", data);
     if (res) {
+      console.log(res.data.surplus);
       dispatch({
         type: Types.ACTIVATE_SURPLUS,
         payload: res.data.surplus,

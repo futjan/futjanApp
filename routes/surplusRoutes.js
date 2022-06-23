@@ -28,7 +28,7 @@ router.patch(
   // authController.protect,
   surplusController.surplusActivate
 );
-
+router.patch("/views", surplusController.updateViews);
 // router.post(
 //   "/upload",
 //   authController.protect,

@@ -110,6 +110,7 @@ const surplusBusiness = new Schmea(
       required: true,
       select: false,
     },
+    views: Number,
   },
   {
     toJSON: {

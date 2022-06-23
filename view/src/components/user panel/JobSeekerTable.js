@@ -61,7 +61,7 @@ const JobSeekerTable = (props) => {
 
   return (
     <>
-      <h1>Jobs ({jobSeeker.totalDocs})</h1>
+      <h1>Jobseekers ({jobSeeker.totalDocs})</h1>
       <div className="table-responsive">
         <Table
           title={"Job Seeker"}
@@ -99,6 +99,12 @@ const JobSeekerTable = (props) => {
               numeric: false,
               disablePadding: false,
               label: "Title",
+            },
+            {
+              id: "ad_id",
+              numeric: false,
+              disablePadding: false,
+              label: "AD ID",
             },
             {
               id: "category",
@@ -269,6 +275,24 @@ const JobSeekerTable = (props) => {
                     <p>
                       {captilizeFirstLetter(jobSeeker.jobSeeker.subCategory)}
                     </p>
+                  )
+                ) : (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "18px", width: "100%" }}
+                  />
+                )}
+                <h5 style={{ margin: 0 }}>Views</h5>
+                {jobSeeker &&
+                jobSeeker.jobSeeker &&
+                jobSeeker.jobSeeker.views &&
+                jobSeeker.loading !== true ? (
+                  jobSeeker &&
+                  jobSeeker.jobSeeker &&
+                  jobSeeker.jobSeeker.views ? (
+                    <p>{jobSeeker.jobSeeker.views}</p>
+                  ) : (
+                    0
                   )
                 ) : (
                   <Skeleton

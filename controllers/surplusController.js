@@ -192,6 +192,7 @@ exports.deleteSurplus = catchAsync(async (req, res, next) => {
 // @desc                    update surplux
 // @access                  Private
 exports.updateSurplus = catchAsync(async (req, res, next) => {
+  console.log("API HIT");
   req.body = JSON.parse(req.body.surplus);
 
   if (req.files.length > 0) {
@@ -217,6 +218,24 @@ exports.updateSurplus = catchAsync(async (req, res, next) => {
     surplus,
   });
   // res.end();
+});
+
+// @route             PATCH /api/v1/surplus/views
+// @desc              update views
+// @access            Public
+exports.updateViews = catchAsync(async (req, res, next) => {
+  const surplus = await SurplusBusiness.findByIdAndUpdate(
+    req.body.id,
+    { views: req.body.views },
+    { new: true }
+  );
+  if (!surplus) {
+    return next(new AppError("views not update", 400, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+  });
 });
 
 exports.updateSurplusImage = catchAsync(async (req, res, next) => {

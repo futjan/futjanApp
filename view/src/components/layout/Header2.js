@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import SideBar from "./SideBar";
+import Keyword from "../../utils/Keyword";
 // import MenuIcon from "@mui/icons-material/Menu";
 // import AccountCircle from "@mui/icons-material/AccountCircle";
 // import { City } from "country-state-city";
@@ -266,8 +267,8 @@ const Header2 = () => {
                       id="search0"
                       className="search d-grid input-group form-group"
                     >
-                      {/* <Keyword setKeyword={setKeyword} /> */}
-                      <input
+                      <Keyword setKeyword={setKeyword} />
+                      {/* <input
                         className="autosearch-input form-control"
                         type="text"
                         value={keyword}
@@ -275,7 +276,7 @@ const Header2 = () => {
                         autoComplete="off"
                         placeholder="Restaurant, Jobs, Business, Stock "
                         name="search"
-                      />
+                      /> */}
                       {/* {renderNameSuggustion()} */}
                       <div
                         className="select_category filter_type  icon-select"

@@ -93,6 +93,7 @@ const jobSchema = new Sehema(
       type: Date,
       default: Date.now(),
     },
+    views: Number,
   },
   {
     toJSON: {

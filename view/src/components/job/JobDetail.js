@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getJobById } from "../actions/jobAction";
+import { getJobById, updateViews } from "../actions/jobAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
@@ -31,7 +31,17 @@ const JobDetail = () => {
   useEffect(() => {
     dispatch(getJobById(id));
   }, []);
-
+  //update view
+  useEffect(() => {
+    if (job.job && job.job._id) {
+      dispatch(
+        updateViews({
+          id: job.job && job.job._id,
+          views: job.job && job.job.views ? job.job && job.job.views + 1 : 1,
+        })
+      );
+    }
+  }, [job.job && job.job._id]);
   // close report modal
   const closeReportModal = (e) => {
     e.preventDefault();
@@ -56,7 +66,7 @@ const JobDetail = () => {
             zIndex: "1200",
           }}
         >
-          <MessagePopup receiverId={job.job.user} />
+          <MessagePopup receiverId={job.job.user} title="Chat with Employer" />
         </div>
       ) : null}
       <ReportModal
@@ -224,6 +234,8 @@ const JobDetail = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
                       <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
@@ -262,6 +274,8 @@ const JobDetail = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
                       <i
@@ -302,6 +316,8 @@ const JobDetail = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
                       <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
@@ -333,12 +349,14 @@ const JobDetail = () => {
                   >
                     <div
                       style={{
-                        background: "rgb(103 135 254 / 20%)",
+                        background: "rgb(255, 231, 217)",
                         padding: "15px 18px",
                         borderRadius: "5px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
                       <i
@@ -373,15 +391,20 @@ const JobDetail = () => {
                   >
                     <div
                       style={{
-                        background: "rgb(255 187 0 / 20%)",
+                        background: "rgb(208, 242, 255)",
                         padding: "15px 18px",
                         borderRadius: "5px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
-                      <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
+                      <i
+                        class="fa fa-thumb-tack"
+                        style={{ fontSize: "22px" }}
+                      ></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
@@ -417,6 +440,8 @@ const JobDetail = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        width: "55px",
+                        height: "55px",
                       }}
                     >
                       <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>

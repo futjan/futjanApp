@@ -1,11 +1,6 @@
 import React, { lazy, Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import jwt_decode from "jwt-decode";
 import Snackbar from "@mui/material/Snackbar";
@@ -53,8 +48,6 @@ const SurplusBusinesses = lazy(() =>
 );
 const JobSeeker = lazy(() => import("./components/jobSeeker/Index"));
 const UserPanel = lazy(() => import("./components/user panel/index"));
-const AddJob = lazy(() => import("./components/job/AddJob"));
-const AddJobSeeker = lazy(() => import("./components/jobSeeker/AddJobSeeker"));
 const JobSeekerDetails = lazy(() =>
   import("./components/jobSeeker/JobSeekerDetails")
 );
@@ -171,11 +164,6 @@ const App = (props) => {
                 exact={true}
                 element={<JobSeekerDetails />}
               />
-              {/* <Route
-                  path="/add-job-seeker"
-                  exact={true}
-                  element={<AddJobSeeker />}
-                /> */}
 
               <Route path="/surplus" exact element={<SurplusBusinesses />} />
               <Route

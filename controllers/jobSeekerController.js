@@ -46,6 +46,7 @@ exports.create = catchAsync(async (req, res, next) => {
     promoteType: req.body.promoteType,
     images: photo,
     currency: req.body.currency,
+    address: req.body.address,
     cv,
   });
 
@@ -187,6 +188,24 @@ exports.updateJobSeeker = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     jobSeeker,
+  });
+});
+
+// @route             PATCH /api/v1/jobseekers/views
+// @desc              update views
+// @access            Public
+exports.updateViews = catchAsync(async (req, res, next) => {
+  const surplus = await JobSeeker.findByIdAndUpdate(
+    req.body.id,
+    { views: req.body.views },
+    { new: true }
+  );
+  if (!surplus) {
+    return next(new AppError("views not update", 400, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
   });
 });
 

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSurplusById, createReview } from "../actions/surplusAction";
+import {
+  getSurplusById,
+  createReview,
+  updateViews,
+} from "../actions/surplusAction";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -63,6 +67,20 @@ function DetailSurplus() {
     dispatch(getSurplusById(params.id));
   }, []);
 
+  // set views
+  useEffect(() => {
+    if (surplusFromStore.surplus && surplusFromStore.surplus._id) {
+      dispatch(
+        updateViews({
+          id: surplusFromStore.surplus && surplusFromStore.surplus._id,
+          views:
+            surplusFromStore.surplus && surplusFromStore.surplus.views
+              ? surplusFromStore.surplus && surplusFromStore.surplus.views + 1
+              : 1,
+        })
+      );
+    }
+  }, [surplusFromStore.surplus && surplusFromStore.surplus._id]);
   // create review
   const createReviewFunc = () => {
     const obj = {
@@ -107,6 +125,7 @@ function DetailSurplus() {
               receiverId={
                 surplusFromStore.surplus && surplusFromStore.surplus.user
               }
+              title="Chat with supplier"
             />
           </div>
         )
@@ -394,6 +413,8 @@ function DetailSurplus() {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          width: "55px",
+                          height: "55px",
                         }}
                       >
                         <i
@@ -436,6 +457,8 @@ function DetailSurplus() {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          width: "55px",
+                          height: "55px",
                         }}
                       >
                         <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
@@ -458,6 +481,50 @@ function DetailSurplus() {
                         )}
                       </div>
                     </div>
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(255, 231, 217)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "55px",
+                          height: "55px",
+                        }}
+                      >
+                        <i
+                          class="fa fa-th-large"
+                          style={{ fontSize: "22px" }}
+                        ></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>Category</h4>
+                        {surplusFromStore.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p style={{ margin: "0" }}>
+                            {surplusFromStore.surplus &&
+                              surplusFromStore.surplus.category &&
+                              capitalizeFirstLetter(
+                                surplusFromStore.surplus.category
+                              )}
+                          </p>
+                        )}
+                      </div>
+                    </div>
 
                     <div
                       style={{
@@ -470,16 +537,18 @@ function DetailSurplus() {
                     >
                       <div
                         style={{
-                          background: "rgb(255 187 0 / 20%)",
+                          background: "rgb(208, 242, 255)",
                           padding: "15px 18px",
                           borderRadius: "5px",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          width: "55px",
+                          height: "55px",
                         }}
                       >
                         <i
-                          class="fa fa-compass"
+                          class="fa fa-thumb-tack"
                           style={{ fontSize: "22px" }}
                         ></i>
                       </div>
@@ -515,12 +584,14 @@ function DetailSurplus() {
                     >
                       <div
                         style={{
-                          background: "rgb(103 135 254 / 20%)",
+                          background: "rgb(209, 233, 252)",
                           padding: "15px 18px",
                           borderRadius: "5px",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          width: "55px",
+                          height: "55px",
                         }}
                       >
                         <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>

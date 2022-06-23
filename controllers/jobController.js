@@ -167,6 +167,24 @@ exports.updateJob = catchAsync(async (req, res, next) => {
   });
 });
 
+// @route             PATCH /api/v1/job/views
+// @desc              update views
+// @access            Public
+exports.updateViews = catchAsync(async (req, res, next) => {
+  const surplus = await Job.findByIdAndUpdate(
+    req.body.id,
+    { views: req.body.views },
+    { new: true }
+  );
+  if (!surplus) {
+    return next(new AppError("views not update", 400, undefined));
+  }
+
+  res.status(200).json({
+    status: "success",
+  });
+});
+
 // @route             PATCH /api/v1/job/delete-image
 // @desc              delete image from aws
 // @access            Private

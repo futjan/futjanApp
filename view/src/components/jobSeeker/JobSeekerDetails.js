@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getJobSeekerById } from "../actions/jobSeekersAction";
+import { getJobSeekerById, updateViews } from "../actions/jobSeekersAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
@@ -26,10 +26,26 @@ const JobSeekerDetails = () => {
   const { id } = useParams();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
+  const auth = useSelector((state) => state.auth);
   // useEffect
   useEffect(() => {
     dispatch(getJobSeekerById(id));
   }, []);
+
+  //update view
+  useEffect(() => {
+    if (jobSeeker.jobSeeker && jobSeeker.jobSeeker._id) {
+      dispatch(
+        updateViews({
+          id: jobSeeker.jobSeeker && jobSeeker.jobSeeker._id,
+          views:
+            jobSeeker.jobSeeker && jobSeeker.jobSeeker.views
+              ? jobSeeker.jobSeeker && jobSeeker.jobSeeker.views + 1
+              : 1,
+        })
+      );
+    }
+  }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
 
   // close report modal
   const closeReportModal = (e) => {
@@ -46,7 +62,26 @@ const JobSeekerDetails = () => {
 
   return (
     <div class="main-container container" style={{ margin: "20px auto" }}>
-      <div
+      {jobSeeker.loading === false ? (
+        jobSeeker.jobSeeker &&
+        jobSeeker.jobSeeker.user === auth.user.id ? null : (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "0",
+              right: "50px",
+              zIndex: "1200",
+            }}
+          >
+            <MessagePopup
+              receiverId={jobSeeker.jobSeeker && jobSeeker.jobSeeker.user}
+              title="Chat with Employee"
+            />
+          </div>
+        )
+      ) : null}
+
+      {/* <div
         style={{
           position: "fixed",
           bottom: "0",
@@ -55,7 +90,7 @@ const JobSeekerDetails = () => {
         }}
       >
         <MessagePopup />
-      </div>
+      </div> */}
       <ReportModal
         modalId1="so_sociallogin_3"
         model="jobseekers"
@@ -284,7 +319,7 @@ const JobSeekerDetails = () => {
                   >
                     <div
                       style={{
-                        background: "rgb(103 135 254 / 20%)",
+                        background: "rgb(255, 231, 217)",
                         padding: "15px 18px",
                         borderRadius: "5px",
                         display: "flex",
@@ -324,7 +359,7 @@ const JobSeekerDetails = () => {
                   >
                     <div
                       style={{
-                        background: "rgb(255 187 0 / 20%)",
+                        background: "rgb(208, 242, 255)",
                         padding: "15px 18px",
                         borderRadius: "5px",
                         display: "flex",
@@ -332,7 +367,10 @@ const JobSeekerDetails = () => {
                         alignItems: "center",
                       }}
                     >
-                      <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
+                      <i
+                        class="fa fa-thumb-tack"
+                        style={{ fontSize: "22px" }}
+                      ></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>

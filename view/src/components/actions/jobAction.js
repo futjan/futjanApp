@@ -78,7 +78,7 @@ export const getJobsPrivate = (page, limit) => async (dispatch) => {
   dispatch({ type: Types.CLEAR_ERRORS });
   try {
     const res = await axios.get(
-      `/api/v1/job/current-user-job?fields=title,category,subCategory,images,active,&page=${page}&limit=${limit}`
+      `/api/v1/job/current-user-job?fields=title,category,subCategory,ad_id,images,active,&page=${page}&limit=${limit}`
     );
     if (res.data) {
       dispatch({
@@ -266,6 +266,21 @@ export const updateJob = (data, clearState) => async (dispatch) => {
       if (err.response.data.message === "jwt expired") {
         dispatch(logoutUser());
       }
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+// @route                   PATCH /ap1/v1/surplus/views
+// @desc                    update views
+// @access                  Public
+export const updateViews = (data) => async (dispatch) => {
+  try {
+    await axios.patch("/api/v1/job/views", data);
+  } catch (err) {
+    if (err) {
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,

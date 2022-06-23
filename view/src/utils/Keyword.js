@@ -29,7 +29,6 @@ const Keyword = (props) => {
       className="autosearch-input form-control"
       autoHighlight={true}
       disablePortal={true}
-      placeholder="Choose Country"
       options={keywords}
       getOptionLabel={(option) => (option ? option.keyword : "")}
       value={searchKeyword}
@@ -42,9 +41,7 @@ const Keyword = (props) => {
         return option.keyword === value.keyword;
       }}
       //   sx={{ width: 300 }}
-      renderInput={(params) => (
-        <TextField {...params} placeholder="Choose Country" />
-      )}
+      renderInput={(params) => <TextField {...params} placeholder="Keyword" />}
       renderOption={(props, option) => (
         <Link
           to="/surplus"

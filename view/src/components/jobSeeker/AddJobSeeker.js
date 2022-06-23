@@ -33,6 +33,7 @@ const AddJobSeeker = (props) => {
   const [category, setCategory] = useState("Local Job");
   const [subCategory, setSubCategory] = useState("");
   const [rate, setRate] = useState("");
+  const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [name, setName] = useState("");
   const [experience, setExperience] = useState("");
@@ -152,7 +153,7 @@ const AddJobSeeker = (props) => {
       email: email.toLowerCase(),
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-
+      address: address.toLowerCase(),
       city: city.name.toLowerCase(),
       county: county.name.toLowerCase(),
       country: country.name.toLowerCase(),
@@ -171,6 +172,7 @@ const AddJobSeeker = (props) => {
     setCurrency("");
     setCategory("Local Job");
     setSubCategory("");
+    setAddress("");
     setSalaryType("");
     setExperience("");
     setQualification("");
@@ -537,6 +539,22 @@ const AddJobSeeker = (props) => {
                       {errors.validation.email}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  Address
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="name"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="address"
+                    id="input-name"
+                    className="form-control"
+                  />
                 </div>
               </div>
 

@@ -99,6 +99,12 @@ const JobTable = (props) => {
               label: "Title",
             },
             {
+              id: "ad_id",
+              numeric: false,
+              disablePadding: false,
+              label: "AD ID",
+            },
+            {
               id: "category",
               numeric: false,
               disablePadding: false,
@@ -125,7 +131,7 @@ const JobTable = (props) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <h3>Surplus</h3>
+            <h3>JOB</h3>
             <div
               style={{
                 display: "flex",
@@ -150,7 +156,7 @@ const JobTable = (props) => {
             </div>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <h5>Title</h5>
+                <h5 style={{ marginBottom: 0 }}>Title</h5>
                 {job && job.job && job.job.title && job.loading === false ? (
                   job &&
                   job.job &&
@@ -163,7 +169,7 @@ const JobTable = (props) => {
                 )}
                 {/* <p>adasodiasjdoiadjiojsodijaodi</p> */}
 
-                <h5>Category</h5>
+                <h5 style={{ marginBottom: 0 }}>Category</h5>
 
                 {job && job.job && job.job.category && job.loading !== true ? (
                   job &&
@@ -178,7 +184,7 @@ const JobTable = (props) => {
                   />
                 )}
 
-                <h5>SubCategory</h5>
+                <h5 style={{ marginBottom: 0 }}>SubCategory</h5>
                 {job &&
                 job.job &&
                 job.job.subCategory &&
@@ -194,9 +200,22 @@ const JobTable = (props) => {
                     style={{ height: "18px", width: "100%" }}
                   />
                 )}
+                <h5 style={{ marginBottom: 0 }}>Views</h5>
+                {job && job.job && job.job.views && job.loading !== true ? (
+                  job && job.job && job.job.views ? (
+                    <p>{job.job.views}</p>
+                  ) : (
+                    0
+                  )
+                ) : (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "18px", width: "100%" }}
+                  />
+                )}
               </Grid>
               <Grid item xs={6}>
-                <h5>Posted Date</h5>
+                <h5 style={{ marginBottom: 0 }}>Posted Date</h5>
                 {job.job && job.job.createdAt && job.loading !== true ? (
                   <p>{new Date(job.job.createdAt).toDateString()}</p>
                 ) : (
@@ -206,7 +225,7 @@ const JobTable = (props) => {
                   />
                 )}
 
-                <h5>Type</h5>
+                <h5 style={{ marginBottom: 0 }}>Type</h5>
                 {job && job.job && job.job.type && job.loading !== true ? (
                   job &&
                   job.job &&
@@ -218,12 +237,28 @@ const JobTable = (props) => {
                   />
                 )}
 
-                <h5>Gender</h5>
+                <h5 style={{ marginBottom: 0 }}>Gender</h5>
                 {job && job.job && job.job.gender && job.loading !== true ? (
                   job &&
                   job.job &&
                   job.job.gender && (
                     <p>{captilizeFirstLetter(job.job.gender)}</p>
+                  )
+                ) : (
+                  <Skeleton
+                    count={1}
+                    style={{ height: "18px", width: "100%" }}
+                  />
+                )}
+                <h5 style={{ marginBottom: 0 }}>Status</h5>
+                {job && job.job && job.job.active && job.loading !== true ? (
+                  job &&
+                  job.job &&
+                  job.job.active &&
+                  job.job.active === true ? (
+                    "active"
+                  ) : (
+                    "inactive"
                   )
                 ) : (
                   <Skeleton

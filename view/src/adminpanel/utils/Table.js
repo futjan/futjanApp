@@ -340,6 +340,10 @@ export default function EnhancedTable({
                       <TableCell style={{ fontSize: "16px" }} align="left">
                         {row && row.title}
                       </TableCell>
+                      <TableCell style={{ fontSize: "16px" }} align="left">
+                        {row && row.ad_id ? row && row.ad_id : "-----"}
+                      </TableCell>
+
                       <TableCell align="left" style={{ fontSize: "16px" }}>
                         {row && row.category}
                       </TableCell>
