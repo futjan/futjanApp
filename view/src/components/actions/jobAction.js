@@ -10,20 +10,22 @@ export const getJobs =
     page,
     limit,
     sort,
+    title,
     type,
     category,
     subCategory,
     country,
     county,
-    city,
-    setCategory
+    city
+    // setCategory
   ) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
+      console.log(city, "city");
       const res = await axios.get(
-        `/api/v1/job?type=${type}&category=${category}&subCategory=${subCategory}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort}`
+        `/api/v1/job?type=${type}&title=${title}&category=${category}&subCategory=${subCategory}&county=${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort}`
       );
       if (res.data) {
         dispatch({

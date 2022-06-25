@@ -1,9 +1,10 @@
 const User = require("../models/User");
-
+const Surplus = require("../models/SurplusBusiness");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const isEmpty = require("../validation/is-empty");
 const validateRegisterInput = require("../validation/register");
+const mongoose = require("mongoose");
 
 // @route                   PATCH /api/v1/users/current-user
 // @desc                    update current user
@@ -22,5 +23,198 @@ exports.updateCurrentUser = catchAsync(async (req, res, next) => {
     data: {
       user,
     },
+  });
+});
+
+// @route                   GET /api/v1/users/ads/userID
+// @desc                    get all ads
+// @access                  Public
+exports.userAds = catchAsync(async (req, res, next) => {
+  if (Object.keys(req.query).length > 0) {
+    Object.keys(req.query).forEach((ele) => {
+      if (req.query[ele].length === 0) {
+        delete req.query[ele];
+      }
+    });
+  }
+
+  const ads = await User.aggregate([
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(req.params.userID),
+      },
+    },
+    {
+      $lookup: {
+        from: "jobs",
+        localField: "_id",
+        foreignField: "user",
+
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$active", true] },
+                  { $eq: ["$deleted", false] },
+                  {
+                    $eq: ["$user", mongoose.Types.ObjectId(req.params.userID)],
+                  },
+                  req.query && req.query.title && req.query.title.length > 0
+                    ? { $eq: ["$title", req.query.title] }
+                    : {},
+                  req.query && req.query.country && req.query.country.length > 0
+                    ? { $eq: ["$country", req.query.country] }
+                    : {},
+                  req.query && req.query.county && req.query.county.length > 0
+                    ? { $eq: ["$county", req.query.county] }
+                    : {},
+                  req.query && req.query.city && req.query.city.length > 0
+                    ? { $eq: ["$city", req.query.city] }
+                    : {},
+                ],
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+              title: 1,
+              country: 1,
+              adType: 1,
+              category: 1,
+              minSalary: 1,
+              maxSalary: 1,
+              promoteType: 1,
+              images: 1,
+              currency: 1,
+              salaryType: 1,
+            },
+          },
+        ],
+        as: "job",
+      },
+    },
+
+    {
+      $lookup: {
+        from: "surplus",
+        localField: "_id",
+        foreignField: "user",
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$active", true] },
+                  { $eq: ["$deleted", false] },
+                  {
+                    $eq: ["$user", mongoose.Types.ObjectId(req.params.userID)],
+                  },
+
+                  req.query && req.query.title && req.query.title.length > 0
+                    ? { $eq: ["$title", req.query.title] }
+                    : {},
+                  req.query && req.query.country && req.query.country.length > 0
+                    ? { $eq: ["$country", req.query.country] }
+                    : {},
+                  req.query && req.query.county && req.query.county.length > 0
+                    ? { $eq: ["$county", req.query.county] }
+                    : {},
+                  req.query && req.query.city && req.query.city.length > 0
+                    ? { $eq: ["$city", req.query.city] }
+                    : {},
+                ],
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+              title: 1,
+              country: 1,
+              adType: 1,
+              category: 1,
+              originalPrice: 1,
+              offeredPrice: 1,
+              promoteType: 1,
+              images: 1,
+              currency: 1,
+            },
+          },
+        ],
+        as: "surplus",
+      },
+    },
+    {
+      $lookup: {
+        from: "jobseekers",
+        localField: "_id",
+        foreignField: "user",
+        // let: { deleted: "$deleted", active: "$active" },
+
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$active", true] },
+                  { $eq: ["$deleted", false] },
+                  {
+                    $eq: ["$user", mongoose.Types.ObjectId(req.params.userID)],
+                  },
+                  req.query && req.query.title && req.query.title.length > 0
+                    ? { $eq: ["$title", req.query.title] }
+                    : {},
+                  req.query && req.query.country && req.query.country.length > 0
+                    ? { $eq: ["$country", req.query.country] }
+                    : {},
+                  req.query && req.query.county && req.query.county.length > 0
+                    ? { $eq: ["$county", req.query.county] }
+                    : {},
+                  req.query && req.query.city && req.query.city.length > 0
+                    ? { $eq: ["$city", req.query.city] }
+                    : {},
+                ],
+              },
+            },
+          },
+
+          {
+            $project: {
+              _id: 1,
+              title: 1,
+              country: 1,
+              adType: 1,
+              category: 1,
+              name: 1,
+              images: 1,
+              rate: 1,
+              currency: 1,
+            },
+          },
+        ],
+        as: "jobSeeker",
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        surplus: "$surplus",
+        job: "$job",
+        jobSeeker: "$jobSeeker",
+      },
+    },
+  ]);
+  if (ads.length === 0) {
+    return next(new AppError("Not found", 404, undefined));
+  }
+
+  res.status(200).json({
+    ads: [
+      ...ads[ads.length - 1].surplus,
+      ...ads[ads.length - 1].job,
+      ...ads[ads.length - 1].jobSeeker,
+    ],
   });
 });

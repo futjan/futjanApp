@@ -1,5 +1,7 @@
 import * as Type from "./types";
 import axios from "axios";
+import { setNotification, clearNotification } from "./notificationAction";
+import { logoutUser } from "./authAction";
 
 // @route                   PATCH /api/v1/users/current-user
 // @desc                    update current or logged in user
@@ -124,8 +126,16 @@ export const savePreset = (preset) => async (dispatch) => {
         type: Type.GET_USER_PRESET,
         payload: res.data.preset,
       });
+      dispatch(setNotification("Alert saved!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
     }
   } catch (err) {
+    if (err.response.data.message === "jwt expired") {
+      dispatch(logoutUser());
+    }
     dispatch(clearLoading());
     dispatch({
       type: Type.GET_ERRORS,
@@ -138,6 +148,7 @@ export const savePreset = (preset) => async (dispatch) => {
 // @desc                    get preset
 // @access                  Private
 export const getPreset = () => async (dispatch) => {
+  console.log("PRESET ACTION HIT");
   try {
     const res = await axios.get("/api/v1/presets");
 

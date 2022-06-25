@@ -7,6 +7,7 @@ import reportReducer from "./reportReducer";
 import messageReducer from "./messageReducer";
 import conversationReducer from "./conversationReducer";
 import notificationReducer from "./notificationReducer";
+import userAdsReducer from "./userAdsReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
   message: messageReducer,
   conversation: conversationReducer,
   notification: notificationReducer,
+  userads: userAdsReducer,
 });

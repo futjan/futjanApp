@@ -27,7 +27,8 @@ const Index = () => {
   const [searchedCategory, setSearchedCategory] = useState("");
   const [keyword, setKeyword] = useState("");
   const [sort, setSort] = useState("");
-  const [typePreset, setTypePreset] = useState("");
+  const [titlePreset, setTitlePreset] = useState("");
+  const [title, setTitle] = useState("");
   const [cityPreset, setCityPreset] = useState({
     name: "",
     stateCode: "",
@@ -60,9 +61,42 @@ const Index = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = useLocation();
+
   // get state from store
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const job = useSelector((state) => state.job);
+  const preset = useSelector((state) => state.auth.preset);
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(getPreset());
+  }, [user && user._id]);
+
+  useEffect(() => {
+    if (location && location.state && location.state.searchTitle) {
+      setTitle(location && location.state && location.state.searchTitle);
+      callJobsAPI(page, limit, sort);
+    }
+  }, [location && location.state && location.state.searchTitle]);
+  useEffect(() => {
+    if (preset && preset._id) {
+      setTitlePreset(preset.title_job);
+      setCityPreset({
+        name: preset.city,
+        stateCode: "",
+        countryCode: "",
+      });
+      setCountryPreset({
+        name: preset.country,
+        isoCode: "",
+        phonecode: "",
+      });
+      setCountyPreset({
+        name: preset.county,
+        isoCode: "",
+      });
+    }
+  }, [preset && preset._id]);
 
   // useEffect
   useEffect(() => {
@@ -105,9 +139,9 @@ const Index = () => {
         page,
         lim,
         sortBy,
+        title.length > 0 ? title.toLowerCase().trim() : "",
         type.toLowerCase(),
         category.toLowerCase(),
-        keyword.toLowerCase(),
         subCategory.toLowerCase(),
         country !== null && country.name && country.name.length > 0
           ? country.name.toLowerCase()
@@ -115,13 +149,38 @@ const Index = () => {
         county !== null && county.name && county.name.length > 0
           ? county.name.toLowerCase()
           : "",
-        city !== null && city.name && city.name.length > 0
+        city !== null && city !== undefined && city.name && city.name.length > 0
           ? city.name.toLowerCase()
-          : "",
-        setSearchedCategory
+          : ""
+        // setSearchedCategory
       )
     );
   });
+
+  // get Saved Alert
+  const getSavedAlert = () => {
+    dispatch(
+      getJobs(
+        page,
+        limit,
+        sort,
+        titlePreset.trim(),
+        type.toLowerCase(),
+        category.toLowerCase(),
+        subCategory.toLowerCase(),
+        country !== null && countryPreset.name && countryPreset.name.length > 0
+          ? countryPreset.name.toLowerCase()
+          : "",
+        county !== null && countyPreset.name && countyPreset.name.length > 0
+          ? countyPreset.name.toLowerCase()
+          : "",
+        city && cityPreset.name && cityPreset.name.length > 0
+          ? cityPreset.name.toLowerCase()
+          : ""
+        // setSearchedCategory
+      )
+    );
+  };
 
   // clear State
   const clearState = () => {
@@ -132,7 +191,7 @@ const Index = () => {
     setCity({ name: "", countryCode: "", stateCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
-    setTypePreset("");
+    setTitlePreset("");
     setCityPreset({ name: "", countryCode: "", stateCode: "" });
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
@@ -143,7 +202,7 @@ const Index = () => {
       country: countryPreset.name.toLowerCase(),
       city: cityPreset.name.toLowerCase(),
       county: countyPreset.name.toLowerCase(),
-      type: typePreset.toLowerCase(),
+      title_job: titlePreset.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
@@ -163,7 +222,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Keyword</span>
+                          <span>Title</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -181,11 +240,9 @@ const Index = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
-                                  value={keyword}
-                                  // onChange={(e) => onChangeAutoFieldName(e)}
-                                  onChange={(e) => setKeyword(e.target.name)}
+                                  value={title}
+                                  onChange={(e) => setTitle(e.target.value)}
                                 />
-                                {/* {renderNameSuggustion()} */}
                               </div>
                             </div>
                           </div>
@@ -344,7 +401,9 @@ const Index = () => {
                     <button
                       className="btn btn-default inverse"
                       id="btn_resetAll"
-                      onClick={() => callJobsAPI(page, limit, sort)}
+                      onClick={() => {
+                        callJobsAPI(page, limit, sort);
+                      }}
                     >
                       <span
                         className="hidden fa fa-times"
@@ -395,7 +454,7 @@ const Index = () => {
                         <li className="so-filter-options" data-option="search">
                           <div className="so-filter-heading">
                             <div className="so-filter-heading-text">
-                              <span>Job Type</span>
+                              <span>Job Title</span>
                             </div>
                             <i className="fa fa-chevron-down"></i>
                           </div>
@@ -411,9 +470,15 @@ const Index = () => {
                                     className="input-group"
                                     style={{ width: "100%" }}
                                   >
-                                    <JobType
-                                      type={typePreset}
-                                      setType={setTypePreset}
+                                    <input
+                                      type="text"
+                                      name="titlePreset"
+                                      value={titlePreset}
+                                      onChange={(e) =>
+                                        setTitlePreset(e.target.value)
+                                      }
+                                      placeholder="title"
+                                      className="form-control"
                                     />
                                   </div>
                                 </div>
@@ -535,7 +600,7 @@ const Index = () => {
             </div>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
-              style={{ padding: "0" }}
+              style={{ padding: "0", marginTop: "30px" }}
             >
               <div className="form-group clearfix">
                 <h3
@@ -638,14 +703,27 @@ const Index = () => {
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <div className="col-sm-3 view-mode hidden-sm hidden-xs">
-                      <h4 style={{ margin: "0", fontWeight: "100" }}>
+                      {isAuthenticated === true && preset && preset._id ? (
+                        <div
+                          className="open-sidebar"
+                          style={{
+                            cursor: "pointer",
+                            margin: "0",
+                            fontWeight: 600,
+                          }}
+                          onClick={() => getSavedAlert()}
+                        >
+                          GET SAVED ALERT
+                        </div>
+                      ) : null}
+                      {/* <h4 style={{ margin: "0", fontWeight: "100" }}>
                         Category :{" "}
                         <span>
                           {searchedCategory.length > 0
                             ? searchedCategory.toUpperCase()
                             : "All"}
                         </span>
-                      </h4>
+                      </h4> */}
                     </div>
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">

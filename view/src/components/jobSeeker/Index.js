@@ -42,13 +42,12 @@ const Index = () => {
   });
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [title, setTitle] = useState("");
   const [sort, setSort] = useState("");
   const [salaryType, setSalaryType] = useState("");
-
-  const [typePreset, setTypePreset] = useState("");
+  const [titlePreset, setTitlePreset] = useState("");
   const [cityPreset, setCityPreset] = useState({
     name: "",
     stateCode: "",
@@ -68,9 +67,42 @@ const Index = () => {
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
+  const location = useLocation();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const preset = useSelector((state) => state.auth.preset);
+
+  useEffect(() => {
+    if (location && location.state && location.state.title) {
+      setTitle(location && location.state && location.state.title);
+      callJobSeekersAPI(page, limit, sort);
+    }
+  }, [location && location.state && location.state.title]);
+  useEffect(() => {
+    dispatch(getPreset());
+  }, [user && user._id]);
+
+  useEffect(() => {
+    if (preset && preset._id) {
+      setTitlePreset(preset.title_jobSeeker);
+      setCityPreset({
+        name: preset.city,
+        stateCode: "",
+        countryCode: "",
+      });
+      setCountryPreset({
+        name: preset.country,
+        isoCode: "",
+        phonecode: "",
+      });
+      setCountyPreset({
+        name: preset.county,
+        isoCode: "",
+      });
+    }
+  }, [preset && preset._id]);
   // useEffect
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
@@ -78,17 +110,7 @@ const Index = () => {
 
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
-  }, [
-    page,
-    limit,
-    sort,
-    salaryType,
-    category,
-    subCategory,
-    country.name,
-    city.name,
-    county.name,
-  ]);
+  }, [limit, sort]);
   // useEffect to run jquery
   // useEffect(() => {
   //   $(".so-filter-heading").on("click", function () {
@@ -131,6 +153,7 @@ const Index = () => {
         page,
         limit,
         sort,
+        title.length > 0 ? title.toLowerCase().trim() : "",
         salaryType.toLowerCase(),
         category.toLowerCase(),
         subCategory.toLowerCase(),
@@ -146,6 +169,34 @@ const Index = () => {
       )
     );
   });
+
+  // get Saved Alert
+  const getSavedAlert = () => {
+    dispatch(
+      getJobSeekers(
+        page,
+        limit,
+        sort,
+        titlePreset.trim(),
+        salaryType.toLowerCase(),
+        category.toLowerCase(),
+        subCategory.toLowerCase(),
+        countryPreset !== null ||
+          (countryPreset.name && countryPreset.name.length > 0)
+          ? countryPreset.name.toLowerCase()
+          : "",
+        countyPreset !== null &&
+          countyPreset.name &&
+          countyPreset.name.length > 0
+          ? countyPreset.name.toLowerCase()
+          : "",
+        cityPreset !== null && cityPreset.name && cityPreset.name.length > 0
+          ? cityPreset.name.toLowerCase()
+          : ""
+      )
+    );
+  };
+
   // clear State
   const clearState = () => {
     setCategory("");
@@ -154,18 +205,19 @@ const Index = () => {
     setCity({ name: "", countryCode: "", stateCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
-    setTypePreset("");
+    setTitlePreset("");
     setType("");
     setCityPreset({ name: "", countryCode: "", stateCode: "" });
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
   };
+
   const savePresetFunc = () => {
     const preset = {
       country: countryPreset.name.toLowerCase(),
       city: cityPreset.name.toLowerCase(),
       county: countyPreset.name.toLowerCase(),
-      type: typePreset.toLowerCase(),
+      title_jobSeeker: titlePreset.toLowerCase(),
     };
     dispatch(savePreset(preset));
   };
@@ -227,7 +279,7 @@ const Index = () => {
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
-                          <span>Keyword</span>
+                          <span>Title</span>
                         </div>
                         <i className="fa fa-chevron-down"></i>
                       </div>
@@ -245,11 +297,10 @@ const Index = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
-                                  value={keyword}
+                                  value={title}
                                   // onChange={(e) => onChangeAutoFieldName(e)}
-                                  onChange={(e) => setKeyword(e.target.name)}
+                                  onChange={(e) => setTitle(e.target.value)}
                                 />
-                                {/* {renderNameSuggustion()} */}
                               </div>
                             </div>
                           </div>
@@ -439,7 +490,7 @@ const Index = () => {
                         <li className="so-filter-options" data-option="search">
                           <div className="so-filter-heading">
                             <div className="so-filter-heading-text">
-                              <span>Job Type</span>
+                              <span>Title</span>
                             </div>
                             <i className="fa fa-chevron-down"></i>
                           </div>
@@ -455,9 +506,15 @@ const Index = () => {
                                     className="input-group"
                                     style={{ width: "100%" }}
                                   >
-                                    <JobType
-                                      type={typePreset}
-                                      setType={setTypePreset}
+                                    <input
+                                      type="text"
+                                      name="titlePreset"
+                                      value={titlePreset}
+                                      onChange={(e) =>
+                                        setTitlePreset(e.target.value)
+                                      }
+                                      placeholder="title"
+                                      className="form-control"
                                     />
                                   </div>
                                 </div>
@@ -685,14 +742,27 @@ const Index = () => {
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <div className="col-sm-3 view-mode hidden-sm hidden-xs">
-                      <h4 style={{ margin: "0", fontWeight: "100" }}>
+                      {isAuthenticated === true && preset && preset._id ? (
+                        <div
+                          className="open-sidebar"
+                          style={{
+                            cursor: "pointer",
+                            margin: "0",
+                            fontWeight: 600,
+                          }}
+                          onClick={() => getSavedAlert()}
+                        >
+                          GET SAVED ALERT
+                        </div>
+                      ) : null}
+                      {/* <h4 style={{ margin: "0", fontWeight: "100" }}>
                         Category :{" "}
                         <span>
                           {searchedCategory.length > 0
                             ? searchedCategory.toUpperCase()
                             : "All"}
                         </span>
-                      </h4>
+                      </h4> */}
                     </div>
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">

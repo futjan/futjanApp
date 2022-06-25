@@ -70,7 +70,7 @@ const Login = (props) => {
             </ul>
             <div id="content" className="col-md-12">
               <div className="row">
-                {/* <div className="col-sm-6">
+                <div className="col-sm-6">
                   <div className="well ">
                     <h2>New Customer</h2>
                     <p>
@@ -85,10 +85,10 @@ const Login = (props) => {
                       Continue
                     </Link>
                   </div>
-                </div> */}
+                </div>
                 <div className="col-sm-6">
                   <div className="well col-sm-12">
-                    <h2>Returning Customer</h2>
+                    <h2>Login</h2>
                     <p>
                       <strong>I am a returning customer</strong>
                     </p>

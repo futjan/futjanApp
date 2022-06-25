@@ -3,21 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
 
 import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
+import { getUserAds } from "../actions/userAdsAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
-import BusinessType from "../../utils/BusinessType";
-import BusinessCategory from "../../utils/BusinessCategory";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import { savePreset, getPreset } from "../actions/userAction";
 // import $ from "jquery";
 import Pagination from "../../utils/Pagination";
-import debounce from "../../utils/debounce";
-import "./skeleton.css";
-const SurplusBusinesses = () => {
+export default function Index() {
   const [businessType, setBusinessType] = useState("");
   const [city, setCity] = useState({
     name: "",
@@ -33,13 +30,12 @@ const SurplusBusinesses = () => {
     isoCode: "",
   });
   const [category, setCategory] = useState("");
-  const [searchedCategory, setSearchedCategory] = useState("");
+  const [title, setTitle] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
   const [keyword, setKeyword] = useState("");
   const [suggustion, setSuggustion] = useState([]);
-  const [title, setTitle] = useState("");
   const [titlePreset, setTitlePreset] = useState("");
   const [cityPreset, setCityPreset] = useState({
     name: "",
@@ -59,19 +55,35 @@ const SurplusBusinesses = () => {
   // initialize hooks
   const dispatch = useDispatch();
   const state = useLocation().state;
+  console.log(state);
   // get state from store
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const surplusFromStore = useSelector((state) => state.surplus);
-
+  const ads = useSelector((state) => state.userads);
+  console.log(ads);
   const preset = useSelector((state) => state.auth.preset);
 
   useEffect(() => {
-    if (state && state.title) {
-      setTitle(state.title);
-      callSurplusesAPI(page, limit, sort);
-    }
-  }, [state && state.title]);
+    dispatch(
+      getUserAds(
+        state.user,
+        page,
+        limit,
+        title.toLowerCase(),
+        country !== null && country.name && country.name.length > 0
+          ? country.name.toLowerCase()
+          : "",
+        county !== null && county.name && county.name.length > 0
+          ? county.name.toLowerCase()
+          : "",
+        city !== null && city.name && city.name.length > 0
+          ? city.name.toLowerCase()
+          : ""
+      )
+    );
+  }, []);
+
   useEffect(() => {
     if (preset && preset._id) {
       setTitlePreset(preset.title_surplus);
@@ -91,53 +103,6 @@ const SurplusBusinesses = () => {
       });
     }
   }, [preset && preset._id]);
-
-  // useEffect
-  useEffect(() => {
-    dispatch(getPreset());
-  }, [user && user._id]);
-  // useEffect
-  useEffect(() => {
-    callSurplusesAPI(page, limit, sort);
-  }, []);
-  // useEffect
-  // useEffect(() => {
-  //   callSurplusesAPI(page, limit, sort);
-  // }, [
-  //   country && country.name,
-  //   city && city.name,
-  //   county && county.name,
-  //   category,
-  //   businessType,
-  //   keyword,
-  //   page,
-  //   limit,
-  // ]);
-  // update business type state
-  // useEffect(() => {
-  //   setBusinessType(state.type.toLowerCase());
-  // }, [state && state.type]);
-
-  // update keyword state
-  // useEffect(() => {
-  //   if (state && state.keyword) {
-  //     setKeyword(state.keyword.toLowerCase());
-  //   }
-  // }, [state && state.keyword]);
-
-  // update city state
-  // useEffect(() => {
-  //   if (state && state.city) {
-  //     setCity({
-  //       name: state.city.toLowerCase(),
-  //       stateCode: "",
-  //       countryCode: "",
-  //     });
-  //   }
-  // }, [state && state.city]);
-  // useEffect(() => {
-  //   dispatch(getSurplusKeywords());
-  // }, []);
 
   // useEffect to run jquery
   // useEffect(() => {
@@ -175,16 +140,13 @@ const SurplusBusinesses = () => {
   // }, []);
 
   // call getSurplusesAction
-  const callSurplusesAPI = (page, lim, sortBy) => {
+  const callSurplusesAPI = () => {
     dispatch(
-      getSurpluses(
+      getUserAds(
+        state.user,
         page,
-        lim,
-        sortBy,
-        title.length > 0 ? title.toLowerCase().trim() : "",
-        businessType.toLowerCase(),
-        category.toLowerCase(),
-        keyword.toLowerCase(),
+        limit,
+        title.toLowerCase(),
         country !== null && country.name && country.name.length > 0
           ? country.name.toLowerCase()
           : "",
@@ -204,9 +166,7 @@ const SurplusBusinesses = () => {
         page,
         limit,
         sort,
-        title.length > 0
-          ? title.toLowerCase().trim()
-          : titlePreset.toLowerCase().trim(),
+        titlePreset.trim(),
         businessType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
@@ -240,58 +200,7 @@ const SurplusBusinesses = () => {
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
   };
-  const onChangeAutoFieldName = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   if (surplusFromStore.keywords.length > 0) {
-    //     suggustions = surplusFromStore.keywords
 
-    //       .map((v) => v.keyword)
-    //       .filter(
-    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-    //       )
-    //       .sort()
-    //       .filter((v) => regex.test(v));
-    //   }
-    // }
-    setKeyword(value);
-
-    setSuggustion([...suggustions]);
-  };
-  const renderNameSuggustion = () => {
-    if (suggustion.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co, i) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setKeyword(co);
-              setSuggustion([]);
-            }}
-            style={{ display: "block", width: "100%" }}
-            key={i}
-          >
-            {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  const savePresetFunc = () => {
-    const preset = {
-      country: countryPreset.name.toLowerCase(),
-      city: cityPreset.name.toLowerCase(),
-      county: countyPreset.name.toLowerCase(),
-      title_surplus: titlePreset.toLowerCase(),
-    };
-    dispatch(savePreset(preset));
-  };
   return (
     <div className="res layout-1" style={{ marginTop: "20px" }}>
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
@@ -326,6 +235,7 @@ const SurplusBusinesses = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
+                                  placeholder="Title"
                                   value={title}
                                   onChange={(e) => setTitle(e.target.value)}
                                 />
@@ -416,71 +326,6 @@ const SurplusBusinesses = () => {
                         </div>
                       </div>
                     </li>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>Business Type</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <BusinessType
-                                  setBusinessType={setBusinessType}
-                                  businessType={businessType}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>Category</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <BusinessCategory
-                                  category={category}
-                                  setCategory={setCategory}
-                                />
-                                {/* <select
-                                  className="form-control"
-                                  onChange={(e) => setCategory(e.target.value)}
-                                  value={category}
-                                >
-                                  <option value="">Choose Category</option>
-                                  <option value="Baked Goods">
-                                    Baked Goods
-                                  </option>
-                                  <option value="Groceries">Groceries</option>
-                                  <option value="Meals">Meals</option>
-                                  <option value="Other">Other</option>
-                                </select> */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
                   </ul>
                   <div className="clear_filter">
                     <button
@@ -508,159 +353,6 @@ const SurplusBusinesses = () => {
                     </button>
                   </div>
                 </div>
-                {isAuthenticated === true ? (
-                  <>
-                    <h3
-                      className="modtitle"
-                      style={{ borderTop: "1px solid #ddd" }}
-                    >
-                      <span>Surplus Alert</span>
-                    </h3>
-                    <div className="modcontent">
-                      <ul>
-                        {" "}
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>Title</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <input
-                                      type="text"
-                                      name="titlePreset"
-                                      value={titlePreset}
-                                      onChange={(e) =>
-                                        setTitlePreset(e.target.value)
-                                      }
-                                      placeholder="title"
-                                      className="form-control"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>Country</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <Countries
-                                      setCountry={setCountryPreset}
-                                      country={countryPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>State / County</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <County
-                                      country={countryPreset}
-                                      setCounty={setCountyPreset}
-                                      county={countyPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>City</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <Cities
-                                      setCity={setCityPreset}
-                                      county={countyPreset}
-                                      country={countryPreset}
-                                      city={cityPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                      <div className="clear_filter">
-                        <button
-                          className="btn btn-default inverse"
-                          id="btn_resetAll"
-                          onClick={() => savePresetFunc()}
-                        >
-                          <span
-                            className="hidden fa fa-times"
-                            aria-hidden="true"
-                          ></span>{" "}
-                          Save surplus alert
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                ) : null}
               </div>
             </aside>
             <div className="open-sidebar hidden-lg hidden-md">
@@ -668,7 +360,7 @@ const SurplusBusinesses = () => {
             </div>
             <div
               className="products-category  col-md-9 col-sm-12 col-xs-12"
-              style={{ padding: "0" }}
+              style={{ padding: "0", marginTop: "30px" }}
             >
               <div className="form-group clearfix">
                 <h3
@@ -679,7 +371,7 @@ const SurplusBusinesses = () => {
                     alignItems: "center",
                   }}
                 >
-                  <span>Surplus</span>
+                  <span>ADS</span>
                   <Link
                     className="clearfix"
                     to="/user-panel"
@@ -711,30 +403,17 @@ const SurplusBusinesses = () => {
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <div className="col-sm-3 view-mode hidden-sm hidden-xs">
-                      {isAuthenticated === true && preset && preset._id ? (
-                        <div
-                          className="open-sidebar"
-                          style={{
-                            cursor: "pointer",
-                            margin: "0",
-                            fontWeight: 600,
-                          }}
-                          onClick={() => getSavedAlert()}
-                        >
-                          GET SAVED ALERT
-                        </div>
-                      ) : null}
                       {/*
-                       <h4 style={{ margin: "0", fontWeight: "100" }}>
-                        Category :{" "}
-                        <span>
-                          {searchedCategory.length > 0
-                            ? searchedCategory.toUpperCase()
-                            : "All"}
-                        </span>
-                      </h4> */}
+                     <h4 style={{ margin: "0", fontWeight: "100" }}>
+                      Category :{" "}
+                      <span>
+                        {searchedCategory.length > 0
+                          ? searchedCategory.toUpperCase()
+                          : "All"}
+                      </span>
+                    </h4> */}
                     </div>
-                    <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
+                    {/* <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
                         <label className="control-label" htmlFor="input-sort">
                           Sort By:
@@ -792,14 +471,7 @@ const SurplusBusinesses = () => {
                                     (e.target.value * 1)
                                 )
                               );
-                              // callSurplusesAPI(
-                              //   Math.ceil(
-                              //     surplusFromStore.totalDocs /
-                              //       (e.target.value * 1)
-                              //   ),
-                              //   e.target.value * 1,
-                              //   sort
-                              // );
+                             
                             } else {
                               setLimit(e.target.value * 1);
                               // callSurplusesAPI(page, e.target.value, sort);
@@ -811,20 +483,14 @@ const SurplusBusinesses = () => {
                           <option value="100">100</option>
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="show-result-info">
                   <i className="fa fa-rss"></i>
-                  <p>
-                    {surplusFromStore.totalDocs > 0
-                      ? surplusFromStore.totalDocs
-                      : 0}{" "}
-                    results found{" "}
-                  </p>
+                  <p>{ads.totalDocs > 0 ? ads.totalDocs : 0} results found </p>
                 </div>
-                {surplusFromStore.loading === true &&
-                surplusFromStore.surpluses.length === 0 ? (
+                {ads.loading === true && ads.ads.length === 0 ? (
                   <div className="row">
                     {["", "", "", "", "", ""].map((num, i) => (
                       <div
@@ -844,8 +510,8 @@ const SurplusBusinesses = () => {
                   className="products-list grid row number-col-3 so-filter-gird"
                   style={{ minHeight: "930px" }}
                 >
-                  {surplusFromStore.surpluses.length > 0
-                    ? surplusFromStore.surpluses.map((sur) => (
+                  {ads.ads.length > 0
+                    ? ads.ads.map((sur) => (
                         <div
                           className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
                           key={sur._id}
@@ -859,40 +525,103 @@ const SurplusBusinesses = () => {
                                   minHeight: "280px",
                                 }}
                               >
-                                <Link
-                                  to={`/surplus-detail/${sur._id}`}
-                                  title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                >
-                                  <img
-                                    src={fileURL(sur.images && sur.images[0])}
-                                    alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                                {sur.adType === "surplus" ? (
+                                  <Link
+                                    to={`/surplus-detail/${sur._id}`}
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                    className="img-1 img-responsive"
-                                  />
-                                  {/* <img
-                                    src={fileURL(sur.images && sur.images[0])}
-                                    alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                                  >
+                                    <img
+                                      src={
+                                        sur.adType === "jobseeker"
+                                          ? fileURL(sur && sur.images)
+                                          : fileURL(sur.images && sur.images[0])
+                                      }
+                                      alt={sur.title}
+                                      title={sur.title}
+                                      className="img-1 img-responsive"
+                                    />
+
+                                    {sur.promoteType &&
+                                    sur.promoteType.length > 0 ? (
+                                      <div className="ad-promote-type-container">
+                                        {sur.promoteType.map((promote, i) => (
+                                          <div
+                                            className={`ad-promote-type ${promote.promote}`}
+                                            key={i}
+                                          >
+                                            {promote.promote}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : null}
+                                  </Link>
+                                ) : null}
+                                {sur.adType === "job" ? (
+                                  <Link
+                                    to={`/job-detail/${sur._id}`}
                                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                    className="img-2 img-responsive"
-                                  /> */}
-                                  {sur.promoteType &&
-                                  sur.promoteType.length > 0 ? (
-                                    <div className="ad-promote-type-container">
-                                      {sur.promoteType.map((promote, i) => (
-                                        <div
-                                          className={`ad-promote-type ${promote.promote}`}
-                                          key={i}
-                                        >
-                                          {promote.promote}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  ) : null}
-                                </Link>
+                                  >
+                                    <img
+                                      src={
+                                        sur.adType === "jobseeker"
+                                          ? fileURL(sur && sur.images)
+                                          : fileURL(sur.images && sur.images[0])
+                                      }
+                                      alt={sur.title}
+                                      title={sur.title}
+                                      className="img-1 img-responsive"
+                                    />
+
+                                    {sur.promoteType &&
+                                    sur.promoteType.length > 0 ? (
+                                      <div className="ad-promote-type-container">
+                                        {sur.promoteType.map((promote, i) => (
+                                          <div
+                                            className={`ad-promote-type ${promote.promote}`}
+                                            key={i}
+                                          >
+                                            {promote.promote}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : null}
+                                  </Link>
+                                ) : null}
+                                {sur.adType === "jobseeker" ? (
+                                  <Link
+                                    to={`/job-seeker-detail/${sur._id}`}
+                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                                  >
+                                    <img
+                                      src={
+                                        sur.adType === "jobseeker"
+                                          ? fileURL(sur && sur.images)
+                                          : fileURL(sur.images && sur.images[0])
+                                      }
+                                      alt={sur.title}
+                                      title={sur.title}
+                                      className="img-1 img-responsive"
+                                    />
+
+                                    {sur.promoteType &&
+                                    sur.promoteType.length > 0 ? (
+                                      <div className="ad-promote-type-container">
+                                        {sur.promoteType.map((promote, i) => (
+                                          <div
+                                            className={`ad-promote-type ${promote.promote}`}
+                                            key={i}
+                                          >
+                                            {promote.promote}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : null}
+                                  </Link>
+                                ) : null}
                               </div>
                               {/* <div className="countdown_box">
-                                <div className="countdown_inner"></div>
-                              </div> */}
+                              <div className="countdown_inner"></div>
+                            </div> */}
                               {sur.discount && sur.discount > 0 ? (
                                 <div className="box-label">
                                   <span className="label-product label-sale">
@@ -905,14 +634,36 @@ const SurplusBusinesses = () => {
                             <div className="right-block">
                               <div className="caption">
                                 <h4>
-                                  <Link to={`/surplus-detail/${sur._id}`}>
-                                    {sur.title && sur.title.length > 50
-                                      ? capitalizeFirstLetter(
-                                          sur.title.substring(0, 50) + "..."
-                                        )
-                                      : sur.title &&
-                                        capitalizeFirstLetter(sur.title)}
-                                  </Link>
+                                  {sur.adType === "surplus" ? (
+                                    <Link to={`/surplus-detail/${sur._id}`}>
+                                      {sur.title && sur.title.length > 50
+                                        ? capitalizeFirstLetter(
+                                            sur.title.substring(0, 50) + "..."
+                                          )
+                                        : sur.title &&
+                                          capitalizeFirstLetter(sur.title)}
+                                    </Link>
+                                  ) : null}
+                                  {sur.adType === "job" ? (
+                                    <Link to={`/job-detail/${sur._id}`}>
+                                      {sur.title && sur.title.length > 50
+                                        ? capitalizeFirstLetter(
+                                            sur.title.substring(0, 50) + "..."
+                                          )
+                                        : sur.title &&
+                                          capitalizeFirstLetter(sur.title)}
+                                    </Link>
+                                  ) : null}
+                                  {sur.adType === "jobseeker" ? (
+                                    <Link to={`/job-seeker-detail/${sur._id}`}>
+                                      {sur.title && sur.title.length > 50
+                                        ? capitalizeFirstLetter(
+                                            sur.title.substring(0, 50) + "..."
+                                          )
+                                        : sur.title &&
+                                          capitalizeFirstLetter(sur.title)}
+                                    </Link>
+                                  ) : null}
                                 </h4>
                                 <div>
                                   <i class="fa fa-tasks"></i>
@@ -924,32 +675,59 @@ const SurplusBusinesses = () => {
                                 <div>
                                   <i class="fa fa-map-marker"></i>
                                   <small>
-                                    {sur.city &&
-                                      capitalizeFirstLetter(sur.city)}
+                                    {sur.country &&
+                                      capitalizeFirstLetter(sur.country)}
                                   </small>
                                 </div>
                                 <div className="total-price">
                                   <div className="price price-left">
-                                    {sur.originalPrice &&
-                                    sur.offeredPrice > 0 ? (
-                                      <span className="price-new">
-                                        {sur && sur.currency} {sur.offeredPrice}
-                                      </span>
-                                    ) : (
-                                      <span className="price-new">
-                                        {sur && sur.currency}{" "}
-                                        {sur.originalPrice}
-                                      </span>
-                                    )}{" "}
-                                    {sur.originalPrice &&
-                                    sur.offeredPrice > 0 ? (
-                                      <span className="price-old">
-                                        {sur && sur.currency}{" "}
-                                        {sur.originalPrice}
-                                      </span>
+                                    <span className="price-new">
+                                      {sur.adType === "job"
+                                        ? sur.minSalary > 0 && sur.maxSalary > 0
+                                          ? sur &&
+                                            sur.currency +
+                                              " " +
+                                              sur.minSalary +
+                                              " - " +
+                                              sur.maxSalary +
+                                              " / " +
+                                              sur.salaryType
+                                          : sur.salaryType
+                                        : null}
+
+                                      {sur.adType === "jobseeker"
+                                        ? sur.rate > 0
+                                          ? sur && sur.currency + " " + sur.rate
+                                          : null
+                                        : null}
+                                    </span>
+                                    {sur.adType === "surplus" ? (
+                                      <>
+                                        {sur.originalPrice &&
+                                        sur.offeredPrice > 0 ? (
+                                          <span className="price-new">
+                                            {sur && sur.currency}{" "}
+                                            {sur.offeredPrice}
+                                          </span>
+                                        ) : (
+                                          <span className="price-new">
+                                            {sur && sur.currency}{" "}
+                                            {sur.originalPrice}
+                                          </span>
+                                        )}
+                                        {sur.originalPrice &&
+                                        sur.offeredPrice > 0 ? (
+                                          <span className="price-old">
+                                            {sur && sur.currency}{" "}
+                                            {sur.originalPrice}
+                                          </span>
+                                        ) : null}
+                                      </>
                                     ) : null}
                                   </div>
-                                  {sur.discount && sur.discount > 0 ? (
+                                  {sur.adType === "surplus" &&
+                                  sur.discount &&
+                                  sur.discount > 0 ? (
                                     <div className="price-sale price-right">
                                       <span className="discount">
                                         -{sur.discount}%<strong>OFF</strong>
@@ -964,13 +742,13 @@ const SurplusBusinesses = () => {
                       ))
                     : null}
                 </div>
-                <Pagination
-                  action={() => callSurplusesAPI(page, limit, sort)}
-                  totalDocs={surplusFromStore.totalDocs}
-                  currentPage={page}
-                  setCurrentPage={setPage}
-                  itemsPerPage={limit}
-                />
+                {/* <Pagination
+                action={() => callSurplusesAPI(page, limit, sort)}
+                totalDocs={surplusFromStore.totalDocs}
+                currentPage={page}
+                setCurrentPage={setPage}
+                itemsPerPage={limit}
+              /> */}
               </div>
             </div>
           </div>
@@ -978,5 +756,4 @@ const SurplusBusinesses = () => {
       </div>
     </div>
   );
-};
-export default SurplusBusinesses;
+}

@@ -15,6 +15,7 @@ import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import SideBar from "./SideBar";
 import Keyword from "../../utils/Keyword";
+import AdsType from "../../utils/AdsType";
 // import MenuIcon from "@mui/icons-material/Menu";
 // import AccountCircle from "@mui/icons-material/AccountCircle";
 // import { City } from "country-state-city";
@@ -28,7 +29,8 @@ const Header2 = () => {
   const [currency, setCurrency] = useState("india");
   const [country, setCountry] = useState("india");
   const [jobSeach, setJobSearch] = useState("special job");
-
+  const [title, setTitle] = useState("");
+  const [adType, setAdType] = useState("surplus");
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [state, setState] = React.useState({
@@ -267,26 +269,25 @@ const Header2 = () => {
                       id="search0"
                       className="search d-grid input-group form-group"
                     >
-                      <Keyword setKeyword={setKeyword} />
-                      {/* <input
+                      <input
                         className="autosearch-input form-control"
                         type="text"
-                        value={keyword}
-                        // onChange={(e) => onChangeAutoFieldName(e)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         autoComplete="off"
-                        placeholder="Restaurant, Jobs, Business, Stock "
+                        placeholder="Title"
                         name="search"
-                      /> */}
-                      {/* {renderNameSuggustion()} */}
+                      />
                       <div
                         className="select_category filter_type  icon-select"
                         // style={{ display: "none" }}
                       >
-                        <input
+                        <AdsType adType={adType} setAdType={setAdType} />
+                        {/* <input
                           className="form-control no-border"
                           name="category_id"
                           placeholder="Location"
-                          // onChange={(e) => onChangeAutoFieldCities(e)}
+                          
                           value={city}
                           style={{
                             width: "100%",
@@ -295,11 +296,60 @@ const Header2 = () => {
                             paddingLeft: "0",
                             borderRadius: "4px",
                           }}
-                        />
+                        /> */}
                         {/* {renderCitySuggustion()} */}
                       </div>
                       <span className="input-group-btn">
-                        <Link
+                        {adType === "surplus" ? (
+                          <Link
+                            to="/surplus"
+                            className="button-search btn btn-default btn-lg"
+                            name="submit_search"
+                            state={{ title: title.toLowerCase() }}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <i className="fa fa-search"></i>
+                            <span className="hidden">Search</span>
+                          </Link>
+                        ) : null}
+                        {adType === "job" ? (
+                          <Link
+                            to="/job"
+                            className="button-search btn btn-default btn-lg"
+                            name="submit_search"
+                            state={{ searchTitle: title.toLowerCase() }}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <i className="fa fa-search"></i>
+                            <span className="hidden">Search</span>
+                          </Link>
+                        ) : null}
+                        {adType === "jobseeker" ? (
+                          <Link
+                            to="/job-seeker"
+                            className="button-search btn btn-default btn-lg"
+                            name="submit_search"
+                            state={{ title: title.toLowerCase() }}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <i className="fa fa-search"></i>
+                            <span className="hidden">Search</span>
+                          </Link>
+                        ) : null}
+
+                        {/* <Link
                           to="/surplus"
                           className="button-search btn btn-default btn-lg"
                           name="submit_search"
@@ -312,7 +362,7 @@ const Header2 = () => {
                         >
                           <i className="fa fa-search"></i>
                           <span className="hidden">Search</span>
-                        </Link>
+                        </Link> */}
                       </span>
                       <div
                         className="megamenu-style-dev megamenu-dev mobile-burger-menu-show"

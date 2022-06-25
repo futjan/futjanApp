@@ -10,32 +10,26 @@ export const getSurpluses =
     page,
     limit,
     sort,
+    title,
     businessType,
     category,
     keyword,
     country,
     county,
-    city,
-    setCategory
+    city
   ) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/surplus?businessType=${businessType}&category=${category}&keyword=${keyword}&county${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=title,category,city,images,originalPrice,offeredPrice,discount,promoteType,currency`
+        `/api/v1/surplus?title=${title}&businessType=${businessType}&category=${category}&keyword=${keyword}&county=${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort},-promoteType&fields=title,category,city,images,originalPrice,offeredPrice,discount,promoteType,currency`
       );
       if (res.data) {
         dispatch({
           type: Types.GET_SURPLUSES,
           payload: res.data,
         });
-        if (category && category.length > 0) {
-          setCategory(category);
-        }
-        if (category.length === 0) {
-          setCategory("");
-        }
       }
     } catch (err) {
       dispatch(clearLoading());

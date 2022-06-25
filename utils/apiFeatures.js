@@ -27,11 +27,19 @@ class APIFeature {
     queryObj.deleted = false;
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    console.log(queryStr);
-    this.query.find(JSON.parse(queryStr));
 
-    return this;
-    // let query = SurplusBusiness.find(JSON.parse(queryStr));
+    if (Object.keys(JSON.parse(queryStr)).includes("title")) {
+      const obj = { ...JSON.parse(queryStr) };
+      const title = obj.title;
+      delete obj["title"];
+
+      this.query.find({ title: new RegExp(title, "i"), ...obj });
+      return this;
+    } else {
+      this.query.find(JSON.parse(queryStr));
+      return this;
+    }
+    // return this;
   }
 
   sort() {

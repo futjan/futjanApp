@@ -55,6 +55,7 @@ const PageNotFound = lazy(() => import("./components/404 Page/Page404"));
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
+const UserAds = lazy(() => import("./components/user ads/Index"));
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -143,6 +144,7 @@ const App = (props) => {
               <Route path="/login" exact={true} element={<Login />} />
               <Route path="/signup" exact={true} element={<Register />} />
               <Route path="/" exact={true} element={<Index />} />
+              <Route path="/user-ads" exact={true} element={<UserAds />} />
               <Route
                 path="/forget-password"
                 exact={true}

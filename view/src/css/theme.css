@@ -3331,21 +3331,27 @@ div.required .control-label:before {
   background-color: #fff;
   border: 1px solid #ebebeb;
 }
-.module.main-newsleter-popup
+/* .module.main-newsleter-popup
   .so-custom-popup
   .oca_popup
   .popup-content
-  .form-group
-  .form-control::-moz-placeholder {
+  .form-group */
+.MuiSelect-select,
+input::-moz-placeholder,
+select::-moz-placeholder,
+.form-control::-moz-placeholder {
   color: #999 !important;
   opacity: 1 !important;
 }
-.module.main-newsleter-popup
+/* .module.main-newsleter-popup
   .so-custom-popup
   .oca_popup
   .popup-content
-  .form-group
-  .form-control:-ms-input-placeholder {
+  .form-group */
+.MuiSelect-select,
+input::-moz-placeholder,
+select::-moz-placeholder,
+.form-control:-ms-input-placeholder {
   color: #999 !important;
   color: #999;
 }
@@ -5693,7 +5699,7 @@ a {
   color: #666;
 }
 a:hover {
-    /* text-decoration: none;
+  /* text-decoration: none;
     color: #ff5e00; */
 }
 
@@ -7803,7 +7809,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   align-items: center;
   gap: 5px;
   float: left;
-  width: 70%;
+  width: 75%;
 }
 
 .price-right {

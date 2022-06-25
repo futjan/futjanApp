@@ -89,6 +89,12 @@ const jobSchema = new Sehema(
       required: true,
       default: true,
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+      required: true,
+      select: false,
+    },
     createdAt: {
       type: Date,
       default: Date.now(),

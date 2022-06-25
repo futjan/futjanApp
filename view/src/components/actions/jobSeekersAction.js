@@ -11,19 +11,20 @@ export const getJobSeekers =
     page,
     limit,
     sort,
+    title,
     salaryType,
     category,
     subCategory,
     country,
-
-    setCategory
+    county,
+    city
   ) =>
   async (dispatch) => {
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
       const res = await axios.get(
-        `/api/v1/jobseekers?category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&page=${page}&limit=${limit}&sort=${sort}&fields=currency,name,title,rate,salaryType,photo,skills,country`
+        `/api/v1/jobseekers?title=${title}&category=${category}&subCategory=${subCategory}&salaryType=${salaryType}&country=${country}&county=${county}&city=${city}&page=${page}&limit=${limit}&sort=${sort}&fields=currency,name,title,rate,salaryType,photo,skills,country`
         // `/api/v1/jobseekers`
       );
       if (res.data) {

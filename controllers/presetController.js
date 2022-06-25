@@ -26,6 +26,8 @@ exports.createAndUpdate = catchAsync(async (req, res, next) => {
 // @desc                    get preset by user
 // @access                  Private
 exports.getPreset = catchAsync(async (req, res, next) => {
+  console.log("PRESET API HIT");
+
   const preset = await Preset.findOne({ user: req.user.id.toString() }).select(
     "-user -createdAt -__v"
   );

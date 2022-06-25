@@ -23,6 +23,7 @@ router
   .get(authController.protect, authController.getCurrentUser)
   .patch(authController.protect, userController.updateCurrentUser);
 router.get("/all-users", authController.getAllUsers);
+router.route("/ads/:userID").get(userController.userAds);
 router.patch("/deleted/:id", authController.deletedUser);
 router.patch("/blocked/:id", authController.blockedUser);
 router.route("/:id").get(authController.getUserById);

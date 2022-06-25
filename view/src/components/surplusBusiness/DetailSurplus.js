@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSurplusById,
@@ -615,6 +615,26 @@ function DetailSurplus() {
                       </div>
                     </div>
                   </div>
+
+                  {surplusFromStore &&
+                    surplusFromStore.surplus &&
+                    surplusFromStore.surplus.user && (
+                      <Link
+                        to="/user-ads"
+                        state={{
+                          user:
+                            surplusFromStore.surplus &&
+                            surplusFromStore.surplus.user,
+                        }}
+                        style={{
+                          color: "#3b5998",
+                          fontSize: "16px",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        See other ads
+                      </Link>
+                    )}
                   {/* <div className="product-box-desc">
                     <div className="inner-box-desc">
                       <div className="model">

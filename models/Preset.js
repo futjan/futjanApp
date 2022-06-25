@@ -10,7 +10,9 @@ const presetSchema = new Schema({
   country: String,
   city: String,
   county: String,
-  type: String,
+  title_surplus: String,
+  title_job: String,
+  title_jobSeeker: String,
   createdAt: {
     type: Date,
     default: Date.now,

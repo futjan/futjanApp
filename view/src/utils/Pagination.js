@@ -6,12 +6,13 @@ const Pagination = (props) => {
 
   useEffect(() => {
     setPageCount(Math.ceil(props.totalDocs / props.itemsPerPage));
-    props.action();
+    // props.action();
   }, [props.currentPage, props.itemsPerPage, props.totalDocs]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     props.setCurrentPage((event.selected + 1) * 1);
+    props.action();
   };
 
   return (
