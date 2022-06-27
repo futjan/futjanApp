@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
-
+import { GoogleLogin } from "react-google-login";
 // action
-import { loginUser } from "../actions/authAction";
+import { loginUser, loginWithGoogle } from "../actions/authAction";
 import { CLEAR_ERRORS } from "../actions/types";
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -44,6 +44,29 @@ const Login = (props) => {
     } else {
       navigate("/");
     }
+  };
+
+  // login with google
+  const responseGoogle_success = (response) => {
+    console.log(response);
+    const { tokenObj, profileObj } = response;
+    console.log(tokenObj);
+    console.log(profileObj);
+    dispatch(
+      loginWithGoogle(
+        {
+          email: profileObj && profileObj.email,
+          name: profileObj && profileObj.name,
+          profile: profileObj && profileObj.imageUrl,
+          token: tokenObj && tokenObj.id_token,
+        },
+        pushToIndex
+      )
+    );
+  };
+
+  const responseGoogle_error = (err) => {
+    console.log(err);
   };
   return (
     <div
@@ -106,6 +129,15 @@ const Login = (props) => {
                           </div>
                         )}
                       </div>
+                      <GoogleLogin
+                        // clientId="832450706173-phuqikics0abnsof2hut57o632k1ceb1.apps.googleusercontent.com"
+                        clientId="532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com"
+                        buttonText="Login with Google"
+                        onSuccess={responseGoogle_success}
+                        onFailure={responseGoogle_error}
+                        // cookiePolicy={"http://localhost:3000"}
+                      />
+
                       <div className="form-group">
                         <label className="control-label" htmlFor="input-email">
                           E-Mail Address
@@ -147,7 +179,6 @@ const Login = (props) => {
                           Forgotten Password
                         </Link>
                       </div>
-
                       <button
                         type="submit"
                         value="Login"

@@ -8,6 +8,8 @@ const passport = require("../controllers/socialLogin");
 router.post("/signup", authController.signup);
 // login route
 router.post("/login", authController.login);
+// login with google
+router.post("/login-with-google", authController.loginWithGoogle);
 // forget password route
 router.post("/forgetPassword", authController.forgetPassword);
 // reset password route

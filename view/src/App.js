@@ -1,6 +1,7 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { gapi } from "gapi-script";
 
 import jwt_decode from "jwt-decode";
 import Snackbar from "@mui/material/Snackbar";
@@ -78,7 +79,16 @@ function GrowTransition(props) {
 }
 const App = (props) => {
   const { pathname } = useLocation();
-
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        client_id:
+          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
   const notification = useSelector((state) => state.notification);
   return (
     <div className="App">

@@ -7,6 +7,7 @@ const Validator = require("validator");
 const isEmpty = require("../validation/is-empty");
 const APIFeature = require("../utils/apiFeatures");
 const validateRegisterInput = require("../validation/register");
+const { OAuth2Client } = require("google-auth-library");
 const { promisify } = require("util");
 const sendEmail = require("../utils/email");
 
@@ -67,7 +68,58 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || user.blocked === true) {
     return next(new AppError("user blocked!", 400, undefined));
   }
-  // 3) if everything OK then send token to user
+  // 4) if everything OK then send token to user
+  const token = await jwt.sign(
+    { id: user._id, name: user.name, role: user.role },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: 3600,
+    }
+  );
+
+  res.status(200).json({
+    status: "success",
+    token,
+  });
+});
+
+const client = new OAuth2Client(
+  "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com"
+);
+
+// @route                 POST /api/v1/users/login-with-google
+// @desc                  login with google
+// @access                Public
+exports.loginWithGoogle = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+
+  // check token
+  const tokenVerify = await client.verifyIdToken({
+    idToken: req.body.token,
+    audience:
+      "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+  });
+  // console.log(tokenVerify);
+  if (!tokenVerify) {
+    return next(new AppError("Bad request", 400, undefined));
+  }
+  const { name, email, picture } = tokenVerify.payload;
+
+  console.log(name);
+  console.log(email);
+  console.log(picture);
+  // 2) check if user exist and password is correct
+  const user = await User.findOne({ email });
+  if (!user) {
+    return next(
+      new AppError("username or password incorrect!", 400, undefined)
+    );
+  }
+  // 3) check user blocked or not
+  if (!user || user.blocked === true) {
+    return next(new AppError("user blocked!", 400, undefined));
+  }
+  // 4) if everything OK then send token to user
   const token = await jwt.sign(
     { id: user._id, name: user.name, role: user.role },
     process.env.JWT_SECRET,
