@@ -100,6 +100,46 @@ export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
     });
 };
 
+// @route                   POST /api/v1/users/login-with-google
+// @desc                    login with google
+// @access                  Public
+
+export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/v1/users/login-with-google", data);
+
+    if (res) {
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+      dispatch(clearLoading());
+      pushToIndex();
+      dispatch(setNotification("User login!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err.response.data.message === "jwt expired") {
+      dispatch(logoutUser());
+    }
+
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
 // Set logged in user
 export const setCurrentUser = (decoded) => {
   return {

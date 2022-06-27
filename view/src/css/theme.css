@@ -7826,13 +7826,14 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   color: #fff;
   font-weight: bold;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   width: 40px;
   height: 40px;
   padding: 3px 0;
   text-align: center;
   border-radius: 5px;
-  line-height: 17px;
+  line-height: 12px;
+
   position: relative;
   top: -2px;
 }
