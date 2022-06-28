@@ -80,7 +80,7 @@ function GrowTransition(props) {
   return <Grow {...props} />;
 }
 
-// dotenv.config({ path: "../config.env" });
+// dotenv.config();
 const App = (props) => {
   const { pathname } = useLocation();
   useEffect(() => {
