@@ -15,6 +15,7 @@ const sendEmail = require("../utils/email");
 // @desc                create new user
 // @access              Public
 exports.signup = catchAsync(async (req, res, next) => {
+  console.log("REGISTER WITH USER");
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -105,9 +106,6 @@ exports.loginWithGoogle = catchAsync(async (req, res, next) => {
   }
   const { name, email, picture } = tokenVerify.payload;
 
-  console.log(name);
-  console.log(email);
-  console.log(picture);
   // 2) check if user exist and password is correct
   const user = await User.findOne({ email });
   if (!user) {
@@ -134,6 +132,27 @@ exports.loginWithGoogle = catchAsync(async (req, res, next) => {
   });
 });
 
+// verift route check token is verify
+exports.verifyGoogleToken = catchAsync(async (req, res, next) => {
+  // check token
+  if (!req.body.token) {
+    return next(new AppError("Error in Sign up with google"));
+  }
+  const tokenVerify = await client.verifyIdToken({
+    idToken: req.body.token,
+    audience:
+      "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+  });
+  // console.log(tokenVerify);
+  if (!tokenVerify) {
+    return next(new AppError("Bad request", 400, undefined));
+  }
+  const { name, email, picture } = tokenVerify.payload;
+
+  req.body.name = name.toLowerCase();
+  req.body.email = email.toLowerCase();
+  next();
+});
 // Protected Route
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -339,7 +358,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 // @desc               get all user
 // @access             Private
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-  console.log(req.query);
   const features = new APIFeature(User.find(), req.query)
     .filter()
     .sort()

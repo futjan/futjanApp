@@ -55,13 +55,12 @@ export default function Index() {
   // initialize hooks
   const dispatch = useDispatch();
   const state = useLocation().state;
-  console.log(state);
+
   // get state from store
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const surplusFromStore = useSelector((state) => state.surplus);
   const ads = useSelector((state) => state.userads);
-  console.log(ads);
   const preset = useSelector((state) => state.auth.preset);
 
   useEffect(() => {

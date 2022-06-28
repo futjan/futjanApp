@@ -11,7 +11,6 @@ const userSchema = new Schema({
   },
   contact: {
     type: String,
-    required: [true, "name field is required"],
   },
   email: {
     type: String,

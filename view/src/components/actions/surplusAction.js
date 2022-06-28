@@ -185,7 +185,6 @@ export const getSurplusById = (id) => async (dispatch) => {
 // @desc                    update surplus by id
 // @access                  Private
 export const updateSurplus = (data, clearState) => async (dispatch) => {
-  console.log(data);
   let formDate = new FormData();
   data.files.forEach((file) => formDate.append("photo", file));
 
@@ -306,7 +305,6 @@ export const surplusActivate = (data) => async (dispatch) => {
   try {
     const res = await axios.patch("/api/v1/surplus/activate", data);
     if (res) {
-      console.log(res.data.surplus);
       dispatch({
         type: Types.ACTIVATE_SURPLUS,
         payload: res.data.surplus,

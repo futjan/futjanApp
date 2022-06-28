@@ -5,7 +5,6 @@ module.exports = function validateRegisterInput(data) {
   let errors = {};
   data.name = !isEmpty(data.name) ? data.name : "";
   data.email = !isEmpty(data.email) ? data.email : "";
-  data.contact = !isEmpty(data.contact) ? data.contact : "";
   data.password = !isEmpty(data.password) ? data.password : "";
   data.passwordConfirm = !isEmpty(data.passwordConfirm)
     ? data.passwordConfirm
@@ -23,10 +22,6 @@ module.exports = function validateRegisterInput(data) {
     if (!Validator.isEmail(data.email)) {
       errors.email = "E-mail is invalid";
     }
-  }
-
-  if (Validator.isEmpty(data.contact)) {
-    errors.contact = "Contact is required";
   }
 
   if (Validator.isEmpty(data.password)) {

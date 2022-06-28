@@ -4,6 +4,7 @@ dotenv.config({ path: "./config.env" });
 const app = require("./app");
 const http = require("http");
 const { Server } = require("socket.io");
+const devcert = require("devcert");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
@@ -22,7 +23,9 @@ mongoose
 
 const port = process.env.PORT || 8000;
 
-const server = http.createServer(app);
+// const ssl = devcert.certificateFor("localhost");
+
+const server = http.createServer( app);
 
 // socket io configration
 const io = new Server(server, {

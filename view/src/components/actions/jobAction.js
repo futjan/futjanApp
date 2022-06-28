@@ -23,7 +23,6 @@ export const getJobs =
     dispatch(setLoading());
     dispatch({ type: Types.CLEAR_ERRORS });
     try {
-      console.log(city, "city");
       const res = await axios.get(
         `/api/v1/job?type=${type}&title=${title}&category=${category}&subCategory=${subCategory}&county=${county}&country=${country}&city=${city}&page=${page}&limit=${limit}&sort=${sort}`
       );

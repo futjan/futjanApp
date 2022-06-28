@@ -72,7 +72,6 @@ export default function Products() {
     dispatch(getAdminSurplus(page, rowsPerPage));
   }, []);
 
-  console.log(surplus.surplus);
   return (
     <Page title="Dashboard: Surplus">
       <Container>

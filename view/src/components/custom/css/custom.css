@@ -9,6 +9,30 @@
   align-items: center;
   background: #fafafa;
 }
+.google-login-button {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 !important;
+  text-transform: uppercase;
+}
+.google-login-button div {
+  margin: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 !important;
+  display: flex;
+}
+.signup-btn {
+  padding: 14px 24px 14px 5px !important;
+  margin-top: 10px !important;
+  display: flex;
+  align-items: center;
+}
+.signup-btn:hover {
+  color: #ddd !important;
+  background-color: #24407b !important;
+}
 .currency-container {
   padding-left: 50px !important ;
 }

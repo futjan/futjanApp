@@ -148,7 +148,6 @@ export const savePreset = (preset) => async (dispatch) => {
 // @desc                    get preset
 // @access                  Private
 export const getPreset = () => async (dispatch) => {
-  console.log("PRESET ACTION HIT");
   try {
     const res = await axios.get("/api/v1/presets");
 

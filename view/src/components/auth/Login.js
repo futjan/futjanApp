@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
 import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 // action
 import { loginUser, loginWithGoogle } from "../actions/authAction";
 import { CLEAR_ERRORS } from "../actions/types";
@@ -48,10 +50,8 @@ const Login = (props) => {
 
   // login with google
   const responseGoogle_success = (response) => {
-    console.log(response);
     const { tokenObj, profileObj } = response;
-    console.log(tokenObj);
-    console.log(profileObj);
+
     dispatch(
       loginWithGoogle(
         {
@@ -67,6 +67,23 @@ const Login = (props) => {
 
   const responseGoogle_error = (err) => {
     console.log(err);
+  };
+
+  // const responseFacebook = (response) => {
+  //   console.log(response);
+  // };
+
+  const responseGoogle_success_signUp = (response) => {
+    const { tokenObj, profileObj } = response;
+
+    navigate(`/set-password/${tokenObj.id_token}`, {
+      state: {
+        email: profileObj && profileObj.email,
+        name: profileObj && profileObj.name,
+        profile: profileObj && profileObj.imageUrl,
+        token: tokenObj && tokenObj.id_token,
+      },
+    });
   };
   return (
     <div
@@ -104,17 +121,32 @@ const Login = (props) => {
                       up to date on an order's status, and keep track of the
                       orders you have previously made.
                     </p>
-                    <Link to="/signup" className="btn btn-primary">
-                      Continue
-                    </Link>
+
+                    <GoogleLogin
+                      clientId={process.env.GOOGLE_CLIENT_ID}
+                      buttonText="Sign up with Google"
+                      onSuccess={responseGoogle_success_signUp}
+                      onFailure={responseGoogle_error}
+                      className="google-login-button"
+                    />
+                    <div style={{ float: "left" }}>
+                      <Link to="/signup" className="btn btn-primary signup-btn">
+                        <MailOutlineIcon
+                          fontSize="large"
+                          sx={{
+                            width: "35px",
+                            height: "22px",
+                          }}
+                        />
+                        Sign up with Email
+                      </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="well col-sm-12">
                     <h2>Login</h2>
-                    <p>
-                      <strong>I am a returning customer</strong>
-                    </p>
+
                     <form
                     // action="#"
                     // method="post"
@@ -129,14 +161,16 @@ const Login = (props) => {
                           </div>
                         )}
                       </div>
-                      <GoogleLogin
-                        // clientId="832450706173-phuqikics0abnsof2hut57o632k1ceb1.apps.googleusercontent.com"
-                        clientId="532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com"
-                        buttonText="Login with Google"
-                        onSuccess={responseGoogle_success}
-                        onFailure={responseGoogle_error}
-                        // cookiePolicy={"http://localhost:3000"}
-                      />
+                      <div style={{ margin: "10px 0" }}>
+                        <GoogleLogin
+                          clientId={process.env.GOOGLE_CLIENT_ID}
+                          buttonText="Login with Google"
+                          onSuccess={responseGoogle_success}
+                          onFailure={responseGoogle_error}
+                          className="google-login-button"
+                          // cookiePolicy={"http://localhost:3000"}
+                        />
+                      </div>
 
                       <div className="form-group">
                         <label className="control-label" htmlFor="input-email">
@@ -188,7 +222,7 @@ const Login = (props) => {
                         Login{" "}
                       </button>
                     </form>
-                    <column id="column-login" className="col-sm-8 pull-right">
+                    {/* <column id="column-login" className="col-sm-8 pull-right">
                       <div className="row">
                         <div
                           className="social_login pull-right"
@@ -232,7 +266,7 @@ const Login = (props) => {
                           </a>
                         </div>
                       </div>
-                    </column>
+                    </column> */}
                   </div>
                 </div>
               </div>

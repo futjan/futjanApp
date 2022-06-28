@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+// import dotenv from "dotenv";
 // component
 import Header2 from "./components/layout/Header2";
 import Footer from "./components/layout/Footer";
@@ -57,6 +58,7 @@ const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
 const UserAds = lazy(() => import("./components/user ads/Index"));
+const SetPassword = lazy(() => import("./components/user/SetPassword"));
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -77,6 +79,8 @@ if (localStorage.jwtToken) {
 function GrowTransition(props) {
   return <Grow {...props} />;
 }
+
+// dotenv.config({ path: "../config.env" });
 const App = (props) => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -90,6 +94,7 @@ const App = (props) => {
     gapi.load("client:auth2", start);
   }, []);
   const notification = useSelector((state) => state.notification);
+  const auth = useSelector((state) => state.auth);
   return (
     <div className="App">
       <Suspense
@@ -151,8 +156,13 @@ const App = (props) => {
             {pathname === "/adminpanel" ? null : <Header2 />}
 
             <Routes>
-              <Route path="/login" exact={true} element={<Login />} />
-              <Route path="/signup" exact={true} element={<Register />} />
+              {auth.isAuthenticated === false ? (
+                <>
+                  <Route path="/login" exact={true} element={<Login />} />
+                  <Route path="/signup" exact={true} element={<Register />} />
+                </>
+              ) : null}
+
               <Route path="/" exact={true} element={<Index />} />
               <Route path="/user-ads" exact={true} element={<UserAds />} />
               <Route
@@ -165,6 +175,13 @@ const App = (props) => {
                 exact={true}
                 element={<ResetPassword />}
               />
+
+              <Route
+                path="/set-password/:token"
+                exact={true}
+                element={<SetPassword />}
+              />
+
               <Route path="/about-us" exact={true} element={<Aboutus />} />
               <Route path="/contact-us" exact={true} element={<Contactus />} />
 

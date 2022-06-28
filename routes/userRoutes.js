@@ -6,6 +6,11 @@ const passport = require("../controllers/socialLogin");
 
 // signup route
 router.post("/signup", authController.signup);
+router.post(
+  "/signup-with-google",
+  authController.verifyGoogleToken,
+  authController.signup
+);
 // login route
 router.post("/login", authController.login);
 // login with google

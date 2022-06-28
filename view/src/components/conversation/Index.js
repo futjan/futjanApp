@@ -136,9 +136,7 @@ const Index = (props) => {
 
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
-    socket.current.on("getusers", (users) => {
-      console.log(users);
-    });
+    socket.current.on("getusers", (users) => {});
   }, [auth.user && auth.user.id]);
 
   useEffect(() => {

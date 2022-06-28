@@ -192,7 +192,6 @@ exports.deleteSurplus = catchAsync(async (req, res, next) => {
 // @desc                    update surplux
 // @access                  Private
 exports.updateSurplus = catchAsync(async (req, res, next) => {
-  console.log("API HIT");
   req.body = JSON.parse(req.body.surplus);
 
   if (req.files.length > 0) {

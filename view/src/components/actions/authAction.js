@@ -16,17 +16,41 @@ import {
 // @desc    create new user
 // @access  Public
 export const registerUser = (userData, clearState) => (dispatch) => {
-  // const formData = new FormData();
-  // formData.append("fileUpload", file);
-  // formData.append("user", JSON.stringify(userData));
-  // const config = {
-  //   headers: {
-  //     "content-type": "multipart/form-data",
-  //   },
-  // };
   dispatch(setLoading());
   axios
     .post("/api/v1/users/signup", userData)
+    .then((res) => {
+      dispatch(setNotification("User successfully registered!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+      clearState();
+      dispatch(clearLoading());
+      dispatch({
+        type: CLEAR_ERRORS,
+      });
+    })
+    .catch((err) => {
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+      dispatch({
+        type: CLEAR_USER_LOADING,
+      });
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+// @route   POST /api/v1/users/signup-with-google
+// @desc    create new user with google sign up
+// @access  Public
+export const registerUserWithGoogle = (userData, clearState) => (dispatch) => {
+  dispatch(setLoading());
+  axios
+    .post("/api/v1/users/signup-with-google", userData)
     .then((res) => {
       dispatch(setNotification("User successfully registered!", "success"));
 
