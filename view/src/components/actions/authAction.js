@@ -133,6 +133,7 @@ export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
     const res = await axios.post("/api/v1/users/login-with-google", data);
 
     if (res) {
+      console.log(res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -153,15 +154,18 @@ export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
       }, 5000);
     }
   } catch (err) {
-    dispatch(clearLoading());
-    if (err.response.data.message === "jwt expired") {
-      dispatch(logoutUser());
-    }
+    if (err) {
+      dispatch(clearLoading());
+      console.log(err);
+      // if (err.response.data.message === "jwt expired") {
+      //   dispatch(logoutUser());
+      // }
 
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data,
-    });
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
   }
 };
 // Set logged in user

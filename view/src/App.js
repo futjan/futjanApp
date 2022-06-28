@@ -156,12 +156,8 @@ const App = (props) => {
             {pathname === "/adminpanel" ? null : <Header2 />}
 
             <Routes>
-              {auth.isAuthenticated === false ? (
-                <>
-                  <Route path="/login" exact={true} element={<Login />} />
-                  <Route path="/signup" exact={true} element={<Register />} />
-                </>
-              ) : null}
+              <Route path="/login" exact={true} element={<Login />} />
+              <Route path="/signup" exact={true} element={<Register />} />
 
               <Route path="/" exact={true} element={<Index />} />
               <Route path="/user-ads" exact={true} element={<UserAds />} />

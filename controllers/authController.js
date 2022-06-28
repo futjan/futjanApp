@@ -92,8 +92,6 @@ const client = new OAuth2Client(
 // @desc                  login with google
 // @access                Public
 exports.loginWithGoogle = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-
   // check token
   const tokenVerify = await client.verifyIdToken({
     idToken: req.body.token,
