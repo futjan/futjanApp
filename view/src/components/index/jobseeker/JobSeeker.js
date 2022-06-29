@@ -17,7 +17,7 @@ const JobSeeker = () => {
   const jobSeeker = useSelector((state) => state.jobSeeker);
   // useEffect
   useEffect(() => {
-    dispatch(getJobSeekers(1, 8, "", "", "", "", ""));
+    dispatch(getJobSeekers(1, 8, "", "", "", "", "", "", "", ""));
   }, []);
   return (
     <section id="box-link2" className="section-style">
@@ -130,7 +130,9 @@ const JobSeeker = () => {
                               {candidate.skills &&
                                 candidate.skills.map((skill) => (
                                   <span className="job-seeker-skill-span">
-                                    {skill && capitalizeFirstLetter(skill)}
+                                    {skill && skill.length > 7
+                                      ? skill.substring(0, 6) + ".."
+                                      : capitalizeFirstLetter(skill)}
                                   </span>
                                 ))}
                             </div>

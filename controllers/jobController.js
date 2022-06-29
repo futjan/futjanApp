@@ -40,6 +40,7 @@ exports.create = catchAsync(async (req, res, next) => {
     county: req.body.county,
     currency: req.body.currency,
     images,
+    ad_id: req.body.ad_id,
   });
 
   // check job

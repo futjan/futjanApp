@@ -138,6 +138,8 @@ const AddJobSeeker = (props) => {
 
   // create job function
   const createJobFunction = () => {
+    const date = new Date();
+
     const job = {
       title: title.toLowerCase(),
       description,
@@ -161,6 +163,7 @@ const AddJobSeeker = (props) => {
       age,
       skills,
       currency,
+      ad_id: date.getTime(),
     };
     dispatch(createJobSeeker(job, clearState, setSuccessModal));
   };

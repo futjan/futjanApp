@@ -15,20 +15,7 @@ const Job = () => {
   const job = useSelector((state) => state.job);
   // useEffect
   useEffect(() => {
-    dispatch(
-      getJobs(
-        1,
-        8,
-        "",
-        "",
-        "",
-        // keyword.toLowerCase(),
-        "",
-        "",
-        "",
-        ""
-      )
-    );
+    dispatch(getJobs(1, 8, "", "", "", "", "", "", "", ""));
   }, []);
   return (
     <section id="box-link2" className="section-style">
@@ -67,7 +54,7 @@ const Job = () => {
                         textShadow: "0px 2px 8px rgb(0 0 0 / 30%)",
                       }}
                     >
-                      <h5>0 Surplus found</h5>
+                      <h5>0 Jobs found</h5>
                     </div>
                   ) : null}
                   {job.loading === false && job.jobs.length > 0

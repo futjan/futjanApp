@@ -47,6 +47,7 @@ exports.create = catchAsync(async (req, res, next) => {
     images: photo,
     currency: req.body.currency,
     address: req.body.address,
+    ad_id: req.body.ad_id,
     cv,
   });
 
