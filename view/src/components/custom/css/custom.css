@@ -1,4 +1,10 @@
 /* Global */
+.mt-4 {
+  margin-top: 20px !important;
+}
+.p-3 {
+  padding: 15px !important;
+}
 .currency-icon {
   position: absolute;
   top: 0px;
@@ -405,6 +411,18 @@ html {
 /* Global */
 .d-block {
   display: block !important;
+}
+.d-flex {
+  display: flex !important;
+}
+.justify-content-center {
+  justify-content: center !important;
+}
+.align-items-center {
+  align-items: center !important;
+}
+.overflow-hidden {
+  overflow: hidden !important;
 }
 .v-visible {
   visibility: visible !important;
@@ -1091,6 +1109,15 @@ input[type="number"] {
 }
 /* JOb Seekers */
 /* Index page */
+.index-page-empty-text {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  min-height: "300px";
+  text-shadow: "0px 2px 8px rgb(0 0 0 / 30%)";
+}
+/* index page surplus section */
+/* index page surplus section */
 .module.home-lt1 .ltabs-item {
   padding: 10px;
 }

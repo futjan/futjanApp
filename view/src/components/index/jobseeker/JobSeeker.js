@@ -31,37 +31,27 @@ const JobSeeker = () => {
               <div className="modcontent">
                 <div>
                   {jobSeeker.loading === true ? (
-                    <div style={{ display: "block", overflow: "hidden" }}>
-                      {["", "", "", "", "", "", "", ""].map((item) => (
+                    <div className="d-block overflow-hidden">
+                      {["", "", "", "", "", "", "", ""].map((item, i) => (
                         <div
-                          className="col-lg-3 col-md-4 col-sm-4 col-xs-12"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: "15px",
-                          }}
+                          className="col-lg-3 col-md-4 col-sm-4 col-xs-12 p-3 justify-content-center d-flex align-items-center"
+                          key={"jobseeker-skeleton" + i}
                         >
                           <Skeleton count={1} width="240px" height="300px" />
                         </div>
                       ))}
                     </div>
                   ) : jobSeeker.jobSeekers.length === 0 ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: "300px",
-                        textShadow: "0px 2px 8px rgb(0 0 0 / 30%)",
-                      }}
-                    >
+                    <div className="index-page-empty-text">
                       <h5>0 Job Seeker found</h5>
                     </div>
                   ) : null}
                   {jobSeeker.jobSeekers.length > 0
                     ? jobSeeker.jobSeekers.map((candidate) => (
-                        <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <div
+                          className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12"
+                          key={candidate._id}
+                        >
                           <div className="job-seeker-card">
                             <div
                               style={{ marginBottom: "10px" }}
@@ -77,12 +67,6 @@ const JobSeeker = () => {
                                   style={{ borderRadius: "50%" }}
                                 />
                               ) : (
-                                // <img
-                                //   src={fileURL(candidate.photo)}
-                                //   alt="user"
-                                //   width="70"
-                                //   style={{ borderRadius: "50%" }}
-                                // />
                                 <img
                                   src={defaultUser}
                                   alt="user"
@@ -129,7 +113,10 @@ const JobSeeker = () => {
                             <div className="job-seeker-skills-container">
                               {candidate.skills &&
                                 candidate.skills.map((skill) => (
-                                  <span className="job-seeker-skill-span">
+                                  <span
+                                    className="job-seeker-skill-span"
+                                    key={skill}
+                                  >
                                     {skill && skill.length > 7
                                       ? skill.substring(0, 6) + ".."
                                       : capitalizeFirstLetter(skill)}

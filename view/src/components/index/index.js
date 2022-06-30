@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 
 import banner3 from "../image/catalog/demo/banners/home1/bn-3.jpg";
 import banner4 from "../image/catalog/demo/banners/home1/bn-4.jpg";
@@ -17,10 +17,7 @@ const Index = (props) => {
         <div id="content">
           <div className="so-page-builder">
             <section id="box-link1" className="section-style">
-              <div
-                className="container page-builder-ltr"
-                style={{ marginTop: "20px" }}
-              >
+              <div className="container page-builder-ltr mt-4">
                 <div className="row row-style row_a1">
                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
                     <div>
@@ -54,4 +51,4 @@ const Index = (props) => {
     </div>
   );
 };
-export default Index;
+export default React.memo(Index);

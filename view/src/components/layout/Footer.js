@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
   return (
     <footer className="footer-container typefooter-1">
       <div className="footer-has-toggle" id="collapse-footer">
@@ -37,7 +38,8 @@ const Footer = () => {
                                 <input
                                   type="email"
                                   placeholder="Your email address..."
-                                  value=""
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
                                   className="form-control"
                                   id="txtemail"
                                   name="txtemail"

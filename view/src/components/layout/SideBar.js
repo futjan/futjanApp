@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -11,8 +10,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
 
 const SideBar = ({ state, setState, isAuthenticated }) => {
   //initialize hook
@@ -68,40 +65,36 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
                 state: "",
                 icon: <i className="fa fa-power-off"></i>,
               },
-            ].map((menu, index) => (
-              <>
-                <ListItem
-                  key={menu.title}
-                  disablePadding
-                  component={Link}
-                  to={menu.pathname}
-                  state={{ active: menu.state }}
-                  sx={{ fontSize: "16px" }}
-                  onClick={
-                    menu.title === "Logout"
-                      ? () => dispatch(logoutUser())
-                      : null
-                  }
+            ].map((menu) => (
+              <ListItem
+                key={menu.title}
+                disablePadding
+                component={Link}
+                to={menu.pathname}
+                state={{ active: menu.state }}
+                sx={{ fontSize: "16px" }}
+                onClick={
+                  menu.title === "Logout" ? () => dispatch(logoutUser()) : null
+                }
+              >
+                <ListItemButton
+                  sx={{
+                    borderBottom: "1px solid #DDD",
+                    margin: "0 15px",
+                    padding: "10px 5px",
+                  }}
                 >
-                  <ListItemButton
-                    sx={{
-                      borderBottom: "1px solid #DDD",
-                      margin: "0 15px",
-                      padding: "10px 5px",
-                    }}
-                  >
-                    <ListItemIcon sx={{ minWidth: "30px" }}>
-                      {menu.icon}
-                      {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={menu.title}
-                      sx={{ fontSize: "16px" }}
-                    />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
-              </>
+                  <ListItemIcon sx={{ minWidth: "30px" }}>
+                    {menu.icon}
+                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={menu.title}
+                    sx={{ fontSize: "16px" }}
+                  />
+                </ListItemButton>
+                <Divider />
+              </ListItem>
             ))
           : [
               {
@@ -110,35 +103,33 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
                 state: "",
                 icon: <i className="fa fa-user"></i>,
               },
-            ].map((menu, index) => (
-              <>
-                <ListItem
-                  key={menu.title}
-                  disablePadding
-                  component={Link}
-                  to={menu.pathname}
-                  state={{ active: menu.state }}
-                  sx={{ fontSize: "16px" }}
+            ].map((menu) => (
+              <ListItem
+                key={menu.title}
+                disablePadding
+                component={Link}
+                to={menu.pathname}
+                state={{ active: menu.state }}
+                sx={{ fontSize: "16px" }}
+              >
+                <ListItemButton
+                  sx={{
+                    borderBottom: "1px solid #DDD",
+                    margin: "0 15px",
+                    padding: "10px 5px",
+                  }}
                 >
-                  <ListItemButton
-                    sx={{
-                      borderBottom: "1px solid #DDD",
-                      margin: "0 15px",
-                      padding: "10px 5px",
-                    }}
-                  >
-                    <ListItemIcon sx={{ minWidth: "30px" }}>
-                      {menu.icon}
-                      {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={menu.title}
-                      sx={{ fontSize: "16px" }}
-                    />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
-              </>
+                  <ListItemIcon sx={{ minWidth: "30px" }}>
+                    {menu.icon}
+                    {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={menu.title}
+                    sx={{ fontSize: "16px" }}
+                  />
+                </ListItemButton>
+                <Divider />
+              </ListItem>
             ))}
       </List>
       {/* <Divider /> */}
@@ -146,8 +137,8 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
   );
   return (
     <div>
-      {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
+      {["left"].map((anchor, i) => (
+        <React.Fragment key={"anchor" + i}>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
