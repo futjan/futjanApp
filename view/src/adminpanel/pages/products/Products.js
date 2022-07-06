@@ -20,7 +20,7 @@ import fileURL from "../../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
 // import "../surplusBusiness/skeleton.css";
 import "../../../components/surplusBusiness/skeleton.css";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import captilizeFirstLetter from "../../../utils/captilizeFirstLetter";
 const style = {
   position: "absolute",

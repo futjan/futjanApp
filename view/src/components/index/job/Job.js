@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getJobs } from "../../actions/jobAction";
 import { useDispatch, useSelector } from "react-redux";
-import fileURL from "../../../utils/fileURL";
-import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
-import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import Ad from "../index utils/Ad";
 const Job = () => {
   // initialize hooks

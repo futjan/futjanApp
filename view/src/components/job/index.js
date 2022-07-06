@@ -15,7 +15,7 @@ import { getPreset, savePreset } from "../actions/userAction";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { useSelector, useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import "../surplusBusiness/skeleton.css";
 import Pagination from "../../utils/Pagination";
 const Index = () => {
@@ -24,7 +24,6 @@ const Index = () => {
   const [subCategory, setSubCategory] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [searchedCategory, setSearchedCategory] = useState("");
   const [keyword, setKeyword] = useState("");
   const [sort, setSort] = useState("");
   const [titlePreset, setTitlePreset] = useState("");
@@ -101,8 +100,10 @@ const Index = () => {
   // useEffect
   useEffect(() => {
     callJobsAPI(page, limit, sort);
-    // dispatch(getPreset());
   }, []);
+  useEffect(() => {
+    callJobsAPI(page, limit, sort);
+  }, [page]);
 
   // useEffect(() => {
   //   callJobsAPI(page, limit, sort);
@@ -195,6 +196,7 @@ const Index = () => {
     setCityPreset({ name: "", countryCode: "", stateCode: "" });
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
+    setTitle("");
   };
 
   const savePresetFunc = () => {
@@ -738,9 +740,7 @@ const Index = () => {
                             setSort(e.target.value);
                           }}
                         >
-                          <option value="" selected="selected">
-                            Default
-                          </option>
+                          <option value="">Default</option>
                           <option value="createdAt">Newest</option>
                           <option value="-createdAt">Oldest</option>
                         </select>
@@ -827,17 +827,17 @@ const Index = () => {
                                 {job.subCategory &&
                                   capitalizeFirstLetter(job.subCategory)}
                               </p>
-                              {job.country ? (
-                                job.country && (
+                              {job.city ? (
+                                job.city && (
                                   <p>
-                                    <i class="fa fa-map-marker"></i>
-                                    {job.country &&
-                                      capitalizeFirstLetter(job.country)}
+                                    <i className="fa fa-map-marker"></i>
+                                    {job.city &&
+                                      capitalizeFirstLetter(job.city)}
                                   </p>
                                 )
                               ) : (
                                 <p>
-                                  <i class="fa fa-map-marker"></i>
+                                  <i className="fa fa-map-marker"></i>
                                   -------
                                 </p>
                               )}
@@ -864,7 +864,10 @@ const Index = () => {
                                       (type) => type.promote === "FEATURED"
                                     )
                                     .map((type) => (
-                                      <span className="job-promotion-type">
+                                      <span
+                                        className="job-promotion-type"
+                                        key={type}
+                                      >
                                         {type.promote &&
                                           capitalizeFirstLetter(type.promote)}
                                       </span>

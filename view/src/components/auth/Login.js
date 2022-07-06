@@ -13,6 +13,7 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [passwordShow, setPasswordShow] = useState(false);
   // initialize navigation
   const navigate = useNavigate();
   const location = useLocation();
@@ -85,6 +86,15 @@ const Login = (props) => {
       },
     });
   };
+
+  function passwordShowFunc() {
+    const x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
   return (
     <div
       className="account-login account res layout-1"
@@ -199,9 +209,36 @@ const Login = (props) => {
                           onChange={(e) => setPassword(e.target.value)}
                           value={password}
                           placeholder="Password"
-                          id="input-password"
+                          id="password"
                           className="form-control"
                         />
+
+                        <div className="checkbox">
+                          <label
+                            htmlFor="Show Password"
+                            className="container-checkbox"
+                            onClick={() => {
+                              setPasswordShow(!passwordShow);
+                              passwordShowFunc();
+                            }}
+                          >
+                            <span>
+                              <input
+                                type="checkbox"
+                                value={passwordShow}
+                                onChange={() => {
+                                  setPasswordShow(!passwordShow);
+                                  passwordShowFunc();
+                                }}
+                                name="Show Password"
+                                checked={passwordShow === true ? true : false}
+                              />
+                              Show Password
+                              <span className="checkmark"></span>
+                            </span>
+                          </label>
+                        </div>
+
                         <Link
                           to="/forget-password"
                           onClick={() =>

@@ -16,6 +16,11 @@ const Cities = (props) => {
       props.county.name
     ) {
       setOptions([
+        {
+          name: "",
+          stateCode: "",
+          countryCode: "",
+        },
         ...City.getCitiesOfState(
           props.country && props.country.isoCode,
           props.county && props.county.isoCode

@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { gapi } from "gapi-script";
-
+import Preloader from "./utils/preLoader";
 import jwt_decode from "jwt-decode";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -13,7 +13,6 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Header2 from "./components/layout/Header2";
 import Footer from "./components/layout/Footer";
 import PrivateRoute from "./utils/privateRoute";
-import lazyLoader from "./components/image/477.GIF";
 // css
 import "./css/bootstrap/css/bootstrap.min.css";
 import "./css/font-awesome/css/font-awesome.min.css";
@@ -23,6 +22,7 @@ import "./css/footer/footer1.css";
 import "./css/header/header4.css";
 import "./css/theme.css";
 import "./css/responsive.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import setAuthToken from "./utils/setAuthToken";
 // stylesheet
@@ -99,17 +99,18 @@ const App = (props) => {
     <div className="App">
       <Suspense
         fallback={
-          <div
-            style={{
-              width: "100vw",
-              height: "100vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={lazyLoader} width="100" />
-          </div>
+          <Preloader />
+          // <div
+          //   style={{
+          //     width: "100vw",
+          //     height: "100vh",
+          //     display: "flex",
+          //     justifyContent: "center",
+          //     alignItems: "center",
+          //   }}
+          // >
+          //   <img src={lazyLoader} width="100" />
+          // </div>
         }
       >
         <div className="common-home res layout-4">

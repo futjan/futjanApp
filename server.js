@@ -25,7 +25,7 @@ const port = process.env.PORT || 8000;
 
 // const ssl = devcert.certificateFor("localhost");
 
-const server = http.createServer( app);
+const server = http.createServer(app);
 
 // socket io configration
 const io = new Server(server, {

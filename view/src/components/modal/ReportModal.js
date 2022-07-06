@@ -67,7 +67,7 @@ const ReportModal = (props) => {
                     >
                       <input
                         type="radio"
-                        checked={
+                        defaultChecked={
                           reason === "This is illegal/fraudulent" ? true : false
                         }
                         name="Flat Shipping Rate"
@@ -82,7 +82,9 @@ const ReportModal = (props) => {
                       <input
                         type="radio"
                         name="Flat Shipping Rate"
-                        checked={reason === "This ad is spam" ? true : false}
+                        defaultChecked={
+                          reason === "This ad is spam" ? true : false
+                        }
                       />{" "}
                       This ad is spam
                       <span className="checkmark"></span>
@@ -96,7 +98,7 @@ const ReportModal = (props) => {
                       <input
                         type="radio"
                         name="Flat Shipping Rate"
-                        checked={
+                        defaultChecked={
                           reason === "This ad is in the wrong category"
                             ? true
                             : false
@@ -115,7 +117,7 @@ const ReportModal = (props) => {
                       <input
                         type="radio"
                         name="Flat Shipping Rate"
-                        checked={
+                        defaultChecked={
                           reason === "The ad goes against posting rules"
                             ? true
                             : false

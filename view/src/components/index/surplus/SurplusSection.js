@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import Ad from "../index utils/Ad";
 const SurplusSection = () => {
   // initialize hooks

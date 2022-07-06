@@ -9,6 +9,10 @@ import { Country } from "country-state-city";
 
 const Countries = (props) => {
   const options = [
+    {
+      name: "",
+      isoCode: "",
+    },
     ...Country.getAllCountries()
       .map((count) => {
         return {

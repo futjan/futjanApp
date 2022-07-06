@@ -3,7 +3,7 @@ import ListItem from "@mui/material/ListItem";
 import DefaultImage from "../image/default.jpg";
 import ListItemButton from "@mui/material/ListItemButton";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import axios from "axios";
 export default function Conversation({
   conversation,

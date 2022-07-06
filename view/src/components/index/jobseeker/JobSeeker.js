@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 import defaultUser from "../../image/default.jpg";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import Skeleton from "react-loading-skeleton";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";

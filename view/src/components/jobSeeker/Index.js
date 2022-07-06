@@ -16,7 +16,7 @@ import Cities from "../../utils/cities";
 import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
 import { Link, useLocation } from "react-router-dom";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import Pagination from "../../utils/Pagination";
 
 // import $ from "jquery";
@@ -24,8 +24,6 @@ import Pagination from "../../utils/Pagination";
 import "../surplusBusiness/skeleton.css";
 const Index = () => {
   const [type, setType] = useState("");
-
-  const [keyword, setKeyword] = useState("");
   const [city, setCity] = useState({
     name: "",
     stateCode: "",
@@ -110,7 +108,7 @@ const Index = () => {
 
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
-  }, [limit, sort]);
+  }, [page, sort]);
   // useEffect to run jquery
   // useEffect(() => {
   //   $(".so-filter-heading").on("click", function () {
@@ -199,6 +197,7 @@ const Index = () => {
 
   // clear State
   const clearState = () => {
+    setTitle("");
     setCategory("");
     setSubCategory("");
     setSalaryType("");
@@ -632,10 +631,7 @@ const Index = () => {
                 ) : null}
               </div>
             </aside>
-            <a
-              href="javascript:void(0)"
-              className="open-sidebar hidden-lg hidden-md"
-            >
+            <a href="#" className="open-sidebar hidden-lg hidden-md">
               <i className="fa fa-bars"></i>Sidebar
             </a>
             <div

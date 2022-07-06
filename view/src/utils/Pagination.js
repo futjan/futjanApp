@@ -11,8 +11,8 @@ const Pagination = (props) => {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
+    console.log(event.selected + 1, "event.selected");
     props.setCurrentPage((event.selected + 1) * 1);
-    props.action();
   };
 
   return (
@@ -29,4 +29,5 @@ const Pagination = (props) => {
   );
 };
 
-export default memo(Pagination);
+// export default memo(Pagination);
+export default Pagination;

@@ -3,8 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import Header2 from "../components/layout/Header2";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
@@ -30,18 +29,19 @@ const FullScreenModal = ({ open, title, setOpen, adId }) => {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative", background: "#3b5998" }}>
+        <Header2 />
+        {/* <AppBar sx={{ position: "relative", background: "#3b5998" }}>
           <Container>
             <Toolbar>
               <Typography sx={{ ml: 2, flex: 1 }} variant="h4" component="div">
                 Ad Successfully Posted!
               </Typography>
-              {/* <Button autoFocus color="inherit" onClick={handleClose}>
-                save
-              </Button> */}
             </Toolbar>
           </Container>
-        </AppBar>
+        </AppBar> */}
+        {/* <Button autoFocus color="inherit" onClick={handleClose}>
+                save
+              </Button> */}
 
         <Container>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -81,7 +81,13 @@ const FullScreenModal = ({ open, title, setOpen, adId }) => {
             <Button
               variant="text"
               size="large"
-              sx={{ color: "#3b5998", fontWeight: "bold" }}
+              sx={{
+                color: "#3b5998",
+                fontWeight: "bold",
+                fontSize: "14px",
+                paddingRight: "8px",
+                paddingLeft: "8px",
+              }}
               component={Link}
               to="/"
               onClick={() => setOpen(false)}
@@ -91,7 +97,7 @@ const FullScreenModal = ({ open, title, setOpen, adId }) => {
             <Button
               size="large"
               variant="contained"
-              // sx={{ background: "#3b5998" }}
+              sx={{ fontSize: "14px", paddingRight: "8px", paddingLeft: "8px" }}
               component={Link}
               to="/user-panel"
               state={{ active: "ADD" }}
@@ -102,7 +108,13 @@ const FullScreenModal = ({ open, title, setOpen, adId }) => {
             <Button
               variant="outlined"
               size="large"
-              sx={{ color: "#3b5998", borderColor: "#3b5998" }}
+              sx={{
+                color: "#3b5998",
+                borderColor: "#3b5998",
+                fontSize: "14px",
+                paddingRight: "8px",
+                paddingLeft: "8px",
+              }}
               component={Link}
               to="/user-panel"
               state={{ active: "SURPLUS" }}

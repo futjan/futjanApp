@@ -9,7 +9,9 @@ import Skeleton from "react-loading-skeleton";
 import ReportModal from "../modal/ReportModal";
 import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
-import "react-loading-skeleton/dist/skeleton.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -56,7 +58,7 @@ const JobDetail = () => {
   };
 
   return (
-    <div class="main-container container" style={{ margin: "20px auto" }}>
+    <div className="main-container container" style={{ margin: "20px auto" }}>
       {job.loading === false ? (
         <div
           style={{
@@ -75,12 +77,12 @@ const JobDetail = () => {
         id={job && job.job && job.job._id}
         modalId2="cancel-report-btn_2"
       />
-      <div class="row" style={{ padding: "10px 20px " }}>
-        <div id="content" class="col-sm-12">
-          <div class="about-us about-demo-3">
-            <div class="row">
+      <div className="row" style={{ padding: "10px 20px " }}>
+        <div id="content" className="col-sm-12">
+          <div className="about-us about-demo-3">
+            <div className="row">
               <div
-                class="col-lg-6 col-md-6 about-image"
+                className="col-lg-6 col-md-6 about-image"
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -100,11 +102,23 @@ const JobDetail = () => {
                     }}
                   />
                 ) : job.job && job.job.images && job.job.images.length > 0 ? (
-                  <img
+                  // <img
+
+                  //   alt="About Us"
+                  //   width={"40%"}
+
+                  // />
+                  <LazyLoadImage
+                    alt={job.job.title}
+                    effect="blur"
                     src={fileURL(job.job.images[0])}
-                    alt="About Us"
-                    width={"40%"}
-                    style={{ borderRadius: "50%", marginBottom: "20px" }}
+                    style={{
+                      borderRadius: "50%",
+                      marginBottom: "20px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                    width="70%"
                   />
                 ) : (
                   <img
@@ -209,14 +223,14 @@ const JobDetail = () => {
                   </div>
                 )}
               </div>
-              <div class="col-lg-6 col-md-6 about-info">
-                <h2 class="about-title">
+              <div className="col-lg-6 col-md-6 about-info">
+                <h2 className="about-title">
                   Job Overview{" "}
                   {/* {job.job &&
                     job.job.name &&
                     capitalizeFirstLetter(job.job.name)} */}
                 </h2>
-                <div class="about-text">
+                <div className="about-text">
                   <div
                     style={{
                       fontSize: "16px",
@@ -238,7 +252,10 @@ const JobDetail = () => {
                         height: "55px",
                       }}
                     >
-                      <i class="fa fa-compass" style={{ fontSize: "22px" }}></i>
+                      <i
+                        className="fa fa-compass"
+                        style={{ fontSize: "22px" }}
+                      ></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Date Posted</h4>
@@ -279,7 +296,7 @@ const JobDetail = () => {
                       }}
                     >
                       <i
-                        class="fa fa-briefcase"
+                        className="fa fa-briefcase"
                         style={{ fontSize: "22px" }}
                       ></i>
                     </div>
@@ -320,7 +337,10 @@ const JobDetail = () => {
                         height: "55px",
                       }}
                     >
-                      <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
+                      <i
+                        className="fa fa-money"
+                        style={{ fontSize: "22px" }}
+                      ></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Salary Type</h4>
@@ -402,7 +422,7 @@ const JobDetail = () => {
                       }}
                     >
                       <i
-                        class="fa fa-thumb-tack"
+                        className="fa fa-thumb-tack"
                         style={{ fontSize: "22px" }}
                       ></i>
                     </div>
@@ -444,7 +464,10 @@ const JobDetail = () => {
                         height: "55px",
                       }}
                     >
-                      <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>
+                      <i
+                        className="fa fa-phone"
+                        style={{ fontSize: "22px" }}
+                      ></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
@@ -469,7 +492,7 @@ const JobDetail = () => {
                     <h3 style={{ margin: "0" }}>Share on</h3>
 
                     <div
-                      class="socials"
+                      className="socials"
                       style={{
                         marginTop: "8px",
                         display: "flex",
@@ -547,9 +570,9 @@ const JobDetail = () => {
                 ) : null}
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-6 skills-description">
-                <h2 class="about-title">Description</h2>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 skills-description">
+                <h2 className="about-title">Description</h2>
                 {job.loading === true ? (
                   <Skeleton
                     count={5}
@@ -566,8 +589,8 @@ const JobDetail = () => {
                   
                 )} */}
               </div>
-              <div class="col-lg-6 col-md-6">
-                <h2 class="about-title">Skills</h2>
+              <div className="col-lg-6 col-md-6">
+                <h2 className="about-title">Skills</h2>
 
                 <div
                   style={{

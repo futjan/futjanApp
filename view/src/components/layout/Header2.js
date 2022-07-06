@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import LOGO from "../image/Logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -62,6 +62,20 @@ const Header2 = () => {
   //   }
   // };
 
+  const titleInput = useMemo(
+    () => (
+      <input
+        className="autosearch-input form-control"
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        autoComplete="off"
+        placeholder="Find clothes, business, jobs, food"
+        name="search"
+      />
+    ),
+    [title]
+  );
   return (
     // <!-- Header Container  -->
     <header id="header" className="typeheader-4">
@@ -92,25 +106,11 @@ const Header2 = () => {
           
         </ul> */}
         <div className="container">
-          <div
-            className="row d-sm-block"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "end",
-            }}
-          >
-            <div
-              className="navbar-logo col-lg-2 col-md-2 col-xs-12 col-sm-3"
-              style={{ margin: "0" }}
-            >
+          <div className="row d-sm-block d-flex align-items-end justify-content-center">
+            <div className="navbar-logo col-lg-2 col-md-2 col-xs-12 col-sm-3 m-0">
               <Link
                 to="/"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                className="d-flex align-items-center justify-content-center"
               >
                 <img
                   alt="Your Store"
@@ -132,12 +132,13 @@ const Header2 = () => {
                   id="sosearchpro"
                   className="sosearchpro-wrapper so-search "
                 >
-                  <form method="GET" action="#">
+                  <form>
                     <div
                       id="search0"
                       className="search d-grid input-group form-group"
                     >
-                      <input
+                      {titleInput}
+                      {/* <input
                         className="autosearch-input form-control"
                         type="text"
                         value={title}
@@ -145,7 +146,7 @@ const Header2 = () => {
                         autoComplete="off"
                         placeholder="Title"
                         name="search"
-                      />
+                      /> */}
                       <div className="select_category filter_type  icon-select">
                         <AdsType adType={adType} setAdType={setAdType} />
                       </div>
@@ -153,14 +154,9 @@ const Header2 = () => {
                         {adType === "surplus" ? (
                           <Link
                             to="/surplus"
-                            className="button-search btn btn-default btn-lg"
+                            className="button-search btn btn-default btn-lg align-items-center justify-content-center d-flex"
                             name="submit_search"
                             state={{ title: title.toLowerCase() }}
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
                           >
                             <i className="fa fa-search"></i>
                             <span className="hidden">Search</span>
@@ -169,14 +165,9 @@ const Header2 = () => {
                         {adType === "job" ? (
                           <Link
                             to="/job"
-                            className="button-search btn btn-default btn-lg"
+                            className="button-search btn btn-default btn-lg align-items-center justify-content-center d-flex"
                             name="submit_search"
                             state={{ searchTitle: title.toLowerCase() }}
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
                           >
                             <i className="fa fa-search"></i>
                             <span className="hidden">Search</span>
@@ -185,14 +176,9 @@ const Header2 = () => {
                         {adType === "jobseeker" ? (
                           <Link
                             to="/job-seeker"
-                            className="button-search btn btn-default btn-lg"
+                            className="button-search btn btn-default btn-lg align-items-center justify-content-center d-flex"
                             name="submit_search"
                             state={{ title: title.toLowerCase() }}
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
                           >
                             <i className="fa fa-search"></i>
                             <span className="hidden">Search</span>
@@ -235,15 +221,9 @@ const Header2 = () => {
             <div
               className={
                 auth.user && auth.user.role === "admin"
-                  ? "header-cart-phone col-lg-4 col-md-4 col-sm-1 col-xs-1"
-                  : "header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1"
+                  ? "header-cart-phone col-lg-4 col-md-4 col-sm-1 col-xs-1 d-flex m-0 p-0 justify-content-start"
+                  : "header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1 d-flex m-0 p-0 justify-content-start"
               }
-              style={{
-                display: "flex",
-                justifyContent: "start",
-                margin: "0",
-                padding: "0",
-              }}
             >
               <div className="megamenu-style-dev megamenu-dev">
                 <div className="responsive">
@@ -277,15 +257,9 @@ const Header2 = () => {
                                 <p className="close-menu"></p>
 
                                 <NavLink
-                                  className="clearfix"
+                                  className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    flexDirection: "column",
-                                  }}
                                   onClick={() =>
                                     closeSideNavBar(
                                       "megamenu-wrapper-2",
@@ -293,10 +267,7 @@ const Header2 = () => {
                                     )
                                   }
                                 >
-                                  <i
-                                    className="fa fa-thumb-tack"
-                                    style={{ fontSize: "20px", padding: "0" }}
-                                  ></i>
+                                  <i className="fa fa-thumb-tack header-icon"></i>
                                   <strong>Post Ad</strong>
                                 </NavLink>
                               </li>
@@ -305,14 +276,8 @@ const Header2 = () => {
                                   <p className="close-menu"></p>
 
                                   <NavLink
-                                    className="clearfix"
+                                    className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                     to="/login"
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      flexDirection: "column",
-                                    }}
                                     state={{ from: location.pathname }}
                                     onClick={() =>
                                       closeSideNavBar(
@@ -322,13 +287,7 @@ const Header2 = () => {
                                     }
                                   >
                                     {" "}
-                                    <i
-                                      className="fa fa-user"
-                                      style={{
-                                        fontSize: "20px",
-                                        padding: "0",
-                                      }}
-                                    ></i>
+                                    <i className="fa fa-user header-icon"></i>
                                     <strong>Login/Register</strong>
                                   </NavLink>
                                 </li>
@@ -340,22 +299,10 @@ const Header2 = () => {
                                   <p className="close-menu"></p>
 
                                   <NavLink
-                                    className="clearfix"
+                                    className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                     to="/adminpanel"
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      flexDirection: "column",
-                                    }}
                                   >
-                                    <i
-                                      className="fa fa-desktop"
-                                      style={{
-                                        fontSize: "20px",
-                                        padding: "0",
-                                      }}
-                                    ></i>
+                                    <i className="fa fa-desktop header-icon"></i>
                                     <strong>Adminpanel</strong>
                                   </NavLink>
                                 </li>
@@ -370,24 +317,8 @@ const Header2 = () => {
                                     onClick={handleMenu}
                                     color="inherit"
                                   >
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        flexDirection: "column",
-                                        lineHeight: "10px",
-                                        color: "#222",
-                                      }}
-                                      className="clearfix"
-                                    >
-                                      <i
-                                        className="fa fa-bars"
-                                        style={{
-                                          fontSize: "20px",
-                                          padding: "0",
-                                        }}
-                                      ></i>
+                                    <div className="clearfix align-items-center justify-content-center d-flex flex-dir-col line-heigh-2">
+                                      <i className="fa fa-bars header-icon"></i>
                                       <strong>Menu</strong>
                                     </div>
                                   </IconButton>
@@ -421,15 +352,8 @@ const Header2 = () => {
                                           },
                                         }}
                                       >
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            justifyContent: "flex-start",
-                                            flexDirection: "column",
-                                            textTransform: "capitalize",
-                                          }}
-                                        >
-                                          <p style={{ margin: "0" }}>
+                                        <div className="d-flex flex-dir-col justify-content-flexstart text-captial">
+                                          <p className="m-0">
                                             {auth.user && auth.user.name}
                                           </p>
                                           <small style={{ color: "#a7a7a7" }}>
@@ -558,14 +482,7 @@ const Header2 = () => {
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}
 
-      <div
-        style={{
-          position: "relative",
-          background: "#fff",
-          padding: "0px 0 15px 0",
-          borderBottom: "1px solid #ddd",
-        }}
-      >
+      <div className="header-bottom">
         <div className="container">
           <ul className="new-design-ul">
             <li>

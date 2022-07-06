@@ -74,7 +74,7 @@ exports.login = catchAsync(async (req, res, next) => {
     { id: user._id, name: user.name, role: user.role },
     process.env.JWT_SECRET,
     {
-      expiresIn: 3600,
+      expiresIn: "7d",
     }
   );
 
@@ -120,7 +120,7 @@ exports.loginWithGoogle = catchAsync(async (req, res, next) => {
     { id: user._id, name: user.name, role: user.role },
     process.env.JWT_SECRET,
     {
-      expiresIn: 3600,
+      expiresIn: "7d",
     }
   );
 

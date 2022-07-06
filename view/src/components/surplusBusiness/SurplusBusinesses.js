@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
 
-import { getSurpluses, getSurplusKeywords } from "../actions/surplusAction";
+import { getSurpluses } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
@@ -11,11 +11,10 @@ import BusinessType from "../../utils/BusinessType";
 import BusinessCategory from "../../utils/BusinessCategory";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
-import "react-loading-skeleton/dist/skeleton.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { savePreset, getPreset } from "../actions/userAction";
 // import $ from "jquery";
 import Pagination from "../../utils/Pagination";
-import debounce from "../../utils/debounce";
 import "./skeleton.css";
 const SurplusBusinesses = () => {
   const [businessType, setBusinessType] = useState("");
@@ -33,7 +32,6 @@ const SurplusBusinesses = () => {
     isoCode: "",
   });
   const [category, setCategory] = useState("");
-  const [searchedCategory, setSearchedCategory] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
@@ -100,6 +98,11 @@ const SurplusBusinesses = () => {
   useEffect(() => {
     callSurplusesAPI(page, limit, sort);
   }, []);
+
+  useEffect(() => {
+    callSurplusesAPI(page, limit, sort);
+  }, [page]);
+
   // useEffect
   // useEffect(() => {
   //   callSurplusesAPI(page, limit, sort);
@@ -239,50 +242,8 @@ const SurplusBusinesses = () => {
     setCityPreset({ name: "", countryCode: "", stateCode: "" });
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
+    setTitle("");
   };
-  const onChangeAutoFieldName = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   if (surplusFromStore.keywords.length > 0) {
-    //     suggustions = surplusFromStore.keywords
-
-    //       .map((v) => v.keyword)
-    //       .filter(
-    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-    //       )
-    //       .sort()
-    //       .filter((v) => regex.test(v));
-    //   }
-    // }
-    setKeyword(value);
-
-    setSuggustion([...suggustions]);
-  };
-  const renderNameSuggustion = () => {
-    if (suggustion.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustion.map((co, i) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setKeyword(co);
-              setSuggustion([]);
-            }}
-            style={{ display: "block", width: "100%" }}
-            key={i}
-          >
-            {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
   const savePresetFunc = () => {
     const preset = {
       country: countryPreset.name.toLowerCase(),
@@ -747,9 +708,7 @@ const SurplusBusinesses = () => {
                             setSort(e.target.value);
                           }}
                         >
-                          <option value="" selected="selected">
-                            Default
-                          </option>
+                          <option value="">Default</option>
 
                           <option value="originalPrice">
                             Original Price (Low to High)
@@ -856,25 +815,23 @@ const SurplusBusinesses = () => {
                                 className="product-image-container  second_img  "
                                 style={{
                                   position: "relative",
-                                  minHeight: "280px",
+                                  minHeight: "240px",
+                                  overflow: "hidden",
+                                  height: "240px",
                                 }}
                               >
                                 <Link
                                   to={`/surplus-detail/${sur._id}`}
                                   title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                 >
-                                  <img
+                                  <LazyLoadImage
+                                    effect="blur"
                                     src={fileURL(sur.images && sur.images[0])}
-                                    alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                     className="img-1 img-responsive"
+                                    alt={sur.title}
+                                    title={sur.title}
                                   />
-                                  {/* <img
-                                    src={fileURL(sur.images && sur.images[0])}
-                                    alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                    className="img-2 img-responsive"
-                                  /> */}
+
                                   {sur.promoteType &&
                                   sur.promoteType.length > 0 ? (
                                     <div className="ad-promote-type-container">
@@ -915,14 +872,14 @@ const SurplusBusinesses = () => {
                                   </Link>
                                 </h4>
                                 <div>
-                                  <i class="fa fa-tasks"></i>
+                                  <i className="fa fa-tasks"></i>
                                   <small>
                                     {sur.category &&
                                       capitalizeFirstLetter(sur.category)}
                                   </small>
                                 </div>
                                 <div>
-                                  <i class="fa fa-map-marker"></i>
+                                  <i className="fa fa-map-marker"></i>
                                   <small>
                                     {sur.city &&
                                       capitalizeFirstLetter(sur.city)}

@@ -10,7 +10,7 @@ import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import { savePreset, getPreset } from "../actions/userAction";
 // import $ from "jquery";
 import Pagination from "../../utils/Pagination";

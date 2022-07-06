@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Button from "@mui/material/Button";
 import {
   getSurplusById,
   createReview,
@@ -24,7 +26,7 @@ import profileThumbNail from "../image/profile-thumbnail.png";
 import fileURL from "../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
-import "react-loading-skeleton/dist/skeleton.css";
+
 import "./skeleton.css";
 
 const responsive = {
@@ -199,15 +201,21 @@ function DetailSurplus() {
                   >
                     {mapAndImage === "image" ? (
                       <>
-                        <img
+                        <LazyLoadImage
+                          effect="blur"
                           className="product-image-zoom"
                           src={fileURL(
                             surplusFromStore.surplus.images &&
                               surplusFromStore.surplus.images[activeImage]
                           )}
-                          data-zoom-image="image/catalog/demo/product/electronic/27.jpg"
-                          title="Canada Travel One or Two European Facials at  Studio"
-                          alt="Canada Travel One or Two European Facials at  Studio"
+                          title={
+                            surplusFromStore.surplus &&
+                            surplusFromStore.surplus.title
+                          }
+                          alt={
+                            surplusFromStore.surplus &&
+                            surplusFromStore.surplus.title
+                          }
                         />
                         <div
                           style={{
@@ -258,7 +266,8 @@ function DetailSurplus() {
                                     style={{ padding: "4px" }}
                                     key={i}
                                   >
-                                    <img
+                                    <LazyLoadImage
+                                      effect="blur"
                                       src={fileURL(image)}
                                       className={
                                         i === activeImage
@@ -268,6 +277,16 @@ function DetailSurplus() {
                                       onClick={() => setActiveImage(i)}
                                       alt={image}
                                     />
+                                    {/* <img
+                                      src={fileURL(image)}
+                                      className={
+                                        i === activeImage
+                                          ? "detail-page-slide active"
+                                          : "detail-page-slide"
+                                      }
+                                      onClick={() => setActiveImage(i)}
+                                      alt={image}
+                                    /> */}
                                   </div>
                                 )
                               )}
@@ -395,7 +414,7 @@ function DetailSurplus() {
                       </span>
                     ) : null}
                   </div>
-                  <div class="about-text">
+                  <div className="about-text">
                     <div
                       style={{
                         fontSize: "16px",
@@ -418,7 +437,7 @@ function DetailSurplus() {
                         }}
                       >
                         <i
-                          class="fa fa-compass"
+                          className="fa fa-compass"
                           style={{ fontSize: "22px" }}
                         ></i>
                       </div>
@@ -461,7 +480,10 @@ function DetailSurplus() {
                           height: "55px",
                         }}
                       >
-                        <i class="fa fa-money" style={{ fontSize: "22px" }}></i>
+                        <i
+                          className="fa fa-money"
+                          style={{ fontSize: "22px" }}
+                        ></i>
                       </div>
                       <div>
                         <h4 style={{ margin: "0 0 2px 0" }}>Business Type</h4>
@@ -503,7 +525,7 @@ function DetailSurplus() {
                         }}
                       >
                         <i
-                          class="fa fa-th-large"
+                          className="fa fa-th-large"
                           style={{ fontSize: "22px" }}
                         ></i>
                       </div>
@@ -548,7 +570,7 @@ function DetailSurplus() {
                         }}
                       >
                         <i
-                          class="fa fa-thumb-tack"
+                          className="fa fa-thumb-tack"
                           style={{ fontSize: "22px" }}
                         ></i>
                       </div>
@@ -594,7 +616,10 @@ function DetailSurplus() {
                           height: "55px",
                         }}
                       >
-                        <i class="fa fa-phone" style={{ fontSize: "22px" }}></i>
+                        <i
+                          className="fa fa-phone"
+                          style={{ fontSize: "22px" }}
+                        ></i>
                       </div>
                       <div>
                         <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
@@ -619,21 +644,27 @@ function DetailSurplus() {
                   {surplusFromStore &&
                     surplusFromStore.surplus &&
                     surplusFromStore.surplus.user && (
-                      <Link
+                      <Button
+                        variant="outlined"
+                        size="large"
+                        sx={{
+                          color: "#3b5998",
+                          borderColor: "#3b5998",
+                          fontSize: "14px",
+                          paddingRight: "8px",
+                          paddingLeft: "8px",
+                          marginBottom: "10px",
+                        }}
+                        component={Link}
                         to="/user-ads"
                         state={{
                           user:
                             surplusFromStore.surplus &&
                             surplusFromStore.surplus.user,
                         }}
-                        style={{
-                          color: "#3b5998",
-                          fontSize: "16px",
-                          textDecoration: "underline",
-                        }}
                       >
-                        See other ads
-                      </Link>
+                        See Other Ads
+                      </Button>
                     )}
                   {/* <div className="product-box-desc">
                     <div className="inner-box-desc">
@@ -686,7 +717,7 @@ function DetailSurplus() {
                   <h3 style={{ margin: "0" }}>Share on</h3>
 
                   <div
-                    class="socials"
+                    className="socials"
                     style={{
                       marginTop: "8px",
                       display: "flex",
@@ -1019,10 +1050,15 @@ function DetailSurplus() {
             }}
             onClick={() => setZoomModal(false)}
           ></i>
-          <img src={fileURL(zoomImage)} alt={zoomImage} />
+          <LazyLoadImage
+            effect="blur"
+            src={fileURL(zoomImage)}
+            alt={zoomImage}
+          />
+          {/* <img /> */}
         </div>
       ) : null}
     </div>
   );
 }
-export default DetailSurplus;
+export default React.memo(DetailSurplus);

@@ -5,16 +5,16 @@ import { State } from "country-state-city";
 import "./customCss.css";
 
 const County = (props) => {
-  const [county, setCounty] = useState({
-    name: "",
-    isoCode: "",
-  });
   const [options, setOptions] = useState([]);
 
   // useEffect
   useEffect(() => {
     if (props && props.country && props.country.name) {
       setOptions([
+        {
+          name: "",
+          isoCode: "",
+        },
         ...State.getStatesOfCountry(props.country && props.country.isoCode).map(
           (stat) => {
             return {
