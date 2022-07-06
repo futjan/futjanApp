@@ -107,7 +107,10 @@ const Ad = (props) => {
           <div className="item-inner product-layout transition product-grid">
             <div className="product-item-container">
               <div className="left-block">
-                <div className="image product-image-container ">
+                <div
+                  className="image product-image-container "
+                  style={{ height: "210px", overflow: "hidden" }}
+                >
                   <Link
                     to={`/job-detail/${props.job._id}`}
                     title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
