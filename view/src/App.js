@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { gapi } from "gapi-script";
 import Preloader from "./utils/preLoader";
@@ -31,6 +32,7 @@ import "./components/custom/css/custom.css";
 import Grow from "@mui/material/Grow";
 
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
+import { getFavourites } from "./components/actions/favouriteAction";
 import store from "./store";
 
 // lazy loading component
@@ -45,6 +47,7 @@ const ForgetPassword = lazy(() => import("./components/user/ForgetPassword"));
 const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
 const ChangePassword = lazy(() => import("./components/user/ChangePassword"));
 const AdminPanel = lazy(() => import("./adminpanel/Index"));
+const Favourite = lazy(() => import("./components/favourite/Index"));
 const SurplusBusinesses = lazy(() =>
   import("./components/surplusBusiness/SurplusBusinesses")
 );
@@ -93,8 +96,16 @@ const App = (props) => {
     }
     gapi.load("client:auth2", start);
   }, []);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      dispatch(getFavourites());
+    }
+  }, []);
   const notification = useSelector((state) => state.notification);
   const auth = useSelector((state) => state.auth);
+
   return (
     <div className="App">
       <Suspense
@@ -195,6 +206,8 @@ const App = (props) => {
               />
 
               <Route path="/surplus" exact element={<SurplusBusinesses />} />
+              <Route path="/favourite" exact element={<Favourite />} />
+
               <Route
                 path="/user-panel"
                 exact={true}

@@ -106,7 +106,9 @@ exports.getAdminJobs = catchAsync(async (req, res, next) => {
 // @desc                    GET job
 // @access                  Public
 exports.getJobById = catchAsync(async (req, res, next) => {
-  const job = await Job.findById(req.params.id).populate("comments");
+  const job = await Job.findById(req.params.id)
+    .populate("comments")
+    .select("+adType");
   // .select("+createdAt");
 
   if (!job) {

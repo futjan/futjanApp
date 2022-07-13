@@ -9191,6 +9191,20 @@ left-content-product.product-view .flexslider-thumb.not_full_slider {
   display: inline-block;
   background-color: #fff;
   color: #ff5e00;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:10px
+}
+.favourite-ad:hover{
+  color: #fff !important;
+  background-color: #ff5c00 !important;
+}
+.favourite-ad-active{
+  color: #fff !important;
+  background-color: #ff5c00 !important;
+  
 }
 .product-view .content-product-right .box-info-product .add-to-links ul li a i {
   /* line-height: 35px; */

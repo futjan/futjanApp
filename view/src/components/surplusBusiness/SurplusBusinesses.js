@@ -101,7 +101,7 @@ const SurplusBusinesses = () => {
 
   useEffect(() => {
     callSurplusesAPI(page, limit, sort);
-  }, [page]);
+  }, [page, sort, limit]);
 
   // useEffect
   // useEffect(() => {
@@ -287,6 +287,7 @@ const SurplusBusinesses = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
+                                  placeholder="title"
                                   value={title}
                                   onChange={(e) => setTitle(e.target.value)}
                                 />
@@ -739,31 +740,7 @@ const SurplusBusinesses = () => {
                           id="input-limit"
                           className="form-control"
                           value={limit}
-                          onChange={(e) => {
-                            if (
-                              page * (e.target.value * 1) >
-                              surplusFromStore.totalDocs
-                            ) {
-                              setLimit(e.target.value * 1);
-                              setPage(
-                                Math.ceil(
-                                  surplusFromStore.totalDocs /
-                                    (e.target.value * 1)
-                                )
-                              );
-                              // callSurplusesAPI(
-                              //   Math.ceil(
-                              //     surplusFromStore.totalDocs /
-                              //       (e.target.value * 1)
-                              //   ),
-                              //   e.target.value * 1,
-                              //   sort
-                              // );
-                            } else {
-                              setLimit(e.target.value * 1);
-                              // callSurplusesAPI(page, e.target.value, sort);
-                            }
-                          }}
+                          onChange={(e) => setLimit(e.target.value * 1)}
                         >
                           <option value="10">10</option>
                           <option value="50">50</option>

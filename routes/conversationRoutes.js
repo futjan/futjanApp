@@ -7,7 +7,7 @@ router
   .get(authController.protect, conversationController.getConversations);
 
 router
-  .route("/single/:reveiverId")
+  .route("/single/:reveiverId/:adId")
   .get(authController.protect, conversationController.getConversation);
 router
   .route("/user/:id")

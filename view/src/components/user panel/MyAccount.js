@@ -45,8 +45,7 @@ const MyAccount = () => {
         <div class="col-md-9" id="content">
           <h2 class="title">My Account</h2>
           <p class="lead">
-            Hello, <strong>{name}!</strong> - To update your account
-            information.
+            Hello, <b>{name}!</b> - To update your account information.
           </p>
           <form className="myAccount-form">
             <div class="row">
@@ -168,4 +167,4 @@ const MyAccount = () => {
     </div>
   );
 };
-export default MyAccount;
+export default React.memo(MyAccount);

@@ -58,9 +58,11 @@ export const getConversations = () => async (dispatch) => {
 // @route                               GET /api/v1/conversations/single
 // @desc                                get conversation
 // @access                              private
-export const getConversation = (reveiverId) => async (dispatch) => {
+export const getConversation = (reveiverId, adId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/v1/conversations/single/${reveiverId}`);
+    const res = await axios.get(
+      `/api/v1/conversations/single/${reveiverId}/${adId}`
+    );
 
     if (res) {
       dispatch({

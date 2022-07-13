@@ -20,6 +20,12 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from "react-share";
+import { createFavourite } from "../actions/favouriteAction";
+import CircularProgress from "@mui/material/CircularProgress";
+import {
+  setNotification,
+  clearNotification,
+} from "../actions/notificationAction";
 const JobSeekerDetails = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -27,6 +33,7 @@ const JobSeekerDetails = () => {
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
   const auth = useSelector((state) => state.auth);
+  const favourite = useSelector((state) => state.favourite);
   // useEffect
   useEffect(() => {
     dispatch(getJobSeekerById(id));
@@ -60,6 +67,24 @@ const JobSeekerDetails = () => {
     }
   };
 
+  const createFavouriteFunc = () => {
+    if (auth.isAuthenticated === true) {
+      const data = {
+        adId: jobSeeker.jobSeeker && jobSeeker.jobSeeker._id,
+        model: "jobseekers",
+      };
+      dispatch(createFavourite(data));
+    } else {
+      dispatch(setNotification("Login to add favourite", "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+    }
+  };
+
+  const favourites = useSelector((state) => state.favourite.favourites);
+
   return (
     <div className="main-container container" style={{ margin: "20px auto" }}>
       {jobSeeker.loading === false ? (
@@ -76,6 +101,9 @@ const JobSeekerDetails = () => {
             <MessagePopup
               receiverId={jobSeeker.jobSeeker && jobSeeker.jobSeeker.user}
               title="Chat with Employee"
+              adId={jobSeeker.jobSeeker._id}
+              adType={`${jobSeeker.jobSeeker.adType}s`}
+              image={jobSeeker.jobSeeker.images}
             />
           </div>
         )
@@ -122,10 +150,10 @@ const JobSeekerDetails = () => {
                     }}
                   />
                 ) : jobSeeker.jobSeeker &&
-                  jobSeeker.jobSeeker.photo &&
-                  jobSeeker.jobSeeker.photo.length > 0 ? (
+                  jobSeeker.jobSeeker.images &&
+                  jobSeeker.jobSeeker.images.length > 0 ? (
                   <img
-                    src={fileURL(jobSeeker.jobSeeker.photo)}
+                    src={fileURL(jobSeeker.jobSeeker.images)}
                     alt="About Us"
                     width={"40%"}
                     style={{ borderRadius: "50%", marginBottom: "20px" }}
@@ -492,12 +520,46 @@ const JobSeekerDetails = () => {
                           <div className="option quantity">
                             <div className="add-to-links wish_comp">
                               <ul className="blank">
-                                <li className="wishlist">
-                                  <a>
-                                    <i className="fa fa-heart"></i>
-                                    Favourite
-                                  </a>
-                                </li>
+                                {favourite.loading === true ? (
+                                  <li className="wishlist ">
+                                    <a
+                                      style={{
+                                        display: "flex",
+                                        gap: "10px",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <CircularProgress
+                                        sx={{
+                                          color: "#ff5e00",
+                                        }}
+                                      />
+                                      Favourite
+                                    </a>
+                                  </li>
+                                ) : (
+                                  <li
+                                    className="wishlist"
+                                    onClick={() => createFavouriteFunc()}
+                                  >
+                                    <a
+                                      className={
+                                        favourites &&
+                                        favourites.filter(
+                                          (fav) =>
+                                            fav.ad._id ===
+                                            jobSeeker.jobSeeker._id
+                                        ).length > 0
+                                          ? "favourite-ad-active"
+                                          : "favourite-ad"
+                                      }
+                                    >
+                                      <i className="fa fa-heart"></i>
+                                      Favourite
+                                    </a>
+                                  </li>
+                                )}
 
                                 <li
                                   className="compare"

@@ -58,14 +58,15 @@ io.on("connection", (socket) => {
   socket.on("adduser", (userId) => {
     addUser(userId, socket.id);
   });
-  // get all user
-  io.emit("getusers", users);
-
   //send and get message
-  socket.on("sendmessage", ({ senderId, receiverId, text }) => {
+  socket.on("sendmessage", ({ senderId, receiverId, text, conversationId }) => {
     const user = getUser(receiverId);
+
+    console.log(text, "conversationId");
+    console.log(conversationId, "conversationId");
     if (user) {
       io.to(user.socketId).emit("getmessage", {
+        conversationId,
         senderId,
         text,
       });

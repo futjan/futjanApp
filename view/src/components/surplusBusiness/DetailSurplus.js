@@ -26,7 +26,12 @@ import profileThumbNail from "../image/profile-thumbnail.png";
 import fileURL from "../../utils/fileURL";
 import Skeleton from "react-loading-skeleton";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
-
+import { createFavourite } from "../actions/favouriteAction";
+import CircularProgress from "@mui/material/CircularProgress";
+import {
+  setNotification,
+  clearNotification,
+} from "../actions/notificationAction";
 import "./skeleton.css";
 
 const responsive = {
@@ -64,6 +69,7 @@ function DetailSurplus() {
   // get state from store
   const surplusFromStore = useSelector((state) => state.surplus);
   const auth = useSelector((state) => state.auth);
+  const favourite = useSelector((state) => state.favourite);
   // useEffect
   useEffect(() => {
     dispatch(getSurplusById(params.id));
@@ -110,6 +116,24 @@ function DetailSurplus() {
     }
   };
 
+  const createFavouriteFunc = () => {
+    if (auth.isAuthenticated === true) {
+      const data = {
+        adId: surplusFromStore.surplus && surplusFromStore.surplus._id,
+        model: "surplus",
+      };
+      dispatch(createFavourite(data));
+    } else {
+      dispatch(setNotification("Login to add favourite", "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+    }
+  };
+
+  const favourites = useSelector((state) => state.favourite.favourites);
+
   return (
     <div className="container product-detail" style={{ marginTop: "30px" }}>
       {surplusFromStore.loading === false ? (
@@ -127,7 +151,7 @@ function DetailSurplus() {
               receiverId={
                 surplusFromStore.surplus && surplusFromStore.surplus.user
               }
-              title="Chat with supplier"
+              title="Chat With Seller"
             />
           </div>
         )
@@ -649,11 +673,21 @@ function DetailSurplus() {
                         size="large"
                         sx={{
                           color: "#3b5998",
-                          borderColor: "#3b5998",
+                          border: "2px solid #3b5998",
                           fontSize: "14px",
                           paddingRight: "8px",
                           paddingLeft: "8px",
                           marginBottom: "10px",
+                          fontWeight: "600",
+                          "&:hover": {
+                            color: "#3b5998",
+                            border: "2px solid #3b5998",
+                            fontSize: "14px",
+                            paddingRight: "8px",
+                            paddingLeft: "8px",
+                            marginBottom: "10px",
+                            fontWeight: "600",
+                          },
                         }}
                         component={Link}
                         to="/user-ads"
@@ -663,7 +697,7 @@ function DetailSurplus() {
                             surplusFromStore.surplus.user,
                         }}
                       >
-                        See Other Ads
+                        See seller other Ads
                       </Button>
                     )}
                   {/* <div className="product-box-desc">
@@ -775,19 +809,53 @@ function DetailSurplus() {
                       <div className="form-group box-info-product">
                         <div className="option quantity">
                           <div className="add-to-links wish_comp">
-                            <ul className="blank">
-                              <li className="wishlist">
-                                <a>
-                                  <i className="fa fa-heart"></i>
-                                  Favourite
-                                </a>
-                              </li>
+                            <ul className="blank d-flex">
+                              {favourite.loading === true ? (
+                                <li className="wishlist ">
+                                  <a
+                                    style={{
+                                      display: "flex",
+                                      gap: "10px",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <CircularProgress
+                                      sx={{
+                                        color: "#ff5e00",
+                                      }}
+                                    />
+                                    Favourite
+                                  </a>
+                                </li>
+                              ) : (
+                                <li
+                                  className="wishlist"
+                                  onClick={() => createFavouriteFunc()}
+                                >
+                                  <a
+                                    className={
+                                      favourites &&
+                                      favourites.filter(
+                                        (fav) =>
+                                          fav.ad._id ===
+                                          surplusFromStore.surplus._id
+                                      ).length > 0
+                                        ? "favourite-ad-active"
+                                        : "favourite-ad"
+                                    }
+                                  >
+                                    <i className="fa fa-heart"></i>
+                                    Favourite
+                                  </a>
+                                </li>
+                              )}
 
                               <li
                                 className="compare"
                                 onClick={(e) => closeReportModal(e)}
                               >
-                                <a>
+                                <a className="favourite-ad">
                                   <i className="fa fa-exclamation-triangle"></i>
                                   Report
                                 </a>
@@ -795,7 +863,6 @@ function DetailSurplus() {
                             </ul>
                           </div>
                         </div>
-                        <div className="clearfix"></div>
                       </div>
                     </div>
                   </div>

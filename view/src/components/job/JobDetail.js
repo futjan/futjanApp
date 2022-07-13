@@ -11,6 +11,12 @@ import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { createFavourite } from "../actions/favouriteAction";
+import CircularProgress from "@mui/material/CircularProgress";
+import {
+  setNotification,
+  clearNotification,
+} from "../actions/notificationAction";
 
 import {
   FacebookShareButton,
@@ -29,6 +35,9 @@ const JobDetail = () => {
   const { id } = useParams();
   // get state from store
   const job = useSelector((state) => state.job);
+  const auth = useSelector((state) => state.auth);
+  const favourite = useSelector((state) => state.favourite);
+  const favourites = useSelector((state) => state.favourite.favourites);
   // useEffect
   useEffect(() => {
     dispatch(getJobById(id));
@@ -57,6 +66,21 @@ const JobDetail = () => {
     }
   };
 
+  const createFavouriteFunc = () => {
+    if (auth.isAuthenticated === true) {
+      const data = {
+        adId: job.job && job.job._id,
+        model: "jobs",
+      };
+      dispatch(createFavourite(data));
+    } else {
+      dispatch(setNotification("Login to add favourite", "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+    }
+  };
   return (
     <div className="main-container container" style={{ margin: "20px auto" }}>
       {job.loading === false ? (
@@ -68,7 +92,13 @@ const JobDetail = () => {
             zIndex: "1200",
           }}
         >
-          <MessagePopup receiverId={job.job.user} title="Chat with Employer" />
+          <MessagePopup
+            receiverId={job.job.user}
+            title="Chat with Employer"
+            adId={job.job._id}
+            adType={`${job.job.adType}s`}
+            image={job.job.images && job.job.images[0]}
+          />
         </div>
       ) : null}
       <ReportModal
@@ -543,12 +573,50 @@ const JobDetail = () => {
                           <div className="option quantity">
                             <div className="add-to-links wish_comp">
                               <ul className="blank">
-                                <li className="wishlist">
-                                  <a>
-                                    <i className="fa fa-heart"></i>
-                                    Favourite
-                                  </a>
-                                </li>
+                                {favourite.loading === true ? (
+                                  <li className="wishlist ">
+                                    <a
+                                      style={{
+                                        display: "flex",
+                                        gap: "10px",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <CircularProgress
+                                        sx={{
+                                          color: "#ff5e00",
+                                        }}
+                                      />
+                                      Favourite
+                                    </a>
+                                  </li>
+                                ) : (
+                                  <li
+                                    className="wishlist"
+                                    onClick={() => createFavouriteFunc()}
+                                  >
+                                    <a
+                                      className={
+                                        favourites &&
+                                        favourites.filter(
+                                          (fav) => fav.ad._id === job.job._id
+                                        ).length > 0
+                                          ? "favourite-ad-active"
+                                          : "favourite-ad"
+                                      }
+                                      style={{
+                                        display: "flex",
+                                        gap: "10px",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <i className="fa fa-heart"></i>
+                                      Favourite
+                                    </a>
+                                  </li>
+                                )}
 
                                 <li
                                   className="compare"

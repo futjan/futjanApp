@@ -57,11 +57,11 @@ const JobSeeker = () => {
                               style={{ marginBottom: "10px" }}
                               className="job-seeker-card-img-container"
                             >
-                              {candidate.photo && candidate.photo.length > 0 ? (
+                              {candidate.images ? (
                                 <LazyLoadImage
                                   alt={"user"}
                                   effect="blur"
-                                  src={fileURL(candidate.photo)}
+                                  src={fileURL(candidate.images)}
                                   height="70px"
                                   width="70px"
                                   style={{ borderRadius: "50%" }}
@@ -98,8 +98,8 @@ const JobSeeker = () => {
                               <div>
                                 <i className="fa fa-map-marker"></i>
                                 <span>
-                                  {candidate.country &&
-                                    capitalizeFirstLetter(candidate.country)}
+                                  {candidate.city &&
+                                    capitalizeFirstLetter(candidate.city)}
                                 </span>
                               </div>
                               <div>

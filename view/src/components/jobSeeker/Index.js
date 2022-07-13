@@ -108,7 +108,7 @@ const Index = () => {
 
   useEffect(() => {
     callJobSeekersAPI(page, limit, sort);
-  }, [page, sort]);
+  }, [page, sort, limit]);
   // useEffect to run jquery
   // useEffect(() => {
   //   $(".so-filter-heading").on("click", function () {

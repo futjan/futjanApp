@@ -19,7 +19,13 @@ import {
   createMessage,
 } from "../components/actions/messageAction";
 
-export default function MessagePopup({ receiverId, title }) {
+export default function MessagePopup({
+  receiverId,
+  title,
+  adId,
+  adType,
+  image,
+}) {
   const [currentChat, setCurrentChat] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [chats, setChats] = useState([]);
@@ -31,18 +37,19 @@ export default function MessagePopup({ receiverId, title }) {
   // useEffect
   useEffect(() => {
     if (receiverId) {
-      dispatch(getConversation(receiverId));
+      dispatch(getConversation(receiverId, adId));
     }
   }, []);
-  useEffect(() => {
-    if (receiverId) {
-      dispatch(getConversation(receiverId));
-    }
-  }, [auth && auth.user]);
+  // useEffect(() => {
+  //   if (receiverId) {
+  //     dispatch(getConversation(receiverId));
+  //   }
+  // }, [auth && auth.user]);
   // socket io
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
+    // socket.current = io("http://www.futjan.com");
+    socket.current = io("http://localhost:8000");
     return () => {
       socket.current.close();
     };
@@ -50,7 +57,9 @@ export default function MessagePopup({ receiverId, title }) {
 
   useEffect(() => {
     socket.current.on("getmessage", (data) => {
+      console.log(data);
       setArrivalMessage({
+        conversationId: data.conversationId,
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
@@ -66,6 +75,10 @@ export default function MessagePopup({ receiverId, title }) {
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
+      currentChat?._id === arrivalMessage.conversationId &&
+      currentChat &&
+      currentChat.ad &&
+      currentChat.ad.ad === adId &&
       setChats((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
@@ -74,22 +87,25 @@ export default function MessagePopup({ receiverId, title }) {
   // add user to server
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
-    socket.current.on("getusers", (users) => {
-      // console.log(users);
-    });
   }, [auth.user && auth.user.id]);
 
   // get messages on currentChat changes
-  const messages = useSelector((state) => state.message.messages);
+  const messages = useSelector((state) => state.message);
   useEffect(() => {
-    if (chats.length === 0) {
-      setChats(messages);
+    if (
+      chats.length === 0 &&
+      currentChat &&
+      currentChat.ad &&
+      currentChat.ad.ad === adId
+    ) {
+      setChats(messages.messages);
     }
   }, [messages]);
+
   useEffect(() => {
-    if (currentChat && currentChat._id) {
+    if (currentChat && currentChat.ad && currentChat.ad.ad === adId) {
       dispatch(getMessages(currentChat && currentChat._id));
-      setChats([...messages]);
+      setChats([...messages.messages]);
     }
   }, [currentChat]);
 
@@ -108,6 +124,7 @@ export default function MessagePopup({ receiverId, title }) {
         (member) => member !== auth.user.id
       );
       socket.current.emit("sendmessage", {
+        conversationId: currentChat._id,
         senderId: auth.user.id,
         receiverId: receiverId,
         text: newMessage,
@@ -118,17 +135,27 @@ export default function MessagePopup({ receiverId, title }) {
       setNewMessage("");
     }
   };
-
   const startConversation = () => {
-    dispatch(createSingleConversation({ receiver: receiverId }));
+    setChats([]);
+    const data = {
+      receiver: receiverId,
+      ad: {
+        ad: adId,
+        onModel: adType,
+        image: image,
+        adType: adType,
+      },
+    };
+    dispatch(createSingleConversation(data));
   };
 
   const scrollRef = useRef();
-
+  console.log(currentChat && currentChat.ad && currentChat.ad.ad === adId);
   // scroll
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chats]);
+
   return (
     <div ref={scrollRef}>
       <Accordion
@@ -158,7 +185,10 @@ export default function MessagePopup({ receiverId, title }) {
         {auth.isAuthenticated === true ? (
           <>
             <div className="message-pop">
-              {currentChat && Object.keys(currentChat).length > 0 ? (
+              {currentChat &&
+              Object.keys(currentChat).length > 0 &&
+              currentChat.ad &&
+              currentChat.ad.ad === adId ? (
                 <>
                   <small
                     style={{

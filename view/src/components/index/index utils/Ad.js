@@ -103,7 +103,7 @@ const Ad = (props) => {
       props.type === "job" &&
       props.job &&
       Object.keys(props.job).length > 0 ? (
-        <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-6">
           <div className="item-inner product-layout transition product-grid">
             <div className="product-item-container">
               <div className="left-block">
@@ -142,6 +142,12 @@ const Ad = (props) => {
                     <small>
                       {props.job.subCategory &&
                         capitalizeFirstLetter(props.job.subCategory)}
+                    </small>
+                  </div>
+                  <div>
+                    <i className="fa fa-map-marker"></i>
+                    <small>
+                      {props.job.city && capitalizeFirstLetter(props.job.city)}
                     </small>
                   </div>
                   <div>

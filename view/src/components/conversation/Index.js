@@ -79,7 +79,7 @@ const Index = (props) => {
   const conversations = useSelector(
     (state) => state.conversation.conversations
   );
-  const messages = useSelector((state) => state.message.messages);
+  const messages = useSelector((state) => state.message);
   const scrollRef = useRef();
   // initialize hook
   const dispatch = useDispatch();
@@ -99,7 +99,8 @@ const Index = (props) => {
   // socket io setup
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
+    // socket.current = io("http://www.futjan.com");
+    socket.current = io("http://localhost:8000");
     return () => {
       socket.current.close();
     };
@@ -108,6 +109,7 @@ const Index = (props) => {
   useEffect(() => {
     socket.current.on("getmessage", (data) => {
       setArrivalMessage({
+        conversationId: data.conversationId,
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
@@ -124,27 +126,28 @@ const Index = (props) => {
 
   useEffect(() => {
     if (chats.length === 0) {
-      setChats(messages);
+      setChats(messages.messages);
     }
-  }, [messages]);
+  }, [messages.messages]);
 
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
+      currentChat?._id === arrivalMessage.conversationId &&
       setChats((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
-    socket.current.on("getusers", (users) => {});
   }, [auth.user && auth.user.id]);
 
   useEffect(() => {
     if (currentChat && currentChat._id) {
       dispatch(getMessages(currentChat && currentChat._id));
-      setChats([...messages]);
+      // setChats([...messages.messages]);
+      setChats([]);
     }
-  }, [currentChat]);
+  }, [currentChat && currentChat._id]);
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
@@ -160,8 +163,9 @@ const Index = (props) => {
         senderId: auth.user && auth.user.id,
         receiverId: receiverId,
         text: newMessage,
+        conversationId: currentChat._id,
       });
-
+      console.log(currentChat._id);
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
       setNewMessage("");
@@ -253,17 +257,21 @@ const Index = (props) => {
             position: "relative",
           }}
         >
-          {currentChat
-            ? chats.length > 0
-              ? chats.map((m) => (
-                  <Message
-                    message={m}
-                    currentUser={auth.user && auth.user.id}
-                    ref={scrollRef}
-                  />
-                ))
-              : null
-            : null}
+          {messages.loading !== true ? (
+            currentChat && chats.length > 0 ? (
+              chats.map((m) => (
+                <Message
+                  message={m}
+                  currentUser={auth.user && auth.user.id}
+                  ref={scrollRef}
+                />
+              ))
+            ) : (
+              <small>No messages</small>
+            )
+          ) : (
+            <h1>loading</h1>
+          )}
         </Main>
         {currentChat ? (
           <div className="msg-send">

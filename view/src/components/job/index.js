@@ -103,7 +103,7 @@ const Index = () => {
   }, []);
   useEffect(() => {
     callJobsAPI(page, limit, sort);
-  }, [page]);
+  }, [page, limit, sort]);
 
   // useEffect(() => {
   //   callJobsAPI(page, limit, sort);
@@ -242,6 +242,7 @@ const Index = () => {
                                   className="form-control"
                                   name="text_search"
                                   id="text_search"
+                                  placeholder="title"
                                   value={title}
                                   onChange={(e) => setTitle(e.target.value)}
                                 />
@@ -741,8 +742,8 @@ const Index = () => {
                           }}
                         >
                           <option value="">Default</option>
-                          <option value="createdAt">Newest</option>
-                          <option value="-createdAt">Oldest</option>
+                          <option value="-createdAt">Newest</option>
+                          <option value="createdAt">Oldest</option>
                         </select>
                       </div>
                       <div className="form-group">

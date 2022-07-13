@@ -119,9 +119,6 @@
   text-transform: capitalize;
 }
 
-.converstions img {
-  border-radius: 50%;
-}
 .converstions .msg p {
   color: #222;
   font-size: 14px;
@@ -157,6 +154,14 @@
 }
 .MuiAccordionSummary-root.Mui-expanded {
   min-height: 45px !important;
+}
+.MuiCircularProgress-root {
+  width: 13px !important;
+  height: 13px !important;
+}
+.MuiCircularProgress-svg {
+  width: 13px !important;
+  height: 13px !important;
 }
 
 .message-pop {

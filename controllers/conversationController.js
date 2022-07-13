@@ -8,8 +8,10 @@ const catchAsync = require("../utils/catchAsync");
 // @access                              Private
 
 exports.create = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const conversation = await Conversation.create({
     members: [req.user._id.toString(), req.body.receiver],
+    ad: req.body.ad,
   });
   // check
   if (!conversation) {
@@ -55,6 +57,9 @@ exports.getConversation = catchAsync(async (req, res, next) => {
         members: {
           $in: [req.params.reveiverId],
         },
+      },
+      {
+        "ad.ad": req.params.adId,
       },
     ],
   });

@@ -38,7 +38,7 @@ exports.resizeImage = catchAsync(async (req, res, next) => {
           await s3.putObject(
             {
               Bucket: process.env.BUCKET,
-              Key: `image-${req.user.id}-${timeStamp}${path.extname(
+              Key: `image-${req.user.id}-${timeStamp}-${i}${path.extname(
                 file.originalname
               )}`,
               Body: buffer,
@@ -51,7 +51,7 @@ exports.resizeImage = catchAsync(async (req, res, next) => {
           );
         });
       // console.log(i);
-      req.files[i].key = `image-${req.user.id}-${timeStamp}${path.extname(
+      req.files[i].key = `image-${req.user.id}-${timeStamp}-${i}${path.extname(
         file.originalname
       )}`;
     });

@@ -3,8 +3,10 @@ import ListItem from "@mui/material/ListItem";
 import DefaultImage from "../image/default.jpg";
 import ListItemButton from "@mui/material/ListItemButton";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
+import fileURL from "../../utils/fileURL";
 export default function Conversation({
   conversation,
   currentUser,
@@ -60,6 +62,36 @@ export default function Conversation({
         <Skeleton count={1} circle={true} width="50px" height="50px" />
         <Skeleton count={1} width="135px" height="20px" />
       </div>
+      <div
+        style={{
+          padding: "4px 10px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: "15px",
+          marginBottom: "5px",
+          borderTop: "1px solid #ddd",
+        }}
+      >
+        <Skeleton count={1} circle={true} width="50px" height="50px" />
+        <Skeleton count={1} width="135px" height="20px" />
+      </div>
+      <div
+        style={{
+          padding: "4px 10px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: "15px",
+          marginBottom: "5px",
+          borderTop: "1px solid #ddd",
+        }}
+      >
+        <Skeleton count={1} circle={true} width="50px" height="50px" />
+        <Skeleton count={1} width="135px" height="20px" />
+      </div>
     </>
   ) : (
     <ListItem
@@ -85,9 +117,47 @@ export default function Conversation({
     >
       <ListItemButton>
         <div className="converstions">
-          <img src={DefaultImage} width="40" />
+          {conversation && conversation.ad && conversation.ad.image ? (
+            <img
+              src={fileURL(conversation.ad.image)}
+              alt={conversation.ad.adType}
+              width="50"
+            />
+          ) : (
+            <img src={DefaultImage} width="50" />
+          )}
           <div className="msg">
             <p className="name">{user && user.name}</p>
+            {conversation &&
+            conversation.ad &&
+            conversation.ad.adType === "jobs" ? (
+              <Link
+                to={`/job-detail/${conversation.ad.ad}`}
+                style={{ fontSize: "14px", textDecoration: "underline" }}
+              >
+                Ad Link
+              </Link>
+            ) : null}
+            {conversation &&
+            conversation.ad &&
+            conversation.ad.adType === "surplus" ? (
+              <Link
+                to={`/surplus-detail/${conversation.ad.ad}`}
+                style={{ fontSize: "14px", textDecoration: "underline" }}
+              >
+                Ad Link
+              </Link>
+            ) : null}
+            {conversation &&
+            conversation.ad &&
+            conversation.ad.adType === "jobseekers" ? (
+              <Link
+                to={`/job-seeker-detail/${conversation.ad.ad}`}
+                style={{ fontSize: "14px", textDecoration: "underline" }}
+              >
+                Ad Link
+              </Link>
+            ) : null}
           </div>
         </div>
       </ListItemButton>

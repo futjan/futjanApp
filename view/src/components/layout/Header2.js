@@ -106,8 +106,8 @@ const Header2 = () => {
           
         </ul> */}
         <div className="container">
-          <div className="row d-sm-block d-flex align-items-end justify-content-center">
-            <div className="navbar-logo col-lg-2 col-md-2 col-xs-12 col-sm-3 m-0">
+          <div className="row d-sm-block d-flex  justify-content-center">
+            <div className="navbar-logo col-lg-2 col-md-2 col-xs-2 col-sm-3 m-0">
               <Link
                 to="/"
                 className="d-flex align-items-center justify-content-center"

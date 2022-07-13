@@ -8,6 +8,7 @@ import messageReducer from "./messageReducer";
 import conversationReducer from "./conversationReducer";
 import notificationReducer from "./notificationReducer";
 import userAdsReducer from "./userAdsReducer";
+import favouriteReducer from "./favouriteReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
   conversation: conversationReducer,
   notification: notificationReducer,
   userads: userAdsReducer,
+  favourite: favouriteReducer,
 });
