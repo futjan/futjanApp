@@ -38,6 +38,7 @@ const JobDetail = () => {
   const auth = useSelector((state) => state.auth);
   const favourite = useSelector((state) => state.favourite);
   const favourites = useSelector((state) => state.favourite.favourites);
+  const currency = useSelector((state) => state.currency);
   // useEffect
   useEffect(() => {
     dispatch(getJobById(id));
@@ -243,8 +244,14 @@ const JobDetail = () => {
                       ></i>{" "}
                       <span>
                         {job.job && job.job.minSalary
-                          ? `${job && job.currency} ${job.job.minSalary} - ${
-                              job.job.maxSalary
+                          ? ` ${job.job && currency.symbol} ${
+                              job.job.currency === currency.symbol
+                                ? job.job.minSalary.toFixed(2)
+                                : (job.job.minSalary * currency.rate).toFixed(2)
+                            } - ${
+                              job.job.currency === currency.symbol
+                                ? job.job.maxSalary.toFixed(2)
+                                : (job.job.maxSalary * currency.rate).toFixed(2)
                             }`
                           : ""}{" "}
                         / {job.job && job.job.salaryType}

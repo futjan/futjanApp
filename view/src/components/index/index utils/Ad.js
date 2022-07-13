@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
+import Skeleton from "react-loading-skeleton";
 
 const Ad = (props) => {
+  const currency = useSelector((state) => state.currency);
+  console.log(currency);
   return (
     <>
       {props &&
@@ -65,22 +69,58 @@ const Ad = (props) => {
                     </small>
                   </div>
                   <div className="total-price clearfix">
-                    <div className="price price-left">
+                    <div
+                      className="price price-left"
+                      style={{ display: "block" }}
+                    >
                       {props.sur.originalPrice && props.sur.offeredPrice > 0 ? (
                         <span className="price-new">
-                          {props.sur && props.sur.currency}{" "}
-                          {props.sur.offeredPrice}
+                          {currency.loading !== false ? (
+                            <Skeleton height="15px" width="150px" />
+                          ) : (
+                            `${currency.symbol} ${
+                              props.sur &&
+                              props.sur.currency === currency.symbol
+                                ? props.sur.offeredPrice.toFixed(2)
+                                : (
+                                    props.sur.offeredPrice * currency.rate
+                                  ).toFixed(2)
+                            }`
+                          )}{" "}
                         </span>
                       ) : (
                         <span className="price-new">
-                          {props.sur && props.sur.currency}
-                          {props.sur.originalPrice}
+                          {currency.loading !== false ? (
+                            <Skeleton height="15px" width="150px" />
+                          ) : (
+                            `${currency.symbol} ${
+                              props.sur &&
+                              props.sur.currency === currency.symbol
+                                ? props.sur.originalPrice.toFixed(2)
+                                : (
+                                    props.sur.originalPrice * currency.rate
+                                  ).toFixed(2)
+                            }
+                           `
+                          )}
                         </span>
                       )}{" "}
                       {props.sur.originalPrice && props.sur.offeredPrice > 0 ? (
                         <span className="price-old">
-                          {props.sur && props.sur.currency}{" "}
-                          {props.sur.originalPrice}
+                          {currency.loading !== false ? (
+                            <Skeleton height="15px" width="150px" />
+                          ) : (
+                            `
+                            
+                            ${currency.symbol} ${
+                              props.sur &&
+                              props.sur.currency === currency.symbol
+                                ? props.sur.originalPrice.toFixed(2)
+                                : (
+                                    props.sur.originalPrice * currency.rate
+                                  ).toFixed(2)
+                            }`
+                          )}
                         </span>
                       ) : null}
                     </div>
@@ -153,10 +193,18 @@ const Ad = (props) => {
                   <div>
                     <i className="fa fa-money"></i>
                     <small>
-                      {props.job.minSalary > 0 && props.job.maxSalary > 0
-                        ? ` ${props.job && props.job.currency} ${
-                            props.job.minSalary
-                          } - ${props.job.maxSalary} / ${props.job.salaryType}`
+                      {props.job.minSalary * currency.rate > 0 &&
+                      props.job.maxSalary * currency.rate > 0
+                        ? ` ${props.job && currency.symbol} ${
+                            props.job.currency === currency.symbol
+                              ? props.job.minSalary.toFixed(2)
+                              : (props.job.minSalary * currency.rate).toFixed(2)
+                          } - ${
+                            props.job.currency === currency.symbol
+                              ? props.job.maxSalary.toFixed(2)
+                              : (props.job.maxSalary * currency.rate).toFixed(2)
+                          } / ${props.job.salaryType}
+                          `
                         : props.job.salaryType}
                     </small>
                   </div>

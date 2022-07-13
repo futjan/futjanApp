@@ -15,6 +15,7 @@ const JobSeeker = () => {
   const dispatch = useDispatch();
   // get state from store
   const jobSeeker = useSelector((state) => state.jobSeeker);
+  const currency = useSelector((state) => state.currency);
   // useEffect
   useEffect(() => {
     dispatch(getJobSeekers(1, 8, "", "", "", "", "", "", "", ""));
@@ -105,8 +106,13 @@ const JobSeeker = () => {
                               <div>
                                 <i className="fa fa-money"></i>{" "}
                                 <span>
-                                  {candidate && candidate.currency}{" "}
-                                  {candidate.rate} / {candidate.salaryType}
+                                  {candidate && currency.symbol}{" "}
+                                  {candidate.symbol === currency.symbol
+                                    ? candidate.rate.toFixed(2)
+                                    : (candidate.rate * currency.rate).toFixed(
+                                        2
+                                      )}
+                                  / {candidate.salaryType}
                                 </span>
                               </div>
                             </div>

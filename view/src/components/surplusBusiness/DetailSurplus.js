@@ -70,6 +70,7 @@ function DetailSurplus() {
   const surplusFromStore = useSelector((state) => state.surplus);
   const auth = useSelector((state) => state.auth);
   const favourite = useSelector((state) => state.favourite);
+  const currency = useSelector((state) => state.currency);
   // useEffect
   useEffect(() => {
     dispatch(getSurplusById(params.id));
@@ -402,8 +403,16 @@ function DetailSurplus() {
                         style={{ fontWeight: "100" }}
                       >
                         {surplusFromStore.surplus &&
+                        surplusFromStore.surplus.currency === currency.symbol
+                          ? surplusFromStore.surplus.originalPrice.toFixed(2)
+                          : (
+                              surplusFromStore.surplus.originalPrice *
+                              currency.rate
+                            ).toFixed(2)}
+
+                        {/* {surplusFromStore.surplus &&
                           surplusFromStore.surplus.currency}{" "}
-                        {surplusFromStore.surplus.originalPrice}
+                        {surplusFromStore.surplus.originalPrice} */}
                       </span>
                     ) : null}
                     <span
@@ -418,14 +427,29 @@ function DetailSurplus() {
                       surplusFromStore.surplus.offeredPrice > 0 ? (
                         <span id="price-special">
                           {surplusFromStore.surplus &&
+                          surplusFromStore.surplus.currency === currency.symbol
+                            ? surplusFromStore.surplus.offeredPrice.toFixed(2)
+                            : (
+                                surplusFromStore.surplus.offeredPrice *
+                                currency.rate
+                              ).toFixed(2)}
+
+                          {/* {surplusFromStore.surplus &&
                             surplusFromStore.surplus.currency}{" "}
-                          {surplusFromStore.surplus.offeredPrice}
+                          {surplusFromStore.surplus.offeredPrice} */}
                         </span>
                       ) : (
                         <span id="price-special">
                           {surplusFromStore.surplus &&
+                          surplusFromStore.surplus.currency === currency.symbol
+                            ? surplusFromStore.surplus.originalPrice.toFixed(2)
+                            : (
+                                surplusFromStore.surplus.originalPrice *
+                                currency.rate
+                              ).toFixed(2)}
+                          {/* {surplusFromStore.surplus &&
                             surplusFromStore.surplus.currency}{" "}
-                          {surplusFromStore.surplus.originalPrice}
+                          {surplusFromStore.surplus.originalPrice} */}
                         </span>
                       )}
                     </span>

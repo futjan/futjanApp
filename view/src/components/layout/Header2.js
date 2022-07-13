@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import LOGO from "../image/Logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authAction";
+import { setCurrencyAction } from "../actions/currencyAction";
 import { Select } from "@mui/material";
 import ukFlag from "../image/flag/uk.png";
 import indianFlag from "../image/flag/india.png";
@@ -19,7 +20,12 @@ const Header2 = () => {
   const [jobSeach, setJobSearch] = useState("special job");
   const [title, setTitle] = useState("");
   const [adType, setAdType] = useState("surplus");
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [currency, setCurrency] = useState({
+    symbol: "£",
+    code: "GBP",
+    to: "INR",
+  });
 
   const [state, setState] = React.useState({
     left: false,
@@ -31,6 +37,11 @@ const Header2 = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    dispatch(setCurrencyAction(currency));
+  }, [currency.code]);
+
   // initialize hooks
   const dispatch = useDispatch();
   const location = useLocation();
@@ -86,25 +97,30 @@ const Header2 = () => {
             Adminpanel
           </Link>
         ) : null} */}
-        {/* <ul
+        <ul
           className="top-link list-inline"
           style={{ position: "absolute", top: "0", right: "0" }}
         >
           <li>
             <Select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={currency.code}
+              onChange={(e) =>
+                setCurrency({
+                  symbol: e.target.value === "GBP" ? "£" : "₹",
+                  code: e.target.value,
+                  to: e.target.value === "GBP" ? "INR" : "GBP",
+                })
+              }
             >
-              <MenuItem value="uk">
+              <MenuItem value="GBP">
                 <img src={ukFlag} width="20" />
               </MenuItem>
-              <MenuItem value="india">
+              <MenuItem value="INR">
                 <img src={indianFlag} width="20" />
               </MenuItem>
             </Select>
           </li>
-          
-        </ul> */}
+        </ul>
         <div className="container">
           <div className="row d-sm-block d-flex  justify-content-center">
             <div className="navbar-logo col-lg-2 col-md-2 col-xs-2 col-sm-3 m-0">
