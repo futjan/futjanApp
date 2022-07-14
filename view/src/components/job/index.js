@@ -66,7 +66,7 @@ const Index = () => {
   const job = useSelector((state) => state.job);
   const preset = useSelector((state) => state.auth.preset);
   const user = useSelector((state) => state.auth.user);
-
+  const currency = useSelector((state) => state.currency);
   useEffect(() => {
     dispatch(getPreset());
   }, [user && user._id]);
@@ -845,15 +845,22 @@ const Index = () => {
                               <p>
                                 {" "}
                                 <i className="fa fa-money"></i>
-                                {job.minSalary > 0 && job.maxSalary > 0
-                                  ? job &&
-                                    job.currency +
-                                      " " +
-                                      job.minSalary +
-                                      " - " +
-                                      job.maxSalary +
-                                      " / " +
-                                      job.salaryType
+                                {job.minSalary * currency.rate > 0 &&
+                                job.maxSalary * currency.rate > 0
+                                  ? ` ${job && currency.symbol} ${
+                                      job.currency === currency.symbol
+                                        ? job.minSalary.toFixed(2)
+                                        : (
+                                            job.minSalary * currency.rate
+                                          ).toFixed(2)
+                                    } - ${
+                                      job.currency === currency.symbol
+                                        ? job.maxSalary.toFixed(2)
+                                        : (
+                                            job.maxSalary * currency.rate
+                                          ).toFixed(2)
+                                    } / ${job.salaryType}
+                                  `
                                   : job.salaryType}
                               </p>
                               <span className="job-type-span">

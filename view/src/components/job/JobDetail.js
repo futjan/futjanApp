@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { getJobById, updateViews } from "../actions/jobAction";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Button from "@mui/material/Button";
 import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
@@ -38,6 +39,7 @@ const JobDetail = () => {
   const auth = useSelector((state) => state.auth);
   const favourite = useSelector((state) => state.favourite);
   const favourites = useSelector((state) => state.favourite.favourites);
+  const currency = useSelector((state) => state.currency);
   // useEffect
   useEffect(() => {
     dispatch(getJobById(id));
@@ -243,8 +245,14 @@ const JobDetail = () => {
                       ></i>{" "}
                       <span>
                         {job.job && job.job.minSalary
-                          ? `${job && job.currency} ${job.job.minSalary} - ${
-                              job.job.maxSalary
+                          ? ` ${job.job && currency.symbol} ${
+                              job.job.currency === currency.symbol
+                                ? job.job.minSalary.toFixed(2)
+                                : (job.job.minSalary * currency.rate).toFixed(2)
+                            } - ${
+                              job.job.currency === currency.symbol
+                                ? job.job.maxSalary.toFixed(2)
+                                : (job.job.maxSalary * currency.rate).toFixed(2)
                             }`
                           : ""}{" "}
                         / {job.job && job.job.salaryType}
@@ -519,6 +527,37 @@ const JobDetail = () => {
 
                 {job.loading !== true ? (
                   <>
+                    {job && job.job && job.job.user && (
+                      <Button
+                        variant="outlined"
+                        size="large"
+                        sx={{
+                          color: "#3b5998",
+                          border: "2px solid #3b5998",
+                          fontSize: "14px",
+                          paddingRight: "8px",
+                          paddingLeft: "8px",
+                          marginBottom: "10px",
+                          fontWeight: "600",
+                          "&:hover": {
+                            color: "#3b5998",
+                            border: "2px solid #3b5998",
+                            fontSize: "14px",
+                            paddingRight: "8px",
+                            paddingLeft: "8px",
+                            marginBottom: "10px",
+                            fontWeight: "600",
+                          },
+                        }}
+                        component={Link}
+                        to="/user-ads"
+                        state={{
+                          user: job.job && job.job.user,
+                        }}
+                      >
+                        See seller other Ads
+                      </Button>
+                    )}
                     <h3 style={{ margin: "0" }}>Share on</h3>
 
                     <div

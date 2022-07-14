@@ -71,6 +71,7 @@ const Index = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const preset = useSelector((state) => state.auth.preset);
+  const currency = useSelector((state) => state.currency);
 
   useEffect(() => {
     if (location && location.state && location.state.title) {
@@ -888,13 +889,24 @@ const Index = () => {
                               <div>
                                 <i className="fa fa-map-marker"></i>
                                 <span>
-                                  {candidate.country &&
-                                    capitalizeFirstLetter(candidate.country)}
+                                  {candidate.city &&
+                                    capitalizeFirstLetter(candidate.city)}
                                 </span>
                               </div>
                               <div>
                                 <i className="fa fa-money"></i>{" "}
-                                <span>{candidate && candidate.currency} </span>
+                                <span>
+                                  {candidate && currency.symbol}{" "}
+                                  {candidate.currency === currency.symbol
+                                    ? candidate &&
+                                      candidate.rate &&
+                                      candidate.rate.toFixed(2)
+                                    : (
+                                        candidate &&
+                                        candidate.rate * currency.rate
+                                      ).toFixed(2)}
+                                  / {candidate.salaryType}
+                                </span>
                               </div>
                             </div>
                             <div className="job-seeker-skills-container">

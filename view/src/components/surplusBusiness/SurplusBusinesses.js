@@ -63,6 +63,7 @@ const SurplusBusinesses = () => {
   const surplusFromStore = useSelector((state) => state.surplus);
 
   const preset = useSelector((state) => state.auth.preset);
+  const currency = useSelector((state) => state.currency);
 
   useEffect(() => {
     if (state && state.title) {
@@ -867,19 +868,32 @@ const SurplusBusinesses = () => {
                                     {sur.originalPrice &&
                                     sur.offeredPrice > 0 ? (
                                       <span className="price-new">
-                                        {sur && sur.currency} {sur.offeredPrice}
+                                        {currency.symbol}{" "}
+                                        {sur.currency === currency.symbol
+                                          ? sur.offeredPrice.toFixed(2)
+                                          : (
+                                              sur.offeredPrice * currency.rate
+                                            ).toFixed(2)}
                                       </span>
                                     ) : (
                                       <span className="price-new">
-                                        {sur && sur.currency}{" "}
-                                        {sur.originalPrice}
+                                        {currency.symbol}{" "}
+                                        {sur && sur.currency === currency.symbol
+                                          ? sur.originalPrice.toFixed(2)
+                                          : (
+                                              sur.originalPrice * currency.rate
+                                            ).toFixed(2)}
                                       </span>
                                     )}{" "}
                                     {sur.originalPrice &&
                                     sur.offeredPrice > 0 ? (
                                       <span className="price-old">
-                                        {sur && sur.currency}{" "}
-                                        {sur.originalPrice}
+                                        {currency.symbol}{" "}
+                                        {sur && sur.currency === currency.symbol
+                                          ? sur.originalPrice.toFixed(2)
+                                          : (
+                                              sur.originalPrice * currency.rate
+                                            ).toFixed(2)}
                                       </span>
                                     ) : null}
                                   </div>
