@@ -150,7 +150,7 @@ export default function MessagePopup({
   };
 
   const scrollRef = useRef();
-  console.log(currentChat && currentChat.ad && currentChat.ad.ad === adId);
+
   // scroll
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });

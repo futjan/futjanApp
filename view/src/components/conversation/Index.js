@@ -165,7 +165,7 @@ const Index = (props) => {
         text: newMessage,
         conversationId: currentChat._id,
       });
-      console.log(currentChat._id);
+
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
       setNewMessage("");

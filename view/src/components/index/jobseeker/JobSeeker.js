@@ -107,11 +107,14 @@ const JobSeeker = () => {
                                 <i className="fa fa-money"></i>{" "}
                                 <span>
                                   {candidate && currency.symbol}{" "}
-                                  {candidate.symbol === currency.symbol
-                                    ? candidate.rate.toFixed(2)
-                                    : (candidate.rate * currency.rate).toFixed(
-                                        2
-                                      )}
+                                  {candidate.currency === currency.symbol
+                                    ? candidate &&
+                                      candidate.rate &&
+                                      candidate.rate.toFixed(2)
+                                    : (
+                                        candidate &&
+                                        candidate.rate * currency.rate
+                                      ).toFixed(2)}
                                   / {candidate.salaryType}
                                 </span>
                               </div>

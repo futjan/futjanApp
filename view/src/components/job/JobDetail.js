@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { getJobById, updateViews } from "../actions/jobAction";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Button from "@mui/material/Button";
 import fileURL from "../../utils/fileURL";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
@@ -526,6 +527,37 @@ const JobDetail = () => {
 
                 {job.loading !== true ? (
                   <>
+                    {job && job.job && job.job.user && (
+                      <Button
+                        variant="outlined"
+                        size="large"
+                        sx={{
+                          color: "#3b5998",
+                          border: "2px solid #3b5998",
+                          fontSize: "14px",
+                          paddingRight: "8px",
+                          paddingLeft: "8px",
+                          marginBottom: "10px",
+                          fontWeight: "600",
+                          "&:hover": {
+                            color: "#3b5998",
+                            border: "2px solid #3b5998",
+                            fontSize: "14px",
+                            paddingRight: "8px",
+                            paddingLeft: "8px",
+                            marginBottom: "10px",
+                            fontWeight: "600",
+                          },
+                        }}
+                        component={Link}
+                        to="/user-ads"
+                        state={{
+                          user: job.job && job.job.user,
+                        }}
+                      >
+                        See seller other Ads
+                      </Button>
+                    )}
                     <h3 style={{ margin: "0" }}>Share on</h3>
 
                     <div

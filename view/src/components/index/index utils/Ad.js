@@ -9,7 +9,7 @@ import Skeleton from "react-loading-skeleton";
 
 const Ad = (props) => {
   const currency = useSelector((state) => state.currency);
-  console.log(currency);
+
   return (
     <>
       {props &&

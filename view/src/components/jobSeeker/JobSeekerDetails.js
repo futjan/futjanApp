@@ -7,6 +7,8 @@ import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import defaultUser from "../image/default.jpg";
 import Skeleton from "react-loading-skeleton";
 import ReportModal from "../modal/ReportModal";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
 
@@ -34,6 +36,7 @@ const JobSeekerDetails = () => {
   const jobSeeker = useSelector((state) => state.jobSeeker);
   const auth = useSelector((state) => state.auth);
   const favourite = useSelector((state) => state.favourite);
+  const currency = useSelector((state) => state.currency);
   // useEffect
   useEffect(() => {
     dispatch(getJobSeekerById(id));
@@ -237,8 +240,16 @@ const JobSeekerDetails = () => {
                         style={{ marginRight: "5px" }}
                       ></i>{" "}
                       <span>
-                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.currency}{" "}
-                        {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate} /{" "}
+                        {jobSeeker.jobSeeker && currency.symbol}{" "}
+                        {jobSeeker.jobSeeker &&
+                        jobSeeker.jobSeeker.currency === currency.symbol
+                          ? jobSeeker.jobSeeker &&
+                            jobSeeker.jobSeeker.rate &&
+                            jobSeeker.jobSeeker.rate.toFixed(2)
+                          : (
+                              jobSeeker.jobSeeker &&
+                              jobSeeker.jobSeeker.rate * currency.rate
+                            ).toFixed(2)}{" "}
                         {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType}
                       </span>
                     </div>
@@ -328,10 +339,18 @@ const JobSeekerDetails = () => {
                         />
                       ) : (
                         <p style={{ margin: "0" }}>
+                          {jobSeeker.jobSeeker && currency.symbol}
                           {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate
                             ? jobSeeker.jobSeeker &&
-                              jobSeeker.jobSeeker.rate + " / "
-                            : ""}{" "}
+                              jobSeeker.jobSeeker.currency === currency.symbol
+                              ? jobSeeker.jobSeeker &&
+                                jobSeeker.jobSeeker.rate &&
+                                jobSeeker.jobSeeker.rate.toFixed(2)
+                              : (
+                                  jobSeeker.jobSeeker &&
+                                  jobSeeker.jobSeeker.rate * currency.rate
+                                ).toFixed(2) + " / "
+                            : " "}{" "}
                           {jobSeeker.jobSeeker && jobSeeker.jobSeeker.salaryType
                             ? jobSeeker.jobSeeker.salaryType &&
                               capitalizeFirstLetter(
@@ -467,6 +486,40 @@ const JobSeekerDetails = () => {
                 </div>
                 {jobSeeker.loading !== true ? (
                   <>
+                    {jobSeeker &&
+                      jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.user && (
+                        <Button
+                          variant="outlined"
+                          size="large"
+                          sx={{
+                            color: "#3b5998",
+                            border: "2px solid #3b5998",
+                            fontSize: "14px",
+                            paddingRight: "8px",
+                            paddingLeft: "8px",
+                            marginBottom: "10px",
+                            fontWeight: "600",
+                            "&:hover": {
+                              color: "#3b5998",
+                              border: "2px solid #3b5998",
+                              fontSize: "14px",
+                              paddingRight: "8px",
+                              paddingLeft: "8px",
+                              marginBottom: "10px",
+                              fontWeight: "600",
+                            },
+                          }}
+                          component={Link}
+                          to="/user-ads"
+                          state={{
+                            user:
+                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.user,
+                          }}
+                        >
+                          See seller other Ads
+                        </Button>
+                      )}
                     <h3 style={{ margin: "0" }}>Share on</h3>
 
                     <div

@@ -402,6 +402,7 @@ function DetailSurplus() {
                         id="price-old"
                         style={{ fontWeight: "100" }}
                       >
+                        {currency.symbol}
                         {surplusFromStore.surplus &&
                         surplusFromStore.surplus.currency === currency.symbol
                           ? surplusFromStore.surplus.originalPrice.toFixed(2)
@@ -426,6 +427,7 @@ function DetailSurplus() {
                       {surplusFromStore.surplus.originalPrice &&
                       surplusFromStore.surplus.offeredPrice > 0 ? (
                         <span id="price-special">
+                          {currency.symbol}
                           {surplusFromStore.surplus &&
                           surplusFromStore.surplus.currency === currency.symbol
                             ? surplusFromStore.surplus.offeredPrice.toFixed(2)
@@ -440,6 +442,7 @@ function DetailSurplus() {
                         </span>
                       ) : (
                         <span id="price-special">
+                          {currency.symbol}
                           {surplusFromStore.surplus &&
                           surplusFromStore.surplus.currency === currency.symbol
                             ? surplusFromStore.surplus.originalPrice.toFixed(2)
