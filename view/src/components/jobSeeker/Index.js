@@ -894,10 +894,7 @@ const Index = () => {
                               </div>
                               <div>
                                 <i className="fa fa-money"></i>{" "}
-                                <span>
-                                  {candidate && candidate.currency}{" "}
-                                  {candidate.rate} / {candidate.salaryType}
-                                </span>
+                                <span>{candidate && candidate.currency} </span>
                               </div>
                             </div>
                             <div className="job-seeker-skills-container">
