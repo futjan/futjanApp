@@ -134,7 +134,7 @@ const JobSeekerTable = (props) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <h3>Surplus</h3>
+            <h3>Job Seeker</h3>
             <div
               style={{
                 display: "flex",
@@ -144,9 +144,9 @@ const JobSeekerTable = (props) => {
             >
               {jobSeeker &&
               jobSeeker.jobSeeker &&
-              jobSeeker.jobSeeker.photo &&
+              jobSeeker.jobSeeker.images &&
               jobSeeker.loading === false ? (
-                <img src={fileURL(jobSeeker.jobSeeker.photo)} width="100" />
+                <img src={fileURL(jobSeeker.jobSeeker.images)} width="100" />
               ) : (
                 <div
                   style={{

@@ -227,23 +227,28 @@ export const getJobSeekerById = (id) => async (dispatch) => {
 // @desc                    update job by id
 // @access                  Private
 export const updateJobSeeker = (job, clearState) => async (dispatch) => {
-  //   let formDate = new FormData();
-  //   data.files.forEach((file) => formDate.append("photo", file));
+  let formDate = new FormData();
+  console.log(job.files);
+  job.files.forEach((file) => formDate.append("photo", file));
 
-  //   formDate.append("surplus", data.surplus);
-  //   formDate.append("id", data.id);
-  //   const config = {
-  //     headers: {
-  //       "content-type": "multipart/form-data",
-  //     },
-  //   };
-  //   dispatch(setLoading());
-  //   dispatch({
-  //     type: Types.CLEAR_ERRORS,
-  //   });
+  formDate.append("job", JSON.stringify(job));
+
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  dispatch(setLoading());
+  dispatch({
+    type: Types.CLEAR_ERRORS,
+  });
   try {
-    // const res = await axios.patch("/api/v1/surplus", formDate, config);
-    const res = await axios.patch(`/api/v1/jobseekers/${job.id}`, job);
+    const res = await axios.patch(
+      `/api/v1/jobseekers/${job.id}`,
+      formDate,
+      config
+    );
+    // const res = await axios.patch(`/api/v1/jobseekers/${job.id}`, job);
 
     dispatch(clearLoading());
 
@@ -332,6 +337,42 @@ export const deleteJobSeeker = (id) => async (dispatch) => {
       if (err.response.data.message === "jwt expired") {
         dispatch(logoutUser());
       }
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  }
+};
+
+export const deleteImageFromCloud = (data) => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const res = await axios.patch("/api/v1/jobseekers/delete-file", data);
+    if (res) {
+      dispatch({
+        type: Types.UPDATE_JOB_SEEKER,
+        payload: res.data.jobSeeker,
+      });
+      dispatch(setNotification("file successfully Deleted!", "success"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    if (err) {
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+
       dispatch({
         type: Types.GET_ERRORS,
         payload: err.response.data,

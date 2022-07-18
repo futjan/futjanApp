@@ -23,10 +23,22 @@ router.get(
   authController.protect,
   jobSeekerController.getPrivateJobSeeker
 );
+// delete file from aws
+router.patch(
+  "/delete-file",
+  authController.protect,
+  fileController.deleteFileFromS3,
+  jobSeekerController.updateJobSeekerFile
+);
 router
   .route("/:id")
   .get(jobSeekerController.getJobSeekerById)
-  .patch(jobSeekerController.updateJobSeeker)
-  .delete(jobSeekerController.deleteJobSeeker);
+  .patch(
+    authController.protect,
+    fileController.uploadFile,
+    fileController.resizeImage,
+    jobSeekerController.updateJobSeeker
+  )
+  .delete(authController.protect, jobSeekerController.deleteJobSeeker);
 
 module.exports = router;

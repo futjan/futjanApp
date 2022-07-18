@@ -11,7 +11,10 @@ aws.config.update({
 });
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
+  if (
+    file.mimetype.startsWith("image") ||
+    file.mimetype.startsWith("application/pdf")
+  ) {
     cb(null, true);
   } else {
     cb(new AppError("Not an image! Please upload only images.", 400), false);
@@ -28,32 +31,57 @@ exports.uploadFile = upload.array("photo");
 
 exports.resizeImage = catchAsync(async (req, res, next) => {
   if (req.files.length > 0) {
-    req.files.forEach((file, i) => {
-      const timeStamp = Date.now();
-      sharp(file.buffer)
-        .resize(600, 600)
-        .jpeg({ quality: 80 })
-        .toBuffer()
-        .then(async (buffer) => {
-          await s3.putObject(
-            {
-              Bucket: process.env.BUCKET,
-              Key: `image-${req.user.id}-${timeStamp}-${i}${path.extname(
-                file.originalname
-              )}`,
-              Body: buffer,
-              ACL: "public-read",
-            },
-            (err, data) => {
-              if (err)
-                next(new AppError("Image does not upload", 400, undefined));
-            }
-          );
-        });
+    req.files.forEach(async (file, i) => {
+      if (file && file.mimetype.startsWith("image") && file !== "undefined") {
+        const timeStamp = Date.now();
+        sharp(file.buffer)
+          .resize(600, 600)
+          .jpeg({ quality: 80 })
+          .toBuffer()
+          .then(async (buffer) => {
+            await s3.putObject(
+              {
+                Bucket: process.env.BUCKET,
+                Key: `file-${req.user.id}-${timeStamp}-${i}${path.extname(
+                  file.originalname
+                )}`,
+                Body: buffer,
+                ACL: "public-read",
+              },
+              (err, data) => {
+                if (err)
+                  next(new AppError("Image does not upload", 400, undefined));
+              }
+            );
+          });
+        req.files[i].key = `file-${req.user.id}-${timeStamp}-${i}${path.extname(
+          file.originalname
+        )}`;
+      } else if (
+        file &&
+        file.mimetype.startsWith("application/pdf") &&
+        file !== "undefined"
+      ) {
+        const timeStamp = Date.now();
+        await s3.putObject(
+          {
+            Bucket: process.env.BUCKET,
+            Key: `file-${req.user.id}-${timeStamp}-${i}${path.extname(
+              file.originalname
+            )}`,
+            Body: file.buffer,
+            ACL: "public-read",
+          },
+          (err, data) => {
+            if (err) next(new AppError("file does not upload", 400, undefined));
+          }
+        );
+        req.files[i].key = `file-${req.user.id}-${timeStamp}-${i}${path.extname(
+          file.originalname
+        )}`;
+      }
+
       // console.log(i);
-      req.files[i].key = `image-${req.user.id}-${timeStamp}-${i}${path.extname(
-        file.originalname
-      )}`;
     });
   }
   next();
@@ -67,7 +95,7 @@ exports.deleteFileFromS3 = catchAsync(async (req, res, next) => {
     },
     (err, data) => {
       if (err) next(new AppError("Image does not delete", 400, undefined));
+      next();
     }
   );
-  next();
 });

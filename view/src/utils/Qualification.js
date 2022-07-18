@@ -18,10 +18,10 @@ const Qualification = (props) => {
       onChange={(e) => props.setQualification(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="Certificate">Certificate</MenuItem>
-      <MenuItem value="Bachelor Degree">Bachelor Degree</MenuItem>
-      <MenuItem value="Master’s Degree">Master’s Degree</MenuItem>
-      <MenuItem value="Doctorate Degree">Doctorate Degree</MenuItem>
+      <MenuItem value="certificate">Certificate</MenuItem>
+      <MenuItem value="bachelor degree">Bachelor Degree</MenuItem>
+      <MenuItem value="master’s degree">Master’s Degree</MenuItem>
+      <MenuItem value="doctorate degree">Doctorate Degree</MenuItem>
     </Select>
   );
 };

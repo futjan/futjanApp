@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import DownloadIcon from "@mui/icons-material/Download";
 import Button from "@mui/material/Button";
 import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
@@ -12,8 +13,14 @@ import Loader from "../../utils/Loader";
 import SalaryType from "../../utils/SalaryType";
 import AgeSelect from "../../utils/Age";
 import Currency from "../../utils/Currency";
+import County from "../../utils/County";
+import Cities from "../../utils/cities";
 import Qualification from "../../utils/Qualification";
-import { getJobSeekerById, updateJobSeeker } from "../actions/jobSeekersAction";
+import {
+  getJobSeekerById,
+  updateJobSeeker,
+  deleteImageFromCloud,
+} from "../actions/jobSeekersAction";
 import { useDispatch, useSelector } from "react-redux";
 import fileURL from "../../utils/fileURL";
 const adpromotionType = [
@@ -47,10 +54,21 @@ const EditJobSeeker = (props) => {
     isoCode: "",
     phonecode: "",
   });
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
+  const [county, setCounty] = useState({
+    name: "",
+    isoCode: "",
+  });
+
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
   const [cv, setCv] = useState();
   const [photo, setPhoto] = useState("");
+
   const [profile, setProfile] = useState();
   const [dob, setDob] = useState("");
   const [age, setAge] = useState("");
@@ -83,6 +101,12 @@ const EditJobSeeker = (props) => {
           ? { name: jobSeeker.jobSeeker.country, isoCode: "" }
           : { name: "", isoCode: "" }
       );
+      setCounty({ name: jobSeeker.jobSeeker.county, isoCode: "" });
+      setCity({
+        name: jobSeeker.jobSeeker.city,
+        countryCode: "",
+        stateCode: "",
+      });
       setDescription(
         jobSeeker.jobSeeker.description ? jobSeeker.jobSeeker.description : ""
       );
@@ -116,9 +140,7 @@ const EditJobSeeker = (props) => {
       setPromoteType(
         jobSeeker.jobSeeker.promoteType ? jobSeeker.jobSeeker.promoteType : []
       );
-      setProfile(
-        jobSeeker.jobSeeker.profile ? jobSeeker.jobSeeker.profile : ""
-      );
+      setPhoto(jobSeeker.jobSeeker.profile ? jobSeeker.jobSeeker.profile : "");
       setDob(jobSeeker.jobSeeker.dob ? jobSeeker.jobSeeker.dob : "");
     }
   }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
@@ -191,9 +213,14 @@ const EditJobSeeker = (props) => {
       rate: rate * 1,
       files: [cv, profile],
       email: email.toLowerCase(),
+      cv: cv && cv.name,
+      profile: profile && profile.name,
       contact,
       promoteType: promoteType.filter((type) => type.promote !== "ALL"),
       country: country.name.toLowerCase(),
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      languages: languages,
       dob,
       age,
       currency,
@@ -222,8 +249,8 @@ const EditJobSeeker = (props) => {
     setLanguage("");
     setSkill("");
     setFiles([]);
-    // setCity({ name: "", stateCode: "", countryCode: "" });
-    // setCounty({ name: "", isoCode: "" });
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCounty({ name: "", isoCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     props.setTab("SURPLUS");
   };
@@ -240,6 +267,49 @@ const EditJobSeeker = (props) => {
     const tempArr = [...data];
     setData([...tempArr.filter((skill, i) => i !== id)]);
   };
+  // delete file from aws
+  const deleteFileFromCloudFunc = (file, type) => {
+    const data =
+      type === "image"
+        ? {
+            id: jobSeeker.jobSeeker?._id,
+            image: file,
+            images: "",
+          }
+        : {
+            id: jobSeeker.jobSeeker?._id,
+            image: file,
+            cv: "",
+          };
+
+    dispatch(deleteImageFromCloud(data));
+  };
+
+  //
+  // const downloadFIle = (e, file) => {
+  //   e.preventDefault();
+  //   console.log(file);
+  //   fetch(
+  //     "https://futjan.s3.ap-south-1.amazonaws.com/image-61e452f3a6e9ec290c062e19-1658160461467-0.jpg",
+  //     { method: "GET" }
+  //   )
+  //     .then((res) => {
+  //       return res.blob();
+  //     })
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+
+  //       const parentElement = document.getElementById(
+  //         "download-csv-file-format"
+  //       );
+  //       const link = document.createElement("a");
+  //       link.href = url;
+  //       link.download = file;
+  //       parentElement.appendChild(link);
+  //       link.click();
+  //       link.parentNode.removeChild(link);
+  //     });
+  // };
   return (
     // <!-- Main Container  -->
     <div
@@ -261,7 +331,7 @@ const EditJobSeeker = (props) => {
             </div>
           )}
           <h2 className="title" style={{ margin: "0" }}>
-            Create Job Seeker
+            Update Job Seeker
           </h2>
 
           <form
@@ -421,6 +491,41 @@ const EditJobSeeker = (props) => {
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
                       {errors.validation.country}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  County
+                </label>
+                <div className="col-sm-10">
+                  <County
+                    country={country}
+                    setCounty={setCounty}
+                    county={county}
+                  />
+                  {errors && errors.validation && errors.validation.county && (
+                    <div className="invalid-feedback">
+                      {errors.validation.county}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group required">
+                <label className="col-sm-2 control-label" htmlFor="input-name">
+                  City
+                </label>
+                <div className="col-sm-10">
+                  <Cities
+                    setCity={setCity}
+                    county={county}
+                    country={country}
+                    city={city}
+                  />
+                  {errors && errors.validation && errors.validation.city && (
+                    <div className="invalid-feedback">
+                      {errors.validation.city}
                     </div>
                   )}
                 </div>
@@ -831,18 +936,17 @@ const EditJobSeeker = (props) => {
                   Update Profile
                 </label>
                 <div className="col-sm-10">
-                  {profile === null ||
-                  profile === undefined ||
-                  Object.keys(profile).length === 0 ? null : (
+                  {profile ? (
                     <div
                       style={{
-                        width: "180px ",
+                        width: "180px",
                         height: "180px",
                         background: "#eee",
                         position: "relative",
                         overflow: "hidden",
                         padding: "10px",
                         display: "flex",
+
                         justifyContent: "center",
                         alignItems: "center",
                       }}
@@ -865,7 +969,7 @@ const EditJobSeeker = (props) => {
                         alt={`uploaded-image-${profile}`}
                       />
                     </div>
-                  )}
+                  ) : null}
 
                   <input
                     type="file"
@@ -892,7 +996,8 @@ const EditJobSeeker = (props) => {
                   )}
                 </div>
               </div>
-              {jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo && (
+
+              {jobSeeker.jobSeeker && jobSeeker.jobSeeker.images && (
                 <div className="form-group ">
                   <label
                     className="col-sm-2 control-label"
@@ -927,7 +1032,9 @@ const EditJobSeeker = (props) => {
                             justifyContent: "center",
                             alignItems: "center",
                           }}
-                          key={jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo}
+                          key={
+                            jobSeeker.jobSeeker && jobSeeker.jobSeeker.images
+                          }
                         >
                           <i
                             className="fa fa-times-circle"
@@ -939,15 +1046,21 @@ const EditJobSeeker = (props) => {
                               fontSize: "23px",
                               cursor: "pointer",
                             }}
-                            // onClick={() => deleteFileFromCloudFunc()}
+                            onClick={() =>
+                              deleteFileFromCloudFunc(
+                                jobSeeker.jobSeeker &&
+                                  jobSeeker.jobSeeker.images,
+                                "image"
+                              )
+                            }
                           ></i>
                           <img
                             width="100%"
                             src={fileURL(
-                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo
+                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.images
                             )}
                             alt={`uploaded-image-${
-                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.photo
+                              jobSeeker.jobSeeker && jobSeeker.jobSeeker.images
                             }`}
                           />
                         </div>
@@ -987,6 +1100,30 @@ const EditJobSeeker = (props) => {
                   )}
                 </div>
               </div>
+              {/* {jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv && (
+                <div className="form-group ">
+                  <label
+                    className="col-sm-2 control-label"
+                    htmlFor="input-website"
+                  ></label>
+                  <div className="col-sm-10">
+                    <Button
+                      variant="contained"
+                      id="download-csv-file-format"
+                      startIcon={<DownloadIcon />}
+                      onClick={(e) =>
+                        downloadFIle(
+                          e,
+                          jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv
+                        )
+                      }
+                    >
+                      Download File
+                    </Button>
+                  </div>
+                </div>
+              )} */}
+
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
                 <div className="col-sm-12">

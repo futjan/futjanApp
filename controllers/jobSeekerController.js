@@ -178,20 +178,74 @@ exports.jobSeekerActivate = catchAsync(async (req, res, next) => {
 // @desc                    update job seeker
 // @access                  Private
 exports.updateJobSeeker = catchAsync(async (req, res, next) => {
-  const jobSeeker = await JobSeeker.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const jobSeeker = JSON.parse(req.body.job);
+  let profileName = "";
+  let cvName = "";
+  if (
+    jobSeeker &&
+    jobSeeker.profile &&
+    jobSeeker.profile.length > 0 &&
+    jobSeeker &&
+    jobSeeker.cv &&
+    jobSeeker.cv.length > 0 &&
+    req.files.length > 0
+  ) {
+    jobSeeker.images = req.files[1].key;
+    jobSeeker.cv = req.files[0].key;
+  }
+  if (
+    jobSeeker &&
+    jobSeeker.profile &&
+    jobSeeker.profile.length > 0 &&
+    req.files.length > 0
+  ) {
+    jobSeeker.images = req.files[0].key;
+  }
+  if (
+    jobSeeker &&
+    jobSeeker.cv &&
+    jobSeeker.cv.length > 0 &&
+    req.files.length > 0
+  ) {
+    jobSeeker.cv = req.files[0].key;
+  }
 
-  if (!jobSeeker) {
+  // console.log(jobSeeker);
+  const jobSeeker1 = await JobSeeker.findByIdAndUpdate(
+    req.params.id,
+    jobSeeker,
+    {
+      new: true,
+    }
+  );
+
+  if (!jobSeeker1) {
     return next(new AppError("Failed to update Job seeker", 400, undefined));
   }
 
   res.status(200).json({
     status: "success",
-    jobSeeker,
+    jobSeeker: jobSeeker1,
   });
 });
 
+// @route             PATCH /api/v1/jobseekers/delete-file
+// @desc              delete file
+// @access            Private
+exports.updateJobSeekerFile = catchAsync(async (req, res, next) => {
+  const jobSeeker = await JobSeeker.findByIdAndUpdate(req.body.id, req.body, {
+    new: true,
+  });
+  // check surplus exist or not
+  if (!jobSeeker) {
+    return next(new AppError("jobSeeker not found", 404, undefined));
+  }
+  // send response to client
+  res.status(200).json({
+    status: "success",
+    jobSeeker,
+  });
+});
 // @route             PATCH /api/v1/jobseekers/views
 // @desc              update views
 // @access            Public
