@@ -402,6 +402,14 @@ const Header2 = () => {
                                     <MenuItem
                                       onClick={handleClose}
                                       component={Link}
+                                      to="/favourite"
+                                    >
+                                      <i className="fa fa-heart"></i>
+                                      &nbsp;&nbsp;&nbsp; My Favourite
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
                                       to="/user-panel"
                                       state={{ active: "ADD" }}
                                     >
