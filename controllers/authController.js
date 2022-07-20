@@ -238,10 +238,10 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
 
   // 3) send it to user's email
 
-  const resetURL = `${req.protocol}://${process.env.WEBSITE_DOMAIN}/${resetToken}`;
+  const resetURL = `${req.protocol}://${process.env.WEBSITE_DOMAIN}/reset-password/${resetToken}`;
   // const resetURL = `${req.protocol}://localhost:3000/reset-password`;
 
-  const message = `Forget your password? Submit a  request with your new password and passwordConfirm to ${resetURL}`;
+  const message = `Forget your password?Click on Link to submit a request with your new password to ${resetURL}`;
 
   await sendEmail({
     email: user.email,

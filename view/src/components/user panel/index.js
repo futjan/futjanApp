@@ -1,16 +1,42 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
-import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
-import AddJob from "../job/AddJob";
-import EditJob from "../job/EditJob";
-import AddJobSeeker from "../jobSeeker/AddJobSeeker";
-import Surplus from "./MyAds";
-import EditSurplus from "./EditSurplus";
-import EditJobSeeker from "../jobSeeker/EditJobSeeker";
-import MyAccount from "./MyAccount";
-import FullScreenModal from "../../utils/FullScreenModal";
-import Message from "./Messages";
+
 import { io } from "socket.io-client";
+import Preloader2 from "../../utils/Preloader2";
+// import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
+
+const AddSurplusBusiness = lazy(() =>
+  import("../surplusBusiness/AddSurplusBusiness")
+);
+
+// import AddJob from "../job/AddJob";
+
+const AddJob = lazy(() => import("../job/AddJob"));
+
+// import EditJob from "../job/EditJob";
+const EditJob = lazy(() => import("../job/EditJob"));
+
+// import AddJobSeeker from "../jobSeeker/AddJobSeeker";
+const AddJobSeeker = lazy(() => import("../jobSeeker/AddJobSeeker"));
+
+// import Surplus from "./MyAds";
+const Surplus = lazy(() => import("./MyAds"));
+
+// import EditSurplus from "./EditSurplus";
+
+const EditSurplus = lazy(() => import("./EditSurplus"));
+
+// import EditJobSeeker from "../jobSeeker/EditJobSeeker";
+const EditJobSeeker = lazy(() => import("../jobSeeker/EditJobSeeker"));
+// import MyAccount from "./MyAccount";
+
+const MyAccount = lazy(() => import("./MyAccount"));
+
+// import FullScreenModal from "../../utils/FullScreenModal";
+const FullScreenModal = lazy(() => import("../../utils/FullScreenModal"));
+
+// import Message from "./Messages";
+const Message = lazy(() => import("./Messages"));
 
 const Index = (props) => {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -58,7 +84,7 @@ const Index = (props) => {
                       <span>My ad</span>
                     </div>
                   </li>
-                  <li
+                  {/* <li
                     className={tab === "ALERT" ? "active" : ""}
                     onClick={() => setTab("ALERT")}
                   >
@@ -66,7 +92,7 @@ const Index = (props) => {
                       <i className="fa fa-bell"></i>
                       <span>My Alert</span>
                     </div>
-                  </li>
+                  </li> */}
                   <li
                     className={tab === "MESSAGE" ? "active" : ""}
                     onClick={() => setTab("MESSAGE")}
@@ -76,7 +102,7 @@ const Index = (props) => {
                       <span>Messages</span>
                     </div>
                   </li>
-                  <li
+                  {/* <li
                     className={tab === "FAVOURITE" ? "active" : ""}
                     onClick={() => setTab("FAVOURITE")}
                   >
@@ -84,7 +110,7 @@ const Index = (props) => {
                       <i className="fa fa-heart"></i>
                       <span>My Favourite</span>
                     </div>
-                  </li>
+                  </li> */}
                   <li
                     className={tab === "ACCOUNT" ? "active" : ""}
                     onClick={() => setTab("ACCOUNT")}
@@ -98,103 +124,113 @@ const Index = (props) => {
                 {tab === "ADD" ? (
                   <div className="tab-content ">
                     <div className="tab-pane active" id="tab-description">
-                      <div style={{ display: "flex", marginTop: "25px" }}>
-                        <label
-                          className="container-radio"
-                          onClick={() => setAdd("surplus")}
-                          style={{ marginRight: "20px" }}
-                        >
-                          <input
-                            type="radio"
-                            checked={add === "surplus" ? true : false}
-                            name="Flat Shipping Rate"
-                          />{" "}
-                          Surplus
-                          <span className="checkmark"></span>
-                        </label>
-                        <label
-                          className="container-radio"
-                          onClick={() => setAdd("job")}
-                          style={{ marginRight: "20px" }}
-                        >
-                          <input
-                            type="radio"
-                            checked={add === "job" ? true : false}
-                            name="Flat Shipping Rate"
-                          />{" "}
-                          Employer
-                          <span className="checkmark"></span>
-                        </label>
-                        <label
-                          className="container-radio"
-                          onClick={() => setAdd("candidiate")}
-                        >
-                          <input
-                            type="radio"
-                            checked={add === "candidiate" ? true : false}
-                            name="Flat Shipping Rate"
-                          />{" "}
-                          Job Seeker
-                          <span className="checkmark"></span>
-                        </label>
-                      </div>
-                      <div>
-                        {add === "surplus" ? (
-                          <AddSurplusBusiness
-                            setTitle={setTitle}
-                            setAdId={setAdId}
-                            successModalFunc={() => setOpenSuccessModal(true)}
-                          />
-                        ) : null}
-                        {add === "job" ? (
-                          <AddJob
-                            setTitle={setTitle}
-                            setAdId={setAdId}
-                            successModalFunc={() => setOpenSuccessModal(true)}
-                          />
-                        ) : null}
-                        {add === "candidiate" ? (
-                          <AddJobSeeker
-                            setTitle={setTitle}
-                            setAdId={setAdId}
-                            successModalFunc={() => setOpenSuccessModal(true)}
-                          />
-                        ) : null}
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div style={{ display: "flex", marginTop: "25px" }}>
+                          <label
+                            className="container-radio"
+                            onClick={() => setAdd("surplus")}
+                            style={{ marginRight: "20px" }}
+                          >
+                            <input
+                              type="radio"
+                              checked={add === "surplus" ? true : false}
+                              name="Flat Shipping Rate"
+                            />{" "}
+                            Surplus
+                            <span className="checkmark"></span>
+                          </label>
+                          <label
+                            className="container-radio"
+                            onClick={() => setAdd("job")}
+                            style={{ marginRight: "20px" }}
+                          >
+                            <input
+                              type="radio"
+                              checked={add === "job" ? true : false}
+                              name="Flat Shipping Rate"
+                            />{" "}
+                            Employer
+                            <span className="checkmark"></span>
+                          </label>
+                          <label
+                            className="container-radio"
+                            onClick={() => setAdd("candidiate")}
+                          >
+                            <input
+                              type="radio"
+                              checked={add === "candidiate" ? true : false}
+                              name="Flat Shipping Rate"
+                            />{" "}
+                            Job Seeker
+                            <span className="checkmark"></span>
+                          </label>
+                        </div>
+                        <div>
+                          {/* <Preloader2 /> */}
+
+                          {add === "surplus" ? (
+                            <AddSurplusBusiness
+                              setTitle={setTitle}
+                              setAdId={setAdId}
+                              successModalFunc={() => setOpenSuccessModal(true)}
+                            />
+                          ) : null}
+                          {add === "job" ? (
+                            <AddJob
+                              setTitle={setTitle}
+                              setAdId={setAdId}
+                              successModalFunc={() => setOpenSuccessModal(true)}
+                            />
+                          ) : null}
+                          {add === "candidiate" ? (
+                            <AddJobSeeker
+                              setTitle={setTitle}
+                              setAdId={setAdId}
+                              successModalFunc={() => setOpenSuccessModal(true)}
+                            />
+                          ) : null}
+                        </div>
+                        <FullScreenModal
+                          open={openSuccessModal}
+                          title={title}
+                          setOpen={setOpenSuccessModal}
+                          adId={adId}
+                        />
+                      </Suspense>
                     </div>
-                    <FullScreenModal
-                      open={openSuccessModal}
-                      title={title}
-                      setOpen={setOpenSuccessModal}
-                      adId={adId}
-                    />
                   </div>
                 ) : null}
 
                 {tab === "SURPLUS" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
-                      <div>
-                        <Surplus setTab={setTab} setId={setId} />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <Surplus setTab={setTab} setId={setId} />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}
                 {tab === "MESSAGE" ? (
                   <div className="tab-content" style={{ padding: "0" }}>
                     <div className="tab-pane active" id="tab-description">
-                      <div style={{ position: "relative" }}>
-                        <Message />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div style={{ position: "relative" }}>
+                          <Message />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}
                 {tab === "ACCOUNT" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
-                      <div>
-                        <MyAccount />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <MyAccount />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}
@@ -202,27 +238,33 @@ const Index = (props) => {
                 {tab === "EDIT-SURPLUS" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
-                      <div>
-                        <EditSurplus id={id} setTab={setTab} />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <EditSurplus id={id} setTab={setTab} />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}
                 {tab === "EDIT-JOB" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
-                      <div>
-                        <EditJob id={id} setTab={setTab} />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <EditJob id={id} setTab={setTab} />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}
                 {tab === "EDIT-JOBSEEKER" ? (
                   <div className="tab-content">
                     <div className="tab-pane active" id="tab-description">
-                      <div>
-                        <EditJobSeeker id={id} setTab={setTab} />
-                      </div>
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <EditJobSeeker id={id} setTab={setTab} />
+                        </div>
+                      </Suspense>
                     </div>
                   </div>
                 ) : null}

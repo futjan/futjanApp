@@ -33,7 +33,8 @@ const Favourite = () => {
                 </tr>
               </thead>
               <tbody>
-                {favourite.favourites.length > 0 ? (
+                {favourite.favourites && favourite.favourites.length > 0 ? (
+                  favourite.favourites &&
                   favourite.favourites.map((fav) => (
                     <tr>
                       <td className="text-center">

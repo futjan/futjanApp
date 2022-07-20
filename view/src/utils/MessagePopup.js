@@ -36,7 +36,7 @@ export default function MessagePopup({
   const dispatch = useDispatch();
   // useEffect
   useEffect(() => {
-    if (receiverId) {
+    if (receiverId && adId) {
       dispatch(getConversation(receiverId, adId));
     }
   }, []);

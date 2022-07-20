@@ -200,11 +200,24 @@ export const forgetPassword = (data, clearState) => (dispatch) => {
   axios
     .post("/api/v1/users/forgetPassword", data)
     .then((res) => {
-      clearState();
-      dispatch(clearLoading());
-      dispatch({
-        type: CLEAR_ERRORS,
-      });
+      if (res) {
+        clearState();
+        dispatch(clearLoading());
+        dispatch({
+          type: CLEAR_ERRORS,
+        });
+
+        dispatch(
+          setNotification(
+            "Password reset mail has been send to you mail",
+            "success"
+          )
+        );
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
+      }
     })
     .catch((err) => {
       dispatch(clearLoading());
@@ -224,11 +237,23 @@ export const resetPassword = (userData, token, clearState) => (dispatch) => {
   axios
     .post(`/api/v1/users/resetPassword/${token}`, userData)
     .then((res) => {
-      clearState();
-      dispatch(clearLoading());
-      dispatch({
-        type: CLEAR_ERRORS,
-      });
+      if (res) {
+        clearState();
+        dispatch(clearLoading());
+        dispatch({
+          type: CLEAR_ERRORS,
+        });
+        dispatch(
+          setNotification(
+            "Password successfully reset. Please login",
+            "success"
+          )
+        );
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
+      }
     })
     .catch((err) => {
       dispatch(clearLoading());

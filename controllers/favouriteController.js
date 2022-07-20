@@ -17,7 +17,19 @@ exports.create = catchAsync(async (req, res, next) => {
       onModel: req.body.model,
     },
     { new: true, upsert: true }
-  );
+  ).populate({
+    path: "ad",
+    match: {
+      deleted: false,
+      active: true,
+    },
+    select: {
+      title: 1,
+      country: 1,
+      adType: 1,
+      images: 1,
+    },
+  });
 
   if (!favourite) {
     return next(new AppError("favourite not created", 400, undefined));

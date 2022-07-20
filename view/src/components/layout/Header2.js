@@ -128,12 +128,7 @@ const Header2 = () => {
                 to="/"
                 className="d-flex align-items-center justify-content-center"
               >
-                <img
-                  alt="Your Store"
-                  width="100"
-                  title="Your Store"
-                  src={LOGO}
-                />
+                <img alt="Futjan" width="100" title="Futjan" src={LOGO} />
               </Link>
             </div>
             <div

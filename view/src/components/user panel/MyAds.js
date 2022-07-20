@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import SurplusTable from "./SurplusTable";
-import JobTable from "./JobTable";
-import JobSeekerTable from "./JobSeekerTable";
+import React, { useState, lazy, Suspense } from "react";
+import Preloader2 from "../../utils/Preloader2";
+
+const SurplusTable = lazy(() => import("./SurplusTable"));
+
+const JobTable = lazy(() => import("./JobTable"));
+
+const JobSeekerTable = lazy(() => import("./JobSeekerTable"));
 const Surplus = (props) => {
   const [add, setAdd] = useState("surplus");
 
@@ -48,17 +52,19 @@ const Surplus = (props) => {
             <span className="checkmark"></span>
           </label>
         </div>
-        <div id="content" className="col-sm-12">
-          {add === "surplus" ? (
-            <SurplusTable setTab={props.setTab} setId={props.setId} />
-          ) : null}
-          {add === "job" ? (
-            <JobTable setTab={props.setTab} setId={props.setId} />
-          ) : null}
-          {add === "candidiate" ? (
-            <JobSeekerTable setTab={props.setTab} setId={props.setId} />
-          ) : null}
-        </div>
+        <Suspense fallback={<Preloader2 />}>
+          <div id="content" className="col-sm-12">
+            {add === "surplus" ? (
+              <SurplusTable setTab={props.setTab} setId={props.setId} />
+            ) : null}
+            {add === "job" ? (
+              <JobTable setTab={props.setTab} setId={props.setId} />
+            ) : null}
+            {add === "candidiate" ? (
+              <JobSeekerTable setTab={props.setTab} setId={props.setId} />
+            ) : null}
+          </div>
+        </Suspense>
       </div>
     </div>
   );

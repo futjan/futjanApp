@@ -152,6 +152,12 @@ function DetailSurplus() {
               receiverId={
                 surplusFromStore.surplus && surplusFromStore.surplus.user
               }
+              adId={surplusFromStore.surplus._id}
+              adType={`${surplusFromStore.surplus.adType}s`}
+              image={
+                surplusFromStore.surplus.images &&
+                surplusFromStore.surplus.images[0]
+              }
               title="Chat With Seller"
             />
           </div>
