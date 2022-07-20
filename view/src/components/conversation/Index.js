@@ -99,8 +99,8 @@ const Index = (props) => {
   // socket io setup
   const socket = useRef();
   useEffect(() => {
-    // socket.current = io("http://www.futjan.com");
-    socket.current = io("http://localhost:8000");
+    socket.current = io("http://www.futjan.com");
+    // socket.current = io("http://localhost:8000");
     return () => {
       socket.current.close();
     };
