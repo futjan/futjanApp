@@ -1,6 +1,8 @@
 import * as Types from "./types";
 import { setNotification, clearNotification } from "./notificationAction";
+import { createDraft, deleteDraft } from "./draftAds";
 import axios from "axios";
+
 import { logoutUser } from "./authAction";
 // @route                   GET /api/v1/surplus
 // @desc                    get all surpluses
@@ -102,7 +104,7 @@ export const getSurplusesPrivate = (page, limit) => async (dispatch) => {
 // @desc                    create new surplus
 // @access                  Private
 export const createSurplus =
-  (surplus, clearState, setSuccess) => async (dispatch) => {
+  (surplus, clearState, setSuccess, saveDrafts) => async (dispatch) => {
     let formDate = new FormData();
     surplus.files.forEach((file) => formDate.append("photo", file));
 
@@ -133,10 +135,16 @@ export const createSurplus =
         setTimeout(() => {
           dispatch(clearNotification());
         }, 5000);
+        dispatch(deleteDraft(surplus.draft_id));
+        dispatch({
+          type: Types.GET_DRAFT,
+          payload: {},
+        });
       }
     } catch (err) {
       dispatch(clearLoading());
       if (err) {
+        dispatch(createDraft(surplus));
         dispatch(setNotification(err.response.data.message, "error"));
 
         setTimeout(() => {
@@ -146,6 +154,7 @@ export const createSurplus =
         if (err.response.data.message === "jwt expired") {
           dispatch(logoutUser());
         }
+        saveDrafts();
         dispatch({
           type: Types.GET_ERRORS,
           payload: err.response.data,

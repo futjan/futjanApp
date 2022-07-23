@@ -2,6 +2,7 @@ import * as Types from "./types";
 import axios from "axios";
 import { setNotification, clearNotification } from "./notificationAction";
 import { logoutUser } from "./authAction";
+import { createDraft, deleteDraft } from "./draftAds";
 
 // @route                   GET /api/v1/jobseekers
 // @desc                    get all job
@@ -174,10 +175,16 @@ export const createJobSeeker =
         setTimeout(() => {
           dispatch(clearNotification());
         }, 5000);
+        dispatch(deleteDraft(job.draft_id));
+        dispatch({
+          type: Types.GET_DRAFT,
+          payload: {},
+        });
       }
     } catch (err) {
       dispatch(clearLoading());
       if (err) {
+        dispatch(createDraft(job));
         dispatch(setNotification(err.response.data.message, "error"));
 
         setTimeout(() => {

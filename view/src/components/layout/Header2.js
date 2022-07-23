@@ -352,7 +352,6 @@ const Header2 = () => {
                                   >
                                     {auth.user && (
                                       <MenuItem
-                                        linkButton={true}
                                         onClick={handleClose}
                                         component={"div"}
                                         sx={{
@@ -375,7 +374,6 @@ const Header2 = () => {
                                     )}
 
                                     <MenuItem
-                                      linkButton={true}
                                       onClick={handleClose}
                                       component={Link}
                                       to="/user-panel"
@@ -397,7 +395,8 @@ const Header2 = () => {
                                     <MenuItem
                                       onClick={handleClose}
                                       component={Link}
-                                      to="/favourite"
+                                      to="/user-panel"
+                                      state={{ active: "FAVOURITE" }}
                                     >
                                       <i className="fa fa-heart"></i>
                                       &nbsp;&nbsp;&nbsp; My Favourite

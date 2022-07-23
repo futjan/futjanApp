@@ -10,6 +10,7 @@ import notificationReducer from "./notificationReducer";
 import userAdsReducer from "./userAdsReducer";
 import favouriteReducer from "./favouriteReducer";
 import currencyReducer from "./currencyReducer";
+import draftAdReducer from "./draftAdsReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -25,4 +26,5 @@ export default combineReducers({
   userads: userAdsReducer,
   favourite: favouriteReducer,
   currency: currencyReducer,
+  draft: draftAdReducer,
 });

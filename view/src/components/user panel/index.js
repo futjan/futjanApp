@@ -37,6 +37,8 @@ const FullScreenModal = lazy(() => import("../../utils/FullScreenModal"));
 
 // import Message from "./Messages";
 const Message = lazy(() => import("./Messages"));
+// import Favourite from "../favourite/Index"
+const Favourite = lazy(() => import("../favourite/Index"));
 
 const Index = (props) => {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -102,7 +104,7 @@ const Index = (props) => {
                       <span>Messages</span>
                     </div>
                   </li>
-                  {/* <li
+                  <li
                     className={tab === "FAVOURITE" ? "active" : ""}
                     onClick={() => setTab("FAVOURITE")}
                   >
@@ -110,7 +112,7 @@ const Index = (props) => {
                       <i className="fa fa-heart"></i>
                       <span>My Favourite</span>
                     </div>
-                  </li> */}
+                  </li>
                   <li
                     className={tab === "ACCOUNT" ? "active" : ""}
                     onClick={() => setTab("ACCOUNT")}
@@ -135,6 +137,7 @@ const Index = (props) => {
                               type="radio"
                               checked={add === "surplus" ? true : false}
                               name="Flat Shipping Rate"
+                              onChange={() => setAdd("surplus")}
                             />{" "}
                             Surplus
                             <span className="checkmark"></span>
@@ -148,6 +151,7 @@ const Index = (props) => {
                               type="radio"
                               checked={add === "job" ? true : false}
                               name="Flat Shipping Rate"
+                              onChange={() => setAdd("job")}
                             />{" "}
                             Employer
                             <span className="checkmark"></span>
@@ -160,6 +164,7 @@ const Index = (props) => {
                               type="radio"
                               checked={add === "candidiate" ? true : false}
                               name="Flat Shipping Rate"
+                              onChange={() => setAdd("candidiate")}
                             />{" "}
                             Job Seeker
                             <span className="checkmark"></span>
@@ -206,7 +211,11 @@ const Index = (props) => {
                     <div className="tab-pane active" id="tab-description">
                       <Suspense fallback={<Preloader2 />}>
                         <div>
-                          <Surplus setTab={setTab} setId={setId} />
+                          <Surplus
+                            setTab={setTab}
+                            setId={setId}
+                            setAdd={setAdd}
+                          />
                         </div>
                       </Suspense>
                     </div>
@@ -229,6 +238,17 @@ const Index = (props) => {
                       <Suspense fallback={<Preloader2 />}>
                         <div>
                           <MyAccount />
+                        </div>
+                      </Suspense>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "FAVOURITE" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <Favourite />
                         </div>
                       </Suspense>
                     </div>

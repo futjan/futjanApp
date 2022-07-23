@@ -88,3 +88,8 @@ export const CLEAR_FAVOURITE_LOADING = "CLEAR_FAVOURITE_LOADING";
 // currency
 export const SET_CURRENCY = "SET_CURRENCY";
 export const SET_CURRENCY_LOADING = "SET_CURRENCY_LOADING";
+// Draft
+export const CREATE_DRAFT = "CREATE_DRAFT";
+export const GET_DRAFTS = "GET_DRAFTS";
+export const GET_DRAFT = "GET_DRAFT";
+export const DELETE_DRAFTS = "DELETE_DRAFTS";

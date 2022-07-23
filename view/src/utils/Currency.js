@@ -24,8 +24,8 @@ const Currency = ({ currency, setCurrency, country, errors }) => {
       onChange={(e) => setCurrency(e.target.value)}
     >
       <MenuItem value="">Choose</MenuItem>
-      <MenuItem value="£">£ GBP</MenuItem>
       <MenuItem value="₹">₹ INR</MenuItem>
+      <MenuItem value="£">£ GBP</MenuItem>
     </Select>
   );
 };

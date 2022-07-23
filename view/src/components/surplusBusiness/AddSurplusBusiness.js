@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
+import { createDraft } from "../actions/draftAds";
 
 // const Days = [
 //   "MONDAY",
@@ -26,6 +27,8 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
+
+const draftId = new Date();
 const AddSurplusBusiness = (props) => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -62,13 +65,14 @@ const AddSurplusBusiness = (props) => {
   const [keyword, setKeyword] = useState("");
   const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
-  const [currency, setCurrency] = useState("£");
+  const [currency, setCurrency] = useState("₹");
+  const [draft_id, setDraft_id] = useState(draftId.getTime());
   // initialize hooks
   const dispatch = useDispatch();
   // get state from store
   const errorState = useSelector((state) => state.error);
   const surplus = useSelector((state) => state.surplus);
-
+  const draftAd = useSelector((state) => state.draft.draftAd);
   // useEffect
   useEffect(() => {
     setErrors(errorState);
@@ -76,8 +80,31 @@ const AddSurplusBusiness = (props) => {
   useEffect(() => {
     dispatch(getSurplusKeywords());
   }, []);
-  // useEffect(() => {
 
+  // useEffect save draft run
+  useEffect(() => {
+    if (draftAd && draftAd.draft_id) {
+      if (draftAd && draftAd.draft_id) setDraft_id(draftAd && draftAd.draft_id);
+      if (draftAd && draftAd.title) setName(draftAd && draftAd.title);
+      if (draftAd && draftAd.contact) setContact(draftAd && draftAd.contact);
+      if (draftAd && draftAd.address) setAddress(draftAd && draftAd.address);
+      if (draftAd && draftAd.postCode) setPostCode(draftAd && draftAd.postCode);
+      if (draftAd && draftAd.businessType)
+        setBusinessType(draftAd && draftAd.businessType);
+      if (draftAd && draftAd.description)
+        setDescription(draftAd && draftAd.description);
+      if (draftAd && draftAd.category) setCategory(draftAd && draftAd.category);
+      if (draftAd && draftAd.keyword) setKeyword(draftAd && draftAd.keyword);
+      if (draftAd && draftAd.website) setWebsite(draftAd && draftAd.website);
+      if (draftAd && draftAd.promoteType)
+        setPromoteType(draftAd && draftAd.promoteType);
+      if (draftAd && draftAd.originalPrice)
+        setOriginalPrice(draftAd && draftAd.originalPrice);
+      if (draftAd && draftAd.offeredPrice)
+        setOfferedPrice(draftAd && draftAd.offeredPrice);
+      if (draftAd && draftAd.currency) setCurrency(draftAd && draftAd.currency);
+    }
+  }, [draftAd && draftAd.draft_id]);
   // set currency when country change
   useEffect(() => {
     if (country.name === "india") {
@@ -86,178 +113,6 @@ const AddSurplusBusiness = (props) => {
       setCurrency("£");
     }
   }, [country.name]);
-  // }, []);
-  // handle onChange AutoComplete field
-  const onChangeAutoField = (e) => {
-    const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = Country.getAllCountries()
-    //     .sort()
-    //     .filter((v) => regex.test(v.name))
-    //     .map((count) => {
-    //       return { name: count.name, isoCode: count.isoCode };
-    //     });
-    // }
-    // setCountry(value);
-    // setSuggustion([...suggustions]);
-  };
-
-  const onChangeAutoFieldCities = (e) => {
-    const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = City.getAllCities()
-    //     .sort()
-    //     .filter((v) => regex.test(v.name))
-    //     .map((cit) => {
-    //       return { name: cit.name, countryCode: cit.countryCode };
-    //     });
-    // }
-    // setCity(value);
-    // setSuggustionCities([...suggustions]);
-  };
-  const onChangeAutoFieldState = (e) => {
-    const value = e.target.value;
-    // let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   suggustions = State.getAllStates()
-    //     .sort()
-    //     .filter((v) => regex.test(v.name))
-    //     .map((state) => {
-    //       return { name: state.name, countryCode: state.countryCode };
-    //     })
-    //     .filter(
-    //       (state, index, stateArray) => stateArray.indexOf(state) === index
-    //     );
-    // }
-    // setCounty(value);
-    // setSuggustionState([...suggustions]);
-  };
-  // render suggustion
-  const renderSuggustion = () => {
-    if (suggustion.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul">
-        {suggustion.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCountry(co.name);
-              setSuggustion([]);
-            }}
-          >
-            {co.name}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-  const renderCitySuggustion = () => {
-    if (suggustionCities.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul">
-        {suggustionCities.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCity(co.name);
-              setSuggustionCities([]);
-            }}
-          >
-            {co.name}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-  const renderStateSuggustion = () => {
-    if (suggustionState.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul">
-        {suggustionState.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setCounty(co.name);
-              setSuggustionState([]);
-            }}
-          >
-            {co.name}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  // keyword suggustion
-  const onChangeAutoFieldName = (e) => {
-    const value = e.target.value;
-    let suggustions = [];
-    // if (value.trim().length > 0) {
-    //   const regex = new RegExp(`^${value}`, "i");
-    //   if (surplus.keywords.length > 0) {
-    //     suggustions = surplus.keywords
-
-    //       .map((v) => v.keyword)
-    //       .filter(
-    //         (keyword, i, keywordArray) => keywordArray.indexOf(keyword) === i
-    //       )
-    //       .sort()
-    //       .filter((v) => regex.test(v));
-    //   }
-    // }
-    setKeyword(value);
-
-    setSuggustionKeyword([...suggustions]);
-  };
-  const renderNameSuggustion = () => {
-    if (suggustionKeyword.length === 0) {
-      return null;
-    }
-    return (
-      <ul className="autoComplete-ul" style={{ width: "90%", top: "40px" }}>
-        {suggustionKeyword.map((co) => (
-          <li
-            className="autoComplete-li"
-            onClick={() => {
-              setKeyword(co);
-              setSuggustionKeyword([]);
-            }}
-            style={{ display: "block", width: "100%" }}
-          >
-            {co}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-  // handle check box
-  // const handleCheckBox = (checked, value) => {
-  //   if (checked !== true) {
-  //     const tempArr = weeklySchedule.filter((day) => day !== value);
-  //     setWeeklySchedule([...tempArr]);
-  //   } else {
-  //     const tempArr = [...weeklySchedule];
-  //     tempArr.push(value);
-
-  //     setWeeklySchedule([
-  //       ...tempArr.filter((value, index, self) => {
-  //         return self.indexOf(value) === index;
-  //       }),
-  //     ]);
-  //   }
-  // };
-
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
     if (checked !== true) {
@@ -297,11 +152,43 @@ const AddSurplusBusiness = (props) => {
       title: name.toLowerCase(),
       company: company.toLowerCase(),
       contact,
-      address,
+      address: address.toLowerCase(),
       postCode,
       files,
       businessType: businessType.toLowerCase(),
-      description,
+      description: description.toLowerCase(),
+      category: category.toLowerCase(),
+      city: city.name.toLowerCase(),
+      county: county.name.toLowerCase(),
+      country: country.name.toLowerCase(),
+      keyword: keyword.toLowerCase(),
+      website: website.toLowerCase(),
+      promoteType: promoteType.filter((type) => type.promote !== "ALL"),
+      originalPrice: (originalPrice * 1).toFixed(2),
+      offeredPrice: (offeredPrice * 1).toFixed(2),
+      currency,
+      discount:
+        offeredPrice > 0
+          ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
+          : 0,
+      ad_id: date.getTime(),
+      draft_id: draft_id,
+      ad_Type: "surplus",
+    };
+
+    dispatch(createSurplus(obj, clearState, setSuccess));
+  };
+  // save Draft
+  const saveDrafts = () => {
+    const date = new Date();
+    const obj = {
+      title: name.toLowerCase(),
+      company: company.toLowerCase(),
+      contact,
+      address: address.toLowerCase(),
+      postCode,
+      businessType: businessType.toLowerCase(),
+      description: description.toLowerCase(),
       category: category.toLowerCase(),
       city: city.name.toLowerCase(),
       county: county.name.toLowerCase(),
@@ -316,10 +203,10 @@ const AddSurplusBusiness = (props) => {
         offeredPrice > 0
           ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
           : 0,
-      ad_id: date.getTime(),
+      draft_id: date.getTime(),
+      adType: "surplus",
     };
-
-    dispatch(createSurplus(obj, clearState, setSuccess));
+    dispatch(createDraft(obj));
   };
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
@@ -363,6 +250,8 @@ const AddSurplusBusiness = (props) => {
     setPromoteType([]);
     setFiles([]);
     setCurrency("");
+    const time = new Date();
+    setDraft_id(time.getTime());
   };
 
   const setSuccess = (tit, id) => {
@@ -754,7 +643,7 @@ const AddSurplusBusiness = (props) => {
                     type="url"
                     name="city"
                     value={keyword}
-                    onChange={(e) => onChangeAutoFieldName(e)}
+                    onChange={(e) => setKeyword(e.target.value)}
                     placeholder="keyword (Trending or Top surplus)"
                     id="input-website"
                     className={
@@ -763,7 +652,6 @@ const AddSurplusBusiness = (props) => {
                         : "form-control"
                     }
                   />
-                  {renderNameSuggustion()}
                   {errors && errors.validation && errors.validation.keyword && (
                     <div className="invalid-feedback">
                       {errors.validation.keyword}

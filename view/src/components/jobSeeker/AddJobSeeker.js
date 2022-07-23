@@ -23,6 +23,7 @@ const adpromotionType = [
   { promote: "SPOTLIGHT", numberSort: 3 },
   { promote: "ALL", numberSort: 4 },
 ];
+const draftId = new Date();
 const AddJobSeeker = (props) => {
   const [errors, setErrors] = useState({});
   const [files, setFiles] = useState([]);
@@ -30,7 +31,7 @@ const AddJobSeeker = (props) => {
   const [promoteType, setPromoteType] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Local Job");
+  const [category, setCategory] = useState("local job");
   const [subCategory, setSubCategory] = useState("");
   const [rate, setRate] = useState("");
   const [address, setAddress] = useState("");
@@ -42,7 +43,8 @@ const AddJobSeeker = (props) => {
   const [languages, setLanguages] = useState([]);
   const [language, setLanguage] = useState("");
   const [email, setEmail] = useState("");
-  const [currency, setCurrency] = useState("£");
+  const [currency, setCurrency] = useState("₹");
+  const [draft_id, setDraft_id] = useState(draftId.getTime());
 
   const [contact, setContact] = useState("");
   const [city, setCity] = useState({
@@ -71,6 +73,7 @@ const AddJobSeeker = (props) => {
   // get state from redux
   const errorState = useSelector((state) => state.error);
   const jobSeeker = useSelector((state) => state.jobSeeker);
+  const draftAd = useSelector((state) => state.draft.draftAd);
   // useEffect
   useEffect(() => {
     setErrors(errorState);
@@ -83,6 +86,35 @@ const AddJobSeeker = (props) => {
       setCurrency("£");
     }
   }, [country.name]);
+
+  // useEffect save draft run
+  useEffect(() => {
+    if (draftAd && draftAd.draft_id) {
+      if (draftAd && draftAd.draft_id) setDraft_id(draftAd && draftAd.draft_id);
+      if (draftAd && draftAd.title) setTitle(draftAd && draftAd.title);
+      if (draftAd && draftAd.name) setName(draftAd && draftAd.name);
+      if (draftAd && draftAd.gender) setGender(draftAd && draftAd.gender);
+      if (draftAd && draftAd.category) setCategory(draftAd && draftAd.category);
+      if (draftAd && draftAd.subCategory)
+        setSubCategory(draftAd && draftAd.subCategory);
+      if (draftAd && draftAd.description)
+        setDescription(draftAd && draftAd.description);
+      if (draftAd && draftAd.salaryType)
+        setSalaryType(draftAd && draftAd.salaryType);
+      if (draftAd && draftAd.experience)
+        setExperience(draftAd && draftAd.experience);
+      if (draftAd && draftAd.rate) setRate(draftAd && draftAd.rate);
+      if (draftAd && draftAd.email) setEmail(draftAd && draftAd.email);
+      if (draftAd && draftAd.contact) setContact(draftAd && draftAd.contact);
+      if (draftAd && draftAd.address) setAddress(draftAd && draftAd.address);
+      if (draftAd && draftAd.dob) setDob(draftAd && draftAd.dob);
+      if (draftAd && draftAd.age) setAge(draftAd && draftAd.age);
+      if (draftAd && draftAd.skills) setSkills(draftAd && draftAd.skills);
+      if (draftAd && draftAd.currency) setCurrency(draftAd && draftAd.currency);
+      if (draftAd && draftAd.promoteType)
+        setPromoteType(draftAd && draftAd.promoteType);
+    }
+  }, [draftAd && draftAd.draft_id]);
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {
@@ -164,6 +196,8 @@ const AddJobSeeker = (props) => {
       skills,
       currency,
       ad_id: date.getTime(),
+      draft_id: draft_id,
+      ad_Type: "jobseeker",
     };
     dispatch(createJobSeeker(job, clearState, setSuccessModal));
   };
@@ -173,7 +207,7 @@ const AddJobSeeker = (props) => {
     setDescription("");
     setGender("");
     setCurrency("");
-    setCategory("Local Job");
+    setCategory("local job");
     setSubCategory("");
     setAddress("");
     setSalaryType("");
@@ -192,6 +226,8 @@ const AddJobSeeker = (props) => {
     setCity({ name: "", stateCode: "", countryCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
+    const time = new Date();
+    setDraft_id(time.getTime());
   };
 
   const setSuccessModal = (tit) => {

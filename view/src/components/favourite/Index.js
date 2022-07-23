@@ -16,20 +16,20 @@ const Favourite = () => {
     dispatch(getFavourites());
   }, []);
   return (
-    <div class="container product-detail" style={{ marginTop: "30px" }}>
-      <div class="row">
-        <div id="content" class="col-sm-12">
+    <div className="container product-detail" style={{ marginTop: "30px" }}>
+      <div className="row">
+        <div id="content" className="col-sm-12">
           <h2>My Favourite</h2>
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+          <div className="table-responsive">
+            <table className="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td class="text-center">Image</td>
-                  <td class="text-center">Title</td>
-                  <td class="text-center">Type</td>
-                  <td class="text-center">Country</td>
+                  <td className="text-center">Image</td>
+                  <td className="text-center">Title</td>
+                  <td className="text-center">Type</td>
+                  <td className="text-center">Country</td>
                   <td className="text-center">Detail</td>
-                  <td class="text-center">Action</td>
+                  <td className="text-center">Action</td>
                 </tr>
               </thead>
               <tbody>
@@ -106,8 +106,8 @@ const Favourite = () => {
                     </tr>
                   ))
                 ) : (
-                  <tr>
-                    <p style={{ padding: "15px" }}>Favourites not found</p>
+                  <tr style={{ padding: "15px" }}>
+                    <td>Favourites not found</td>
                   </tr>
                 )}
               </tbody>
