@@ -9,18 +9,8 @@ import Currency from "../../utils/Currency";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { createSurplus, getSurplusKeywords } from "../actions/surplusAction";
-import { createDraft } from "../actions/draftAds";
+import { createSurplus } from "../actions/surplusAction";
 
-// const Days = [
-//   "MONDAY",
-//   "TUESDAY",
-//   "WEDNESDAY",
-//   "THURSDAY",
-//   "FRIDAY",
-//   "SATURADAY",
-//   "SUNDAY",
-// ];
 const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
@@ -57,13 +47,13 @@ const AddSurplusBusiness = (props) => {
   const [originalPrice, setOriginalPrice] = useState("");
   const [offeredPrice, setOfferedPrice] = useState("");
   const [errors, setErrors] = useState({});
-  const [suggustion, setSuggustion] = useState([]);
+  // const [suggustion, setSuggustion] = useState([]);
   const [files, setFiles] = useState([]);
-  const [successMsgModal, setSuccessMsgModal] = useState(false);
-  const [suggustionCities, setSuggustionCities] = useState([]);
-  const [suggustionState, setSuggustionState] = useState([]);
+  // const [successMsgModal, setSuccessMsgModal] = useState(false);
+  // const [suggustionCities, setSuggustionCities] = useState([]);
+  // const [suggustionState, setSuggustionState] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [suggustionKeyword, setSuggustionKeyword] = useState([]);
+  // const [suggustionKeyword, setSuggustionKeyword] = useState([]);
   const [promoteType, setPromoteType] = useState([]);
   const [currency, setCurrency] = useState("₹");
   const [draft_id, setDraft_id] = useState(draftId.getTime());
@@ -77,9 +67,9 @@ const AddSurplusBusiness = (props) => {
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
-  useEffect(() => {
-    dispatch(getSurplusKeywords());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getSurplusKeywords());
+  // }, []);
 
   // useEffect save draft run
   useEffect(() => {
@@ -179,35 +169,35 @@ const AddSurplusBusiness = (props) => {
     dispatch(createSurplus(obj, clearState, setSuccess));
   };
   // save Draft
-  const saveDrafts = () => {
-    const date = new Date();
-    const obj = {
-      title: name.toLowerCase(),
-      company: company.toLowerCase(),
-      contact,
-      address: address.toLowerCase(),
-      postCode,
-      businessType: businessType.toLowerCase(),
-      description: description.toLowerCase(),
-      category: category.toLowerCase(),
-      city: city.name.toLowerCase(),
-      county: county.name.toLowerCase(),
-      country: country.name.toLowerCase(),
-      keyword: keyword.toLowerCase(),
-      website,
-      promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-      originalPrice: (originalPrice * 1).toFixed(2),
-      offeredPrice: (offeredPrice * 1).toFixed(2),
-      currency,
-      discount:
-        offeredPrice > 0
-          ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
-          : 0,
-      draft_id: date.getTime(),
-      adType: "surplus",
-    };
-    dispatch(createDraft(obj));
-  };
+  // const saveDrafts = () => {
+  //   const date = new Date();
+  //   const obj = {
+  //     title: name.toLowerCase(),
+  //     company: company.toLowerCase(),
+  //     contact,
+  //     address: address.toLowerCase(),
+  //     postCode,
+  //     businessType: businessType.toLowerCase(),
+  //     description: description.toLowerCase(),
+  //     category: category.toLowerCase(),
+  //     city: city.name.toLowerCase(),
+  //     county: county.name.toLowerCase(),
+  //     country: country.name.toLowerCase(),
+  //     keyword: keyword.toLowerCase(),
+  //     website,
+  //     promoteType: promoteType.filter((type) => type.promote !== "ALL"),
+  //     originalPrice: (originalPrice * 1).toFixed(2),
+  //     offeredPrice: (offeredPrice * 1).toFixed(2),
+  //     currency,
+  //     discount:
+  //       offeredPrice > 0
+  //         ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
+  //         : 0,
+  //     draft_id: date.getTime(),
+  //     adType: "surplus",
+  //   };
+  //   dispatch(createDraft(obj));
+  // };
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {
@@ -275,7 +265,7 @@ const AddSurplusBusiness = (props) => {
           <form
             action=""
             method="post"
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
             className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">

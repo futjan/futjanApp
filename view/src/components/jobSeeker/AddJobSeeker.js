@@ -116,25 +116,25 @@ const AddJobSeeker = (props) => {
     }
   }, [draftAd && draftAd.draft_id]);
   // fileUploadHandler
-  const uploadFilesHandler = (e) => {
-    if (e.target.files) {
-      if (files.length < 5) {
-        const tempFiles = [...files];
-        for (let i = 0; i < e.target.files.length; i++) {
-          tempFiles.push(e.target.files[i]);
-        }
-        setFiles([
-          ...tempFiles.filter(
-            (file, i, filesArray) => filesArray.indexOf(file) === i
-          ),
-        ]);
-      }
-    }
-  };
-  // deleteFileHandler
-  const deleteFileHandler = (index) => {
-    setFiles([...files.filter((file, i) => i !== index)]);
-  };
+  // const uploadFilesHandler = (e) => {
+  //   if (e.target.files) {
+  //     if (files.length < 5) {
+  //       const tempFiles = [...files];
+  //       for (let i = 0; i < e.target.files.length; i++) {
+  //         tempFiles.push(e.target.files[i]);
+  //       }
+  //       setFiles([
+  //         ...tempFiles.filter(
+  //           (file, i, filesArray) => filesArray.indexOf(file) === i
+  //         ),
+  //       ]);
+  //     }
+  //   }
+  // };
+  // // deleteFileHandler
+  // const deleteFileHandler = (index) => {
+  //   setFiles([...files.filter((file, i) => i !== index)]);
+  // };
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
@@ -255,18 +255,6 @@ const AddJobSeeker = (props) => {
     >
       <div className="row">
         <div id="content" className="col-md-11">
-          {errors && errors.message && (
-            <div className="form-group">
-              <div
-                className="col-sm-12"
-                style={{ padding: "0", margin: "10px 0" }}
-              >
-                <div className="alert alert-danger" role="alert">
-                  {errors.message}
-                </div>
-              </div>
-            </div>
-          )}
           <h2 className="title" style={{ margin: "0" }}>
             Create Job Seeker
           </h2>
@@ -279,6 +267,15 @@ const AddJobSeeker = (props) => {
           >
             <fieldset id="account">
               <h4 className="post-ad-heading">Job Seeker Detail</h4>
+              {errors && errors.message && (
+                <div className="form-group">
+                  <div className="col-sm-12">
+                    <div className="alert alert-danger" role="alert">
+                      {errors.message}
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Name
@@ -921,7 +918,7 @@ const AddJobSeeker = (props) => {
                       <img
                         width={100}
                         src={URL.createObjectURL(profile)}
-                        alt={`uploaded-image-${profile}`}
+                        alt={`uploaded-${profile}`}
                       />
                     </div>
                   )}

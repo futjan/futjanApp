@@ -5,14 +5,12 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 
-import imageSkeleton from "../image/catalog/demo/product/travel/10-80x80.jpg";
 import {
   getPrivateJobSeeker,
   activateJobSeeker,
   getJobSeekerById,
   deleteJobSeeker,
 } from "../actions/jobSeekersAction";
-import Loader from "../../utils/Loader";
 import { Link } from "react-router-dom";
 import fileURL from "../../utils/fileURL";
 
@@ -146,7 +144,11 @@ const JobSeekerTable = (props) => {
               jobSeeker.jobSeeker &&
               jobSeeker.jobSeeker.images &&
               jobSeeker.loading === false ? (
-                <img src={fileURL(jobSeeker.jobSeeker.images)} width="100" />
+                <img
+                  src={fileURL(jobSeeker.jobSeeker.images)}
+                  width="100"
+                  alt={jobSeeker.jobSeeker.images}
+                />
               ) : (
                 <div
                   style={{

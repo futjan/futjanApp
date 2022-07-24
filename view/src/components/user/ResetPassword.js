@@ -8,6 +8,7 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errors, setErrors] = useState({});
+  const [passwordShow, setPasswordShow] = useState(false);
   // initialize Hooks
   const dispatch = useDispatch();
   const params = useParams();
@@ -42,6 +43,17 @@ const ResetPassword = () => {
   const moveToLogin = () => {
     navigate("/login");
   };
+  function passwordShowFunc() {
+    const x = document.getElementById("new-reset-password");
+    const y = document.getElementById("confirm-reset-password");
+    if (x.type === "password") {
+      x.type = "text";
+      y.type = "text";
+    } else {
+      x.type = "password";
+      y.type = "password";
+    }
+  }
   return (
     <div
       className="account-login account res layout-1"
@@ -110,7 +122,7 @@ const ResetPassword = () => {
                           onChange={(e) => setPassword(e.target.value)}
                           value={password}
                           placeholder="Password"
-                          id="input-password"
+                          id="new-reset-password"
                           className="form-control"
                         />
                       </div>
@@ -127,9 +139,34 @@ const ResetPassword = () => {
                           onChange={(e) => setPasswordConfirm(e.target.value)}
                           value={passwordConfirm}
                           placeholder="Confirm"
-                          id="input-password"
+                          id="confirm-reset-password"
                           className="form-control"
                         />
+                        <div className="checkbox">
+                          <label
+                            htmlFor="Show Password"
+                            className="container-checkbox"
+                            onClick={() => {
+                              setPasswordShow(!passwordShow);
+                              passwordShowFunc();
+                            }}
+                          >
+                            <span>
+                              <input
+                                type="checkbox"
+                                value={passwordShow}
+                                onChange={() => {
+                                  setPasswordShow(!passwordShow);
+                                  passwordShowFunc();
+                                }}
+                                name="Show Password"
+                                checked={passwordShow === true ? true : false}
+                              />
+                              Show Password
+                              <span className="checkmark"></span>
+                            </span>
+                          </label>
+                        </div>
                       </div>
                       <input
                         type="submit"

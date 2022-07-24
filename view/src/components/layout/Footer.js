@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import LOGO from "../image/Logo.png";
 import { Link } from "react-router-dom";
-
+import FutjanQrcode from "../image/futjanQrcode.png";
+import PlayStore from "../image/playStore.png";
+import AppStore from "../image/AppStore.png";
 const Footer = () => {
   const [email, setEmail] = useState("");
   return (
@@ -91,7 +93,18 @@ const Footer = () => {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <span className="name-social">Instagram</span>
+                          <i className="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a
+                          href="https://www.google.com/account"
+                          className="instagram"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <i
+                            className="fa fa-google-plus"
+                            aria-hidden="true"
+                          ></i>
                         </a>
                       </div>
                     </div>
@@ -106,9 +119,9 @@ const Footer = () => {
                 <div className="row row_wprs  ">
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_yb5e footer--link">
                     <Link to="/">
-                      <img alt="Futjan" width="100" title="Futjan" src={LOGO} />
+                      <img alt="Futjan" width="90%" title="Futjan" src={LOGO} />
                     </Link>
-                    <p style={{ lineHeight: "15px", marginTop: "10px" }}>
+                    <p style={{ lineHeight: "15px", margin: "20px 0" }}>
                       {" "}
                       Always deliver more than expected.
                     </p>
@@ -140,11 +153,22 @@ const Footer = () => {
                         >
                           <i className="fa fa-instagram" aria-hidden="true"></i>
                         </a>
+                        <a
+                          href="https://www.google.com/account"
+                          className="instagram"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <i
+                            className="fa fa-google-plus"
+                            aria-hidden="true"
+                          ></i>
+                        </a>
                       </div>
                     </div>
                   </div>
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link"></div>
-                  <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link"></div>
+
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
                     <h3 className="title-footer">Pages</h3>
                     <ul className="links">
@@ -182,12 +206,42 @@ const Footer = () => {
                       </li>
                     </ul>
                   </div>
+                  <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
+                    <h3 className="title-footer">Get it on</h3>
+                    <div
+                      className="d-flex justify-content-center flex-dir-col align-items-center"
+                      style={{ marginTop: "25px" }}
+                    >
+                      <img src={FutjanQrcode} alt="qrcode" width="70%" />
+                      <div
+                        className="d-flex justify-content-center  align-items-center"
+                        style={{ gap: "10px", marginTop: "20px" }}
+                      >
+                        <a
+                          href="http://play.google.com/store/apps"
+                          style={{ flex: "1" }}
+                        >
+                          <img
+                            src={PlayStore}
+                            alt="googel play store"
+                            width="99%"
+                          />
+                        </a>
+                        <a
+                          href="https://www.apple.com/app-store/"
+                          style={{ flex: "1" }}
+                        >
+                          <img src={AppStore} alt="app store" width="100%" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div
+          {/* <div
             className="container-fluid page-builder-ltr"
             style={{ padding: "0" }}
           >
@@ -234,7 +288,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* 

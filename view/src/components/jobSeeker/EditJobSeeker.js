@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import DownloadIcon from "@mui/icons-material/Download";
+// import DownloadIcon from "@mui/icons-material/Download";
 import Button from "@mui/material/Button";
 import SpecialJobs from "../../utils/SpecialJobs";
 import LocalJobs from "../../utils/LocalJobs";
@@ -31,7 +31,7 @@ const adpromotionType = [
 ];
 const EditJobSeeker = (props) => {
   const [errors, setErrors] = useState({});
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
   const [featureRate, setFeatureRate] = useState(100);
   const [promoteType, setPromoteType] = useState([]);
   const [title, setTitle] = useState("");
@@ -145,25 +145,25 @@ const EditJobSeeker = (props) => {
     }
   }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
   // fileUploadHandler
-  const uploadFilesHandler = (e) => {
-    if (e.target.files) {
-      if (files.length < 5) {
-        const tempFiles = [...files];
-        for (let i = 0; i < e.target.files.length; i++) {
-          tempFiles.push(e.target.files[i]);
-        }
-        setFiles([
-          ...tempFiles.filter(
-            (file, i, filesArray) => filesArray.indexOf(file) === i
-          ),
-        ]);
-      }
-    }
-  };
+  // const uploadFilesHandler = (e) => {
+  //   if (e.target.files) {
+  //     if (files.length < 5) {
+  //       const tempFiles = [...files];
+  //       for (let i = 0; i < e.target.files.length; i++) {
+  //         tempFiles.push(e.target.files[i]);
+  //       }
+  //       setFiles([
+  //         ...tempFiles.filter(
+  //           (file, i, filesArray) => filesArray.indexOf(file) === i
+  //         ),
+  //       ]);
+  //     }
+  //   }
+  // };
   // deleteFileHandler
-  const deleteFileHandler = (index) => {
-    setFiles([...files.filter((file, i) => i !== index)]);
-  };
+  // const deleteFileHandler = (index) => {
+  //   setFiles([...files.filter((file, i) => i !== index)]);
+  // };
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
@@ -248,7 +248,7 @@ const EditJobSeeker = (props) => {
     setSkills([]);
     setLanguage("");
     setSkill("");
-    setFiles([]);
+    // setFiles([]);
     setCity({ name: "", stateCode: "", countryCode: "" });
     setCounty({ name: "", isoCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
@@ -966,7 +966,7 @@ const EditJobSeeker = (props) => {
                       <img
                         width={100}
                         src={URL.createObjectURL(profile)}
-                        alt={`uploaded-image-${profile}`}
+                        alt={`uploaded-${profile}`}
                       />
                     </div>
                   ) : null}
@@ -1059,7 +1059,7 @@ const EditJobSeeker = (props) => {
                             src={fileURL(
                               jobSeeker.jobSeeker && jobSeeker.jobSeeker.images
                             )}
-                            alt={`uploaded-image-${
+                            alt={`uploaded-${
                               jobSeeker.jobSeeker && jobSeeker.jobSeeker.images
                             }`}
                           />

@@ -850,9 +850,10 @@ const Index = () => {
                               style={{ marginBottom: "10px" }}
                               className="job-seeker-card-img-container"
                             >
-                              {candidate.photo && candidate.photo.length > 0 ? (
+                              {candidate.images &&
+                              candidate.images.length > 0 ? (
                                 <img
-                                  src={fileURL(candidate.photo)}
+                                  src={fileURL(candidate.images)}
                                   alt="user"
                                   width="70"
                                   style={{ borderRadius: "50%" }}

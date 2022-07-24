@@ -22,9 +22,9 @@ const Header2 = () => {
   const [adType, setAdType] = useState("surplus");
   const [anchorEl, setAnchorEl] = useState(null);
   const [currency, setCurrency] = useState({
-    symbol: "£",
-    code: "GBP",
-    to: "INR",
+    symbol: "₹",
+    to: "GBP",
+    code: "INR",
   });
 
   const [state, setState] = React.useState({
@@ -113,10 +113,10 @@ const Header2 = () => {
               }
             >
               <MenuItem value="GBP">
-                <img src={ukFlag} width="20" />
+                <img src={ukFlag} width="20" alt="gbp" />
               </MenuItem>
               <MenuItem value="INR">
-                <img src={indianFlag} width="20" />
+                <img src={indianFlag} width="20" alt="inr" />
               </MenuItem>
             </Select>
           </li>

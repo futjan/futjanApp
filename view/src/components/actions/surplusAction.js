@@ -154,7 +154,7 @@ export const createSurplus =
         if (err.response.data.message === "jwt expired") {
           dispatch(logoutUser());
         }
-        saveDrafts();
+
         dispatch({
           type: Types.GET_ERRORS,
           payload: err.response.data,

@@ -39,7 +39,7 @@ export default function MessagePopup({
     if (receiverId && adId) {
       dispatch(getConversation(receiverId, adId));
     }
-  }, []);
+  }, [receiverId, adId]);
   // useEffect(() => {
   //   if (receiverId) {
   //     dispatch(getConversation(receiverId));
@@ -80,14 +80,14 @@ export default function MessagePopup({
       currentChat.ad &&
       currentChat.ad.ad === adId &&
       setChats((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat]);
+  }, [arrivalMessage, currentChat, adId]);
 
   // }, [currentChat]);
 
   // add user to server
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
-  }, [auth.user && auth.user.id]);
+  }, [auth.user, auth.user && auth.user.id]);
 
   // get messages on currentChat changes
   const messages = useSelector((state) => state.message);
@@ -100,18 +100,18 @@ export default function MessagePopup({
     ) {
       setChats(messages.messages);
     }
-  }, [messages]);
+  }, [messages, chats.length, currentChat, adId]);
 
   useEffect(() => {
     if (currentChat && currentChat.ad && currentChat.ad.ad === adId) {
       dispatch(getMessages(currentChat && currentChat._id));
       setChats([...messages.messages]);
     }
-  }, [currentChat]);
+  }, [currentChat, adId]);
 
   useEffect(() => {
     setCurrentChat(conversation);
-  }, [conversation && conversation._id]);
+  }, [conversation, conversation && conversation._id]);
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {

@@ -18,21 +18,10 @@ import Tooltip from "@mui/material/Tooltip";
 import fileURL from "../../utils/fileURL";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+
 // import DeleteIcon from "@mui/icons-material/Delete";
 // import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

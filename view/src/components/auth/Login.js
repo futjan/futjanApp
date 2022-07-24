@@ -4,8 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
 import { GoogleLogin } from "react-google-login";
-import FacebookLogin from "react-facebook-login";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import NewCustomer from "./NewCustomer";
 // action
 import { loginUser, loginWithGoogle } from "../actions/authAction";
 import { CLEAR_ERRORS } from "../actions/types";
@@ -74,18 +73,18 @@ const Login = (props) => {
   //   console.log(response);
   // };
 
-  const responseGoogle_success_signUp = (response) => {
-    const { tokenObj, profileObj } = response;
+  // const responseGoogle_success_signUp = (response) => {
+  //   const { tokenObj, profileObj } = response;
 
-    navigate(`/set-password/${tokenObj.id_token}`, {
-      state: {
-        email: profileObj && profileObj.email,
-        name: profileObj && profileObj.name,
-        profile: profileObj && profileObj.imageUrl,
-        token: tokenObj && tokenObj.id_token,
-      },
-    });
-  };
+  //   navigate(`/set-password/${tokenObj.id_token}`, {
+  //     state: {
+  //       email: profileObj && profileObj.email,
+  //       name: profileObj && profileObj.name,
+  //       profile: profileObj && profileObj.imageUrl,
+  //       token: tokenObj && tokenObj.id_token,
+  //     },
+  //   });
+  // };
 
   function passwordShowFunc() {
     const x = document.getElementById("password");
@@ -121,7 +120,8 @@ const Login = (props) => {
             <div id="content" className="col-md-12">
               <div className="row">
                 <div className="col-sm-6">
-                  <div className="well ">
+                  <NewCustomer />
+                  {/* <div className="well">
                     <h2>New Customer</h2>
                     <p>
                       <strong>Register Account</strong>
@@ -151,7 +151,7 @@ const Login = (props) => {
                         Sign up with Email
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="col-sm-6">
                   <div className="well col-sm-12">

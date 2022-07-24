@@ -58,7 +58,6 @@ function DetailSurplus() {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState();
   const [tab, setTab] = useState("DESCRIPTION");
-  const [modal, setModal] = useState(false);
   const [zoomModal, setZoomModal] = useState(false);
   const [zoomImage, setZoomImage] = useState("");
   const [activeImage, setActiveImage] = useState(0);

@@ -485,7 +485,7 @@ footer.typefooter-1 .footer--top .footer-social .socials a .fa {
   line-height: 28px;
 }
 footer.typefooter-1 .footer--top .footer-social .socials a .fa:hover {
-  color: #ff5e00;
+  color: #3b5998;
 }
 footer.typefooter-1 .footer--top .footer-social .socials a p,
 footer.typefooter-1 .footer--top .footer-social .socials a span {
@@ -637,6 +637,7 @@ footer.typefooter-1 .socials a {
 footer.typefooter-1 .socials a i {
   font-size: 20px !important;
 }
-footer.typefooter-1 .socials a:hover {
+footer .socials a:hover {
   background-color: rgba(0, 0, 0, 0.07);
+  color: #3b5998 !important;
 }

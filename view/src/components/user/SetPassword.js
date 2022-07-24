@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { registerUserWithGoogle } from "../actions/authAction";
 import Loader from "../../utils/Loader";
+import NewCustomer from "../auth/NewCustomer";
 
 const SetPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errors, setErrors] = useState({});
+  const [passwordShow, setPasswordShow] = useState(false);
   // initialize Hooks
   const dispatch = useDispatch();
   const params = useParams();
@@ -46,6 +48,18 @@ const SetPassword = () => {
   const moveToLogin = () => {
     navigate("/login");
   };
+
+  function passwordShowFunc() {
+    const x = document.getElementById("confirm-set-password");
+    const y = document.getElementById("new-set-password");
+    if (x.type === "password") {
+      x.type = "text";
+      y.type = "text";
+    } else {
+      x.type = "password";
+      y.type = "password";
+    }
+  }
   return (
     <div
       className="account-login account res layout-1"
@@ -66,20 +80,7 @@ const SetPassword = () => {
             <div id="content" className="col-md-9">
               <div className="row">
                 <div className="col-sm-6">
-                  <div className="well ">
-                    <h2>New Customer</h2>
-                    <p>
-                      <strong>Register Account</strong>
-                    </p>
-                    <p>
-                      By creating an account you will be able to shop faster, be
-                      up to date on an order's status, and keep track of the
-                      orders you have previously made.
-                    </p>
-                    <Link to="/signup" className="btn btn-primary">
-                      Continue
-                    </Link>
-                  </div>
+                  <NewCustomer />
                 </div>
                 <div className="col-sm-6">
                   <div className="well col-sm-12">
@@ -113,6 +114,7 @@ const SetPassword = () => {
                           value={password}
                           placeholder="Password"
                           className="form-control"
+                          id="new-set-password"
                         />
                       </div>
                       <div className="form-group">
@@ -128,8 +130,34 @@ const SetPassword = () => {
                           onChange={(e) => setPasswordConfirm(e.target.value)}
                           value={passwordConfirm}
                           placeholder="Confirm"
+                          id="confirm-set-password"
                           className="form-control"
                         />
+                        <div className="checkbox">
+                          <label
+                            htmlFor="Show Password"
+                            className="container-checkbox"
+                            onClick={() => {
+                              setPasswordShow(!passwordShow);
+                              passwordShowFunc();
+                            }}
+                          >
+                            <span>
+                              <input
+                                type="checkbox"
+                                value={passwordShow}
+                                onChange={() => {
+                                  setPasswordShow(!passwordShow);
+                                  passwordShowFunc();
+                                }}
+                                name="Show Password"
+                                checked={passwordShow === true ? true : false}
+                              />
+                              Show Password
+                              <span className="checkmark"></span>
+                            </span>
+                          </label>
+                        </div>
                       </div>
                       <input
                         type="submit"

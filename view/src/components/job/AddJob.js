@@ -38,7 +38,7 @@ const AddJob = (props) => {
   const [experience, setExperience] = useState("");
   const [salaryType, setSalaryType] = useState("");
   const [qualification, setQualification] = useState("");
-  const [languages, setLanguages] = useState([""]);
+  // const [languages, setLanguages] = useState([""]);
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
@@ -249,6 +249,15 @@ const AddJob = (props) => {
           >
             <fieldset id="account">
               <h4 className="post-ad-heading">Job Details</h4>
+              {errors && errors.message && (
+                <div className="form-group">
+                  <div className="col-sm-12">
+                    <div className="alert alert-danger" role="alert">
+                      {errors.message}
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="form-group required">
                 <label className="col-sm-2 control-label" htmlFor="input-name">
                   Job title
@@ -708,7 +717,7 @@ const AddJob = (props) => {
                             <img
                               width={100}
                               src={URL.createObjectURL(file)}
-                              alt={`uploaded-image-${i}`}
+                              alt={`uploaded-${i}`}
                             />
                           </div>
                         ))
