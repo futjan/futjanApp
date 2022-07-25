@@ -1,7 +1,8 @@
 import React, { lazy } from "react";
 
-import banner3 from "../image/catalog/demo/banners/home1/bn-3.jpg";
-import banner4 from "../image/catalog/demo/banners/home1/bn-4.jpg";
+import banner3 from "../image/left1.png";
+// import banner3 from "../image/left1.png";
+import banner4 from "../image/right2.png";
 // import SurplusSection from "./surplus/SurplusSection";
 // import SurplusSection from ;
 const SurplusSection = lazy(() => import("./surplus/SurplusSection"));
