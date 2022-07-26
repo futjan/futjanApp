@@ -1,8 +1,8 @@
 import React, { lazy } from "react";
 
-import banner3 from "../image/left1.png";
+import banner3 from "../image/left1.PNG";
 // import banner3 from "../image/left1.png";
-import banner4 from "../image/right2.png";
+import banner4 from "../image/right2.PNG";
 // import SurplusSection from "./surplus/SurplusSection";
 // import SurplusSection from ;
 const SurplusSection = lazy(() => import("./surplus/SurplusSection"));
@@ -22,15 +22,27 @@ const Index = (props) => {
                 <div className="row row-style row_a1">
                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
                     <div>
-                      <div className="home1-banner-2 clearfix">
-                        <div className="item-1 col-lg-6 col-md-6 col-sm-6 banners">
+                      <div
+                        className="home1-banner-2 clearfix"
+                        style={{
+                          border: "2px solid #3b5998",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        <div
+                          className="item-1 col-lg-6 col-md-6 col-sm-6 banners"
+                          style={{ borderRight: "1px solid #3b5998" }}
+                        >
                           <div>
                             <a title="Static Image" href="#">
                               <img src={banner3} alt="Static Image" />
                             </a>
                           </div>
                         </div>
-                        <div className="item-2 col-lg-6 col-md-6 col-sm-6 banners">
+                        <div
+                          className="item-2 col-lg-6 col-md-6 col-sm-6 banners"
+                          style={{ borderLeft: "1px solid #3b5998" }}
+                        >
                           <div>
                             <a title="Static Image" href="#">
                               <img src={banner4} alt="Static Image" />

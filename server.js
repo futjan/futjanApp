@@ -4,7 +4,6 @@ dotenv.config({ path: "./config.env" });
 const app = require("./app");
 const http = require("http");
 const { Server } = require("socket.io");
-const devcert = require("devcert");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");

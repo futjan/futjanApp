@@ -405,6 +405,15 @@ const Header2 = () => {
                                       onClick={handleClose}
                                       component={Link}
                                       to="/user-panel"
+                                      state={{ active: "ALERT" }}
+                                    >
+                                      <i className="fa fa-bell"></i>
+                                      &nbsp;&nbsp;&nbsp; My Alert
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/user-panel"
                                       state={{ active: "ADD" }}
                                     >
                                       <i className="fa fa-thumb-tack"></i>

@@ -16,7 +16,13 @@ const Ad = (props) => {
       props.type === "surplus" &&
       props.sur &&
       Object.keys(props.sur).length > 0 ? (
-        <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <div
+          className={
+            props.cssStyle
+              ? props.cssStyle
+              : "ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          }
+        >
           <div className="item-inner product-layout transition product-grid">
             <div className="product-item-container">
               <div className="left-block">
@@ -44,7 +50,7 @@ const Ad = (props) => {
                 ) : null}
               </div>
               <div className="right-block">
-                <div className="caption">
+                <div className="caption" style={{ lineHeight: "20px" }}>
                   <h4>
                     <Link to={`/surplus-detail/${props.sur._id}`}>
                       {props.sur.title && props.sur.title.length > 50
@@ -143,7 +149,13 @@ const Ad = (props) => {
       props.type === "job" &&
       props.job &&
       Object.keys(props.job).length > 0 ? (
-        <div className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-6">
+        <div
+          className={
+            props.cssStyle
+              ? props.cssStyle
+              : "ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          }
+        >
           <div className="item-inner product-layout transition product-grid">
             <div className="product-item-container">
               <div className="left-block">
@@ -166,7 +178,7 @@ const Ad = (props) => {
                 </div>
               </div>
               <div className="right-block">
-                <div className="caption">
+                <div className="caption" style={{ lineHeight: "20px" }}>
                   <h4>
                     <Link to={`/job-detail/${props.job._id}`}>
                       {props.job.title && props.job.title.length > 50

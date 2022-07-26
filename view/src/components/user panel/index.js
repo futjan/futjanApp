@@ -8,7 +8,7 @@ import Preloader2 from "../../utils/Preloader2";
 const AddSurplusBusiness = lazy(() =>
   import("../surplusBusiness/AddSurplusBusiness")
 );
-
+const Alert = lazy(() => import("./Alert"));
 // import AddJob from "../job/AddJob";
 
 const AddJob = lazy(() => import("../job/AddJob"));
@@ -86,15 +86,7 @@ const Index = (props) => {
                       <span>My ad</span>
                     </div>
                   </li>
-                  {/* <li
-                    className={tab === "ALERT" ? "active" : ""}
-                    onClick={() => setTab("ALERT")}
-                  >
-                    <div className="tab">
-                      <i className="fa fa-bell"></i>
-                      <span>My Alert</span>
-                    </div>
-                  </li> */}
+
                   <li
                     className={tab === "MESSAGE" ? "active" : ""}
                     onClick={() => setTab("MESSAGE")}
@@ -111,6 +103,15 @@ const Index = (props) => {
                     <div className="tab">
                       <i className="fa fa-heart"></i>
                       <span>My Favourite</span>
+                    </div>
+                  </li>
+                  <li
+                    className={tab === "ALERT" ? "active" : ""}
+                    onClick={() => setTab("ALERT")}
+                  >
+                    <div className="tab">
+                      <i className="fa fa-bell"></i>
+                      <span>My Alert</span>
                     </div>
                   </li>
                   <li
@@ -249,6 +250,17 @@ const Index = (props) => {
                       <Suspense fallback={<Preloader2 />}>
                         <div>
                           <Favourite />
+                        </div>
+                      </Suspense>
+                    </div>
+                  </div>
+                ) : null}
+                {tab === "ALERT" ? (
+                  <div className="tab-content">
+                    <div className="tab-pane active" id="tab-description">
+                      <Suspense fallback={<Preloader2 />}>
+                        <div>
+                          <Alert />
                         </div>
                       </Suspense>
                     </div>

@@ -22,7 +22,7 @@ const Job = () => {
                 <h2 className="modtitle">Job</h2>
               </div>
               <div className="modcontent">
-                <div>
+                <div className="products-list">
                   {job.loading === true ? (
                     <div className="d-block overflow-hidden">
                       {["", "", "", "", "", "", "", ""].map((item, i) => (
@@ -41,7 +41,12 @@ const Job = () => {
                   ) : null}
                   {job.loading === false && job.jobs.length > 0
                     ? job.jobs.map((job) => (
-                        <Ad key={job._id} job={job} type="job" />
+                        <Ad
+                          key={job._id}
+                          job={job}
+                          type="job"
+                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                        />
                       ))
                     : null}
                 </div>
