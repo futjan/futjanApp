@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import fileURL from "../../utils/fileURL";
-
+import Ad from "../index/index utils/Ad";
 import { getSurpluses } from "../actions/surplusAction";
 import Skeleton from "react-loading-skeleton";
 import Countries from "../../utils/Countries";
@@ -9,11 +8,9 @@ import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import BusinessType from "../../utils/BusinessType";
 import BusinessCategory from "../../utils/BusinessCategory";
-import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { savePreset, getPreset } from "../actions/userAction";
-// import $ from "jquery";
+import $ from "jquery";
 import Pagination from "../../utils/Pagination";
 import "./skeleton.css";
 const SurplusBusinesses = () => {
@@ -36,7 +33,6 @@ const SurplusBusinesses = () => {
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [suggustion, setSuggustion] = useState([]);
   const [title, setTitle] = useState("");
   const [titlePreset, setTitlePreset] = useState("");
   const [cityPreset, setCityPreset] = useState({
@@ -61,10 +57,7 @@ const SurplusBusinesses = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const surplusFromStore = useSelector((state) => state.surplus);
-
   const preset = useSelector((state) => state.auth.preset);
-  const currency = useSelector((state) => state.currency);
-
   useEffect(() => {
     if (state && state.title) {
       setTitle(state.title);
@@ -103,80 +96,40 @@ const SurplusBusinesses = () => {
   useEffect(() => {
     callSurplusesAPI(page, limit, sort);
   }, [page, sort, limit]);
-
-  // useEffect
-  // useEffect(() => {
-  //   callSurplusesAPI(page, limit, sort);
-  // }, [
-  //   country && country.name,
-  //   city && city.name,
-  //   county && county.name,
-  //   category,
-  //   businessType,
-  //   keyword,
-  //   page,
-  //   limit,
-  // ]);
-  // update business type state
-  // useEffect(() => {
-  //   setBusinessType(state.type.toLowerCase());
-  // }, [state && state.type]);
-
-  // update keyword state
-  // useEffect(() => {
-  //   if (state && state.keyword) {
-  //     setKeyword(state.keyword.toLowerCase());
-  //   }
-  // }, [state && state.keyword]);
-
-  // update city state
-  // useEffect(() => {
-  //   if (state && state.city) {
-  //     setCity({
-  //       name: state.city.toLowerCase(),
-  //       stateCode: "",
-  //       countryCode: "",
-  //     });
-  //   }
-  // }, [state && state.city]);
-  // useEffect(() => {
-  //   dispatch(getSurplusKeywords());
-  // }, []);
-
   // useEffect to run jquery
-  // useEffect(() => {
-  //   $(".so-filter-heading").on("click", function () {
-  //     if ($(this).find(".fa").hasClass("fa-chevron-down")) {
-  //       $(this)
-  //         .find(".fa-chevron-down")
-  //         .addClass("fa-chevron-right", "slow")
-  //         .removeClass("fa-chevron-down", "slow");
-  //     } else {
-  //       $(this)
-  //         .find(".fa-chevron-right")
-  //         .addClass("fa-chevron-down", "slow")
-  //         .removeClass("fa-chevron-right", "slow");
-  //     }
-  //     $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
-  //   });
+  useEffect(() => {
+    $(".so-filter-heading").on("click", function () {
+      if ($(this).find(".fa").hasClass("fa-chevron-down")) {
+        $(this)
+          .find(".fa-chevron-down")
+          .addClass("fa-chevron-right", "slow")
+          .removeClass("fa-chevron-down", "slow");
+      } else {
+        $(this)
+          .find(".fa-chevron-right")
+          .addClass("fa-chevron-down", "slow")
+          .removeClass("fa-chevron-right", "slow");
+      }
+      $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
+    });
 
-  //   // side bar filers
-  //   $(".open-sidebar").click(function (e) {
-  //     e.preventDefault();
-  //     $(".sidebar-overlay").toggleClass("show");
-  //     $(".sidebar-offcanvas").toggleClass("active");
-  //   });
+    // side bar filers
+    $(".open-sidebar").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
 
-  //   $(".sidebar-overlay").click(function (e) {
-  //     e.preventDefault();
-  //     $(".sidebar-overlay").toggleClass("show");
-  //     $(".sidebar-offcanvas").toggleClass("active");
-  //   });
-  //   $("#close-sidebar").click(function () {
-  //     $(".sidebar-overlay").removeClass("show");
-  //     $(".sidebar-offcanvas").removeClass("active");
-  //   });
-  // }, []);
+    $(".sidebar-overlay").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
+    $("#close-sidebar").click(function () {
+      $(".sidebar-overlay").removeClass("show");
+      $(".sidebar-offcanvas").removeClass("active");
+    });
+  }, []);
 
   // call getSurplusesAction
   const callSurplusesAPI = (page, lim, sortBy) => {
@@ -425,19 +378,6 @@ const SurplusBusinesses = () => {
                                   category={category}
                                   setCategory={setCategory}
                                 />
-                                {/* <select
-                                  className="form-control"
-                                  onChange={(e) => setCategory(e.target.value)}
-                                  value={category}
-                                >
-                                  <option value="">Choose Category</option>
-                                  <option value="Baked Goods">
-                                    Baked Goods
-                                  </option>
-                                  <option value="Groceries">Groceries</option>
-                                  <option value="Meals">Meals</option>
-                                  <option value="Other">Other</option>
-                                </select> */}
                               </div>
                             </div>
                           </div>
@@ -687,15 +627,6 @@ const SurplusBusinesses = () => {
                           GET SAVED ALERT
                         </div>
                       ) : null}
-                      {/*
-                       <h4 style={{ margin: "0", fontWeight: "100" }}>
-                        Category :{" "}
-                        <span>
-                          {searchedCategory.length > 0
-                            ? searchedCategory.toUpperCase()
-                            : "All"}
-                        </span>
-                      </h4> */}
                     </div>
                     <div className="short-by-show form-inline text-right col-md-9  col-sm-11">
                       <div className="form-group short-by">
@@ -783,132 +714,12 @@ const SurplusBusinesses = () => {
                 >
                   {surplusFromStore.surpluses.length > 0
                     ? surplusFromStore.surpluses.map((sur) => (
-                        <div
-                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
+                        <Ad
                           key={sur._id}
-                        >
-                          <div className="product-item-container">
-                            <div className="left-block">
-                              <div
-                                className="product-image-container  second_img  "
-                                style={{
-                                  position: "relative",
-                                  minHeight: "240px",
-                                  overflow: "hidden",
-                                  height: "240px",
-                                }}
-                              >
-                                <Link
-                                  to={`/surplus-detail/${sur._id}`}
-                                  title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                >
-                                  <LazyLoadImage
-                                    effect="blur"
-                                    src={fileURL(sur.images && sur.images[0])}
-                                    className="img-1 img-responsive"
-                                    alt={sur.title}
-                                    title={sur.title}
-                                  />
-
-                                  {sur.promoteType &&
-                                  sur.promoteType.length > 0 ? (
-                                    <div className="ad-promote-type-container">
-                                      {sur.promoteType.map((promote, i) => (
-                                        <div
-                                          className={`ad-promote-type ${promote.promote}`}
-                                          key={i}
-                                        >
-                                          {promote.promote}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  ) : null}
-                                </Link>
-                              </div>
-                              {/* <div className="countdown_box">
-                                <div className="countdown_inner"></div>
-                              </div> */}
-                              {sur.discount && sur.discount > 0 ? (
-                                <div className="box-label">
-                                  <span className="label-product label-sale">
-                                    Sale
-                                  </span>
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="right-block">
-                              <div className="caption">
-                                <h4>
-                                  <Link to={`/surplus-detail/${sur._id}`}>
-                                    {sur.title && sur.title.length > 50
-                                      ? capitalizeFirstLetter(
-                                          sur.title.substring(0, 50) + "..."
-                                        )
-                                      : sur.title &&
-                                        capitalizeFirstLetter(sur.title)}
-                                  </Link>
-                                </h4>
-                                <div>
-                                  <i className="fa fa-tasks"></i>
-                                  <small>
-                                    {sur.category &&
-                                      capitalizeFirstLetter(sur.category)}
-                                  </small>
-                                </div>
-                                <div>
-                                  <i className="fa fa-map-marker"></i>
-                                  <small>
-                                    {sur.city &&
-                                      capitalizeFirstLetter(sur.city)}
-                                  </small>
-                                </div>
-                                <div className="total-price">
-                                  <div className="price price-left">
-                                    {sur.originalPrice &&
-                                    sur.offeredPrice > 0 ? (
-                                      <span className="price-new">
-                                        {currency.symbol}{" "}
-                                        {sur.currency === currency.symbol
-                                          ? sur.offeredPrice.toFixed(2)
-                                          : (
-                                              sur.offeredPrice * currency.rate
-                                            ).toFixed(2)}
-                                      </span>
-                                    ) : (
-                                      <span className="price-new">
-                                        {currency.symbol}{" "}
-                                        {sur && sur.currency === currency.symbol
-                                          ? sur.originalPrice.toFixed(2)
-                                          : (
-                                              sur.originalPrice * currency.rate
-                                            ).toFixed(2)}
-                                      </span>
-                                    )}{" "}
-                                    {sur.originalPrice &&
-                                    sur.offeredPrice > 0 ? (
-                                      <span className="price-old">
-                                        {currency.symbol}{" "}
-                                        {sur && sur.currency === currency.symbol
-                                          ? sur.originalPrice.toFixed(2)
-                                          : (
-                                              sur.originalPrice * currency.rate
-                                            ).toFixed(2)}
-                                      </span>
-                                    ) : null}
-                                  </div>
-                                  {sur.discount && sur.discount > 0 ? (
-                                    <div className="price-sale price-right">
-                                      <span className="discount">
-                                        -{sur.discount}%<strong>OFF</strong>
-                                      </span>
-                                    </div>
-                                  ) : null}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                          sur={sur}
+                          type="surplus"
+                          cssStyle="ltabs-item col-lg-4 col-md-4 col-sm-4 col-xs-12"
+                        />
                       ))
                     : null}
                 </div>

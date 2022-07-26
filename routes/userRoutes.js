@@ -35,11 +35,4 @@ router.patch("/deleted/:id", authController.deletedUser);
 router.patch("/blocked/:id", authController.blockedUser);
 router.route("/:id").get(authController.getUserById);
 
-// social login
-router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
-);
 module.exports = router;

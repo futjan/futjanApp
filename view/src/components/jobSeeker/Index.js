@@ -19,7 +19,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import Pagination from "../../utils/Pagination";
 
-// import $ from "jquery";
+import $ from "jquery";
 
 import "../surplusBusiness/skeleton.css";
 const Index = () => {
@@ -111,39 +111,39 @@ const Index = () => {
     callJobSeekersAPI(page, limit, sort);
   }, [page, sort, limit]);
   // useEffect to run jquery
-  // useEffect(() => {
-  //   $(".so-filter-heading").on("click", function () {
-  //     if ($(this).find(".fa").hasClass("fa-chevron-down")) {
-  //       $(this)
-  //         .find(".fa-chevron-down")
-  //         .addClass("fa-chevron-right", "slow")
-  //         .removeClass("fa-chevron-down", "slow");
-  //     } else {
-  //       $(this)
-  //         .find(".fa-chevron-right")
-  //         .addClass("fa-chevron-down", "slow")
-  //         .removeClass("fa-chevron-right", "slow");
-  //     }
-  //     $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
-  //   });
+  useEffect(() => {
+    $(".so-filter-heading").on("click", function () {
+      if ($(this).find(".fa").hasClass("fa-chevron-down")) {
+        $(this)
+          .find(".fa-chevron-down")
+          .addClass("fa-chevron-right", "slow")
+          .removeClass("fa-chevron-down", "slow");
+      } else {
+        $(this)
+          .find(".fa-chevron-right")
+          .addClass("fa-chevron-down", "slow")
+          .removeClass("fa-chevron-right", "slow");
+      }
+      $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
+    });
 
-  //   // side bar filers
-  //   $(".open-sidebar").click(function (e) {
-  //     e.preventDefault();
-  //     $(".sidebar-overlay").toggleClass("show");
-  //     $(".sidebar-offcanvas").toggleClass("active");
-  //   });
+    // side bar filers
+    $(".open-sidebar").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
 
-  //   $(".sidebar-overlay").click(function (e) {
-  //     e.preventDefault();
-  //     $(".sidebar-overlay").toggleClass("show");
-  //     $(".sidebar-offcanvas").toggleClass("active");
-  //   });
-  //   $("#close-sidebar").click(function () {
-  //     $(".sidebar-overlay").removeClass("show");
-  //     $(".sidebar-offcanvas").removeClass("active");
-  //   });
-  // }, []);
+    $(".sidebar-overlay").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
+    $("#close-sidebar").click(function () {
+      $(".sidebar-overlay").removeClass("show");
+      $(".sidebar-offcanvas").removeClass("active");
+    });
+  }, []);
 
   // call getSurplusesAction
   const callJobSeekersAPI = debounce((page) => {

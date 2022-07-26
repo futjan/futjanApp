@@ -119,7 +119,7 @@ const Footer = () => {
                 <div className="row row_wprs  ">
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_yb5e footer--link">
                     <Link to="/">
-                      <img alt="Futjan" width="90%" title="Futjan" src={LOGO} />
+                      <img alt="Futjan" width="75%" title="Futjan" src={LOGO} />
                     </Link>
                     <p style={{ lineHeight: "15px", margin: "20px 0" }}>
                       {" "}
@@ -167,20 +167,31 @@ const Footer = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link"></div>
 
+                  <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
+                    <h3 className="title-footer">Services</h3>
+                    <ul className="links">
+                      <li>
+                        <Link to="/surplus">Surplus</Link>
+                      </li>
+                      <li>
+                        <Link to="/job">Jobs</Link>
+                      </li>
+                      <li>
+                        <Link to="/job-seeker">Job seekers</Link>
+                      </li>
+                      <li>
+                        <Link to="/">Business</Link>
+                      </li>
+                    </ul>
+                  </div>
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
                     <h3 className="title-footer">Pages</h3>
                     <ul className="links">
                       <li>
                         <Link to="/login">Login</Link>
                       </li>
-                      <li>
-                        <Link to="/signup">Register</Link>
-                      </li>
-                      <li>
-                        <Link to="/user-panel">Post ad</Link>
-                      </li>
+
                       <li>
                         <Link to="/favourite">Favourite</Link>
                       </li>
@@ -193,21 +204,22 @@ const Footer = () => {
                     </ul>
                   </div>
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
-                    <h3 className="title-footer">Services</h3>
+                    <h3 className="title-footer">Futjan</h3>
                     <ul className="links">
                       <li>
-                        <Link to="/surplus">Surplus</Link>
+                        <Link to="/">Help Center</Link>
+                      </li>
+
+                      <li>
+                        <Link to="/">Legal {"&"} Privacy information</Link>
                       </li>
                       <li>
-                        <Link to="/job">Jobs</Link>
-                      </li>
-                      <li>
-                        <Link to="//job-seeker">Job seekers</Link>
+                        <Link to="/">Blogs</Link>
                       </li>
                     </ul>
                   </div>
                   <div className="col-lg-15 col-md-15 col-sm-4 col-xs-6 col_1tke footer--link">
-                    <h3 className="title-footer">Get it on</h3>
+                    {/* <h3 className="title-footer">Get it on</h3> */}
                     <div
                       className="d-flex justify-content-center flex-dir-col align-items-center"
                       style={{ marginTop: "25px" }}

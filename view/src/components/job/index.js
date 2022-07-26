@@ -15,7 +15,7 @@ import { getPreset, savePreset } from "../actions/userAction";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { useSelector, useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-
+import $ from "jquery";
 import "../surplusBusiness/skeleton.css";
 import Pagination from "../../utils/Pagination";
 const Index = () => {
@@ -98,13 +98,46 @@ const Index = () => {
   }, [preset && preset._id]);
 
   // useEffect
+
   useEffect(() => {
     callJobsAPI(page, limit, sort);
   }, []);
   useEffect(() => {
     callJobsAPI(page, limit, sort);
   }, [page, limit, sort]);
+  useEffect(() => {
+    $(".so-filter-heading").on("click", function () {
+      if ($(this).find(".fa").hasClass("fa-chevron-down")) {
+        $(this)
+          .find(".fa-chevron-down")
+          .addClass("fa-chevron-right", "slow")
+          .removeClass("fa-chevron-down", "slow");
+      } else {
+        $(this)
+          .find(".fa-chevron-right")
+          .addClass("fa-chevron-down", "slow")
+          .removeClass("fa-chevron-right", "slow");
+      }
+      $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
+    });
 
+    // side bar filers
+    $(".open-sidebar").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
+
+    $(".sidebar-overlay").click(function (e) {
+      e.preventDefault();
+      $(".sidebar-overlay").toggleClass("show");
+      $(".sidebar-offcanvas").toggleClass("active");
+    });
+    $("#close-sidebar").click(function () {
+      $(".sidebar-overlay").removeClass("show");
+      $(".sidebar-offcanvas").removeClass("active");
+    });
+  }, []);
   // useEffect(() => {
   //   callJobsAPI(page, limit, sort);
   // }, [

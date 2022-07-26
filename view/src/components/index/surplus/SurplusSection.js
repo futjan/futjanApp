@@ -23,7 +23,7 @@ const SurplusSection = () => {
                 <h2 className="modtitle">Surplus</h2>
               </div>
               <div className="modcontent">
-                <div>
+                <div className="products-list">
                   {surplus.loading === true ? (
                     <div className="d-block overflow-hidden ">
                       {["", "", "", "", "", "", "", ""].map((item, i) => (
@@ -43,7 +43,12 @@ const SurplusSection = () => {
 
                   {surplus.loading === false && surplus.surpluses.length > 0
                     ? surplus.surpluses.map((sur) => (
-                        <Ad key={sur._id} sur={sur} type="surplus" />
+                        <Ad
+                          key={sur._id}
+                          sur={sur}
+                          type="surplus"
+                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                        />
                       ))
                     : null}
                 </div>
