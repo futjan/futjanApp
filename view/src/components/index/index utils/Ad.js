@@ -51,8 +51,15 @@ const Ad = (props) => {
               </div>
               <div className="right-block">
                 <div className="caption" style={{ lineHeight: "20px" }}>
-                  <h4>
-                    <Link to={`/surplus-detail/${props.sur._id}`}>
+                  <h4 style={{ marginBottom: "0", marginTop: "3px" }}>
+                    <Link
+                      to={`/surplus-detail/${props.sur._id}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
                       {props.sur.title && props.sur.title.length > 50
                         ? capitalizeFirstLetter(
                             props.sur.title.substring(0, 50) + "..."
@@ -179,8 +186,15 @@ const Ad = (props) => {
               </div>
               <div className="right-block">
                 <div className="caption" style={{ lineHeight: "20px" }}>
-                  <h4>
-                    <Link to={`/job-detail/${props.job._id}`}>
+                  <h4 style={{ marginBottom: "0", marginTop: "3px" }}>
+                    <Link
+                      to={`/job-detail/${props.job._id}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
                       {props.job.title && props.job.title.length > 50
                         ? capitalizeFirstLetter(
                             props.job.title.substring(0, 50) + "..."
