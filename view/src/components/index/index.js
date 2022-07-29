@@ -3,6 +3,7 @@ import React, { lazy } from "react";
 import banner3 from "../image/left1.PNG";
 // import banner3 from "../image/left1.png";
 import banner4 from "../image/right2.PNG";
+import Slider1 from "./Slider";
 // import SurplusSection from "./surplus/SurplusSection";
 // import SurplusSection from ;
 const SurplusSection = lazy(() => import("./surplus/SurplusSection"));
@@ -17,41 +18,21 @@ const Index = (props) => {
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
         <div id="content">
           <div className="so-page-builder">
-            <section id="box-link1" className="section-style">
+            <section
+              id="box-link1"
+              className="section-style"
+              style={{ marginTop: "30px" }}
+            >
               <div className="container page-builder-ltr mt-4">
-                <div className="row row-style row_a1">
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
-                    <div>
-                      <div
-                        className="home1-banner-2 clearfix"
-                        style={{
-                          border: "2px solid #3b5998",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        <div
-                          className="item-1 col-lg-6 col-md-6 col-sm-6 banners"
-                          style={{ borderRight: "1px solid #3b5998" }}
-                        >
-                          <div>
-                            <a title="Static Image" href="#">
-                              <img src={banner3} alt="Static Image" />
-                            </a>
-                          </div>
-                        </div>
-                        <div
-                          className="item-2 col-lg-6 col-md-6 col-sm-6 banners"
-                          style={{ borderLeft: "1px solid #3b5998" }}
-                        >
-                          <div>
-                            <a title="Static Image" href="#">
-                              <img src={banner4} alt="Static Image" />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div
+                  style={{
+                    overflow: "hidden",
+                    width: "100%",
+                    height: "350px",
+                    position: "relative",
+                  }}
+                >
+                  <Slider1 />
                 </div>
               </div>
             </section>
