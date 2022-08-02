@@ -48,6 +48,18 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
                 icon: <i className="fa fa-archive"></i>,
               },
               {
+                title: "My Favourite",
+                pathname: "/user-panel",
+                state: "FAVOURITE",
+                icon: <i className="fa fa-heart"></i>,
+              },
+              {
+                title: "My Alert",
+                pathname: "/user-panel",
+                state: "ALERT",
+                icon: <i className="fa fa-bell"></i>,
+              },
+              {
                 title: "Post Ad",
                 pathname: "/user-panel",
                 state: "ADD",

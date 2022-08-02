@@ -17,6 +17,7 @@ import {
 import {
   getMessages,
   createMessage,
+  clearMessages,
 } from "../components/actions/messageAction";
 
 export default function MessagePopup({
@@ -36,6 +37,7 @@ export default function MessagePopup({
   const dispatch = useDispatch();
   // useEffect
   useEffect(() => {
+    dispatch(clearMessages());
     if (receiverId && adId) {
       dispatch(getConversation(receiverId, adId));
     }
@@ -146,9 +148,11 @@ export default function MessagePopup({
         adType: adType,
       },
     };
-    dispatch(createSingleConversation(data));
+    dispatch(createSingleConversation(data, startConversationSocket));
   };
-
+  const startConversationSocket = () => {
+    socket.current.emit("start-conversation", receiverId);
+  };
   const scrollRef = useRef();
 
   // scroll

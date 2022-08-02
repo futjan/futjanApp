@@ -209,7 +209,7 @@ export const forgetPassword = (data, clearState) => (dispatch) => {
 
         dispatch(
           setNotification(
-            "Password reset mail has been send to you mail",
+            `Password reset mail has been send to you (${data.email}). Please check your Junk/Spam mail too`,
             "success"
           )
         );

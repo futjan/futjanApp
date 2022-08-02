@@ -55,6 +55,12 @@ export const getMessages = (conversationId) => async (dispatch) => {
   }
 };
 
+export const clearMessages = () => (dispatch) => {
+  dispatch({
+    type: Type.GET_MESSAGES,
+    payload: [],
+  });
+};
 // set loading
 const setLoading = () => {
   return {

@@ -116,6 +116,16 @@ const Index = (props) => {
     };
   }, [socket]);
 
+  useEffect(() => {
+    socket.current.on("start-converstaion__", () => {
+      dispatch(getConversations());
+    });
+
+    return () => {
+      socket.current.off("start-converstaion__");
+    };
+  }, [socket]);
+
   // useEffect(() => {
 
   // }, [socket]);
