@@ -51,9 +51,9 @@ export default function MessagePopup({
   useEffect(() => {
     // socket.current = io("http://www.futjan.com");
     socket.current = socketio;
-    return () => {
-      socket.current.close();
-    };
+    // return () => {
+    //   socket.current.close();
+    // };
   }, [auth.user]);
 
   useEffect(() => {
@@ -86,9 +86,9 @@ export default function MessagePopup({
   // }, [currentChat]);
 
   // add user to server
-  // useEffect(() => {
-  //   socket.current.emit("adduser", auth.user && auth.user.id);
-  // }, [auth.user, auth.user && auth.user.id]);
+  useEffect(() => {
+    socket.current.emit("adduser", auth.user && auth.user.id);
+  }, [auth.user, auth.user && auth.user.id]);
 
   // get messages on currentChat changes
   const messages = useSelector((state) => state.message);

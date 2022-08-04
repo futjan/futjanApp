@@ -97,7 +97,6 @@ const App = (props) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const socket = React.useRef();
-
   useEffect(() => {
     socket.current = socketio;
   }, [auth.user]);
@@ -105,17 +104,6 @@ const App = (props) => {
   useEffect(() => {
     socket.current.emit("adduser", auth.user && auth.user.id);
   }, [auth.user && auth.user.id]);
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        client_id:
-          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
-        scope: "",
-      });
-    }
-    gapi.load("client:auth2", start);
-  }, []);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
@@ -139,6 +127,16 @@ const App = (props) => {
       setTab("ADD");
     }
   }, [pathname]);
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        client_id:
+          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
   return (
     <div className="App">
       <Suspense
