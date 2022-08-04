@@ -72,6 +72,12 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
                 icon: <i className="fa fa-envelope"></i>,
               },
               {
+                title: "Help Center",
+                pathname: "/help-center",
+                state: "help",
+                icon: <i className="fa fa-question-circle"></i>,
+              },
+              {
                 title: "Logout",
                 pathname: "/",
                 state: "",

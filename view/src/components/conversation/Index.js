@@ -14,7 +14,7 @@ import Message from "./Message";
 import { getConversations } from "../actions/conversationAction";
 import { getMessages, createMessage } from "../actions/messageAction";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
+import socketio from "../socket/socketIo";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -83,23 +83,11 @@ const Index = (props) => {
   useEffect(() => {
     dispatch(getConversations());
   }, []);
-  // const theme = useTheme();
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
 
   // socket io setup
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
-    // socket.current = io("http://localhost:8000");
-    return () => {
-      socket.current.close();
-    };
+    socket.current = socketio;
   }, [auth.user]);
 
   useEffect(() => {
@@ -126,10 +114,6 @@ const Index = (props) => {
     };
   }, [socket]);
 
-  // useEffect(() => {
-
-  // }, [socket]);
-
   useEffect(() => {
     if (chats.length === 0) {
       setChats(messages.messages);
@@ -143,9 +127,9 @@ const Index = (props) => {
       setChats((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    socket.current.emit("adduser", auth.user && auth.user.id);
-  }, [auth.user && auth.user.id]);
+  // useEffect(() => {
+  //   socket.current.emit("adduser", auth.user && auth.user.id);
+  // }, [auth.user && auth.user.id]);
 
   useEffect(() => {
     if (currentChat && currentChat._id) {

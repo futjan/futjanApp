@@ -66,6 +66,12 @@ io.on("connection", (socket) => {
       });
     }
   });
+  socket.on("msg-", (receiverId) => {
+    const user = getUser(receiverId);
+    if (user) {
+      io.to(user.socketId).emit("msg-notify", {});
+    }
+  });
   // start conversation
   socket.on("start-conversation", (receiverId) => {
     const user = getUser(receiverId);

@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 function Aboutus() {
   return (
-    <div id="wrapper" className="wrapper-fluid banners-effect-5">
+    <div
+      id="wrapper"
+      className="wrapper-fluid banners-effect-5"
+      style={{ margin: "30px 0" }}
+    >
       <div className="main-container container">
         <ul className="breadcrumb">
           <li>

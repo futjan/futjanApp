@@ -429,6 +429,14 @@ const Header2 = () => {
                                       &nbsp;&nbsp;&nbsp; Message
                                     </MenuItem>
                                     <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/help-center"
+                                    >
+                                      <i className="fa fa-question-circle"></i>
+                                      &nbsp;&nbsp;&nbsp; Help center
+                                    </MenuItem>
+                                    <MenuItem
                                       onClick={() => {
                                         handleClose();
                                         dispatch(logoutUser());

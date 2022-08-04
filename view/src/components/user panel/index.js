@@ -40,9 +40,10 @@ const Message = lazy(() => import("./Messages"));
 // import Favourite from "../favourite/Index"
 const Favourite = lazy(() => import("../favourite/Index"));
 
-const Index = (props) => {
+const Index = ({ tab, setTab }) => {
+  // console.log(props);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-  const [tab, setTab] = useState("ADD");
+  // const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
   const [add, setAdd] = useState("surplus");
   const [title, setTitle] = useState("");

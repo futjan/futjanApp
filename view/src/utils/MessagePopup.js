@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 import Button from "@mui/material/Button";
-import { io } from "socket.io-client";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import socketio from "../components/socket/socketIo";
 import {
   getConversation,
   createSingleConversation,
@@ -50,8 +49,8 @@ export default function MessagePopup({
   // socket io
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
-    // socket.current = io("http://localhost:8000");
+    // socket.current = io("http://www.futjan.com");
+    socket.current = socketio;
     return () => {
       socket.current.close();
     };
@@ -87,9 +86,9 @@ export default function MessagePopup({
   // }, [currentChat]);
 
   // add user to server
-  useEffect(() => {
-    socket.current.emit("adduser", auth.user && auth.user.id);
-  }, [auth.user, auth.user && auth.user.id]);
+  // useEffect(() => {
+  //   socket.current.emit("adduser", auth.user && auth.user.id);
+  // }, [auth.user, auth.user && auth.user.id]);
 
   // get messages on currentChat changes
   const messages = useSelector((state) => state.message);
@@ -131,6 +130,7 @@ export default function MessagePopup({
         receiverId: receiverId,
         text: newMessage,
       });
+      socket.current.emit("msg-", receiverId);
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
