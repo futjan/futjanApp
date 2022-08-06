@@ -98,12 +98,7 @@ const surplusBusiness = new Schmea(
       required: true,
       default: true,
     },
-    adType: {
-      type: String,
-      required: [true, "ad type is required"],
-      default: "surplus",
-      select: false,
-    },
+
     deleted: {
       type: Boolean,
       default: false,
