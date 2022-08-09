@@ -2,7 +2,6 @@ import * as Types from "./types";
 
 // create draft ads into localStorage
 export const createDraft = (obj) => (dispatch) => {
-  console.log(obj.draft_id, "obj.draft_id");
   if (localStorage.getItem("drafts")) {
     let drafts = JSON.parse(localStorage.getItem("drafts"));
     if (drafts.filter((draft) => draft.draft_id === obj.draft_id).length > 0) {

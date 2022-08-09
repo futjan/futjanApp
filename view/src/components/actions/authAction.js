@@ -133,7 +133,6 @@ export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
     const res = await axios.post("/api/v1/users/login-with-google", data);
 
     if (res) {
-      console.log(res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls

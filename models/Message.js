@@ -9,7 +9,15 @@ const messageSchema = new Schema(
     sender: {
       type: mongoose.Schema.ObjectId,
     },
+    receiver: {
+      type: mongoose.Schema.ObjectId,
+    },
     text: String,
+    status: {
+      type: String,
+      required: true,
+      default: "unseen",
+    },
   },
   {
     timestamps: {

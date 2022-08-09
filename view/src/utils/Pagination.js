@@ -11,7 +11,6 @@ const Pagination = (props) => {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    console.log(event.selected + 1, "event.selected");
     props.setCurrentPage((event.selected + 1) * 1);
   };
 

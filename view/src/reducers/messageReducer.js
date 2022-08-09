@@ -2,6 +2,7 @@ import * as Type from "../components/actions/types";
 
 const initialState = {
   messages: [],
+  count: 0,
   loading: false,
 };
 
@@ -28,6 +29,11 @@ export default function messageReducer(state = initialState, action) {
         ...state,
         loading: false,
         messages: [...state.messages, action.payload],
+      };
+    case Type.GET_UNSEEN_MESSAGE_COUNT:
+      return {
+        ...state,
+        count: action.payload,
       };
     default:
       return state;

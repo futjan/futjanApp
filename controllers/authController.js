@@ -15,7 +15,6 @@ const sendEmail = require("../utils/email");
 // @desc                create new user
 // @access              Public
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log("REGISTER WITH USER");
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation

@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { gapi } from "gapi-script";
+
 import Preloader from "./utils/preLoader";
 import jwt_decode from "jwt-decode";
 import Snackbar from "@mui/material/Snackbar";
@@ -38,6 +38,7 @@ import {
   setNotification,
   clearNotification,
 } from "./components/actions/notificationAction";
+import { getUnseenMessaageCount } from "./components/actions/messageAction";
 import store from "./store";
 
 // lazy loading component
@@ -117,6 +118,7 @@ const App = (props) => {
       setTimeout(() => {
         dispatch(clearNotification());
       }, 5000);
+      dispatch(getUnseenMessaageCount(false));
     });
     return () => {
       socket.current.off("msg-notify");
@@ -128,15 +130,9 @@ const App = (props) => {
     }
   }, [pathname]);
   useEffect(() => {
-    function start() {
-      gapi.client.init({
-        client_id:
-          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
-        scope: "",
-      });
-    }
-    gapi.load("client:auth2", start);
+    dispatch(getUnseenMessaageCount(true));
   }, []);
+
   return (
     <div className="App">
       <Suspense

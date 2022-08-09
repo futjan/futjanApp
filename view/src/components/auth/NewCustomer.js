@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 
 export default function NewCustomer() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        client_id:
+          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
   const responseGoogle_success_signUp = (response) => {
     const { tokenObj, profileObj } = response;
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
 
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 import Preloader2 from "../../utils/Preloader2";
 // import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 
@@ -50,7 +51,7 @@ const Index = ({ tab, setTab }) => {
   const [adId, setAdId] = useState("");
   // initialize hooks
   const state = useLocation().state;
-
+  const unseenMessageCount = useSelector((state) => state.message.count);
   // useEffect
   useEffect(() => {
     if (state && state.active) {
@@ -94,7 +95,14 @@ const Index = ({ tab, setTab }) => {
                   >
                     <div className="tab">
                       <i className="fa fa-envelope"></i>
-                      <span>Messages</span>
+                      <span>
+                        Messages
+                        {unseenMessageCount !== undefined &&
+                        unseenMessageCount !== null &&
+                        unseenMessageCount > 0
+                          ? " (" + unseenMessageCount + ")"
+                          : ""}
+                      </span>
                     </div>
                   </li>
                   <li

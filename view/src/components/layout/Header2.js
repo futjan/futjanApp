@@ -47,6 +47,7 @@ const Header2 = () => {
   const location = useLocation();
   // get state from store
   const auth = useSelector((state) => state.auth);
+  const unseenMessageCount = useSelector((state) => state.message.count);
   // useEffect
   // show side navbar
   // const showSideNavBar = (id, id2) => {
@@ -427,6 +428,11 @@ const Header2 = () => {
                                     >
                                       <i className="fa fa-envelope"></i>
                                       &nbsp;&nbsp;&nbsp; Message
+                                      {unseenMessageCount !== undefined &&
+                                      unseenMessageCount !== null &&
+                                      unseenMessageCount > 0
+                                        ? " (" + unseenMessageCount + ")"
+                                        : ""}
                                     </MenuItem>
                                     <MenuItem
                                       onClick={handleClose}

@@ -58,7 +58,6 @@ export default function MessagePopup({
 
   useEffect(() => {
     socket.current.on("getmessage", (data) => {
-      console.log(data);
       setArrivalMessage({
         conversationId: data.conversationId,
         sender: data.senderId,
@@ -116,14 +115,15 @@ export default function MessagePopup({
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
-      const message = {
-        sender: auth.user && auth.user.id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
       const receiverId = await currentChat.members.find(
         (member) => member !== auth.user.id
       );
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        receiver: receiverId,
+        conversationId: currentChat._id,
+      };
       socket.current.emit("sendmessage", {
         conversationId: currentChat._id,
         senderId: auth.user.id,

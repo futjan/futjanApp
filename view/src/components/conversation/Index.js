@@ -158,20 +158,22 @@ const Index = (props) => {
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
-      const message = {
-        sender: auth.user && auth.user.id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
       const receiverId = currentChat.members.find(
         (member) => member !== auth.user.id
       );
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        receiver: receiverId,
+        conversationId: currentChat._id,
+      };
       socket.current.emit("sendmessage", {
         senderId: auth.user && auth.user.id,
         receiverId: receiverId,
         text: newMessage,
         conversationId: currentChat._id,
       });
+      socket.current.emit("msg-", receiverId);
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
