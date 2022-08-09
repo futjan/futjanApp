@@ -57,7 +57,7 @@ exports.markMessageRead = catchAsync(async (req, res, next) => {
     return next(new AppError("Message not found", 400, undefined));
   }
   res.status(200).json({
-    messages,
+    status: "success",
   });
 });
 // @route                               GET /api/v1/messages

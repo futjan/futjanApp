@@ -96,10 +96,6 @@ export const markMessageRead = (conversationId) => async (dispatch) => {
     dispatch(setLoading());
     const res = await axios.patch(`/api/v1/messages/${conversationId}`);
     if (res) {
-      dispatch({
-        type: Type.GET_MESSAGES,
-        payload: res.data.messages,
-      });
       dispatch(getUnseenMessaageCount(false));
     }
   } catch (err) {

@@ -101,7 +101,7 @@ export default function MessagePopup({
       setChats(messages.messages);
     }
   }, [messages, chats.length, currentChat, adId]);
-
+  console.log(messages.messages);
   useEffect(() => {
     if (currentChat && currentChat.ad && currentChat.ad.ad === adId) {
       dispatch(getMessages(currentChat && currentChat._id));
