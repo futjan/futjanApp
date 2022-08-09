@@ -1183,8 +1183,9 @@ const AddJobSeeker = (props) => {
               <div className="pull-right">
                 <input
                   type="button"
-                  value="Post my ad"
+                  value="Post Free Ad"
                   className="btn btn-primary"
+                  style={{ color: "#393f00", backgroundColor: "#f6e94d" }}
                   onClick={() => createJobFunction()}
                 />
               </div>

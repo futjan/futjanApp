@@ -1045,8 +1045,9 @@ const AddSurplusBusiness = (props) => {
                 {/* <Payment /> */}
                 <input
                   type="button"
-                  value="Post my ad"
+                  value="Post Free Ad"
                   className="btn btn-primary"
+                  style={{ color: "#393f00", backgroundColor: "#f6e94d" }}
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

@@ -16673,6 +16673,7 @@ checkout-cart .btn-block input {
 }
 .btn-primary:hover {
   background: #363f48 !important;
+  color: #ddd !important; 
 }
 
 .btn-danger {
