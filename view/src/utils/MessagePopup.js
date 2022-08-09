@@ -79,7 +79,7 @@ export default function MessagePopup({
       currentChat &&
       currentChat.ad &&
       currentChat.ad.ad === adId &&
-      setChats((prev) => [...prev, arrivalMessage]);
+      setChats([...chats, arrivalMessage]);
   }, [arrivalMessage, currentChat, adId]);
 
   // }, [currentChat]);
@@ -105,7 +105,7 @@ export default function MessagePopup({
   useEffect(() => {
     if (currentChat && currentChat.ad && currentChat.ad.ad === adId) {
       dispatch(getMessages(currentChat && currentChat._id));
-      setChats([...messages.messages]);
+      setChats(messages.messages);
     }
   }, [currentChat, adId]);
 
@@ -204,9 +204,10 @@ export default function MessagePopup({
                     We will reply you soon
                   </small>
                   {chats.length > 0
-                    ? chats.map((m) => (
+                    ? chats.map((m, i) => (
                         // <div className="sender-pop">
                         <div
+                          key={i}
                           className={
                             m.sender !== auth.user.id
                               ? "sender-pop"

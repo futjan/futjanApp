@@ -21,7 +21,7 @@ export const createMessage = (data, setNewMessage) => async (dispatch) => {
     }
   } catch (err) {
     dispatch(clearLoading());
-    if (err.response.data.message === "jwt expired") {
+    if (err.response && err.response.data.message === "jwt expired") {
       dispatch(logoutUser());
     }
     dispatch({
