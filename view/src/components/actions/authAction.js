@@ -86,40 +86,43 @@ export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
     type: CLEAR_ERRORS,
   });
   dispatch(setLoading());
-  axios.post("/api/v1/users/login", userData).then((res) => {
-    clearState();
+  axios
+    .post("/api/v1/users/login", userData)
+    .then((res) => {
+      clearState();
 
-    // Save to localStorage
-    const { token } = res.data;
-    // Set token to ls
-    localStorage.setItem("jwtToken", token);
-    // Set token to Auth header
-    setAuthToken(token);
-    // Decode token to get user data
-    const decoded = jwt_decode(token);
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
 
-    // Set current user
-    dispatch(setCurrentUser(decoded));
-    dispatch(clearLoading());
-    pushToIndex();
-    dispatch(setNotification("User login!", "success"));
-    setTimeout(() => {
-      dispatch(clearNotification());
-    }, 5000);
-  });
-  dispatch(getUnseenMessaageCount(true)).catch((err) => {
-    dispatch(clearLoading());
-    if (err.response.data.message === "jwt expired") {
-      dispatch(logoutUser());
-    }
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+      dispatch(clearLoading());
+      pushToIndex();
+      dispatch(setNotification("User login!", "success"));
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+      dispatch(getUnseenMessaageCount(true));
+    })
+    .catch((err) => {
+      dispatch(clearLoading());
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
 
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data,
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      });
+
+      // }
     });
-
-    // }
-  });
 };
 
 // @route                   POST /api/v1/users/login-with-google
