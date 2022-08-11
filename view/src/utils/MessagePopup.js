@@ -243,7 +243,7 @@ export default function MessagePopup({
             Object.getPrototypeOf(currentChat) === Object.prototype ? (
               <div className="conversation-pop">
                 <textarea
-                  rows={1}
+                  rows={2}
                   value={newMessage}
                   style={{ outline: "none" }}
                   onChange={(e) => setNewMessage(e.target.value)}

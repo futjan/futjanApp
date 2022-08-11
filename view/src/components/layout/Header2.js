@@ -279,8 +279,13 @@ const Header2 = () => {
                                     )
                                   }
                                 >
-                                  <i className="fa fa-thumb-tack header-icon"></i>
-                                  <strong>Post Ad</strong>
+                                  <i
+                                    className="fa fa-thumb-tack header-icon"
+                                    style={{ color: "rgb(246, 233, 77)" }}
+                                  ></i>
+                                  <strong style={{ color: "rgb(57, 63, 0)" }}>
+                                    Post Free Ad
+                                  </strong>
                                 </NavLink>
                               </li>
                               {auth.isAuthenticated !== true ? (
