@@ -842,7 +842,7 @@ const Index = () => {
                     ? jobSeeker.jobSeekers.map((candidate) => (
                         <Link
                           to={`/job-seeker-detail/${candidate._id}`}
-                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
+                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12"
                           key={candidate._id}
                         >
                           <div className="job-seeker-card">

@@ -272,6 +272,9 @@ const Header2 = () => {
                                   className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
+                                  style={{
+                                    backgroundColor: "rgb(246, 233, 77)",
+                                  }}
                                   onClick={() =>
                                     closeSideNavBar(
                                       "megamenu-wrapper-2",
@@ -281,7 +284,7 @@ const Header2 = () => {
                                 >
                                   <i
                                     className="fa fa-thumb-tack header-icon"
-                                    style={{ color: "rgb(246, 233, 77)" }}
+                                    style={{ color: "rgb(57, 63, 0)" }}
                                   ></i>
                                   <strong style={{ color: "rgb(57, 63, 0)" }}>
                                     Post Free Ad

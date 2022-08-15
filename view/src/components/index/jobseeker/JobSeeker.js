@@ -32,7 +32,7 @@ const JobSeeker = () => {
               <div className="modcontent">
                 <div>
                   {jobSeeker.loading === true ? (
-                    <div className="d-block overflow-hidden">
+                    <div className="d-block overflow-hidden ">
                       {["", "", "", "", "", "", "", ""].map((item, i) => (
                         <div
                           className="col-lg-3 col-md-4 col-sm-4 col-xs-12 p-3 justify-content-center d-flex align-items-center"
@@ -47,103 +47,106 @@ const JobSeeker = () => {
                       <h5>0 Job Seeker found</h5>
                     </div>
                   ) : null}
-                  {jobSeeker.jobSeekers.length > 0
-                    ? jobSeeker.jobSeekers.map((candidate) => (
-                        <div
-                          className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12"
-                          key={candidate._id}
-                        >
-                          <div className="job-seeker-card">
-                            <div
-                              style={{ marginBottom: "10px" }}
-                              className="job-seeker-card-img-container"
-                            >
-                              {candidate.images ? (
-                                <LazyLoadImage
-                                  alt={"user"}
-                                  effect="blur"
-                                  src={fileURL(candidate.images)}
-                                  height="70px"
-                                  width="70px"
-                                  style={{ borderRadius: "50%" }}
-                                />
-                              ) : (
-                                <img
-                                  src={defaultUser}
-                                  alt="user"
-                                  width="70"
-                                  style={{ borderRadius: "50%" }}
-                                />
-                              )}
-                            </div>
-                            <div
-                              className="job-seeker-card-name-container"
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <p className="job-seeker-card-name">
-                                {candidate.name &&
-                                  capitalizeFirstLetter(candidate.name)}
-                              </p>
-                              <p className="job-seeker-card-jobtitle">
-                                {" "}
-                                {candidate.title &&
-                                  capitalizeFirstLetter(candidate.title)}
-                              </p>
-                            </div>
-                            <div className="job-seeker-country-container">
-                              <div>
-                                <i className="fa fa-map-marker"></i>
-                                <span>
-                                  {candidate.city &&
-                                    capitalizeFirstLetter(candidate.city)}
-                                </span>
-                              </div>
-                              <div>
-                                <i className="fa fa-money"></i>{" "}
-                                <span>
-                                  {candidate && currency.symbol}{" "}
-                                  {candidate.currency === currency.symbol
-                                    ? candidate &&
-                                      candidate.rate &&
-                                      candidate.rate.toFixed(2)
-                                    : (
-                                        candidate &&
-                                        candidate.rate * currency.rate
-                                      ).toFixed(2)}
-                                  / {candidate.salaryType}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="job-seeker-skills-container">
-                              {candidate.skills &&
-                                candidate.skills.map((skill) => (
-                                  <span
-                                    className="job-seeker-skill-span"
-                                    key={skill}
-                                  >
-                                    {skill && skill.length > 7
-                                      ? skill.substring(0, 6) + ".."
-                                      : capitalizeFirstLetter(skill)}
-                                  </span>
-                                ))}
-                            </div>
-                            <div style={{ width: "100%" }}>
-                              <Link
-                                className="job-seeker-view-profile"
-                                to={`/job-seeker-detail/${candidate._id}`}
+                  <div className="products-list grid row number-col-3 so-filter-gird job-seekers">
+                    {jobSeeker.jobSeekers.length > 0
+                      ? jobSeeker.jobSeekers.map((candidate) => (
+                          <div
+                            // className="ltabs-item col-lg-3 col-md-4 col-sm-4 col-xs-12"
+                            className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                            key={candidate._id}
+                          >
+                            <div className="job-seeker-card">
+                              <div
+                                style={{ marginBottom: "10px" }}
+                                className="job-seeker-card-img-container"
                               >
-                                view profile
-                              </Link>
+                                {candidate.images ? (
+                                  <LazyLoadImage
+                                    alt={"user"}
+                                    effect="blur"
+                                    src={fileURL(candidate.images)}
+                                    height="70px"
+                                    width="70px"
+                                    style={{ borderRadius: "50%" }}
+                                  />
+                                ) : (
+                                  <img
+                                    src={defaultUser}
+                                    alt="user"
+                                    width="70"
+                                    style={{ borderRadius: "50%" }}
+                                  />
+                                )}
+                              </div>
+                              <div
+                                className="job-seeker-card-name-container"
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <p className="job-seeker-card-name">
+                                  {candidate.name &&
+                                    capitalizeFirstLetter(candidate.name)}
+                                </p>
+                                <p className="job-seeker-card-jobtitle">
+                                  {" "}
+                                  {candidate.title &&
+                                    capitalizeFirstLetter(candidate.title)}
+                                </p>
+                              </div>
+                              <div className="job-seeker-country-container">
+                                <div>
+                                  <i className="fa fa-map-marker"></i>
+                                  <span>
+                                    {candidate.city &&
+                                      capitalizeFirstLetter(candidate.city)}
+                                  </span>
+                                </div>
+                                <div>
+                                  <i className="fa fa-money"></i>{" "}
+                                  <span>
+                                    {candidate && currency.symbol}{" "}
+                                    {candidate.currency === currency.symbol
+                                      ? candidate &&
+                                        candidate.rate &&
+                                        candidate.rate.toFixed(2)
+                                      : (
+                                          candidate &&
+                                          candidate.rate * currency.rate
+                                        ).toFixed(2)}
+                                    / {candidate.salaryType}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="job-seeker-skills-container">
+                                {candidate.skills &&
+                                  candidate.skills.map((skill) => (
+                                    <span
+                                      className="job-seeker-skill-span"
+                                      key={skill}
+                                    >
+                                      {skill && skill.length > 7
+                                        ? skill.substring(0, 6) + ".."
+                                        : capitalizeFirstLetter(skill)}
+                                    </span>
+                                  ))}
+                              </div>
+                              <div style={{ width: "100%" }}>
+                                <Link
+                                  className="job-seeker-view-profile"
+                                  to={`/job-seeker-detail/${candidate._id}`}
+                                >
+                                  view profile
+                                </Link>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))
-                    : null}
+                        ))
+                      : null}
+                  </div>
                 </div>
               </div>
             </div>
