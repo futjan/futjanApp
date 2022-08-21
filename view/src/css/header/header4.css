@@ -1091,7 +1091,7 @@ strong {
   position: relative;
   top: 7px;
   font-size: 12px !important;
-  text-transform: capitalize;
+  text-transform: none !important;
 }
 .typeheader-4
   .megamenu-style-dev
