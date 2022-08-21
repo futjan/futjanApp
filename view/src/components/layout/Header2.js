@@ -284,14 +284,15 @@ const Header2 = () => {
                                     )
                                   }
                                 >
-                                  <i
+                                  {/* <i
                                     className="fa fa-thumb-tack header-icon"
                                     style={{ color: "rgb(57, 63, 0)" }}
-                                  ></i>
+                                  ></i> */}
 
                                   <strong
                                     style={{
                                       color: "rgb(57, 63, 0)",
+                                      top: 0,
                                     }}
                                   >
                                     Post free ad
