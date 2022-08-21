@@ -274,6 +274,7 @@ const Header2 = () => {
                                   state={{ active: "ADD" }}
                                   style={{
                                     backgroundColor: "rgb(246, 233, 77)",
+
                                     border: "1px solid #3b5998",
                                   }}
                                   onClick={() =>
@@ -287,6 +288,7 @@ const Header2 = () => {
                                     className="fa fa-thumb-tack header-icon"
                                     style={{ color: "rgb(57, 63, 0)" }}
                                   ></i>
+
                                   <strong
                                     style={{
                                       color: "rgb(57, 63, 0)",
