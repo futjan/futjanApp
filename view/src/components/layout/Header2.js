@@ -47,6 +47,7 @@ const Header2 = () => {
   const location = useLocation();
   // get state from store
   const auth = useSelector((state) => state.auth);
+  const unseenMessageCount = useSelector((state) => state.message.count);
   // useEffect
   // show side navbar
   // const showSideNavBar = (id, id2) => {
@@ -112,11 +113,11 @@ const Header2 = () => {
                 })
               }
             >
-              <MenuItem value="GBP">
-                <img src={ukFlag} width="20" alt="gbp" />
-              </MenuItem>
               <MenuItem value="INR">
                 <img src={indianFlag} width="20" alt="inr" />
+              </MenuItem>
+              <MenuItem value="GBP">
+                <img src={ukFlag} width="20" alt="gbp" />
               </MenuItem>
             </Select>
           </li>
@@ -271,6 +272,10 @@ const Header2 = () => {
                                   className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
+                                  style={{
+                                    backgroundColor: "rgb(246, 233, 77)",
+                                    border: "1px solid #3b5998",
+                                  }}
                                   onClick={() =>
                                     closeSideNavBar(
                                       "megamenu-wrapper-2",
@@ -278,8 +283,17 @@ const Header2 = () => {
                                     )
                                   }
                                 >
-                                  <i className="fa fa-thumb-tack header-icon"></i>
-                                  <strong>Post Ad</strong>
+                                  <i
+                                    className="fa fa-thumb-tack header-icon"
+                                    style={{ color: "rgb(57, 63, 0)" }}
+                                  ></i>
+                                  <strong
+                                    style={{
+                                      color: "rgb(57, 63, 0)",
+                                    }}
+                                  >
+                                    Post free ad
+                                  </strong>
                                 </NavLink>
                               </li>
                               {auth.isAuthenticated !== true ? (
@@ -427,6 +441,19 @@ const Header2 = () => {
                                     >
                                       <i className="fa fa-envelope"></i>
                                       &nbsp;&nbsp;&nbsp; Message
+                                      {unseenMessageCount !== undefined &&
+                                      unseenMessageCount !== null &&
+                                      unseenMessageCount > 0
+                                        ? " (" + unseenMessageCount + ")"
+                                        : ""}
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={handleClose}
+                                      component={Link}
+                                      to="/help-center"
+                                    >
+                                      <i className="fa fa-question-circle"></i>
+                                      &nbsp;&nbsp;&nbsp; Help center
                                     </MenuItem>
                                     <MenuItem
                                       onClick={() => {

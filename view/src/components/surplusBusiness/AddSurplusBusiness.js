@@ -74,6 +74,24 @@ const AddSurplusBusiness = (props) => {
   // useEffect save draft run
   useEffect(() => {
     if (draftAd && draftAd.draft_id) {
+      if (draftAd && draftAd.country)
+        setCountry({
+          name: draftAd && draftAd.country,
+          isoCode: "",
+          phonecode: "",
+        });
+      if (draftAd && draftAd.county)
+        setCounty({
+          name: draftAd && draftAd.county,
+
+          isoCode: "",
+        });
+      if (draftAd && draftAd.city)
+        setCity({
+          name: draftAd && draftAd.city,
+          stateCode: "",
+          countryCode: "",
+        });
       if (draftAd && draftAd.draft_id) setDraft_id(draftAd && draftAd.draft_id);
       if (draftAd && draftAd.title) setName(draftAd && draftAd.title);
       if (draftAd && draftAd.contact) setContact(draftAd && draftAd.contact);
@@ -1045,8 +1063,9 @@ const AddSurplusBusiness = (props) => {
                 {/* <Payment /> */}
                 <input
                   type="button"
-                  value="Post my ad"
+                  value="Post Free Ad"
                   className="btn btn-primary"
+                  style={{ color: "#393f00", backgroundColor: "#f6e94d" }}
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

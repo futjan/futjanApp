@@ -8,19 +8,15 @@ const APIFeature = require("../utils/apiFeatures");
 // @desc                    create jobseekers
 // @access                  Private
 exports.create = catchAsync(async (req, res, next) => {
-  let photo = "";
-  let cv = "";
-  if (req.files.length > 0) {
-    for (let i = 0; i < req.files.length; i++) {
-      if (i == 0) {
-        cv = req.files[i].key;
-      } else {
-        photo = req.files[i].key;
-      }
+  req.body = await JSON.parse(req.body.job);
+
+  for (let i = 0; i < req.files.length; i++) {
+    if (req.files[i].fileType === "cv") {
+      req.body.cv = req.files[i].key;
+    } else if (req.files[i].fileType === "photo") {
+      req.body.images = req.files[i].key;
     }
   }
-
-  req.body = JSON.parse(req.body.job);
 
   const jobSeeker = await JobSeeker.create({
     user: req.user._id.toString(),
@@ -44,11 +40,11 @@ exports.create = catchAsync(async (req, res, next) => {
     city: req.body.city,
     salaryType: req.body.salaryType,
     promoteType: req.body.promoteType,
-    images: photo,
+    images: req.body.images,
     currency: req.body.currency,
     address: req.body.address,
     ad_id: req.body.ad_id,
-    cv,
+    cv: req.body.cv,
   });
 
   // check job
@@ -178,42 +174,44 @@ exports.jobSeekerActivate = catchAsync(async (req, res, next) => {
 // @desc                    update job seeker
 // @access                  Private
 exports.updateJobSeeker = catchAsync(async (req, res, next) => {
-  const jobSeeker = JSON.parse(req.body.job);
-  let profileName = "";
-  let cvName = "";
-  if (
-    jobSeeker &&
-    jobSeeker.profile &&
-    jobSeeker.profile.length > 0 &&
-    jobSeeker &&
-    jobSeeker.cv &&
-    jobSeeker.cv.length > 0 &&
-    req.files.length > 0
-  ) {
-    jobSeeker.images = req.files[1].key;
-    jobSeeker.cv = req.files[0].key;
-  }
-  if (
-    jobSeeker &&
-    jobSeeker.profile &&
-    jobSeeker.profile.length > 0 &&
-    req.files.length > 0
-  ) {
-    jobSeeker.images = req.files[0].key;
-  }
-  if (
-    jobSeeker &&
-    jobSeeker.cv &&
-    jobSeeker.cv.length > 0 &&
-    req.files.length > 0
-  ) {
-    jobSeeker.cv = req.files[0].key;
+  const jobSeeker = await JSON.parse(req.body.job);
+
+  for (let i = 0; i < req.files.length; i++) {
+    if (req.files[i].fileType === "cv") {
+      jobSeeker.cv = req.files[i].key;
+    } else if (req.files[i].fileType === "photo") {
+      jobSeeker.images = req.files[i].key;
+    }
   }
 
-  // console.log(jobSeeker);
   const jobSeeker1 = await JobSeeker.findByIdAndUpdate(
     req.params.id,
-    jobSeeker,
+    {
+      title: jobSeeker.title,
+      description: jobSeeker.description,
+      category: jobSeeker.category,
+      subCategory: jobSeeker.subCategory,
+      name: jobSeeker.name,
+      gender: jobSeeker.gender,
+      dob: jobSeeker.dob,
+      age: jobSeeker.age,
+      experience: jobSeeker.experience,
+      qualification: jobSeeker.qualification,
+      languages: jobSeeker.languages,
+      email: jobSeeker.email,
+      contact: jobSeeker.contact,
+      skills: jobSeeker.skills,
+      rate: jobSeeker.rate,
+      country: jobSeeker.country,
+      county: jobSeeker.county,
+      city: jobSeeker.city,
+      salaryType: jobSeeker.salaryType,
+      promoteType: jobSeeker.promoteType,
+      images: jobSeeker.images,
+      currency: jobSeeker.currency,
+      address: jobSeeker.address,
+      cv: jobSeeker.cv,
+    },
     {
       new: true,
     }

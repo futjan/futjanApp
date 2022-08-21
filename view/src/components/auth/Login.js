@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../utils/Loader";
+import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import NewCustomer from "./NewCustomer";
 // action
@@ -27,6 +28,16 @@ const Login = (props) => {
     setErrors(errorStore);
   }, [errorStore]);
 
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        client_id:
+          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
   // login function
   const login_Func = (e) => {
     e.preventDefault();

@@ -6,10 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 import Button from "@mui/material/Button";
-import { io } from "socket.io-client";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import socketio from "../components/socket/socketIo";
 import {
   getConversation,
   createSingleConversation,
@@ -17,6 +16,7 @@ import {
 import {
   getMessages,
   createMessage,
+  clearMessages,
 } from "../components/actions/messageAction";
 
 export default function MessagePopup({
@@ -36,6 +36,7 @@ export default function MessagePopup({
   const dispatch = useDispatch();
   // useEffect
   useEffect(() => {
+    dispatch(clearMessages());
     if (receiverId && adId) {
       dispatch(getConversation(receiverId, adId));
     }
@@ -48,16 +49,15 @@ export default function MessagePopup({
   // socket io
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
-    // socket.current = io("http://localhost:8000");
-    return () => {
-      socket.current.close();
-    };
+    // socket.current = io("http://www.futjan.com");
+    socket.current = socketio;
+    // return () => {
+    //   socket.current.close();
+    // };
   }, [auth.user]);
 
   useEffect(() => {
     socket.current.on("getmessage", (data) => {
-      console.log(data);
       setArrivalMessage({
         conversationId: data.conversationId,
         sender: data.senderId,
@@ -79,7 +79,7 @@ export default function MessagePopup({
       currentChat &&
       currentChat.ad &&
       currentChat.ad.ad === adId &&
-      setChats((prev) => [...prev, arrivalMessage]);
+      setChats([...chats, arrivalMessage]);
   }, [arrivalMessage, currentChat, adId]);
 
   // }, [currentChat]);
@@ -101,11 +101,11 @@ export default function MessagePopup({
       setChats(messages.messages);
     }
   }, [messages, chats.length, currentChat, adId]);
-
+  console.log(messages.messages);
   useEffect(() => {
     if (currentChat && currentChat.ad && currentChat.ad.ad === adId) {
       dispatch(getMessages(currentChat && currentChat._id));
-      setChats([...messages.messages]);
+      setChats(messages.messages);
     }
   }, [currentChat, adId]);
 
@@ -115,20 +115,22 @@ export default function MessagePopup({
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
-      const message = {
-        sender: auth.user && auth.user.id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
       const receiverId = await currentChat.members.find(
         (member) => member !== auth.user.id
       );
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        receiver: receiverId,
+        conversationId: currentChat._id,
+      };
       socket.current.emit("sendmessage", {
         conversationId: currentChat._id,
         senderId: auth.user.id,
         receiverId: receiverId,
         text: newMessage,
       });
+      socket.current.emit("msg-", receiverId);
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));
@@ -146,9 +148,11 @@ export default function MessagePopup({
         adType: adType,
       },
     };
-    dispatch(createSingleConversation(data));
+    dispatch(createSingleConversation(data, startConversationSocket));
   };
-
+  const startConversationSocket = () => {
+    socket.current.emit("start-conversation", receiverId);
+  };
   const scrollRef = useRef();
 
   // scroll
@@ -200,9 +204,10 @@ export default function MessagePopup({
                     We will reply you soon
                   </small>
                   {chats.length > 0
-                    ? chats.map((m) => (
+                    ? chats.map((m, i) => (
                         // <div className="sender-pop">
                         <div
+                          key={i}
                           className={
                             m.sender !== auth.user.id
                               ? "sender-pop"
@@ -238,7 +243,7 @@ export default function MessagePopup({
             Object.getPrototypeOf(currentChat) === Object.prototype ? (
               <div className="conversation-pop">
                 <textarea
-                  rows={1}
+                  rows={2}
                   value={newMessage}
                   style={{ outline: "none" }}
                   onChange={(e) => setNewMessage(e.target.value)}

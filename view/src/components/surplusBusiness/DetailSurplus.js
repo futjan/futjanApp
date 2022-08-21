@@ -151,8 +151,10 @@ function DetailSurplus() {
               receiverId={
                 surplusFromStore.surplus && surplusFromStore.surplus.user
               }
-              adId={surplusFromStore.surplus._id}
-              adType={`${surplusFromStore.surplus.adType}s`}
+              adId={surplusFromStore.surplus && surplusFromStore.surplus._id}
+              adType={
+                surplusFromStore.surplus && surplusFromStore.surplus.adType
+              }
               image={
                 surplusFromStore.surplus.images &&
                 surplusFromStore.surplus.images[0]

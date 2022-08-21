@@ -1076,7 +1076,7 @@ input[type="number"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px 0px;
 }
 .products-list .product-layout .job-container {
   width: 350px;
@@ -1236,7 +1236,7 @@ input[type="number"] {
 /* index page surplus section */
 /* index page surplus section */
 .module.home-lt1 .ltabs-item {
-  padding: 10px;
+  padding: 0px;
 }
 .module.home-lt1 .ltabs-item .product-item-container {
   overflow: hidden;
@@ -1369,11 +1369,11 @@ input[type="number"] {
   }
   .typeheader-4 #sosearchpro.so-search .autosearch-input {
     border-width: 1px 1px 1px 1px !important;
-    border-radius: 4px;
+    border-radius: 0px;
   }
   .typeheader-4 #sosearchpro.so-search .select_category {
     border-width: 1px 1px 1px 1px;
-    border-radius: 4px 4px 4px 4px !important;
+    border-radius: 0px !important;
   }
   .search {
     grid-template-areas:

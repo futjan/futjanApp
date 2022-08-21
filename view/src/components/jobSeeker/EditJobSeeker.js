@@ -310,6 +310,16 @@ const EditJobSeeker = (props) => {
   //       link.parentNode.removeChild(link);
   //     });
   // };
+
+  // download file
+  const donwloadCV = (fileName) => {
+    var element = document.createElement("a");
+    element.setAttribute("href", fileURL(fileName));
+    element.setAttribute("download", fileName);
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
   return (
     // <!-- Main Container  -->
     <div
@@ -1100,6 +1110,30 @@ const EditJobSeeker = (props) => {
                   )}
                 </div>
               </div>
+              {jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv ? (
+                <div className="form-group ">
+                  <label
+                    className="col-sm-2 control-label"
+                    htmlFor="input-website"
+                  >
+                    Uploaded CV
+                  </label>
+                  <div className="col-sm-10">
+                    <p
+                      style={{
+                        margin: "0",
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                        color: "rgb(59, 89, 152)",
+                        fontSize: "17px",
+                      }}
+                      onClick={() => donwloadCV(jobSeeker.jobSeeker.cv)}
+                    >
+                      Download cv
+                    </p>
+                  </div>
+                </div>
+              ) : null}
               {/* {jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv && (
                 <div className="form-group ">
                   <label

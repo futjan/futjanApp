@@ -10,10 +10,11 @@ exports.create = catchAsync(async (req, res, next) => {
     conversationId: req.body.conversationId,
     sender: req.user._id,
     text: req.body.text,
+    receiver: req.body.receiver,
   });
 
   if (!message) {
-    return new AppError("message not send", 400, undefined);
+    return next(new AppError("message not send", 400, undefined));
   }
 
   res.status(201).json({
@@ -36,5 +37,43 @@ exports.getMessages = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     messages,
+  });
+});
+
+// @route                             PATCH /api/v1/messages/:conversationId
+// @desc                              Set message status to read
+// @access                            Private
+exports.markMessageRead = catchAsync(async (req, res, next) => {
+  const messages = await Message.updateMany(
+    {
+      conversationId: req.params.conversationId,
+      status: "unseen",
+      receiver: req.user._id,
+    },
+    { status: "seen" },
+    { multi: true, new: true }
+  );
+  if (!messages) {
+    return next(new AppError("Message not found", 400, undefined));
+  }
+  res.status(200).json({
+    status: "success",
+  });
+});
+// @route                               GET /api/v1/messages
+// @desc                                get unseen message count
+// @access                              Private
+exports.getUnseenMessageCount = catchAsync(async (req, res, next) => {
+  const count = await Message.find({
+    status: "unseen",
+    receiver: req.user._id,
+  }).countDocuments();
+
+  if (!count && typeof count !== "number") {
+    return next(new AppError("messages not found", 400, undefined));
+  }
+
+  res.status(200).json({
+    count,
   });
 });

@@ -207,7 +207,7 @@ const Footer = () => {
                     <h3 className="title-footer">Futjan</h3>
                     <ul className="links">
                       <li>
-                        <Link to="/">Help Center</Link>
+                        <Link to="/help-center">Help Center</Link>
                       </li>
 
                       <li>

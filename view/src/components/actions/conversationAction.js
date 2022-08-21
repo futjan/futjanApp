@@ -84,28 +84,30 @@ export const getConversation = (reveiverId, adId) => async (dispatch) => {
 // @route                               POST /api/v1/conversations/single
 // @desc                                create conversation
 // @access                              private
-export const createSingleConversation = (data) => async (dispatch) => {
-  try {
-    dispatch(setLoading());
-    const res = await axios.post("/api/v1/conversations", data);
+export const createSingleConversation =
+  (data, startConversationSocket) => async (dispatch) => {
+    try {
+      dispatch(setLoading());
+      const res = await axios.post("/api/v1/conversations", data);
 
-    if (res) {
+      if (res) {
+        dispatch({
+          type: Type.CREATE_CONVERSATION_SINGLE,
+          payload: res.data.conversation,
+        });
+        startConversationSocket();
+      }
+    } catch (err) {
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+      dispatch(clearLoading());
       dispatch({
-        type: Type.CREATE_CONVERSATION_SINGLE,
-        payload: res.data.conversation,
+        type: Type.GET_ERRORS,
+        payload: err.response.data,
       });
     }
-  } catch (err) {
-    if (err.response.data.message === "jwt expired") {
-      dispatch(logoutUser());
-    }
-    dispatch(clearLoading());
-    dispatch({
-      type: Type.GET_ERRORS,
-      payload: err.response.data,
-    });
-  }
-};
+  };
 
 // set loading
 const setLoading = () => {

@@ -2,6 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { setNotification, clearNotification } from "./notificationAction";
+import { getUnseenMessaageCount } from "./messageAction";
 
 import {
   GET_ERRORS,
@@ -104,10 +105,10 @@ export const loginUser = (userData, pushToIndex, clearState) => (dispatch) => {
       dispatch(clearLoading());
       pushToIndex();
       dispatch(setNotification("User login!", "success"));
-
       setTimeout(() => {
         dispatch(clearNotification());
       }, 5000);
+      dispatch(getUnseenMessaageCount(true));
     })
     .catch((err) => {
       dispatch(clearLoading());
@@ -133,7 +134,6 @@ export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
     const res = await axios.post("/api/v1/users/login-with-google", data);
 
     if (res) {
-      console.log(res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -148,10 +148,10 @@ export const loginWithGoogle = (data, pushToIndex) => async (dispatch) => {
       dispatch(clearLoading());
       pushToIndex();
       dispatch(setNotification("User login!", "success"));
-
       setTimeout(() => {
         dispatch(clearNotification());
       }, 5000);
+      dispatch(getUnseenMessaageCount(true));
     }
   } catch (err) {
     if (err) {
@@ -209,7 +209,7 @@ export const forgetPassword = (data, clearState) => (dispatch) => {
 
         dispatch(
           setNotification(
-            "Password reset mail has been send to you mail",
+            `Password reset mail has been send to you (${data.email}). Please check your Junk/Spam mail too`,
             "success"
           )
         );

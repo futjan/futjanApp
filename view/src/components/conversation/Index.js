@@ -15,6 +15,7 @@ import { getConversations } from "../actions/conversationAction";
 import { getMessages, createMessage } from "../actions/messageAction";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import socketio from "../socket/socketIo";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -95,11 +96,11 @@ const Index = (props) => {
   // socket io setup
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://www.futjan.com");
-    // socket.current = io("http://localhost:8000");
-    return () => {
-      socket.current.close();
-    };
+    // socket.current = io("http://www.futjan.com");
+    socket.current = socketio;
+    // return () => {
+    //   socket.current.close();
+    // };
   }, [auth.user]);
 
   useEffect(() => {
@@ -113,6 +114,16 @@ const Index = (props) => {
     });
     return () => {
       socket.current.off("getmessage");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    socket.current.on("start-converstaion__", () => {
+      dispatch(getConversations());
+    });
+
+    return () => {
+      socket.current.off("start-converstaion__");
     };
   }, [socket]);
 
@@ -147,20 +158,22 @@ const Index = (props) => {
 
   const handleSubmit = async (e) => {
     if (newMessage.length > 0) {
-      const message = {
-        sender: auth.user && auth.user.id,
-        text: newMessage,
-        conversationId: currentChat._id,
-      };
       const receiverId = currentChat.members.find(
         (member) => member !== auth.user.id
       );
+      const message = {
+        sender: auth.user && auth.user.id,
+        text: newMessage,
+        receiver: receiverId,
+        conversationId: currentChat._id,
+      };
       socket.current.emit("sendmessage", {
         senderId: auth.user && auth.user.id,
         receiverId: receiverId,
         text: newMessage,
         conversationId: currentChat._id,
       });
+      socket.current.emit("msg-", receiverId);
 
       setChats([...chats, message]);
       dispatch(createMessage(message, setNewMessage));

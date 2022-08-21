@@ -8,12 +8,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../actions/authAction";
 
 const SideBar = ({ state, setState, isAuthenticated }) => {
   //initialize hook
   const dispatch = useDispatch();
+  const unseenMessageCount = useSelector((state) => state.message.count);
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -48,16 +49,40 @@ const SideBar = ({ state, setState, isAuthenticated }) => {
                 icon: <i className="fa fa-archive"></i>,
               },
               {
+                title: "My Favourite",
+                pathname: "/user-panel",
+                state: "FAVOURITE",
+                icon: <i className="fa fa-heart"></i>,
+              },
+              {
+                title: "My Alert",
+                pathname: "/user-panel",
+                state: "ALERT",
+                icon: <i className="fa fa-bell"></i>,
+              },
+              {
                 title: "Post Ad",
                 pathname: "/user-panel",
                 state: "ADD",
                 icon: <i className="fa fa-thumb-tack"></i>,
               },
               {
-                title: "Message",
+                title: `Message ${
+                  unseenMessageCount !== undefined &&
+                  unseenMessageCount !== null &&
+                  unseenMessageCount > 0
+                    ? " (" + unseenMessageCount + ")"
+                    : ""
+                }`,
                 pathname: "/user-panel",
                 state: "MESSAGE",
                 icon: <i className="fa fa-envelope"></i>,
+              },
+              {
+                title: "Help Center",
+                pathname: "/help-center",
+                state: "help",
+                icon: <i className="fa fa-question-circle"></i>,
               },
               {
                 title: "Logout",

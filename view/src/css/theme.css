@@ -7211,7 +7211,7 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   width: 100%;
   text-align: left;
   clear: both;
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 0px 20px;
   position: relative;
 }
 .products-list.list-masonry
@@ -14063,7 +14063,9 @@ div#content .col-lg-2:nth-child(6n + 1),
 }
 .module.home-lt1 h2.modtitle {
   background: #3b5998;
-  padding: 10px 20px 10px 50px;
+  padding: 10px 10px 10px 10px;
+  width: 135px;
+  text-align: center;
 }
 .module.home-lt1 h2.modtitle:before {
   background-position: -17px -56px;
@@ -14076,9 +14078,6 @@ div#content .col-lg-2:nth-child(6n + 1),
   margin-bottom: 0px !important;
 }
 /* .module.home-lt1 .so-listing-tabs .ltabs-item .item-inner { */
-.module.home-lt1 .item-inner {
-  /* margin: 0 15px; */
-}
 /* .module.home-lt1 .so-listing-tabs .ltabs-wrap .ltabs-tabs-container { */
 .module.home-lt1 .ltabs-tabs-container {
   margin: 0;
@@ -16673,6 +16672,7 @@ checkout-cart .btn-block input {
 }
 .btn-primary:hover {
   background: #363f48 !important;
+  color: #ddd !important;
 }
 
 .btn-danger {

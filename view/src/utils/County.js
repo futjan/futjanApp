@@ -11,10 +11,10 @@ const County = (props) => {
   useEffect(() => {
     if (props && props.country && props.country.name) {
       setOptions([
-        {
-          name: "",
-          isoCode: "",
-        },
+        // {
+        //   name: "",
+        //   isoCode: "",
+        // },
         ...State.getStatesOfCountry(props.country && props.country.isoCode).map(
           (stat) => {
             return {

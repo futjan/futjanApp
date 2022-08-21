@@ -15,6 +15,11 @@ const multerFilter = (req, file, cb) => {
     file.mimetype.startsWith("image") ||
     file.mimetype.startsWith("application/pdf")
   ) {
+    if (file.mimetype.startsWith("image")) {
+      file.fileType = "photo";
+    } else {
+      file.fileType = "cv";
+    }
     cb(null, true);
   } else {
     cb(new AppError("Not an image! Please upload only images.", 400), false);

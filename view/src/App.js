@@ -1,14 +1,15 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { gapi } from "gapi-script";
+
 import Preloader from "./utils/preLoader";
 import jwt_decode from "jwt-decode";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import socketio from "./components/socket/socketIo";
 // import dotenv from "dotenv";
 // component
 import Header2 from "./components/layout/Header2";
@@ -33,6 +34,11 @@ import Grow from "@mui/material/Grow";
 
 import { setCurrentUser, logoutUser } from "./components/actions/authAction";
 import { getFavourites } from "./components/actions/favouriteAction";
+import {
+  setNotification,
+  clearNotification,
+} from "./components/actions/notificationAction";
+import { getUnseenMessaageCount } from "./components/actions/messageAction";
 import store from "./store";
 
 // lazy loading component
@@ -40,6 +46,7 @@ const Index = lazy(() => import("./components//index/index"));
 const Login = lazy(() => import("./components/auth/Login"));
 const Register = lazy(() => import("./components/auth/Register"));
 const Aboutus = lazy(() => import("./components/about us/Aboutus"));
+const Help = lazy(() => import("./components/help center/index"));
 const Contactus = lazy(() => import("./components/contact us/Contactus"));
 const Job = lazy(() => import("./components/job/index"));
 const JobDetail = lazy(() => import("./components/job/JobDetail"));
@@ -85,26 +92,46 @@ function GrowTransition(props) {
 
 // dotenv.config();
 const App = (props) => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        client_id:
-          "532893321001-gefd5pi11rf25s8tkqd5n7er3phqcuu6.apps.googleusercontent.com",
-        scope: "",
-      });
-    }
-    gapi.load("client:auth2", start);
-  }, []);
-
+  const [tab, setTab] = useState("ADD");
+  const { pathname, state } = useLocation();
+  const notification = useSelector((state) => state.notification);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const socket = React.useRef();
+  useEffect(() => {
+    socket.current = socketio;
+  }, [auth.user]);
+
+  useEffect(() => {
+    socket.current.emit("adduser", auth.user && auth.user.id);
+  }, [auth.user && auth.user.id]);
+
   useEffect(() => {
     if (auth.isAuthenticated) {
       dispatch(getFavourites());
     }
   }, []);
-  const notification = useSelector((state) => state.notification);
-  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    socket.current.on("msg-notify", () => {
+      dispatch(setNotification("You receive a message", "success"));
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+      dispatch(getUnseenMessaageCount(false));
+    });
+    return () => {
+      socket.current.off("msg-notify");
+    };
+  }, [socket]);
+  useEffect(() => {
+    if (pathname !== "/user-panel") {
+      setTab("ADD");
+    }
+  }, [pathname]);
+  useEffect(() => {
+    dispatch(getUnseenMessaageCount(true));
+  }, []);
 
   return (
     <div className="App">
@@ -126,7 +153,7 @@ const App = (props) => {
       >
         <div className="common-home res layout-4">
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
-            {notification && notification.type && (
+            {tab !== "MESSAGE" && notification && notification.type && (
               <Snackbar
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
                 open={notification.loading}
@@ -167,6 +194,42 @@ const App = (props) => {
                 </Alert>
               </Snackbar>
             )}
+            {/* {notification && notification.type && ( */}
+            {/* {tab !== "MESSAGE" && notification && notification.type ? (
+              <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={true}
+                TransitionComponent={GrowTransition}
+                sx={{
+                  boxShadow: 3,
+                  background: "#fff",
+                  borderRadius: "5px",
+                  minWidth: "300px",
+                }}
+              >
+                <Alert
+                  sx={{
+                    background: "#fff",
+                    width: "100%",
+                    fontSize: "15px",
+                    borderRadius: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  iconMapping={{
+                    success: (
+                      <CheckCircleOutlineIcon
+                        fontSize="medium"
+                        sx={{ width: "25px", height: "25px" }}
+                      />
+                    ),
+                  }}
+                  severity={notification.type}
+                >
+                  {notification.message}
+                </Alert>
+              </Snackbar>
+            ) : null} */}
 
             {pathname === "/adminpanel" ? null : <Header2 />}
 
@@ -194,6 +257,7 @@ const App = (props) => {
               />
 
               <Route path="/about-us" exact={true} element={<Aboutus />} />
+              <Route path="/help-center" exact={true} element={<Help />} />
               <Route path="/contact-us" exact={true} element={<Contactus />} />
 
               <Route path="/job" exact={true} element={<Job />} />
@@ -216,7 +280,7 @@ const App = (props) => {
                 <Route
                   path="/user-panel"
                   exact={true}
-                  element={<UserPanel />}
+                  element={<UserPanel tab={tab} setTab={setTab} />}
                 />
                 <Route
                   path="/user-panel/change-password"

@@ -78,6 +78,7 @@ const JobSeekerTable = (props) => {
               _id: cand._id,
               images: [cand.images],
               title: cand.name,
+              ad_id: cand.ad_id,
               category: cand.title,
               active: cand.active,
             };

@@ -235,7 +235,7 @@ export const getJobSeekerById = (id) => async (dispatch) => {
 // @access                  Private
 export const updateJobSeeker = (job, clearState) => async (dispatch) => {
   let formDate = new FormData();
-  console.log(job.files);
+
   job.files.forEach((file) => formDate.append("photo", file));
 
   formDate.append("job", JSON.stringify(job));

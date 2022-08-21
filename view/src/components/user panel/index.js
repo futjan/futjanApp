@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
 
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 import Preloader2 from "../../utils/Preloader2";
 // import AddSurplusBusiness from "../surplusBusiness/AddSurplusBusiness";
 
@@ -40,16 +41,17 @@ const Message = lazy(() => import("./Messages"));
 // import Favourite from "../favourite/Index"
 const Favourite = lazy(() => import("../favourite/Index"));
 
-const Index = (props) => {
+const Index = ({ tab, setTab }) => {
+  // console.log(props);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-  const [tab, setTab] = useState("ADD");
+  // const [tab, setTab] = useState("ADD");
   const [id, setId] = useState("");
   const [add, setAdd] = useState("surplus");
   const [title, setTitle] = useState("");
   const [adId, setAdId] = useState("");
   // initialize hooks
   const state = useLocation().state;
-
+  const unseenMessageCount = useSelector((state) => state.message.count);
   // useEffect
   useEffect(() => {
     if (state && state.active) {
@@ -93,7 +95,14 @@ const Index = (props) => {
                   >
                     <div className="tab">
                       <i className="fa fa-envelope"></i>
-                      <span>Messages</span>
+                      <span>
+                        Messages
+                        {unseenMessageCount !== undefined &&
+                        unseenMessageCount !== null &&
+                        unseenMessageCount > 0
+                          ? " (" + unseenMessageCount + ")"
+                          : ""}
+                      </span>
                     </div>
                   </li>
                   <li

@@ -86,6 +86,15 @@ const JobSeekerDetails = () => {
     }
   };
 
+  // download file
+  const donwloadCV = (fileName) => {
+    var element = document.createElement("a");
+    element.setAttribute("href", fileURL(fileName));
+    element.setAttribute("download", fileName);
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
   const favourites = useSelector((state) => state.favourite.favourites);
 
   return (
@@ -483,6 +492,53 @@ const JobSeekerDetails = () => {
                       )}
                     </div>
                   </div>
+                  {jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv ? (
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "15px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "rgb(103 135 254 / 20%)",
+                          padding: "15px 18px",
+                          borderRadius: "5px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <i
+                          className="fa fa-download"
+                          style={{ fontSize: "22px" }}
+                        ></i>
+                      </div>
+                      <div>
+                        <h4 style={{ margin: "0 0 2px 0" }}>CV</h4>
+                        {jobSeeker.loading === true ? (
+                          <Skeleton
+                            count={1}
+                            style={{ height: "18px", width: "150px" }}
+                          />
+                        ) : (
+                          <p
+                            style={{
+                              margin: "0",
+                              textDecoration: "underline",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => donwloadCV(jobSeeker.jobSeeker.cv)}
+                          >
+                            Download cv
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
                 {jobSeeker.loading !== true ? (
                   <>

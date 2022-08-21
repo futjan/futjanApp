@@ -58,15 +58,25 @@ io.on("connection", (socket) => {
   //send and get message
   socket.on("sendmessage", ({ senderId, receiverId, text, conversationId }) => {
     const user = getUser(receiverId);
-
-    console.log(text, "conversationId");
-    console.log(conversationId, "conversationId");
     if (user) {
       io.to(user.socketId).emit("getmessage", {
         conversationId,
         senderId,
         text,
       });
+    }
+  });
+  socket.on("msg-", (receiverId) => {
+    const user = getUser(receiverId);
+    if (user) {
+      io.to(user.socketId).emit("msg-notify", {});
+    }
+  });
+  // start conversation
+  socket.on("start-conversation", (receiverId) => {
+    const user = getUser(receiverId);
+    if (user) {
+      io.to(user.socketId).emit("start-converstaion__");
     }
   });
 
