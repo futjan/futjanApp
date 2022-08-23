@@ -16,7 +16,7 @@ const Slider1 = () => {
     >
       {[Slide1, Slide2, Slide3].map((item, index) => (
         <div
-          key={item._id}
+          key={index}
           className="slider-content"
           style={{
             background: `url(${item}) no-repeat center center`,

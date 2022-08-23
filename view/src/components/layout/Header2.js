@@ -38,13 +38,13 @@ const Header2 = () => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    dispatch(setCurrencyAction(currency));
-  }, [currency.code]);
-
   // initialize hooks
   const dispatch = useDispatch();
   const location = useLocation();
+  useEffect(() => {
+    dispatch(setCurrencyAction(currency));
+  }, [currency, dispatch]);
+
   // get state from store
   const auth = useSelector((state) => state.auth);
   const unseenMessageCount = useSelector((state) => state.message.count);
@@ -274,7 +274,7 @@ const Header2 = () => {
                                   state={{ active: "ADD" }}
                                   style={{
                                     backgroundColor: "rgb(246, 233, 77)",
-
+                                    padding: "10px 8px",
                                     border: "1px solid #3b5998",
                                   }}
                                   onClick={() =>
