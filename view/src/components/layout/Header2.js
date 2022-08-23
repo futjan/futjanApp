@@ -264,6 +264,11 @@ const Header2 = () => {
                               className="megamenu"
                               data-transition="slide"
                               data-animationtime="500"
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "end",
+                              }}
                             >
                               <li className="full-width menu-home with-sub-menu hover">
                                 <p className="close-menu"></p>
@@ -274,8 +279,9 @@ const Header2 = () => {
                                   state={{ active: "ADD" }}
                                   style={{
                                     backgroundColor: "rgb(246, 233, 77)",
-                                    padding: "10px 8px",
+                                    padding: "5px 8px",
                                     border: "1px solid #3b5998",
+                                    height: "38px",
                                   }}
                                   onClick={() =>
                                     closeSideNavBar(
