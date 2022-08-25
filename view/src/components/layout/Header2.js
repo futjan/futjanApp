@@ -267,20 +267,21 @@ const Header2 = () => {
                               style={{
                                 display: "flex",
                                 justifyContent: "center",
-                                alignItems: "end",
+                                alignItems: "center",
                               }}
                             >
                               <li className="full-width menu-home with-sub-menu hover">
                                 <p className="close-menu"></p>
-
                                 <NavLink
-                                  className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
+                                  className=" align-items-center justify-content-center d-flex flex-dir-col btn btn-primary"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
                                   style={{
+                                    color: "rgb(57, 63, 0)",
                                     backgroundColor: "rgb(246, 233, 77)",
+                                    textTransform: "none",
                                     padding: "5px 8px",
-                                    border: "1px solid #3b5998",
+                                    fontWeight: "100",
                                     height: "38px",
                                   }}
                                   onClick={() =>
@@ -294,15 +295,13 @@ const Header2 = () => {
                                     className="fa fa-thumb-tack header-icon"
                                     style={{ color: "rgb(57, 63, 0)" }}
                                   ></i> */}
-
-                                  <strong
+                                  {/* <strong
                                     style={{
-                                      color: "rgb(57, 63, 0)",
                                       top: 0,
                                     }}
-                                  >
-                                    Post free ad
-                                  </strong>
+                                  > */}
+                                  Post free ad
+                                  {/* </strong> */}
                                 </NavLink>
                               </li>
                               {auth.isAuthenticated !== true ? (

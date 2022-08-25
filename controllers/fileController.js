@@ -13,7 +13,11 @@ aws.config.update({
 const multerFilter = (req, file, cb) => {
   if (
     file.mimetype.startsWith("image") ||
-    file.mimetype.startsWith("application/pdf")
+    file.mimetype.startsWith("application/pdf") ||
+    file.mimetype.startsWith("application/msword") ||
+    file.mimetype.startsWith(
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
   ) {
     if (file.mimetype.startsWith("image")) {
       file.fileType = "photo";
@@ -24,7 +28,7 @@ const multerFilter = (req, file, cb) => {
   } else {
     cb(
       new AppError(
-        "Not an image or pdf! Please upload only images or pdf.",
+        "Not an image or pdf or doc or docx! Please upload only images or pdf or doc or docx.",
         400
       ),
       false
@@ -70,7 +74,11 @@ exports.resizeImage = catchAsync(async (req, res, next) => {
         )}`;
       } else if (
         file &&
-        file.mimetype.startsWith("application/pdf") &&
+        (file.mimetype.startsWith("application/pdf") ||
+          file.mimetype.startsWith("application/msword") ||
+          file.mimetype.startsWith(
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          )) &&
         file !== "undefined"
       ) {
         const timeStamp = Date.now();
