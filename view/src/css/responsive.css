@@ -1040,9 +1040,9 @@
   .bottom-product .nav-tabs li:first-child a::before {
     top: 13px;
   }
-  .products-category .product-layout {
+  /* .products-category .product-layout {
     width: 100%;
-  }
+  } */
   .social-share .title-share {
     padding-right: 10px;
   }

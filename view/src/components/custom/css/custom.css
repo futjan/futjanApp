@@ -1244,7 +1244,7 @@ input[type="number"] {
   background: #fff;
   border-radius: 8px;
   z-index: 1;
-  box-shadow: 0px 0px 18px rgb(0 0 0 / 10%);
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 5%);
   transition: all 0.3s ease;
 }
 .module.home-lt1 .ltabs-item .product-item-container:hover {
@@ -1321,6 +1321,9 @@ input[type="number"] {
 .help-center-detail-link:hover::after {
   height: 100%;
 }
+.job-seeker-card {
+  margin: 10px 0 !important;
+}
 
 /* Help  center */
 /* HEADER */
@@ -1362,13 +1365,23 @@ input[type="number"] {
   .item-inner .right-block .price-sale {
     display: none !important;
   }
+  .job-seeker-card .job-seeker-country-container {
+    display: none !important;
+  }
+  .job-seeker-card .job-seeker-skill-span {
+    display: none !important;
+  }
+  .job-seeker-card {
+    height: 230px !important;
+    margin: 10px 0 !important;
+  }
 }
 @media screen and (max-width: 450px) {
   .ltabs-item {
     padding: 0 10px !important;
   }
   .item-inner .product-item-container .left-block .product-image-container {
-    height: 165px !important;
+    height: 130px !important;
   }
   .item-inner .right-block h4 a {
     font-size: 13px !important;
@@ -1386,6 +1399,35 @@ input[type="number"] {
   }
   .item-inner .right-block .price-old {
     display: none !important;
+  }
+  .item-inner .box-label .label-sale {
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    z-index: 7;
+    border-radius: 50%;
+    line-height: 45px;
+    position: absolute;
+    top: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .item-inner .box-label .label-sale::before {
+    content: "";
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid #63c54c;
+    position: absolute;
+    top: -4px;
+    right: -3px;
+    transform: rotate(30deg);
+  }
+  .products-list {
+    padding: 0 !important;
   }
 }
 /* LOGOUT BTN */
@@ -1415,9 +1457,9 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 770px) {
-  .products-list {
+  /* .products-list {
     padding: 0 20px !important;
-  }
+  } */
 }
 @media screen and (max-width: 600px) {
   .typeheader-1

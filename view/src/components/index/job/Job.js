@@ -56,7 +56,7 @@ const Job = () => {
                           key={job._id}
                           job={job}
                           type="job"
-                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
                         />
                       ))
                     : null}

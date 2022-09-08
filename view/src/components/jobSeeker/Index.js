@@ -837,12 +837,15 @@ const Index = () => {
                     ))}
                   </div>
                 ) : null}
-                <div className="products-list grid row number-col-3 so-filter-gird job-seekers">
+                <div
+                  className="products-list grid  number-col-3 so-filter-gird job-seekers"
+                  style={{ overflow: "hidden" }}
+                >
                   {jobSeeker.jobSeekers.length > 0
                     ? jobSeeker.jobSeekers.map((candidate) => (
                         <Link
                           to={`/job-seeker-detail/${candidate._id}`}
-                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                          className="product-layout ltabs-item col-lg-4 col-md-4 col-sm-6 col-xs-6"
                           key={candidate._id}
                         >
                           <div className="job-seeker-card">

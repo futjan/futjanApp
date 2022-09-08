@@ -62,7 +62,7 @@ const JobSeeker = () => {
                     {jobSeeker.jobSeekers.length > 0
                       ? jobSeeker.jobSeekers.map((candidate) => (
                           <div
-                            className="product-layout col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            className="product-layout ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
                             key={candidate._id}
                           >
                             <div className="job-seeker-card">
