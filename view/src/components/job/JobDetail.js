@@ -679,84 +679,88 @@ const JobDetail = () => {
             </div>
             <div className="row">
               <div className="col-lg-6 col-md-6 skills-description">
-                <h2 className="about-title">Description</h2>
-                {job.loading === true ? (
-                  <Skeleton
-                    count={5}
-                    style={{ height: "23px", width: "90%" }}
-                  />
-                ) : (
-                  <p>
-                    {job.job &&
-                      job.job.description &&
-                      capitalizeFirstLetter(job.job.description)}
-                  </p>
-                )}
-                {/* {job.job && job.job.description && (
+                <div>
+                  <h2 className="about-title">Description</h2>
+                  {job.loading === true ? (
+                    <Skeleton
+                      count={5}
+                      style={{ height: "23px", width: "90%" }}
+                    />
+                  ) : (
+                    <p>
+                      {job.job &&
+                        job.job.description &&
+                        capitalizeFirstLetter(job.job.description)}
+                    </p>
+                  )}
+                  {/* {job.job && job.job.description && (
                   
                 )} */}
-              </div>
-              <div className="col-lg-6 col-md-6">
-                <h2 className="about-title">Skills</h2>
+                </div>
+                <div className="col-lg-6 col-md-6">
+                  <h2 className="about-title">Skills</h2>
 
-                <div
-                  style={{
-                    display: "flex",
-                    // justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: "16px",
-                    color: "rgb(133, 133, 133)",
-                    gap: "10px",
-                  }}
-                >
-                  {job.loading === true ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <Skeleton
-                        count={1}
+                  <div
+                    style={{
+                      display: "flex",
+                      // justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "16px",
+                      color: "rgb(133, 133, 133)",
+                      gap: "10px",
+                    }}
+                  >
+                    {job.loading === true ? (
+                      <div
                         style={{
-                          height: "30px",
-                          width: "100px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                      <Skeleton
-                        count={1}
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                      <Skeleton
-                        count={1}
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                    </div>
-                  ) : job.job && job.job.skills && job.job.skills.length > 0 ? (
-                    job.job.skills.map((skill, i) => (
-                      <span
-                        style={{
-                          padding: "8px 22px",
-                          background: "#f6fafd",
-                          borderRadius: "30px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
                         }}
                       >
-                        {skill && capitalizeFirstLetter(skill)}
-                      </span>
-                    ))
-                  ) : (
-                    "No option"
-                  )}
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "100px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                      </div>
+                    ) : job.job &&
+                      job.job.skills &&
+                      job.job.skills.length > 0 ? (
+                      job.job.skills.map((skill, i) => (
+                        <span
+                          style={{
+                            padding: "8px 22px",
+                            background: "#f6fafd",
+                            borderRadius: "30px",
+                          }}
+                        >
+                          {skill && capitalizeFirstLetter(skill)}
+                        </span>
+                      ))
+                    ) : (
+                      "No option"
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

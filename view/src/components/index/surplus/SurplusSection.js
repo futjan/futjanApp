@@ -4,6 +4,7 @@ import { getSurpluses } from "../../actions/surplusAction";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Ad from "../index utils/Ad";
+import { Link } from "react-router-dom";
 const SurplusSection = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -19,9 +20,20 @@ const SurplusSection = () => {
         <div className="row row-style row_a2">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
             <div className="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
-              <div className="head-title font-ct">
-                <h2 className="modtitle">Surplus</h2>
+              <div className="form-group clearfix index-surplus">
+                <Link
+                  className="title-category "
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                  to="/surplus"
+                >
+                  <span style={{ marginBottom: "5px" }}> Surplus</span>
+                </Link>
               </div>
+
               <div className="modcontent">
                 <div className="products-list">
                   {surplus.loading === true ? (
@@ -47,7 +59,7 @@ const SurplusSection = () => {
                           key={sur._id}
                           sur={sur}
                           type="surplus"
-                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                          cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
                         />
                       ))
                     : null}

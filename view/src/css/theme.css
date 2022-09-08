@@ -7892,6 +7892,20 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   bottom: -2px;
   left: 0;
 }
+.index-surplus span,
+.index-job span,
+.index-jobseeker span {
+  font-size: 20px;
+}
+.index-job .title-category:after {
+  width: 34px !important;
+}
+.index-surplus .title-category:after {
+  width: 75px !important;
+}
+.index-jobseeker .title-category:after {
+  width: 98px !important;
+}
 .title-category-job span {
   position: relative;
 }
@@ -16673,7 +16687,6 @@ checkout-cart .btn-block input {
 .btn-primary:hover {
   background: #363f48 !important;
   color: #ddd !important;
-
 }
 
 .btn-danger {

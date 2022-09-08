@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getJobSeekers } from "../../actions/jobSeekersAction";
 import { useDispatch, useSelector } from "react-redux";
+
 import fileURL from "../../../utils/fileURL";
 import capitalizeFirstLetter from "../../../utils/captilizeFirstLetter";
 import defaultUser from "../../image/default.jpg";
@@ -26,8 +27,18 @@ const JobSeeker = () => {
         <div className="row row-style row_a2">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
             <div className="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
-              <div className="head-title font-ct">
-                <h2 className="modtitle">Job Seeker</h2>
+              <div className="form-group clearfix index-jobseeker">
+                <Link
+                  className="title-category "
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                  to="/job-seeker"
+                >
+                  <span style={{ marginBottom: "5px" }}> Job seeker</span>
+                </Link>
               </div>
               <div className="modcontent">
                 <div>

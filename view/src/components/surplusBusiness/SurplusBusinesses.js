@@ -718,7 +718,7 @@ const SurplusBusinesses = () => {
                           key={sur._id}
                           sur={sur}
                           type="surplus"
-                          cssStyle="ltabs-item col-lg-4 col-md-4 col-sm-4 col-xs-12"
+                          cssStyle="ltabs-item col-lg-4 col-md-4 col-sm-4 col-xs-6"
                         />
                       ))
                     : null}

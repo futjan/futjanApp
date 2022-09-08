@@ -1294,6 +1294,35 @@ input[type="number"] {
   border-radius: 10px;
 }
 /* My Account */
+/* Help  center */
+.help-center-detail-link {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+  /* border-right: 3px solid transparent; */
+  font-size: 13px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.help-center-detail-link::after {
+  height: 0%;
+  content: "";
+  width: 2px;
+  position: absolute;
+  background-color: #337ab7;
+  right: 0;
+  top: 0;
+  transition: height 0.3s ease;
+}
+.help-center-detail-link.active::after {
+  height: 100%;
+}
+.help-center-detail-link:hover::after {
+  height: 100%;
+}
+
+/* Help  center */
 /* HEADER */
 @media screen and (max-width: 991px) {
   .material-ui-menu {
@@ -1312,6 +1341,51 @@ input[type="number"] {
   }
   .logout-btn-show {
     display: block !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .ltabs-item {
+    padding: 0 10px !important;
+  }
+  .item-inner .product-item-container .left-block .product-image-container {
+    height: 190px !important;
+  }
+  .item-inner .right-block h4 a {
+    font-size: 15px !important;
+    height: 35px !important;
+  }
+  .item-inner .right-block .caption .fa,
+  .item-inner .right-block .caption small {
+    display: none !important;
+  }
+  .item-inner .right-block .price-sale {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .ltabs-item {
+    padding: 0 10px !important;
+  }
+  .item-inner .product-item-container .left-block .product-image-container {
+    height: 165px !important;
+  }
+  .item-inner .right-block h4 a {
+    font-size: 13px !important;
+    height: 30px !important;
+  }
+  .item-inner .right-block .caption .fa,
+  .item-inner .right-block .caption small {
+    display: none !important;
+  }
+  .item-inner .right-block {
+    padding: 0 5px !important;
+  }
+  .item-inner .right-block .price-new {
+    font-size: 13px !important;
+  }
+  .item-inner .right-block .price-old {
+    display: none !important;
   }
 }
 /* LOGOUT BTN */

@@ -710,67 +710,133 @@ const JobSeekerDetails = () => {
                 )} */}
               </div>
               <div className="col-lg-6 col-md-6">
-                <h2 className="about-title">Skills</h2>
+                <div>
+                  <h2 className="about-title">Skills</h2>
 
-                <div
-                  style={{
-                    display: "flex",
-                    // justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: "16px",
-                    color: "rgb(133, 133, 133)",
-                    gap: "10px",
-                  }}
-                >
-                  {jobSeeker.loading === true ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <Skeleton
-                        count={1}
+                  <div
+                    style={{
+                      display: "flex",
+                      // justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "16px",
+                      color: "rgb(133, 133, 133)",
+                      gap: "10px",
+                    }}
+                  >
+                    {jobSeeker.loading === true ? (
+                      <div
                         style={{
-                          height: "30px",
-                          width: "100px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                      <Skeleton
-                        count={1}
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                      <Skeleton
-                        count={1}
-                        style={{
-                          height: "30px",
-                          width: "120px",
-                          borderRadius: "20px",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    jobSeeker.jobSeeker &&
-                    jobSeeker.jobSeeker.skills &&
-                    jobSeeker.jobSeeker.skills.map((skill, i) => (
-                      <span
-                        key={skill + i}
-                        style={{
-                          padding: "8px 22px",
-                          background: "#f6fafd",
-                          borderRadius: "30px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
                         }}
                       >
-                        {skill && capitalizeFirstLetter(skill)}
-                      </span>
-                    ))
-                  )}
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "100px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.skills &&
+                      jobSeeker.jobSeeker.skills.map((skill, i) => (
+                        <span
+                          key={skill + i}
+                          style={{
+                            padding: "8px 22px",
+                            background: "#f6fafd",
+                            borderRadius: "30px",
+                          }}
+                        >
+                          {skill && capitalizeFirstLetter(skill)}
+                        </span>
+                      ))
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <h2 className="about-title">Languages</h2>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      // justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "16px",
+                      color: "rgb(133, 133, 133)",
+                      gap: "10px",
+                    }}
+                  >
+                    {jobSeeker.loading === true ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                        }}
+                      >
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "100px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <Skeleton
+                          count={1}
+                          style={{
+                            height: "30px",
+                            width: "120px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      jobSeeker.jobSeeker &&
+                      jobSeeker.jobSeeker.languages &&
+                      jobSeeker.jobSeeker.languages.map((lang, i) => (
+                        <span
+                          key={lang + i}
+                          style={{
+                            padding: "8px 22px",
+                            background: "rgb(255, 231, 217)",
+                            borderRadius: "30px",
+                          }}
+                        >
+                          {lang && capitalizeFirstLetter(lang)}
+                        </span>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
