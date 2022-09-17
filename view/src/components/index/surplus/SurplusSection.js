@@ -22,12 +22,7 @@ const SurplusSection = () => {
             <div className="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
               <div className="form-group clearfix index-surplus">
                 <Link
-                  className="title-category "
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                  className="title-category d-flex justify-content-between align-items-center"
                   to="/surplus"
                 >
                   <span style={{ marginBottom: "5px" }}> Surplus</span>

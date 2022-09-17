@@ -165,6 +165,42 @@ export const getPreset = () => async (dispatch) => {
     });
   }
 };
+
+// @route                   POST /api/v1/users/subscribe
+// @desc                    subscribe
+// @access                  Public
+export const subscribeNewsLetter =
+  (email, subscribeFunc) => async (dispatch) => {
+    try {
+      subscribeFunc(true);
+      const res = await axios.post("/api/v1/users/subscribe", email);
+
+      if (res) {
+        subscribeFunc(false);
+        dispatch(setNotification(res.data.message, "success"));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 5000);
+      }
+    } catch (err) {
+      if (err.response.data.message === "jwt expired") {
+        dispatch(logoutUser());
+      }
+      subscribeFunc(false);
+      dispatch(setNotification(err.response.data.message, "error"));
+
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+      dispatch(clearLoading());
+      dispatch({
+        type: Type.GET_ERRORS,
+        payload: err.response.data,
+      });
+    }
+  };
+
 const setLoading = () => {
   return {
     type: Type.SET_USER_LOADING,

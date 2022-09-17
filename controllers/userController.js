@@ -1,9 +1,7 @@
 const User = require("../models/User");
-const Surplus = require("../models/SurplusBusiness");
+const Subscription = require("../models/SubscriptionEmail");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
-const isEmpty = require("../validation/is-empty");
-const validateRegisterInput = require("../validation/register");
 const mongoose = require("mongoose");
 
 // @route                   PATCH /api/v1/users/current-user
@@ -216,5 +214,31 @@ exports.userAds = catchAsync(async (req, res, next) => {
       ...ads[ads.length - 1].job,
       ...ads[ads.length - 1].jobSeeker,
     ],
+  });
+});
+
+// @route                   GET /api/v1/users/subscribe
+// @desc                    user subscribe to newsletter
+// @access                  Public
+exports.subscribe = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) {
+    return next(new AppError("Email is required", 400, undefined));
+  }
+  const subscribe = await Subscription.findOne({ email });
+  if (subscribe) {
+    return res.status(200).json({
+      status: "success",
+      message: "Aleady Subscribed!",
+    });
+  }
+  const newSubscribe = await Subscription.create({ email });
+  if (!newSubscribe) {
+    return next(new AppError("can not subscribe. Please try again later"));
+  }
+
+  res.status(201).json({
+    status: "success",
+    message: "Subscribed!",
   });
 });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { getJobSeekerById, updateViews } from "../actions/jobSeekersAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,25 +9,17 @@ import Skeleton from "react-loading-skeleton";
 import ReportModal from "../modal/ReportModal";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import MessagePopup from "../../utils/MessagePopup";
 import "../surplusBusiness/skeleton.css";
-
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
-  TwitterIcon,
-  TwitterShareButton,
-  LinkedinShareButton,
-  LinkedinIcon,
-} from "react-share";
 import { createFavourite } from "../actions/favouriteAction";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
   setNotification,
   clearNotification,
 } from "../actions/notificationAction";
+
+const SocialBtn = React.lazy(() => import("../../utils/SocialBtn"));
+const MessagePopup = React.lazy(() => import("../../utils/MessagePopup"));
+
 const JobSeekerDetails = () => {
   // initialize hooks
   const dispatch = useDispatch();
@@ -37,6 +29,7 @@ const JobSeekerDetails = () => {
   const auth = useSelector((state) => state.auth);
   const favourite = useSelector((state) => state.favourite);
   const currency = useSelector((state) => state.currency);
+  const favourites = useSelector((state) => state.favourite.favourites);
   // useEffect
   useEffect(() => {
     dispatch(getJobSeekerById(id));
@@ -58,7 +51,7 @@ const JobSeekerDetails = () => {
   }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
 
   // close report modal
-  const closeReportModal = (e) => {
+  const closeReportModal = React.useCallback((e) => {
     e.preventDefault();
     if (
       document.getElementById("so_sociallogin_3") &&
@@ -66,11 +59,10 @@ const JobSeekerDetails = () => {
     ) {
       document.getElementById("so_sociallogin_3").classList.add("in");
       document.getElementById("so_sociallogin_3").classList.add("d-block");
-      // document.getElementsByTagName("body")[0].classList.add("modal-open");
     }
-  };
+  }, []);
 
-  const createFavouriteFunc = () => {
+  const createFavouriteFunc = React.useCallback(() => {
     if (auth.isAuthenticated === true) {
       const data = {
         adId: jobSeeker.jobSeeker && jobSeeker.jobSeeker._id,
@@ -84,53 +76,36 @@ const JobSeekerDetails = () => {
         dispatch(clearNotification());
       }, 5000);
     }
-  };
+  }, [jobSeeker.jobSeeker && jobSeeker.jobSeeker._id]);
 
   // download file
-  const donwloadCV = (fileName) => {
+  const donwloadCV = React.useCallback((fileName) => {
     var element = document.createElement("a");
     element.setAttribute("href", fileURL(fileName));
     element.setAttribute("download", fileName);
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-  };
-  const favourites = useSelector((state) => state.favourite.favourites);
+  }, []);
 
   return (
     <div className="main-container container" style={{ margin: "20px auto" }}>
       {jobSeeker.loading === false ? (
         jobSeeker.jobSeeker &&
         jobSeeker.jobSeeker.user === auth.user.id ? null : (
-          <div
-            style={{
-              position: "fixed",
-              bottom: "0",
-              right: "50px",
-              zIndex: "1200",
-            }}
-          >
-            <MessagePopup
-              receiverId={jobSeeker.jobSeeker && jobSeeker.jobSeeker.user}
-              title="Chat with Employee"
-              adId={jobSeeker.jobSeeker._id}
-              adType={`${jobSeeker.jobSeeker.adType}s`}
-              image={jobSeeker.jobSeeker.images}
-            />
+          <div className="message-pop-container">
+            <Suspense fallback={<div></div>}>
+              <MessagePopup
+                receiverId={jobSeeker.jobSeeker && jobSeeker.jobSeeker.user}
+                title="Chat with Employee"
+                adId={jobSeeker.jobSeeker._id}
+                adType={`${jobSeeker.jobSeeker.adType}s`}
+                image={jobSeeker.jobSeeker.images}
+              />
+            </Suspense>
           </div>
         )
       ) : null}
-
-      {/* <div
-        style={{
-          position: "fixed",
-          bottom: "0",
-          right: "50px",
-          zIndex: "1200",
-        }}
-      >
-        <MessagePopup />
-      </div> */}
       <ReportModal
         modalId1="so_sociallogin_3"
         model="jobseekers"
@@ -141,25 +116,14 @@ const JobSeekerDetails = () => {
         <div id="content" className="col-sm-12">
           <div className="about-us about-demo-3">
             <div className="row">
-              <div
-                className="col-lg-6 col-md-6 about-image"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  padding: "20px 0",
-                }}
-              >
+              <div className="col-lg-6 col-md-6 about-image flex-dir-col d-flex justify-content-center align-items-center py-4">
                 {" "}
                 {jobSeeker.loading === true ? (
                   <Skeleton
                     count={1}
-                    style={{
-                      width: "232px",
-                      height: "232px",
-                      borderRadius: "50%",
-                    }}
+                    className="border-round"
+                    height="232px"
+                    width="232px"
                   />
                 ) : jobSeeker.jobSeeker &&
                   jobSeeker.jobSeeker.images &&
@@ -168,14 +132,14 @@ const JobSeekerDetails = () => {
                     src={fileURL(jobSeeker.jobSeeker.images)}
                     alt="About Us"
                     width={"40%"}
-                    style={{ borderRadius: "50%", marginBottom: "20px" }}
+                    className="mb-5 border-round"
                   />
                 ) : (
                   <img
                     src={defaultUser}
                     alt="About Us"
                     width={"40%"}
-                    style={{ borderRadius: "50%", marginBottom: "25px" }}
+                    className="mb-5 border-round"
                   />
                 )}
                 {jobSeeker.loading === true ? (
@@ -184,42 +148,25 @@ const JobSeekerDetails = () => {
                     style={{ height: "20px", width: "180px" }}
                   />
                 ) : (
-                  <h4 style={{ margin: "0" }}>
+                  <h4 className="m-0">
                     {jobSeeker.jobSeeker &&
                       jobSeeker.jobSeeker.name &&
                       capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
                   </h4>
                 )}
                 {jobSeeker.loading === true ? (
-                  <Skeleton
-                    count={1}
-                    style={{ height: "18px", width: "150px", marginTop: "8px" }}
-                  />
+                  <Skeleton count={1} className="about-text-skeleton mt-2" />
                 ) : (
-                  <p style={{ margin: "0" }}>
+                  <p className="m-0">
                     {jobSeeker.jobSeeker &&
                       jobSeeker.jobSeeker.title &&
                       capitalizeFirstLetter(jobSeeker.jobSeeker.title)}
                   </p>
                 )}
                 {jobSeeker.loading === true ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                      alignItems: "center",
-
-                      gap: "10px",
-                    }}
-                  >
-                    <Skeleton
-                      count={1}
-                      style={{ height: "18px", width: "100px" }}
-                    />
-                    <Skeleton
-                      count={1}
-                      style={{ height: "18px", width: "100px" }}
-                    />
+                  <div className="d-flex justify-content-evenly flex-gap-2 align-items-center">
+                    <Skeleton count={1} className="about-text-skeleton" />
+                    <Skeleton count={1} className="about-text-skeleton" />
                   </div>
                 ) : (
                   <div
@@ -233,21 +180,15 @@ const JobSeekerDetails = () => {
                     }}
                   >
                     <div>
-                      <i
-                        className="fa fa-map-marker"
-                        style={{ marginRight: "5px" }}
-                      ></i>
+                      <i className="fa fa-map-marker ml-1"></i>
                       <span>
                         {jobSeeker.jobSeeker &&
                           jobSeeker.jobSeeker.country &&
                           capitalizeFirstLetter(jobSeeker.jobSeeker.country)}
                       </span>
                     </div>
-                    <div style={{ marginLeft: "20px" }}>
-                      <i
-                        className="fa fa-money"
-                        style={{ marginRight: "5px" }}
-                      ></i>{" "}
+                    <div className="ml-4">
+                      <i className="fa fa-money mr-1"></i>{" "}
                       <span>
                         {jobSeeker.jobSeeker && currency.symbol}{" "}
                         {jobSeeker.jobSeeker &&
@@ -273,39 +214,16 @@ const JobSeekerDetails = () => {
                     capitalizeFirstLetter(jobSeeker.jobSeeker.name)}
                 </h2>
                 <div className="about-text">
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(255 187 0 / 20%)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-compass"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                  <div className="about-text-info">
+                    <div className="about-text-icon-container date-posted">
+                      <i className="fa fa-compass"></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Date Posted</h4>
                       {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
+                        <Skeleton count={1} className="about-text-skeleton" />
                       ) : (
-                        <p style={{ margin: "0" }}>
+                        <p className="m-0">
                           {jobSeeker.jobSeeker &&
                             jobSeeker.jobSeeker.createdAt &&
                             new Date(
@@ -315,39 +233,16 @@ const JobSeekerDetails = () => {
                       )}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(103 135 254 / 20%)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-money"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                  <div className="about-text-info">
+                    <div className="about-text-icon-container business-type">
+                      <i className="fa fa-money"></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Salary Type</h4>
                       {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
+                        <Skeleton count={1} className="about-text-skeleton" />
                       ) : (
-                        <p style={{ margin: "0" }}>
+                        <p className="m-0">
                           {jobSeeker.jobSeeker && currency.symbol}
                           {jobSeeker.jobSeeker && jobSeeker.jobSeeker.rate
                             ? jobSeeker.jobSeeker &&
@@ -370,39 +265,16 @@ const JobSeekerDetails = () => {
                       )}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(255, 231, 217)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-intersex"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                  <div className="about-text-info">
+                    <div className="about-text-icon-container location">
+                      <i className="fa fa-intersex"></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Gender</h4>
                       {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
+                        <Skeleton count={1} className="about-text-skeleton" />
                       ) : (
-                        <p style={{ margin: "0" }}>
+                        <p className="m-0">
                           {jobSeeker.jobSeeker &&
                             jobSeeker.jobSeeker.gender &&
                             capitalizeFirstLetter(jobSeeker.jobSeeker.gender)}
@@ -410,39 +282,16 @@ const JobSeekerDetails = () => {
                       )}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(208, 242, 255)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-thumb-tack"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                  <div className="about-text-info">
+                    <div className="about-text-icon-container location">
+                      <i className="fa fa-thumb-tack"></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Location</h4>
                       {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
+                        <Skeleton count={1} className="about-text-skeleton" />
                       ) : (
-                        <p style={{ margin: "0" }}>
+                        <p className="m-0">
                           {jobSeeker.jobSeeker && jobSeeker.jobSeeker.country
                             ? jobSeeker.jobSeeker.country &&
                               capitalizeFirstLetter(jobSeeker.jobSeeker.country)
@@ -452,39 +301,16 @@ const JobSeekerDetails = () => {
                     </div>
                   </div>
 
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "15px",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        background: "rgb(103 135 254 / 20%)",
-                        padding: "15px 18px",
-                        borderRadius: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <i
-                        className="fa fa-phone"
-                        style={{ fontSize: "22px" }}
-                      ></i>
+                  <div className="about-text-info">
+                    <div className="about-text-icon-container contact">
+                      <i className="fa fa-phone"></i>
                     </div>
                     <div>
                       <h4 style={{ margin: "0 0 2px 0" }}>Contact</h4>
                       {jobSeeker.loading === true ? (
-                        <Skeleton
-                          count={1}
-                          style={{ height: "18px", width: "150px" }}
-                        />
+                        <Skeleton count={1} className="about-text-skeleton" />
                       ) : (
-                        <p style={{ margin: "0" }}>
+                        <p className="m-0">
                           {jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact
                             ? jobSeeker.jobSeeker && jobSeeker.jobSeeker.contact
                             : "-------"}
@@ -493,37 +319,14 @@ const JobSeekerDetails = () => {
                     </div>
                   </div>
                   {jobSeeker.jobSeeker && jobSeeker.jobSeeker.cv ? (
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "15px",
-                        marginBottom: "15px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          background: "rgb(103 135 254 / 20%)",
-                          padding: "15px 18px",
-                          borderRadius: "5px",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <i
-                          className="fa fa-download"
-                          style={{ fontSize: "22px" }}
-                        ></i>
+                    <div className="about-text-info">
+                      <div className="about-text-icon-container business-type">
+                        <i className="fa fa-download"></i>
                       </div>
                       <div>
                         <h4 style={{ margin: "0 0 2px 0" }}>CV</h4>
                         {jobSeeker.loading === true ? (
-                          <Skeleton
-                            count={1}
-                            style={{ height: "18px", width: "150px" }}
-                          />
+                          <Skeleton count={1} className="about-text-skeleton" />
                         ) : (
                           <p
                             style={{
@@ -548,24 +351,7 @@ const JobSeekerDetails = () => {
                         <Button
                           variant="outlined"
                           size="large"
-                          sx={{
-                            color: "#3b5998",
-                            border: "2px solid #3b5998",
-                            fontSize: "14px",
-                            paddingRight: "8px",
-                            paddingLeft: "8px",
-                            marginBottom: "10px",
-                            fontWeight: "600",
-                            "&:hover": {
-                              color: "#3b5998",
-                              border: "2px solid #3b5998",
-                              fontSize: "14px",
-                              paddingRight: "8px",
-                              paddingLeft: "8px",
-                              marginBottom: "10px",
-                              fontWeight: "600",
-                            },
-                          }}
+                          className="seller-other-ads-btn mb-1"
                           component={Link}
                           to="/user-ads"
                           state={{
@@ -576,69 +362,22 @@ const JobSeekerDetails = () => {
                           See seller other Ads
                         </Button>
                       )}
-                    <h3 style={{ margin: "0" }}>Share on</h3>
-
-                    <div
-                      className="socials"
-                      style={{
-                        marginTop: "8px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "7px",
-                      }}
-                    >
-                      <div>
-                        <FacebookShareButton
-                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                          // quote={title}
-                        >
-                          <FacebookIcon size={22} round />
-                        </FacebookShareButton>
-                      </div>
-                      <div>
-                        <WhatsappShareButton
-                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                          // quote={title}
-                        >
-                          <WhatsappIcon size={22} round />
-                        </WhatsappShareButton>
-                      </div>
-                      <div>
-                        <TwitterShareButton
-                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                          // quote={title}
-                        >
-                          <TwitterIcon size={22} round />
-                        </TwitterShareButton>
-                      </div>
-                      <div>
-                        <LinkedinShareButton
-                          url={`http://www.futjan.com/job-seeker-detail/${jobSeeker.jobSeeker._id}`}
-                          // quote={title}
-                        >
-                          <LinkedinIcon size={22} round />
-                        </LinkedinShareButton>
-                      </div>
-                    </div>
+                    <h3 className="m-0">Share on</h3>
+                    <Suspense fallback={<div></div>}>
+                      <SocialBtn
+                        type="job-seeker-detail"
+                        id={jobSeeker.jobSeeker._id}
+                      />
+                    </Suspense>
                     <div id="product">
-                      <div
-                        className="box-cart clearfix"
-                        style={{ margin: "0" }}
-                      >
+                      <div className="box-cart clearfix m-0">
                         <div className="form-group box-info-product">
                           <div className="option quantity">
                             <div className="add-to-links wish_comp">
                               <ul className="blank">
                                 {favourite.loading === true ? (
                                   <li className="wishlist ">
-                                    <a
-                                      style={{
-                                        display: "flex",
-                                        gap: "10px",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                      }}
-                                    >
+                                    <a className="d-flex justify-content-center align-items-center flex-gap-2">
                                       <CircularProgress
                                         sx={{
                                           color: "#ff5e00",
@@ -694,10 +433,7 @@ const JobSeekerDetails = () => {
               <div className="col-lg-6 col-md-6 skills-description">
                 <h2 className="about-title">Description</h2>
                 {jobSeeker.loading === true ? (
-                  <Skeleton
-                    count={5}
-                    style={{ height: "23px", width: "90%" }}
-                  />
+                  <Skeleton count={5} height="23px" width="90%" />
                 ) : (
                   <p>
                     {jobSeeker.jobSeeker &&
@@ -705,69 +441,29 @@ const JobSeekerDetails = () => {
                       capitalizeFirstLetter(jobSeeker.jobSeeker.description)}
                   </p>
                 )}
-                {/* {jobSeeker.jobSeeker && jobSeeker.jobSeeker.description && (
-                  
-                )} */}
               </div>
               <div className="col-lg-6 col-md-6">
                 <div>
                   <h2 className="about-title">Skills</h2>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      // justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      color: "rgb(133, 133, 133)",
-                      gap: "10px",
-                    }}
-                  >
+                  <div className="job-skill-container">
                     {jobSeeker.loading === true ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "100px",
-                            borderRadius: "20px",
-                          }}
-                        />
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "120px",
-                            borderRadius: "20px",
-                          }}
-                        />
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "120px",
-                            borderRadius: "20px",
-                          }}
-                        />
+                      <div className="d-flex align-items-center flex-gap-2">
+                        {["a", "b", "c"].map((el, i) => (
+                          <Skeleton
+                            count={1}
+                            borderRadius="20px"
+                            width="100px"
+                            height="30px"
+                            key={el + 1}
+                          />
+                        ))}
                       </div>
                     ) : (
                       jobSeeker.jobSeeker &&
                       jobSeeker.jobSeeker.skills &&
                       jobSeeker.jobSeeker.skills.map((skill, i) => (
-                        <span
-                          key={skill + i}
-                          style={{
-                            padding: "8px 22px",
-                            background: "#f6fafd",
-                            borderRadius: "30px",
-                          }}
-                        >
+                        <span key={skill + i} className="job-skill">
                           {skill && capitalizeFirstLetter(skill)}
                         </span>
                       ))
@@ -777,61 +473,24 @@ const JobSeekerDetails = () => {
                 <div>
                   <h2 className="about-title">Languages</h2>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      // justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      color: "rgb(133, 133, 133)",
-                      gap: "10px",
-                    }}
-                  >
+                  <div className="job-skill-container">
                     {jobSeeker.loading === true ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "100px",
-                            borderRadius: "20px",
-                          }}
-                        />
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "120px",
-                            borderRadius: "20px",
-                          }}
-                        />
-                        <Skeleton
-                          count={1}
-                          style={{
-                            height: "30px",
-                            width: "120px",
-                            borderRadius: "20px",
-                          }}
-                        />
+                      <div className="d-flex align-items-center flex-gap-2">
+                        {["a", "b", "c"].map((el, i) => (
+                          <Skeleton
+                            count={1}
+                            borderRadius="20px"
+                            width="100px"
+                            height="30px"
+                            key={el + 1}
+                          />
+                        ))}
                       </div>
                     ) : (
                       jobSeeker.jobSeeker &&
                       jobSeeker.jobSeeker.languages &&
                       jobSeeker.jobSeeker.languages.map((lang, i) => (
-                        <span
-                          key={lang + i}
-                          style={{
-                            padding: "8px 22px",
-                            background: "rgb(255, 231, 217)",
-                            borderRadius: "30px",
-                          }}
-                        >
+                        <span key={lang + i} className="job-skill">
                           {lang && capitalizeFirstLetter(lang)}
                         </span>
                       ))

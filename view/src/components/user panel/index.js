@@ -10,36 +10,17 @@ const AddSurplusBusiness = lazy(() =>
   import("../surplusBusiness/AddSurplusBusiness")
 );
 const Alert = lazy(() => import("./Alert"));
-// import AddJob from "../job/AddJob";
-
 const AddJob = lazy(() => import("../job/AddJob"));
-
-// import EditJob from "../job/EditJob";
 const EditJob = lazy(() => import("../job/EditJob"));
-
-// import AddJobSeeker from "../jobSeeker/AddJobSeeker";
 const AddJobSeeker = lazy(() => import("../jobSeeker/AddJobSeeker"));
-
-// import Surplus from "./MyAds";
 const Surplus = lazy(() => import("./MyAds"));
-
-// import EditSurplus from "./EditSurplus";
-
 const EditSurplus = lazy(() => import("./EditSurplus"));
-
-// import EditJobSeeker from "../jobSeeker/EditJobSeeker";
 const EditJobSeeker = lazy(() => import("../jobSeeker/EditJobSeeker"));
-// import MyAccount from "./MyAccount";
-
 const MyAccount = lazy(() => import("./MyAccount"));
-
-// import FullScreenModal from "../../utils/FullScreenModal";
 const FullScreenModal = lazy(() => import("../../utils/FullScreenModal"));
-
-// import Message from "./Messages";
 const Message = lazy(() => import("./Messages"));
-// import Favourite from "../favourite/Index"
 const Favourite = lazy(() => import("../favourite/Index"));
+const AddBusiness = lazy(() => import("../business/AddBusiness"));
 
 const Index = ({ tab, setTab }) => {
   // console.log(props);
@@ -169,6 +150,7 @@ const Index = ({ tab, setTab }) => {
                           <label
                             className="container-radio"
                             onClick={() => setAdd("candidiate")}
+                            style={{ marginRight: "20px" }}
                           >
                             <input
                               type="radio"
@@ -177,6 +159,19 @@ const Index = ({ tab, setTab }) => {
                               onChange={() => setAdd("candidiate")}
                             />{" "}
                             Job Seeker
+                            <span className="checkmark"></span>
+                          </label>
+                          <label
+                            className="container-radio"
+                            onClick={() => setAdd("candidiate")}
+                          >
+                            <input
+                              type="radio"
+                              checked={add === "business" ? true : false}
+                              name="Flat Shipping Rate"
+                              onChange={() => setAdd("business")}
+                            />{" "}
+                            Business
                             <span className="checkmark"></span>
                           </label>
                         </div>
@@ -199,6 +194,13 @@ const Index = ({ tab, setTab }) => {
                           ) : null}
                           {add === "candidiate" ? (
                             <AddJobSeeker
+                              setTitle={setTitle}
+                              setAdId={setAdId}
+                              successModalFunc={() => setOpenSuccessModal(true)}
+                            />
+                          ) : null}
+                          {add === "business" ? (
+                            <AddBusiness
                               setTitle={setTitle}
                               setAdId={setAdId}
                               successModalFunc={() => setOpenSuccessModal(true)}

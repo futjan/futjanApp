@@ -21,6 +21,7 @@ const reportRoutes = require("./routes/reportRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
 const messageRoutes = require("./routes/messageRoute");
 const favouriteRoutes = require("./routes/favouriteRoutes");
+const businessroutes = require("./routes/businessRoutes");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
 // app.use(
@@ -60,7 +61,7 @@ app.use("/api/v1/jobseekers", jobSeekerRoutes);
 app.use("/api/v1/comments", commentRoutes);
 app.use("/api/v1/presets", presetRoutes);
 app.use("/api/v1/report", reportRoutes);
-
+app.use("/api/v1/business", businessroutes);
 app.use("/api/v1/conversations", conversationRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/favourite", favouriteRoutes);

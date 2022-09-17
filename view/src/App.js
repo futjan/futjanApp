@@ -67,6 +67,10 @@ const PageNotFound = lazy(() => import("./components/404 Page/Page404"));
 const DetailSurplus = lazy(() =>
   import("./components/surplusBusiness/DetailSurplus")
 );
+const DetailBusiness = lazy(() =>
+  import("./components/business/DetailBusiness")
+);
+const Businesses = lazy(() => import("./components/business/Businesses"));
 const UserAds = lazy(() => import("./components/user ads/Index"));
 const SetPassword = lazy(() => import("./components/user/SetPassword"));
 
@@ -135,22 +139,7 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <Suspense
-        fallback={
-          <Preloader />
-          // <div
-          //   style={{
-          //     width: "100vw",
-          //     height: "100vh",
-          //     display: "flex",
-          //     justifyContent: "center",
-          //     alignItems: "center",
-          //   }}
-          // >
-          //   <img src={lazyLoader} width="100" />
-          // </div>
-        }
-      >
+      <Suspense fallback={<Preloader />}>
         <div className="common-home res layout-4">
           <div id="wrapper" className="wrapper-fluid banners-effect-3">
             {tab !== "MESSAGE" && notification && notification.type && (
@@ -194,42 +183,6 @@ const App = (props) => {
                 </Alert>
               </Snackbar>
             )}
-            {/* {notification && notification.type && ( */}
-            {/* {tab !== "MESSAGE" && notification && notification.type ? (
-              <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                open={true}
-                TransitionComponent={GrowTransition}
-                sx={{
-                  boxShadow: 3,
-                  background: "#fff",
-                  borderRadius: "5px",
-                  minWidth: "300px",
-                }}
-              >
-                <Alert
-                  sx={{
-                    background: "#fff",
-                    width: "100%",
-                    fontSize: "15px",
-                    borderRadius: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  iconMapping={{
-                    success: (
-                      <CheckCircleOutlineIcon
-                        fontSize="medium"
-                        sx={{ width: "25px", height: "25px" }}
-                      />
-                    ),
-                  }}
-                  severity={notification.type}
-                >
-                  {notification.message}
-                </Alert>
-              </Snackbar>
-            ) : null} */}
 
             {pathname === "/adminpanel" ? null : <Header2 />}
 
@@ -263,6 +216,7 @@ const App = (props) => {
               <Route path="/job" exact={true} element={<Job />} />
 
               <Route path="/job-seeker" exact={true} element={<JobSeeker />} />
+              <Route path="/business" exact={true} element={<Businesses />} />
               <Route
                 path="/job-seeker-detail/:id"
                 exact={true}
@@ -305,6 +259,11 @@ const App = (props) => {
                 path="/surplus-detail/:id"
                 exact
                 element={<DetailSurplus />}
+              />
+              <Route
+                path="/business-detail/:id"
+                exact
+                element={<DetailBusiness />}
               />
               <Route
                 path="/job-detail/:id"

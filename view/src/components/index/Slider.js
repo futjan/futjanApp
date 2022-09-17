@@ -21,11 +21,11 @@ const Slider1 = () => {
           style={{
             background: `url(${item}) no-repeat center center`,
             width: "100%",
-            height: "350px",
+            height: "400px",
           }}
         ></div>
       ))}
     </Slider>
   );
 };
-export default Slider1;
+export default React.memo(Slider1);

@@ -51,9 +51,6 @@ router
     fileController.resizeImage,
     surplusController.updateSurplus
   )
-  .delete(
-    // authController.protect,
-    surplusController.deleteSurplus
-  );
+  .delete(authController.protect, surplusController.deleteSurplus);
 
 module.exports = router;

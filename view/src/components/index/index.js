@@ -9,6 +9,7 @@ const SurplusSection = lazy(() => import("./surplus/SurplusSection"));
 const Job = lazy(() => import("./job/Job"));
 // import JobSeeker from "./jobseeker/JobSeeker";
 const JobSeeker = lazy(() => import("./jobseeker/JobSeeker"));
+const Business = lazy(() => import("./business/Business"));
 const Index = (props) => {
   return (
     <div className="common-home res layout-1 loaded hidden-scorll">
@@ -20,15 +21,8 @@ const Index = (props) => {
               className="section-style"
               style={{ marginTop: "30px" }}
             >
-              <div className="container page-builder-ltr mt-4">
-                <div
-                  style={{
-                    overflow: "hidden",
-                    width: "100%",
-                    height: "350px",
-                    position: "relative",
-                  }}
-                >
+              <div className="page-builder-ltr mt-4">
+                <div className="index-page-slider-container">
                   <Slider1 />
                 </div>
               </div>
@@ -36,6 +30,7 @@ const Index = (props) => {
             <SurplusSection />
             <Job />
             <JobSeeker />
+            <Business />
           </div>
         </div>
       </div>

@@ -30,13 +30,13 @@ const Header2 = () => {
   const [state, setState] = React.useState({
     left: false,
   });
-  const handleMenu = (event) => {
+  const handleMenu = React.useCallback((event) => {
     setAnchorEl(event.currentTarget);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = React.useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   // initialize hooks
   const dispatch = useDispatch();
@@ -48,31 +48,15 @@ const Header2 = () => {
   // get state from store
   const auth = useSelector((state) => state.auth);
   const unseenMessageCount = useSelector((state) => state.message.count);
-  // useEffect
-  // show side navbar
-  // const showSideNavBar = (id, id2) => {
-  //   const humburgerMenuIcon = document.getElementById(`${id}`);
-  //   if (humburgerMenuIcon) {
-  //     humburgerMenuIcon.classList.toggle("so-megamenu-active");
-  //     document.getElementById(`${id2}`).classList.toggle("v-visible");
-  //   }
-  // };
+
   // close side navBar onclick on cross icon
-  const closeSideNavBar = (id, id2) => {
+  const closeSideNavBar = React.useCallback((id, id2) => {
     const humburgerMenuIcon = document.getElementById(`${id}`);
     if (humburgerMenuIcon) {
       humburgerMenuIcon.classList.remove("so-megamenu-active");
       document.getElementById(`${id2}`).classList.remove("v-visible");
     }
-  };
-
-  // show sub menu
-  // const subMenu = (target, id, id2) => {
-  //   if (document.getElementById(id) && document.getElementById(id2)) {
-  //     document.getElementById(id).classList.toggle("d-block");
-  //     document.getElementById(id2).classList.toggle("d-block");
-  //   }
-  // };
+  }, []);
 
   const titleInput = useMemo(
     () => (
@@ -93,15 +77,7 @@ const Header2 = () => {
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
       <div className="header-center">
-        {/* {auth.isAuthenticated === true ? (
-          <Link to="/adminpanel" style={{ display: "flex" }}>
-            Adminpanel
-          </Link>
-        ) : null} */}
-        <ul
-          className="top-link list-inline"
-          style={{ position: "absolute", top: "0", right: "0" }}
-        >
+        <ul className="top-link list-inline position-absolute right-0 top-0">
           <li>
             <Select
               value={currency.code}
@@ -129,7 +105,7 @@ const Header2 = () => {
                 to="/"
                 className="d-flex align-items-center justify-content-center"
               >
-                <img alt="Futjan" width="100" title="Futjan" src={LOGO} />
+                <img alt="Futjan" width="85%" title="Futjan" src={LOGO} />
               </Link>
             </div>
             <div
@@ -150,15 +126,7 @@ const Header2 = () => {
                       className="search d-grid input-group form-group"
                     >
                       {titleInput}
-                      {/* <input
-                        className="autosearch-input form-control"
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        autoComplete="off"
-                        placeholder="Title"
-                        name="search"
-                      /> */}
+
                       <div className="select_category filter_type  icon-select">
                         <AdsType adType={adType} setAdType={setAdType} />
                       </div>
@@ -197,10 +165,7 @@ const Header2 = () => {
                           </Link>
                         ) : null}
                       </span>
-                      <div
-                        className="megamenu-style-dev megamenu-dev mobile-burger-menu-show"
-                        style={{ display: "none" }}
-                      >
+                      <div className="megamenu-style-dev megamenu-dev mobile-burger-menu-show d-none">
                         <div className="responsive">
                           <nav className="navbar-default">
                             <div className="container-megamenu horizontal">
@@ -225,7 +190,6 @@ const Header2 = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <input type="hidden" name="route" value="product/search" /> */}
                   </form>
                 </div>
               </div>
@@ -261,29 +225,16 @@ const Header2 = () => {
                         <div className="megamenu-pattern">
                           <div className="container">
                             <ul
-                              className="megamenu"
+                              className="megamenu d-flex justify-content-center align-items-center"
                               data-transition="slide"
                               data-animationtime="500"
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                              }}
                             >
                               <li className="full-width menu-home with-sub-menu hover">
                                 <p className="close-menu"></p>
                                 <NavLink
-                                  className=" align-items-center justify-content-center d-flex flex-dir-col btn btn-primary"
+                                  className=" align-items-center justify-content-center d-flex flex-dir-col btn btn-primary header-post-free-ad-btn"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
-                                  style={{
-                                    color: "rgb(57, 63, 0)",
-                                    backgroundColor: "rgb(246, 233, 77)",
-                                    textTransform: "none",
-                                    padding: "5px 8px",
-                                    fontWeight: "100",
-                                    height: "38px",
-                                  }}
                                   onClick={() =>
                                     closeSideNavBar(
                                       "megamenu-wrapper-2",
@@ -291,17 +242,7 @@ const Header2 = () => {
                                     )
                                   }
                                 >
-                                  {/* <i
-                                    className="fa fa-thumb-tack header-icon"
-                                    style={{ color: "rgb(57, 63, 0)" }}
-                                  ></i> */}
-                                  {/* <strong
-                                    style={{
-                                      top: 0,
-                                    }}
-                                  > */}
                                   Post free ad
-                                  {/* </strong> */}
                                 </NavLink>
                               </li>
                               {auth.isAuthenticated !== true ? (
@@ -377,7 +318,6 @@ const Header2 = () => {
                                         onClick={handleClose}
                                         component={"div"}
                                         sx={{
-                                          // background: "rgba(0, 0, 0, 0.04)",
                                           borderBottom: "1px solid #ddd",
                                           ":hover": {
                                             background: "#fff",
@@ -479,60 +419,6 @@ const Header2 = () => {
                           </div>
                         </div>
                       </div>
-                      {/* <div
-                        style={{
-                          position: "fixed",
-                          width: "100%",
-                          height: "100%",
-                          background: "rgba(0,0,0,0.5)",
-                          top: 0,
-                          left: 0,
-                          zIndex: 1000,
-                          visibility: "hidden",
-                          transition: "all 0.2s linear",
-                          opacity: "0",
-                        }}
-                        id="megamenu-wrapper-2-wrapper"
-                        onClick={(e) => {
-                          if (
-                            e.target ===
-                            document.getElementById(
-                              "megamenu-wrapper-2-wrapper"
-                            )
-                          ) {
-                            closeSideNavBar(
-                              "megamenu-wrapper-2",
-                              "megamenu-wrapper-2-wrapper"
-                            );
-                          }
-                        }}
-                      > */}
-                      {/* <div
-                          className="megamenu-wrapper"
-                          id="megamenu-wrapper-2"
-                        > */}
-                      {/* <span
-                            id="remove-megamenu"
-                            className="fa fa-times"
-                            onClick={() =>
-                              closeSideNavBar(
-                                "megamenu-wrapper-2",
-                                "megamenu-wrapper-2-wrapper"
-                              )
-                            }
-                          ></span> */}
-                      {/* <div className="megamenu-pattern"> */}
-                      {/* <div className="container"> */}
-                      {/* <ul
-                                className="megamenu"
-                                data-transition="slide"
-                                data-animationtime="500"
-                              >
-                              </ul> */}
-                      {/* </div> */}
-                      {/* </div> */}
-                      {/* </div>
-                      </div> */}
                     </div>
                   </nav>
                 </div>

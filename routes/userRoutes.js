@@ -29,6 +29,8 @@ router
   .route("/current-user")
   .get(authController.protect, authController.getCurrentUser)
   .patch(authController.protect, userController.updateCurrentUser);
+
+router.post("/subscribe", userController.subscribe);
 router.get("/all-users", authController.getAllUsers);
 router.route("/ads/:userID").get(userController.userAds);
 router.patch("/deleted/:id", authController.deletedUser);

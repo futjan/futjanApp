@@ -57,6 +57,20 @@ const Surplus = (props) => {
             Job Seeker
             <span className="checkmark"></span>
           </label>
+          <label
+            className="container-radio"
+            onClick={() => setAdd("candidiate")}
+            style={{ marginRight: "20px" }}
+          >
+            <input
+              type="radio"
+              checked={add === "business" ? true : false}
+              name="Flat Shipping Rate"
+              onChange={() => setAdd("business")}
+            />{" "}
+            Business
+            <span className="checkmark"></span>
+          </label>
           <label className="container-radio" onClick={() => setAdd("draft")}>
             <input
               type="radio"

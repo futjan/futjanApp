@@ -10,6 +10,7 @@ import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import capitalizeFirstLetter from "../../utils/captilizeFirstLetter";
 import { Link, useLocation } from "react-router-dom";
+import Ad from "../index/index utils/Ad";
 
 import { savePreset, getPreset } from "../actions/userAction";
 // import $ from "jquery";
@@ -510,235 +511,300 @@ export default function Index() {
                   style={{ minHeight: "930px" }}
                 >
                   {ads.ads.length > 0
-                    ? ads.ads.map((sur) => (
-                        <div
-                          className="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6"
-                          key={sur._id}
-                        >
-                          <div className="product-item-container">
-                            <div className="left-block">
-                              <div
-                                className="product-image-container  second_img  "
-                                style={{
-                                  position: "relative",
-                                  minHeight: "280px",
+                    ? ads.ads.map(
+                        (sur) => (
+                          <>
+                            {sur.adType === "job" ? (
+                              <Ad
+                                key={sur._id}
+                                sur={{
+                                  title: sur.title,
+                                  category: sur.category,
+
+                                  city: sur.country,
+                                  _id: sur._id,
+                                  images: sur.images,
+                                  currency: sur.currency,
+                                  offeredPrice: sur.offeredPrice,
+                                  originalPrice: sur.originalPrice,
                                 }}
-                              >
-                                {sur.adType === "surplus" ? (
-                                  <Link
-                                    to={`/surplus-detail/${sur._id}`}
-                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                  >
-                                    <img
-                                      src={
-                                        sur.adType === "jobseeker"
-                                          ? fileURL(sur && sur.images)
-                                          : fileURL(sur.images && sur.images[0])
-                                      }
-                                      alt={sur.title}
-                                      title={sur.title}
-                                      className="img-1 img-responsive"
-                                    />
+                                type="job"
+                                cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                              />
+                            ) : null}
+                            {sur.adType === "jobseeker" ? (
+                              <Ad
+                                key={sur._id}
+                                sur={{
+                                  title: sur.title,
+                                  businessType: sur.category,
+                                  city: sur.country,
+                                  _id: sur._id,
+                                  images: sur.images,
+                                  currency: sur.currency,
+                                  offeredPrice: sur.rate,
+                                }}
+                                type="business"
+                                cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                              />
+                            ) : null}
+                            {sur.adType === "business" ? (
+                              <Ad
+                                key={sur._id}
+                                sur={sur}
+                                type="business"
+                                cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                              />
+                            ) : null}
+                            {sur.adType === "surplus" ? (
+                              <Ad
+                                key={sur._id}
+                                sur={{
+                                  title: sur.title,
+                                  category: sur.category,
+                                  category: sur.category,
+                                  city: sur.country,
+                                  _id: sur._id,
+                                  images: sur.images,
+                                  currency: sur.currency,
+                                  offeredPrice: sur.offeredPrice,
+                                  originalPrice: sur.originalPrice,
+                                }}
+                                type="surplus"
+                                cssStyle="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                              />
+                            ) : null}
+                          </>
+                        )
 
-                                    {sur.promoteType &&
-                                    sur.promoteType.length > 0 ? (
-                                      <div className="ad-promote-type-container">
-                                        {sur.promoteType.map((promote, i) => (
-                                          <div
-                                            className={`ad-promote-type ${promote.promote}`}
-                                            key={i}
-                                          >
-                                            {promote.promote}
-                                          </div>
-                                        ))}
-                                      </div>
-                                    ) : null}
-                                  </Link>
-                                ) : null}
-                                {sur.adType === "job" ? (
-                                  <Link
-                                    to={`/job-detail/${sur._id}`}
-                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                  >
-                                    <img
-                                      src={
-                                        sur.adType === "jobseeker"
-                                          ? fileURL(sur && sur.images)
-                                          : fileURL(sur.images && sur.images[0])
-                                      }
-                                      alt={sur.title}
-                                      title={sur.title}
-                                      className="img-1 img-responsive"
-                                    />
+                        // <div
+                        //   className="ltabs-item col-lg-3 col-md-4 col-sm-6 col-xs-6"
+                        //   key={sur._id}
+                        // >
+                        //   <div className="product-item-container">
+                        //     <div className="left-block">
+                        //       <div
+                        //         className="product-image-container  second_img  "
+                        //         style={{
+                        //           position: "relative",
+                        //           minHeight: "280px",
+                        //         }}
+                        //       >
+                        //         {sur.adType === "surplus" ? (
+                        //           <Link
+                        //             to={`/surplus-detail/${sur._id}`}
+                        //             title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                        //           >
+                        //             <img
+                        //               src={
+                        //                 sur.adType === "jobseeker"
+                        //                   ? fileURL(sur && sur.images)
+                        //                   : fileURL(sur.images && sur.images[0])
+                        //               }
+                        //               alt={sur.title}
+                        //               title={sur.title}
+                        //               className="img-1 img-responsive"
+                        //             />
 
-                                    {sur.promoteType &&
-                                    sur.promoteType.length > 0 ? (
-                                      <div className="ad-promote-type-container">
-                                        {sur.promoteType.map((promote, i) => (
-                                          <div
-                                            className={`ad-promote-type ${promote.promote}`}
-                                            key={i}
-                                          >
-                                            {promote.promote}
-                                          </div>
-                                        ))}
-                                      </div>
-                                    ) : null}
-                                  </Link>
-                                ) : null}
-                                {sur.adType === "jobseeker" ? (
-                                  <Link
-                                    to={`/job-seeker-detail/${sur._id}`}
-                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
-                                  >
-                                    <img
-                                      src={
-                                        sur.adType === "jobseeker"
-                                          ? fileURL(sur && sur.images)
-                                          : fileURL(sur.images && sur.images[0])
-                                      }
-                                      alt={sur.title}
-                                      title={sur.title}
-                                      className="img-1 img-responsive"
-                                    />
+                        //             {sur.promoteType &&
+                        //             sur.promoteType.length > 0 ? (
+                        //               <div className="ad-promote-type-container">
+                        //                 {sur.promoteType.map((promote, i) => (
+                        //                   <div
+                        //                     className={`ad-promote-type ${promote.promote}`}
+                        //                     key={i}
+                        //                   >
+                        //                     {promote.promote}
+                        //                   </div>
+                        //                 ))}
+                        //               </div>
+                        //             ) : null}
+                        //           </Link>
+                        //         ) : null}
+                        //         {sur.adType === "job" ? (
+                        //           <Link
+                        //             to={`/job-detail/${sur._id}`}
+                        //             title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                        //           >
+                        //             <img
+                        //               src={
+                        //                 sur.adType === "jobseeker"
+                        //                   ? fileURL(sur && sur.images)
+                        //                   : fileURL(sur.images && sur.images[0])
+                        //               }
+                        //               alt={sur.title}
+                        //               title={sur.title}
+                        //               className="img-1 img-responsive"
+                        //             />
 
-                                    {sur.promoteType &&
-                                    sur.promoteType.length > 0 ? (
-                                      <div className="ad-promote-type-container">
-                                        {sur.promoteType.map((promote, i) => (
-                                          <div
-                                            className={`ad-promote-type ${promote.promote}`}
-                                            key={i}
-                                          >
-                                            {promote.promote}
-                                          </div>
-                                        ))}
-                                      </div>
-                                    ) : null}
-                                  </Link>
-                                ) : null}
-                              </div>
-                              {/* <div className="countdown_box">
-                              <div className="countdown_inner"></div>
-                            </div> */}
-                              {sur.discount && sur.discount > 0 ? (
-                                <div className="box-label">
-                                  <span className="label-product label-sale">
-                                    Sale
-                                  </span>
-                                </div>
-                              ) : null}
-                            </div>
+                        //             {sur.promoteType &&
+                        //             sur.promoteType.length > 0 ? (
+                        //               <div className="ad-promote-type-container">
+                        //                 {sur.promoteType.map((promote, i) => (
+                        //                   <div
+                        //                     className={`ad-promote-type ${promote.promote}`}
+                        //                     key={i}
+                        //                   >
+                        //                     {promote.promote}
+                        //                   </div>
+                        //                 ))}
+                        //               </div>
+                        //             ) : null}
+                        //           </Link>
+                        //         ) : null}
+                        //         {sur.adType === "jobseeker" ? (
+                        //           <Link
+                        //             to={`/job-seeker-detail/${sur._id}`}
+                        //             title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
+                        //           >
+                        //             <img
+                        //               src={
+                        //                 sur.adType === "jobseeker"
+                        //                   ? fileURL(sur && sur.images)
+                        //                   : fileURL(sur.images && sur.images[0])
+                        //               }
+                        //               alt={sur.title}
+                        //               title={sur.title}
+                        //               className="img-1 img-responsive"
+                        //             />
 
-                            <div className="right-block">
-                              <div className="caption">
-                                <h4>
-                                  {sur.adType === "surplus" ? (
-                                    <Link to={`/surplus-detail/${sur._id}`}>
-                                      {sur.title && sur.title.length > 50
-                                        ? capitalizeFirstLetter(
-                                            sur.title.substring(0, 50) + "..."
-                                          )
-                                        : sur.title &&
-                                          capitalizeFirstLetter(sur.title)}
-                                    </Link>
-                                  ) : null}
-                                  {sur.adType === "job" ? (
-                                    <Link to={`/job-detail/${sur._id}`}>
-                                      {sur.title && sur.title.length > 50
-                                        ? capitalizeFirstLetter(
-                                            sur.title.substring(0, 50) + "..."
-                                          )
-                                        : sur.title &&
-                                          capitalizeFirstLetter(sur.title)}
-                                    </Link>
-                                  ) : null}
-                                  {sur.adType === "jobseeker" ? (
-                                    <Link to={`/job-seeker-detail/${sur._id}`}>
-                                      {sur.title && sur.title.length > 50
-                                        ? capitalizeFirstLetter(
-                                            sur.title.substring(0, 50) + "..."
-                                          )
-                                        : sur.title &&
-                                          capitalizeFirstLetter(sur.title)}
-                                    </Link>
-                                  ) : null}
-                                </h4>
-                                <div>
-                                  <i class="fa fa-tasks"></i>
-                                  <small>
-                                    {sur.category &&
-                                      capitalizeFirstLetter(sur.category)}
-                                  </small>
-                                </div>
-                                <div>
-                                  <i class="fa fa-map-marker"></i>
-                                  <small>
-                                    {sur.country &&
-                                      capitalizeFirstLetter(sur.country)}
-                                  </small>
-                                </div>
-                                <div className="total-price">
-                                  <div className="price price-left">
-                                    <span className="price-new">
-                                      {sur.adType === "job"
-                                        ? sur.minSalary > 0 && sur.maxSalary > 0
-                                          ? sur &&
-                                            sur.currency +
-                                              " " +
-                                              sur.minSalary +
-                                              " - " +
-                                              sur.maxSalary +
-                                              " / " +
-                                              sur.salaryType
-                                          : sur.salaryType
-                                        : null}
+                        //             {sur.promoteType &&
+                        //             sur.promoteType.length > 0 ? (
+                        //               <div className="ad-promote-type-container">
+                        //                 {sur.promoteType.map((promote, i) => (
+                        //                   <div
+                        //                     className={`ad-promote-type ${promote.promote}`}
+                        //                     key={i}
+                        //                   >
+                        //                     {promote.promote}
+                        //                   </div>
+                        //                 ))}
+                        //               </div>
+                        //             ) : null}
+                        //           </Link>
+                        //         ) : null}
+                        //       </div>
+                        //       {/* <div className="countdown_box">
+                        //       <div className="countdown_inner"></div>
+                        //     </div> */}
+                        //       {sur.discount && sur.discount > 0 ? (
+                        //         <div className="box-label">
+                        //           <span className="label-product label-sale">
+                        //             Sale
+                        //           </span>
+                        //         </div>
+                        //       ) : null}
+                        //     </div>
 
-                                      {sur.adType === "jobseeker"
-                                        ? sur.rate > 0
-                                          ? sur && sur.currency + " " + sur.rate
-                                          : null
-                                        : null}
-                                    </span>
-                                    {sur.adType === "surplus" ? (
-                                      <>
-                                        {sur.originalPrice &&
-                                        sur.offeredPrice > 0 ? (
-                                          <span className="price-new">
-                                            {sur && sur.currency}{" "}
-                                            {sur.offeredPrice}
-                                          </span>
-                                        ) : (
-                                          <span className="price-new">
-                                            {sur && sur.currency}{" "}
-                                            {sur.originalPrice}
-                                          </span>
-                                        )}
-                                        {sur.originalPrice &&
-                                        sur.offeredPrice > 0 ? (
-                                          <span className="price-old">
-                                            {sur && sur.currency}{" "}
-                                            {sur.originalPrice}
-                                          </span>
-                                        ) : null}
-                                      </>
-                                    ) : null}
-                                  </div>
-                                  {sur.adType === "surplus" &&
-                                  sur.discount &&
-                                  sur.discount > 0 ? (
-                                    <div className="price-sale price-right">
-                                      <span className="discount">
-                                        -{sur.discount}%<strong>OFF</strong>
-                                      </span>
-                                    </div>
-                                  ) : null}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))
+                        //     <div className="right-block">
+                        //       <div className="caption">
+                        //         <h4>
+                        //           {sur.adType === "surplus" ? (
+                        //             <Link to={`/surplus-detail/${sur._id}`}>
+                        //               {sur.title && sur.title.length > 50
+                        //                 ? capitalizeFirstLetter(
+                        //                     sur.title.substring(0, 50) + "..."
+                        //                   )
+                        //                 : sur.title &&
+                        //                   capitalizeFirstLetter(sur.title)}
+                        //             </Link>
+                        //           ) : null}
+                        //           {sur.adType === "job" ? (
+                        //             <Link to={`/job-detail/${sur._id}`}>
+                        //               {sur.title && sur.title.length > 50
+                        //                 ? capitalizeFirstLetter(
+                        //                     sur.title.substring(0, 50) + "..."
+                        //                   )
+                        //                 : sur.title &&
+                        //                   capitalizeFirstLetter(sur.title)}
+                        //             </Link>
+                        //           ) : null}
+                        //           {sur.adType === "jobseeker" ? (
+                        //             <Link to={`/job-seeker-detail/${sur._id}`}>
+                        //               {sur.title && sur.title.length > 50
+                        //                 ? capitalizeFirstLetter(
+                        //                     sur.title.substring(0, 50) + "..."
+                        //                   )
+                        //                 : sur.title &&
+                        //                   capitalizeFirstLetter(sur.title)}
+                        //             </Link>
+                        //           ) : null}
+                        //         </h4>
+                        //         <div>
+                        //           <i class="fa fa-tasks"></i>
+                        //           <small>
+                        //             {sur.category &&
+                        //               capitalizeFirstLetter(sur.category)}
+                        //           </small>
+                        //         </div>
+                        //         <div>
+                        //           <i class="fa fa-map-marker"></i>
+                        //           <small>
+                        //             {sur.country &&
+                        //               capitalizeFirstLetter(sur.country)}
+                        //           </small>
+                        //         </div>
+                        //         <div className="total-price">
+                        //           <div className="price price-left">
+                        //             <span className="price-new">
+                        //               {sur.adType === "job"
+                        //                 ? sur.minSalary > 0 && sur.maxSalary > 0
+                        //                   ? sur &&
+                        //                     sur.currency +
+                        //                       " " +
+                        //                       sur.minSalary +
+                        //                       " - " +
+                        //                       sur.maxSalary +
+                        //                       " / " +
+                        //                       sur.salaryType
+                        //                   : sur.salaryType
+                        //                 : null}
+
+                        //               {sur.adType === "jobseeker"
+                        //                 ? sur.rate > 0
+                        //                   ? sur && sur.currency + " " + sur.rate
+                        //                   : null
+                        //                 : null}
+                        //             </span>
+                        //             {sur.adType === "surplus" ? (
+                        //               <>
+                        //                 {sur.originalPrice &&
+                        //                 sur.offeredPrice > 0 ? (
+                        //                   <span className="price-new">
+                        //                     {sur && sur.currency}{" "}
+                        //                     {sur.offeredPrice}
+                        //                   </span>
+                        //                 ) : (
+                        //                   <span className="price-new">
+                        //                     {sur && sur.currency}{" "}
+                        //                     {sur.originalPrice}
+                        //                   </span>
+                        //                 )}
+                        //                 {sur.originalPrice &&
+                        //                 sur.offeredPrice > 0 ? (
+                        //                   <span className="price-old">
+                        //                     {sur && sur.currency}{" "}
+                        //                     {sur.originalPrice}
+                        //                   </span>
+                        //                 ) : null}
+                        //               </>
+                        //             ) : null}
+                        //           </div>
+                        //           {sur.adType === "surplus" &&
+                        //           sur.discount &&
+                        //           sur.discount > 0 ? (
+                        //             <div className="price-sale price-right">
+                        //               <span className="discount">
+                        //                 -{sur.discount}%<strong>OFF</strong>
+                        //               </span>
+                        //             </div>
+                        //           ) : null}
+                        //         </div>
+                        //       </div>
+                        //     </div>
+                        //   </div>
+                        // </div>
+                      )
                     : null}
                 </div>
                 {/* <Pagination

@@ -2,10 +2,24 @@ import React, { useState } from "react";
 import LOGO from "../image/Logo.png";
 import { Link } from "react-router-dom";
 import FutjanQrcode from "../image/futjanQrcode.png";
-import PlayStore from "../image/playStore.png";
-import AppStore from "../image/AppStore.png";
+import { subscribeNewsLetter } from "../actions/userAction";
+import { useDispatch } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+// import PlayStore from "../image/playStore.png";
+// import AppStore from "../image/AppStore.png";
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // initialize hooks
+  const dispatch = useDispatch();
+
+  // subscribe
+  const subscribeFunc = (value) => {
+    setEmail("");
+    setLoading(value);
+  };
+
   return (
     <footer className="footer-container typefooter-1">
       <div className="footer-has-toggle" id="collapse-footer">
@@ -51,14 +65,39 @@ const Footer = () => {
                                 />
                               </div>
                               <div className="input-group-btn subcribe">
-                                <button
-                                  className="btn btn-primary"
-                                  type="button"
-                                  onClick={() => setEmail("")}
-                                >
-                                  <i className="fa fa-envelope hidden"></i>
-                                  <span>Subscribe</span>
-                                </button>
+                                {/* <CircularProgress
+                                      sx={{
+                                        color: "#ff5e00",
+                                      }}
+                                    /> */}
+                                {loading === true ? (
+                                  <button
+                                    className="btn btn-primary d-flex justify-content-center align-items-center flex-gap-2"
+                                    type="button"
+                                  >
+                                    <CircularProgress
+                                      sx={{
+                                        color: "#fff",
+                                      }}
+                                    />
+                                    <span>Subscribe</span>
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-primary d-flex justify-content-center align-items-center flex-gap-2"
+                                    type="button"
+                                    onClick={() =>
+                                      dispatch(
+                                        subscribeNewsLetter(
+                                          { email },
+                                          subscribeFunc
+                                        )
+                                      )
+                                    }
+                                  >
+                                    <span>Subscribe</span>
+                                  </button>
+                                )}
                               </div>
                             </div>
                           </form>
@@ -225,7 +264,7 @@ const Footer = () => {
                       style={{ marginTop: "25px" }}
                     >
                       <img src={FutjanQrcode} alt="qrcode" width="70%" />
-                      <div
+                      {/* <div
                         className="d-flex justify-content-center  align-items-center"
                         style={{ gap: "10px", marginTop: "20px" }}
                       >
@@ -245,92 +284,19 @@ const Footer = () => {
                         >
                           <img src={AppStore} alt="app store" width="100%" />
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* <div
-            className="container-fluid page-builder-ltr"
-            style={{ padding: "0" }}
-          >
-            <div className="row row_qof8  footer--center3  row-color ">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_up4v  float_none ">
-                <div className="row row_fymn  ">
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1yf0">
-                    <div className="contactinfo">
-                      <h4 className="title-footer">Our Contact</h4>
-                      <p>
-                        They key is to have every key, the key to open every
-                        door. We will never see them
-                      </p>
-                      <div className="content-footer">
-                        <div className="address">
-                          <label>
-                            <i
-                              className="fa fa-map-marker"
-                              aria-hidden="true"
-                            ></i>
-                          </label>
-                          <span>
-                            100 S Manhattan St, Amarillo, TX 79104, North
-                            America
-                          </span>
-                        </div>
-                        <div className="phone">
-                          <label>
-                            <i className="fa fa-phone" aria-hidden="true"></i>
-                          </label>
-                          <span>( +123 )4 567 890 - ( +123 )4 567 899</span>
-                        </div>
-                        <div className="email">
-                          <label>
-                            <i className="fa fa-envelope"></i>
-                          </label>
-                          <a href="https://www.google.com">
-                            Contact@TopDeals.Com
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
-      {/* 
-      <div className="footer-toggle hidden-lg hidden-md">
-        <a
-          className="showmore collapsed"
-          data-toggle="collapse"
-          href="https://www.google.com"
-          aria-expanded="false"
-          aria-controls="collapse-footer"
-        >
-          <span className="toggle-more">
-            <i className="fa fa-angle-double-down"></i>Show More
-          </span>
-          <span className="toggle-less">
-            <i className="fa fa-angle-double-up"></i>Show less
-          </span>
-        </a>
-      </div> */}
-
       <div className="footer-bottom ">
         <div className="container">
-          <div className="row">
-            <div className="col-md-7  col-sm-7 copyright">
-              All Rights Reserved © 2022
-            </div>
-
-            <div className="col-md-5 col-sm-5 paymen">
-              {/* <img src="image/catalog/demo/payment/payments-1.png" alt="imgpayment"> */}
-            </div>
+          <div className="text-align-center">
+            Copyright ©️ 2022 Futjan All Rights Reserved
           </div>
         </div>
       </div>

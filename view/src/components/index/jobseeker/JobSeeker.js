@@ -23,21 +23,16 @@ const JobSeeker = () => {
   }, []);
   return (
     <section id="box-link2" className="section-style">
-      <div className="container page-builder-ltr" style={{ marginTop: "20px" }}>
+      <div className="container page-builder-ltr mt-4">
         <div className="row row-style row_a2">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_1bi4  col-style block block_5 title_neo2">
             <div className="module so-listing-tabs-ltr default-nav clearfix img-float label-1 home-lt1">
               <div className="form-group clearfix index-jobseeker">
                 <Link
-                  className="title-category "
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                  className="title-category d-flex align-items-center justify-content-between"
                   to="/job-seeker"
                 >
-                  <span style={{ marginBottom: "5px" }}> Job seeker</span>
+                  <span className="mb-1"> Job seeker</span>
                 </Link>
               </div>
               <div className="modcontent">
@@ -66,10 +61,7 @@ const JobSeeker = () => {
                             key={candidate._id}
                           >
                             <div className="job-seeker-card">
-                              <div
-                                style={{ marginBottom: "10px" }}
-                                className="job-seeker-card-img-container"
-                              >
+                              <div className="job-seeker-card-img-container mb-2">
                                 {candidate.images ? (
                                   <LazyLoadImage
                                     alt={"user"}
@@ -77,26 +69,18 @@ const JobSeeker = () => {
                                     src={fileURL(candidate.images)}
                                     height="70px"
                                     width="70px"
-                                    style={{ borderRadius: "50%" }}
+                                    className="border-round"
                                   />
                                 ) : (
                                   <img
                                     src={defaultUser}
                                     alt="user"
                                     width="70"
-                                    style={{ borderRadius: "50%" }}
+                                    className="border-round"
                                   />
                                 )}
                               </div>
-                              <div
-                                className="job-seeker-card-name-container"
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "column",
-                                }}
-                              >
+                              <div className="job-seeker-card-name-container d-flex justify-content-center align-items-center flex-dir-col">
                                 <p className="job-seeker-card-name">
                                   {candidate.name &&
                                     capitalizeFirstLetter(candidate.name)}
@@ -144,7 +128,7 @@ const JobSeeker = () => {
                                     </span>
                                   ))}
                               </div>
-                              <div style={{ width: "100%" }}>
+                              <div className="w-100">
                                 <Link
                                   className="job-seeker-view-profile"
                                   to={`/job-seeker-detail/${candidate._id}`}

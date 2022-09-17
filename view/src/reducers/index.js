@@ -11,12 +11,14 @@ import userAdsReducer from "./userAdsReducer";
 import favouriteReducer from "./favouriteReducer";
 import currencyReducer from "./currencyReducer";
 import draftAdReducer from "./draftAdsReducer";
+import businessReducer from "./businessReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
   auth: authReducer,
   error: errorReducer,
   surplus: surplusReducer,
+  business: businessReducer,
   job: jobReducer,
   jobSeeker: jobSeekerReducer,
   report: reportReducer,

@@ -13,6 +13,7 @@ const presetSchema = new Schema({
   title_surplus: String,
   title_job: String,
   title_jobSeeker: String,
+  title_business: String,
   createdAt: {
     type: Date,
     default: Date.now,
