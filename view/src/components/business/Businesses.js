@@ -12,6 +12,8 @@ import { savePreset, getPreset } from "../actions/userAction";
 import $ from "jquery";
 import Pagination from "../../utils/Pagination";
 import "../surplusBusiness/skeleton.css";
+
+const AdCommonFilters = React.lazy(() => import("../../utils/AdCommonFilters"));
 const Businesses = () => {
   const [businessType, setBusinessType] = useState("");
   const [city, setCity] = useState({
@@ -199,7 +201,7 @@ const Businesses = () => {
     dispatch(savePreset(preset));
   };
   return (
-    <div className="res layout-1" style={{ marginTop: "20px" }}>
+    <div className="res layout-1 mt-4">
       <div id="wrapper" className="wrapper-fluid banners-effect-10">
         <div className="container product-detail">
           <div className="row">
@@ -211,118 +213,16 @@ const Businesses = () => {
                 </h3>
                 <div className="modcontent">
                   <ul>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>Title</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="text_search"
-                                  id="text_search"
-                                  placeholder="title"
-                                  value={title}
-                                  onChange={(e) => setTitle(e.target.value)}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>Country</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <Countries
-                                  setCountry={setCountry}
-                                  country={country}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>State / County</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <County
-                                  country={country}
-                                  setCounty={setCounty}
-                                  county={county}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li className="so-filter-options" data-option="search">
-                      <div className="so-filter-heading">
-                        <div className="so-filter-heading-text">
-                          <span>City</span>
-                        </div>
-                        <i className="fa fa-chevron-down"></i>
-                      </div>
-
-                      <div className="so-filter-content-opts">
-                        <div className="so-filter-content-opts-container">
-                          <div className="so-filter-option" data-type="search">
-                            <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
-                                <Cities
-                                  setCity={setCity}
-                                  county={county}
-                                  country={country}
-                                  city={city}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+                    <AdCommonFilters
+                      title={title}
+                      setTitle={setTitle}
+                      country={country}
+                      setCountry={setCountry}
+                      county={county}
+                      setCounty={setCounty}
+                      city={city}
+                      setCity={setCity}
+                    />
                     <li className="so-filter-options" data-option="search">
                       <div className="so-filter-heading">
                         <div className="so-filter-heading-text">
@@ -335,10 +235,7 @@ const Businesses = () => {
                         <div className="so-filter-content-opts-container">
                           <div className="so-filter-option" data-type="search">
                             <div className="so-option-container">
-                              <div
-                                className="input-group"
-                                style={{ width: "100%" }}
-                              >
+                              <div className="input-group w-100">
                                 <BusinessType
                                   setBusinessType={setBusinessType}
                                   businessType={businessType}
@@ -387,131 +284,16 @@ const Businesses = () => {
                     <div className="modcontent">
                       <ul>
                         {" "}
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>Title</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <input
-                                      type="text"
-                                      name="titlePreset"
-                                      value={titlePreset}
-                                      onChange={(e) =>
-                                        setTitlePreset(e.target.value)
-                                      }
-                                      placeholder="title"
-                                      className="form-control"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>Country</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <Countries
-                                      setCountry={setCountryPreset}
-                                      country={countryPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>State / County</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <County
-                                      country={countryPreset}
-                                      setCounty={setCountyPreset}
-                                      county={countyPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="so-filter-options" data-option="search">
-                          <div className="so-filter-heading">
-                            <div className="so-filter-heading-text">
-                              <span>City</span>
-                            </div>
-                            <i className="fa fa-chevron-down"></i>
-                          </div>
-
-                          <div className="so-filter-content-opts">
-                            <div className="so-filter-content-opts-container">
-                              <div
-                                className="so-filter-option"
-                                data-type="search"
-                              >
-                                <div className="so-option-container">
-                                  <div
-                                    className="input-group"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <Cities
-                                      setCity={setCityPreset}
-                                      county={countyPreset}
-                                      country={countryPreset}
-                                      city={cityPreset}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
+                        <AdCommonFilters
+                          title={titlePreset}
+                          setTitle={setTitlePreset}
+                          country={countryPreset}
+                          setCountry={setCountryPreset}
+                          county={countyPreset}
+                          setCounty={setCountyPreset}
+                          city={cityPreset}
+                          setCity={setCityPreset}
+                        />
                       </ul>
                       <div className="clear_filter">
                         <button
@@ -534,31 +316,13 @@ const Businesses = () => {
             <div className="open-sidebar hidden-lg hidden-md">
               <i className="fa fa-bars"></i>Sidebar
             </div>
-            <div
-              className="products-category  col-md-9 col-sm-12 col-xs-12"
-              style={{ padding: "0" }}
-            >
+            <div className="products-category  col-md-9 col-sm-12 col-xs-12 p-0">
               <div className="form-group clearfix">
-                <h3
-                  className="title-category "
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
+                <h3 className="title-category d-flex align-items-center justify-content-between">
                   <span>Business</span>
                   <Link
-                    className="clearfix"
+                    className="clearfix d-flex justify-content-center align-items-center flex-dir-col font-weight-lighter font-size-14"
                     to="/user-panel"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      fontSize: "14px",
-                      fontWeight: "100",
-                    }}
                   >
                     <i
                       className="fa fa-thumb-tack"
@@ -574,19 +338,11 @@ const Businesses = () => {
               </div>
               <div className="products-category">
                 <div className="product-filter filters-panel">
-                  <div
-                    className="row"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
+                  <div className="row d-flex align-items-center">
                     <div className="col-sm-3 view-mode hidden-sm hidden-xs">
                       {isAuthenticated === true && preset && preset._id ? (
                         <div
                           className="open-sidebar"
-                          style={{
-                            cursor: "pointer",
-                            margin: "0",
-                            fontWeight: 600,
-                          }}
                           onClick={() => getSavedAlert()}
                         >
                           GET SAVED ALERT
@@ -653,8 +409,7 @@ const Businesses = () => {
                   <div className="row">
                     {["", "", "", "", "", ""].map((num, i) => (
                       <div
-                        className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
-                        style={{ margin: "20px 0" }}
+                        className="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-4"
                         key={i}
                       >
                         <Skeleton count={1} className="skeleton-card" />

@@ -76,7 +76,7 @@ const Header2 = () => {
     // <!-- Header Container  -->
     <header id="header" className="typeheader-4">
       {/* <!-- Header center --> */}
-      <div className="header-center">
+      <div className="header-center d-flex align-items-center justify-content-center">
         <ul className="top-link list-inline position-absolute right-0 top-0">
           <li>
             <Select
@@ -98,21 +98,24 @@ const Header2 = () => {
             </Select>
           </li>
         </ul>
+        <Link to="/" className="d-flex align-items-center w-25 d-none-xs">
+          <img alt="Futjan" width="65%" title="Futjan" src={LOGO} />
+        </Link>
         <div className="container">
           <div className="row d-sm-block d-flex  justify-content-center">
-            <div className="navbar-logo col-lg-2 col-md-2 col-xs-2 col-sm-3 m-0">
+            <div className="navbar-logo col-lg-2 col-md-2  col-sm-3 col-xs-5 m-0 d-block-xs d-none-sm d-flex align-items-center justify-content-center">
               <Link
                 to="/"
                 className="d-flex align-items-center justify-content-center"
               >
-                <img alt="Futjan" width="85%" title="Futjan" src={LOGO} />
+                <img alt="Futjan" width="100%" title="Futjan" src={LOGO} />
               </Link>
             </div>
             <div
               className={
                 auth.user && auth.user.role === "admin"
-                  ? "header-center-right col-lg-6 col-md-6 col-sm-8 col-xs-11"
-                  : "header-center-right col-lg-7 col-md-7 col-sm-8 col-xs-11"
+                  ? "header-center-right col-lg-10 col-md-10 col-sm-12 col-xs-11"
+                  : "header-center-right col-lg-9 col-md-9 col-sm-12 col-xs-11"
               }
             >
               <div className="header_search">
@@ -201,7 +204,7 @@ const Header2 = () => {
                   : "header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1 d-flex m-0 p-0 justify-content-start"
               }
             >
-              <div className="megamenu-style-dev megamenu-dev">
+              <div className="megamenu-style-dev megamenu-dev d-flex justify-content-center align-items-end">
                 <div className="responsive">
                   <nav className="navbar-default">
                     <div className="container-megamenu horizontal">
@@ -230,7 +233,6 @@ const Header2 = () => {
                               data-animationtime="500"
                             >
                               <li className="full-width menu-home with-sub-menu hover">
-                                <p className="close-menu"></p>
                                 <NavLink
                                   className=" align-items-center justify-content-center d-flex flex-dir-col btn btn-primary header-post-free-ad-btn"
                                   to="/user-panel"
@@ -246,9 +248,7 @@ const Header2 = () => {
                                 </NavLink>
                               </li>
                               {auth.isAuthenticated !== true ? (
-                                <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-
+                                <li className="full-width menu-home with-sub-menu hover d-block-xs d-none-sm">
                                   <NavLink
                                     className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                     to="/login"
@@ -270,8 +270,6 @@ const Header2 = () => {
                               auth.user &&
                               auth.user.role === "admin" ? (
                                 <li className="full-width menu-home with-sub-menu hover">
-                                  <p className="close-menu"></p>
-
                                   <NavLink
                                     className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                     to="/adminpanel"
@@ -426,6 +424,25 @@ const Header2 = () => {
             </div>
           </div>
         </div>
+        {auth.isAuthenticated !== true ? (
+          <div className="full-width menu-home with-sub-menu hover d-none-xs">
+            <NavLink
+              className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
+              to="/login"
+              state={{ from: location.pathname }}
+              onClick={() =>
+                closeSideNavBar(
+                  "megamenu-wrapper-2",
+                  "megamenu-wrapper-2-wrapper"
+                )
+              }
+            >
+              {" "}
+              <i className="fa fa-user header-icon"></i>
+              <strong>Login/Register</strong>
+            </NavLink>
+          </div>
+        ) : null}
       </div>
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}

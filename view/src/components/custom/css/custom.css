@@ -66,6 +66,9 @@
 .w-100 {
   width: 100% !important;
 }
+.w-25 {
+  width: 25%;
+}
 .position-absolute {
   position: absolute;
 }
@@ -1560,6 +1563,19 @@ input[type="number"] {
   }
 }
 
+@media screen and (min-width: 769px) {
+  .d-none-sm {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .d-none-xs {
+    display: none !important;
+  }
+  .d-block-xs {
+    display: block;
+  }
+}
 @media screen and (max-width: 600px) {
   .ltabs-item {
     padding: 0 10px !important;

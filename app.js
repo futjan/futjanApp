@@ -5,6 +5,7 @@ const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cors = require("cors");
 const compression = require("compression");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
@@ -35,6 +36,7 @@ const businessroutes = require("./routes/businessRoutes");
 //     },
 //   })
 // );
+app.use(cors());
 // Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
