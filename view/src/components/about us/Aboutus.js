@@ -26,30 +26,28 @@ function Aboutus() {
           <div id="content" className="col-sm-12">
             <div className="about-us about-demo-4">
               <div className="row">
-                <div className="col-lg-6 col-md-6 about-us-content">
+                <div className="col-lg-11 col-md-11 about-us-content">
                   <div className="content-about">
                     <h2 className="about-title">About Us</h2>
                     {/* <img src="image/catalog/demo/about/about-us-demo4.jpg" alt="About Us"> */}
                     <p className="description-about">
                       {" "}
-                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                      Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                      natoque penatibus et magnis dis parturient montes,
-                      nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                      pellentesque eu, pretium quis, sem. Nulla consequat massa
-                      quis enim. Donec pede justo, fringilla vel, aliquet nec,
-                      vulputate eget, arcu.
-                      <br /> Lorem ipsum dolor sit amet, consectetuer adipiscing
-                      elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-                      sociis natoque penatibus et magnis dis parturient montes,
-                      nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                      pellentesque eu, pretium quis, sem. Nulla consequat massa
-                      quis enim. Donec pede justo, fringilla vel, aliquet nec
-                      vulputate{" "}
+                      Futjan founded in 2020 by a woman, whose main aim was to
+                      build a local community where people refer to choose local
+                      business and services and find everyhing, they need in
+                      their day-to-day life: a job , things, a place to live and
+                      local food.
+                      <br />
+                      After covid-19 life completely changed, businesses
+                      counting the costs and unemployment at high pace. This
+                      brought an idea od Futjan that provides a local platform
+                      for people to connect each other in need around a life
+                      stage. It helps people find what they need most,
+                      affordably and locally around
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-6 col-md-6 faq-about-us">
+                {/* <div className="col-lg-6 col-md-6 faq-about-us">
                   <h2 className="about-title">Faqs</h2>
                   <div className="content-faq">
                     <div
@@ -320,7 +318,7 @@ function Aboutus() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

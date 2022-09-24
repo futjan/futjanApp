@@ -98,8 +98,8 @@ const Header2 = () => {
             </Select>
           </li>
         </ul>
-        <Link to="/" className="d-flex align-items-center w-25 d-none-xs">
-          <img alt="Futjan" width="65%" title="Futjan" src={LOGO} />
+        <Link to="/" className="d-flex align-items-center w-20 d-none-xs">
+          <img alt="Futjan" width="57%" title="Futjan" src={LOGO} />
         </Link>
         <div className="container">
           <div className="row d-sm-block d-flex  justify-content-center">

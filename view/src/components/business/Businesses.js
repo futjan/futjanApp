@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Ad from "../index/index utils/Ad";
 import { getBusinesses } from "../actions/businessAction";
 import Skeleton from "react-loading-skeleton";
-import Countries from "../../utils/Countries";
-import County from "../../utils/County";
-import Cities from "../../utils/cities";
 import BusinessType from "../../utils/BusinessType";
 import { Link, useLocation } from "react-router-dom";
 import { savePreset, getPreset } from "../actions/userAction";
@@ -87,10 +84,6 @@ const Businesses = () => {
   useEffect(() => {
     dispatch(getPreset());
   }, [user && user._id]);
-  // useEffect
-  useEffect(() => {
-    callBusinessAPI(page, limit, sort);
-  }, []);
 
   useEffect(() => {
     callBusinessAPI(page, limit, sort);
@@ -180,7 +173,7 @@ const Businesses = () => {
   };
 
   // clear State
-  const clearState = () => {
+  const clearState = React.useCallback(() => {
     setCity({ name: "", stateCode: "", countryCode: "" });
     setBusinessType("");
     setCountry({ name: "", isoCode: "" });
@@ -190,7 +183,7 @@ const Businesses = () => {
     setCountryPreset({ name: "", isoCode: "", phonecode: "" });
     setCountyPreset({ name: "", isoCode: "" });
     setTitle("");
-  };
+  }, []);
   const savePresetFunc = () => {
     const preset = {
       country: countryPreset.name.toLowerCase(),

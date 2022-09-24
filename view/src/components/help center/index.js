@@ -21,7 +21,7 @@ const Index = () => {
     <>
       <div
         id="wrapper"
-        className="wrapper-fluid banners-effect-5"
+        className="wrapper-fluid banners-effect-5 help-center-container"
         style={{ margin: "30px 0" }}
       >
         <div className="main-container container">
@@ -306,7 +306,7 @@ const Index = () => {
                 </AccordionDetails>
               </Accordion>
             </div>
-            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 help-center-detail-info">
               <Suspense
                 fallback={
                   <div>

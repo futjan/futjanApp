@@ -269,16 +269,11 @@ const AddSurplusBusiness = (props) => {
   };
   return (
     // <!-- Main Container  -->
-    <div
-      className="main-container container"
-      style={{ position: "relative", marginTop: "30px" }}
-    >
+    <div className="main-container container mt-6 position-relative">
       {/* {successMsgModal === true ? <SuccessMsg /> : null} */}
       <div className="row">
         <div id="content" className="col-md-11">
-          <h2 className="title" style={{ margin: "0" }}>
-            Create Surplus with us
-          </h2>
+          <h2 className="title m-0">Create Surplus with us</h2>
 
           <form
             action=""
@@ -423,7 +418,7 @@ const AddSurplusBusiness = (props) => {
                 >
                   Country
                 </label>
-                <div className="col-sm-10" style={{ position: "relative" }}>
+                <div className="col-sm-10 position-relative">
                   <Countries setCountry={setCountry} country={country} />
                   {errors && errors.validation && errors.validation.country && (
                     <div className="invalid-feedback">
@@ -698,10 +693,7 @@ const AddSurplusBusiness = (props) => {
                 >
                   Original Price
                 </label>
-                <div
-                  className="col-sm-10 col-md-5"
-                  style={{ position: "relative" }}
-                >
+                <div className="col-sm-10 col-md-5 position-relative">
                   <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
@@ -729,10 +721,7 @@ const AddSurplusBusiness = (props) => {
                 >
                   Offered Price
                 </label>
-                <div
-                  className="col-sm-10 col-md-5"
-                  style={{ position: "relative" }}
-                >
+                <div className="col-sm-10 col-md-5 position-relative">
                   <span className="currency-icon">{currency}</span>
                   <input
                     type="number"
@@ -762,67 +751,23 @@ const AddSurplusBusiness = (props) => {
                   Upload image
                 </label>
                 <div className="col-sm-10">
-                  <label
-                    className="control-label"
-                    style={{
-                      fontSize: "15px",
-                      marginBottom: "15px",
-                      width: "100%",
-                      padding: "10px",
-                      background: "#fafafa",
-                      textDecoration: "underline",
-                      border: "1px solid #ddd",
-                    }}
-                  >
-                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
-                      Note:{" "}
-                    </span>
+                  <label className="control-label image-limit-lable">
+                    <span className="font-weight-600 font-size-16">Note: </span>
                     You can add upto 5 images
                   </label>
                   <div>
                     <div
                       className={
                         errors && errors.validation && errors.validation.files
-                          ? "form-control is-invalid"
-                          : "form-control"
+                          ? "form-control is-invalid post-ad-image-container"
+                          : "form-control post-ad-image-container"
                       }
-                      style={{
-                        height: "100%",
-                        width: "100%",
-                        marginBottom: "10px",
-                        display: "flex",
-                        // alignItems: "center",
-                        background: "transparent",
-                        justifyContent: "start",
-                        gap: "10px",
-                      }}
                     >
                       {files.length > 0
                         ? files.map((file, i) => (
-                            <div
-                              style={{
-                                width: "180px ",
-                                height: "180px",
-                                background: "#eee",
-                                position: "relative",
-                                overflow: "hidden",
-                                padding: "10px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                              }}
-                              key={i}
-                            >
+                            <div className="post-ad-image-preview" key={i}>
                               <i
                                 className="fa fa-times-circle"
-                                style={{
-                                  position: "absolute",
-                                  top: "2px",
-                                  right: "6px",
-                                  color: "#c82333",
-                                  fontSize: "23px",
-                                  cursor: "pointer",
-                                }}
                                 onClick={() => deleteFileHandler(i)}
                               ></i>
                               <img
@@ -861,27 +806,11 @@ const AddSurplusBusiness = (props) => {
               <h4 className="post-ad-heading">Make your ad stand out!</h4>
               <div className="form-group">
                 <div className="col-sm-12">
-                  <label
-                    className="control-label"
-                    style={{
-                      fontSize: "15px",
-                      marginBottom: "15px",
-                      width: "100%",
-                      padding: "10px",
-                      background: "#fafafa",
-                      textDecoration: "underline",
-                      border: "1px solid #ddd",
-                    }}
-                  >
-                    <span style={{ fontWeight: "600", fontSize: "16px" }}>
-                      Note:{" "}
-                    </span>
+                  <label className="control-label image-limit-lable ">
+                    <span className="font-weight-600 font-size-16">Note: </span>
                     Promote your Ad options are optional. You can post Ad free
                   </label>
-                  <label
-                    className="control-label"
-                    style={{ fontSize: "15px", marginBottom: "15px" }}
-                  >
+                  <label className="control-label mb-3 font-size-15">
                     Select an option to promote your ad
                   </label>
                   <div className="checkout-content confirm-section">
@@ -998,20 +927,9 @@ const AddSurplusBusiness = (props) => {
                       ))}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "block",
-                      overflow: "hidden",
-                      color: "#ddd",
-                      padding: "6px 15px",
-                      background: "#3b5998",
-                      width: "100%",
-                      marginBottom: "15px",
-                      fontSize: "16px",
-                    }}
-                  >
-                    <span style={{ float: "left" }}>Total</span>
-                    <span style={{ float: "right" }}>
+                  <div className="post-ad-total-container">
+                    <span className="float-left">Total</span>
+                    <span className="float-right">
                       {promoteType.length > 0
                         ? (promoteType.filter(
                             (type) => type.promote === "FEATURED"
@@ -1032,24 +950,16 @@ const AddSurplusBusiness = (props) => {
                         : "Free"}
                     </span>
                   </div>
-                  <label style={{ lineHeight: "16px" }}>
+                  <label className="line-heigh-3">
                     By selecting Post My Ad you agree you've read and accepted
                     our{" "}
-                    <span
-                      style={{ color: "#007fb0", textDecoration: "underline" }}
-                    >
-                      Terms of Use
-                    </span>{" "}
+                    <span className="accept-terms-condition">Terms of Use</span>{" "}
                     and{" "}
-                    <span
-                      style={{ color: "#007fb0", textDecoration: "underline" }}
-                    >
+                    <span className="accept-terms-condition">
                       Posting Rules
                     </span>
                     . Please see our{" "}
-                    <span
-                      style={{ color: "#007fb0", textDecoration: "underline" }}
-                    >
+                    <span className="accept-terms-condition">
                       Privacy Notice
                     </span>{" "}
                     for information regarding the processing of your data.
@@ -1064,8 +974,7 @@ const AddSurplusBusiness = (props) => {
                 <input
                   type="button"
                   value="Post Free Ad"
-                  className="btn btn-primary"
-                  style={{ color: "#393f00", backgroundColor: "#f6e94d" }}
+                  className="btn btn-primary post-free-ad-btn"
                   onClick={(e) => createSurplusFunction(e)}
                 />
               </div>

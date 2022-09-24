@@ -250,7 +250,7 @@ const Footer = () => {
                       </li>
 
                       <li>
-                        <Link to="/">Legal {"&"} Privacy information</Link>
+                        <Link to="/term-and-condition">Terms of Use</Link>
                       </li>
                       <li>
                         <Link to="/">Blogs</Link>

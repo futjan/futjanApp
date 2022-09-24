@@ -73,6 +73,9 @@ const DetailBusiness = lazy(() =>
 const Businesses = lazy(() => import("./components/business/Businesses"));
 const UserAds = lazy(() => import("./components/user ads/Index"));
 const SetPassword = lazy(() => import("./components/user/SetPassword"));
+const TermsAndCondition = lazy(() =>
+  import("./components/terms and condition")
+);
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -211,6 +214,11 @@ const App = (props) => {
 
               <Route path="/about-us" exact={true} element={<Aboutus />} />
               <Route path="/help-center" exact={true} element={<Help />} />
+              <Route
+                path="/term-and-condition"
+                exact={true}
+                element={<TermsAndCondition />}
+              />
               <Route path="/contact-us" exact={true} element={<Contactus />} />
 
               <Route path="/job" exact={true} element={<Job />} />

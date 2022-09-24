@@ -30,11 +30,7 @@ const Contactus = () => {
                   <legend>
                     <h2>Contact Form </h2>
                   </legend>
-                  <p>
-                    Lorem ipsum dolor sit amet conse ctetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam
-                  </p>
+                  <p>How can we help you?</p>
 
                   <div className="form-group required">
                     <div className="col-sm-12">
@@ -74,7 +70,7 @@ const Contactus = () => {
                 </fieldset>
                 <div className="buttons">
                   <div className="pull-left">
-                    <button className="btn btn-info" type="submit">
+                    <button className="btn btn-info">
                       <span>Submit </span>
                     </button>
                   </div>
