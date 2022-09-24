@@ -39,7 +39,7 @@ const Index = () => {
       >
         <div className="main-container container">
           <h3 className="about-title">
-            <i>Help Center</i>
+            <i>Terms of Use</i>
           </h3>
           <div className="row" style={{ paddingBottom: "30px" }}>
             <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
