@@ -3,9 +3,11 @@ import { Typography } from "@mui/material";
 export default function FeesPolicy() {
   return (
     <>
-      <ol>
+      <Typography variant="h4">Fees, services and content policy</Typography>
+      <br />
+      <ol type="a">
         <li>
-          <Typography variant="p">
+          <Typography variant="p" display="block" textAlign="justify">
             FutJan is generally free, but we sometimes charge a fee for certain
             services. If the service you use incurs a fee, you'll be able to
             review and accept terms that will be clearly disclosed at the time
@@ -17,8 +19,9 @@ export default function FeesPolicy() {
             or new service.
           </Typography>
         </li>
+        <br />
         <li>
-          <Typography variant="p">
+          <Typography variant="p" display="block" textAlign="justify">
             FutJan is the next generation of online classifieds. We act as a
             venue to allow our users who comply with these Terms to offer, sell,
             and buy products and services listed on the Platform. Although you
@@ -32,8 +35,9 @@ export default function FeesPolicy() {
             Platform at your own risk.
           </Typography>
         </li>
+        <br />
         <li>
-          <Typography variant="p">
+          <Typography variant="p" display="block" textAlign="justify">
             You understand that FutJan does not control, and is not responsible
             for ads, directory information, business listings/information,
             messages between users, including without limitation e-mails sent
@@ -68,8 +72,9 @@ export default function FeesPolicy() {
             your own risk and FutJan disclaims all liability thereto.
           </Typography>
         </li>
+        <br />
         <li>
-          <Typography variant="p">
+          <Typography variant="p" display="block" textAlign="justify">
             You acknowledge and agree that you are solely responsible for your
             own Content posted on, transmitted through, or linked from the
             Service and the consequences of posting, transmitting, linking, or
@@ -122,8 +127,9 @@ export default function FeesPolicy() {
             advertisement.
           </Typography>
         </li>
+        <br />
         <li>
-          <Typography variant="p">
+          <Typography variant="p" display="block" textAlign="justify">
             FutJan does not endorse any Content or any opinion, statement,
             recommendation, or advice expressed therein, and FutJan expressly
             disclaims any and all liability in connection with User Content.

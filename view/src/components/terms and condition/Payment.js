@@ -1,7 +1,10 @@
 import React from "react";
+
 export default function Payment() {
   return (
     <>
+      <h4>Payment for Paid Services</h4>
+      <br />
       <ol>
         <li>
           Upon selecting any feature of Paid Services, you may be redirected to
@@ -15,6 +18,7 @@ export default function Payment() {
           that you are entitled to use the medium or otherwise make the payment
           to us under applicable law.
         </li>
+        <br />
         <li>
           You have the ability to provide us your Goods and Services Tax
           Identification Number (GSTIN) on the platform. Your GSTIN details are
@@ -23,6 +27,7 @@ export default function Payment() {
           registered with the GST authorities, without independently verifying
           your registration status.
         </li>
+        <br />
         <li>
           Unless otherwise mentioned on the Website, prices indicated are
           inclusive of applicable taxes.

@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 const AccessService = () => {
   return (
     <>
+      <h4>Access to the service</h4>
+      <br />
       <Typography variant="p">
         FutJan grants you a limited, revocable, non-exclusive license to access
         and use the Service for personal use. This license granted herein does

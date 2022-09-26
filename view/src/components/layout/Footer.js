@@ -5,8 +5,8 @@ import FutjanQrcode from "../image/futjanQrcode.png";
 import { subscribeNewsLetter } from "../actions/userAction";
 import { useDispatch } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-// import PlayStore from "../image/playStore.png";
-// import AppStore from "../image/AppStore.png";
+import PlayStore from "../image/playStore.png";
+import AppStore from "../image/AppStore.png";
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -250,7 +250,9 @@ const Footer = () => {
                       </li>
 
                       <li>
-                        <Link to="/term-and-condition">Terms of Use</Link>
+                        <Link to="/term-and-condition">
+                          Legal and Privacy Information
+                        </Link>
                       </li>
                       <li>
                         <Link to="/">Blogs</Link>
@@ -264,7 +266,7 @@ const Footer = () => {
                       style={{ marginTop: "25px" }}
                     >
                       <img src={FutjanQrcode} alt="qrcode" width="70%" />
-                      {/* <div
+                      <div
                         className="d-flex justify-content-center  align-items-center"
                         style={{ gap: "10px", marginTop: "20px" }}
                       >
@@ -284,7 +286,7 @@ const Footer = () => {
                         >
                           <img src={AppStore} alt="app store" width="100%" />
                         </a>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ export default function block() {
   return (
     <>
       <Typography variant="h4">Block Messages</Typography>
+      <br />
       <Typography variant="p">
         If you want to block messages of the people and don’t want to
         communicate further, tap the three dots in the top right corner of the

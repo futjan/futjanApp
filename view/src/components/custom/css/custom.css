@@ -539,6 +539,9 @@ html {
 .justify-content-evenly {
   justify-content: space-evenly !important;
 }
+.justify-content-around {
+  justify-content: space-around !important;
+}
 .align-items-center {
   align-items: center !important;
 }
@@ -551,6 +554,9 @@ html {
 .line-heigh-2 {
   line-height: 10px !important;
   color: "#222" !important;
+}
+ol {
+  padding: 0 !important;
 }
 .line-heigh-3 {
   line-height: 16px !important;
@@ -574,7 +580,7 @@ html {
   text-transform: capitalize;
 }
 .text-align-center {
-  text-align: center;
+  text-align: center !important;
 }
 .flex-gap-2 {
   gap: 10px;
@@ -882,7 +888,7 @@ input[type="number"] {
 .post-ad-total-container {
   display: block;
   overflow: hidden;
-  color: "#ddd";
+  color: #ddd;
   padding: 6px 15px;
   background: #3b5998;
   width: 100%;
@@ -1599,6 +1605,21 @@ input[type="number"] {
 
 .term-condition .help-center-detail-link {
   padding: 0 !important;
+}
+.about-us-content p,
+.about-us-content h2 {
+  color: #000 !important;
+}
+.help-center-container,
+.help-center-container h4,
+.help-center-container h5,
+.help-center-container span,
+.help-center-container p,
+.help-center-container h3,
+.help-center-container h2 {
+  color: #000 !important;
+  display: block;
+  text-align: justify;
 }
 .help-center-container .MuiTypography-h4,
 .help-center-container .help-center-detail-info .MuiTypography-h5 {

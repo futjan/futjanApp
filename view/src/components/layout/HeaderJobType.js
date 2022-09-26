@@ -5,7 +5,7 @@ import { Stack, Button, styled } from "@mui/material";
 
 const jobTypeLocal = [
   {
-    subCategory: "ACTechnician",
+    subCategory: "AC Technician",
     title: "AC Technician",
   },
   {
@@ -317,8 +317,8 @@ const HeaderJobType = ({ jobSeach, setJobSearch }) => {
                     className="subcategory_item"
                     to="/job"
                     state={{
-                      subCategory: type.subCategory,
-                      category: "Local Job",
+                      subCategory: type.subCategory.toLowerCase(),
+                      category: "local job",
                     }}
                   >
                     {type.title}
@@ -337,8 +337,8 @@ const HeaderJobType = ({ jobSeach, setJobSearch }) => {
                     className="subcategory_item"
                     to="/job"
                     state={{
-                      subCategory: type.subCategory,
-                      category: "Special Job",
+                      subCategory: type.subCategory.toLowerCase(),
+                      category: "special job",
                     }}
                   >
                     {type.title}

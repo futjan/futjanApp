@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 export default function AbilityToAccept() {
   return (
     <>
+      <h4>Ability to Accept terms of Service</h4>
+      <br />
       <Typography variant="p">
         This Platform is intended only for adults and that you are eligible to
         contract as per applicable laws. If you are using/accessing this
@@ -19,6 +21,7 @@ export default function AbilityToAccept() {
         by and comply with these Terms. In any case, you affirm that you are
         over the age of 13, as the Platform is not intended for children under
         13.
+        <br />
         <br />
         NOTICE TO CHILDREN UNDER THE AGE OF 13 AND THEIR PARENTS OR GUARDIANS -
         If you are under the age of 13, YOU MUST NOT USE THIS PLATFORM. Please

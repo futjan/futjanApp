@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 const UserSubmission = () => {
   return (
     <>
+      <h4>User Submission</h4>
+      <br />
       <Typography variant="p">
         You understand that when using the Platform, you will be exposed to
         Content from a variety of sources and that FutJan is not responsible for

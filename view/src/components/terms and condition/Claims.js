@@ -3,11 +3,14 @@ import { Typography } from "@mui/material";
 function Claims() {
   return (
     <>
+      <h4>Claims of Infringements</h4>
+      <br />
       <Typography variant="p">
         FutJan is not liable for any infringement of intellectual property
         rights arising out of materials posted on or transmitted through the
         site, or items advertised on the site, by end-users, or any other third
         parties.
+        <br />
         <br />
         If you are an owner of intellectual property rights or an agent who is
         fully authorized to act on behalf of the owner of intellectual property

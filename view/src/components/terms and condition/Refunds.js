@@ -3,6 +3,8 @@ import React from "react";
 function Refunds() {
   return (
     <>
+      <h4>Refunds / Cancellation</h4>
+      <br />
       <ol>
         <li>
           If you choose to delete or deactivate any Paid Services prior to the
@@ -17,6 +19,7 @@ function Refunds() {
           glitch during the lifetime of the package validity, you will be
           credited only 1 unit of Featured Ad to your account.
         </li>
+        <br />
         <li>
           The above refund policy shall not be applicable in the event any
           content in your advertisement is found to be violating the Terms or

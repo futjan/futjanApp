@@ -28,19 +28,19 @@ function Aboutus() {
               <div className="row">
                 <div className="col-lg-11 col-md-11 about-us-content">
                   <div className="content-about">
-                    <h2 className="about-title">About Us</h2>
+                    <h2 className="about-title">Our Story</h2>
                     {/* <img src="image/catalog/demo/about/about-us-demo4.jpg" alt="About Us"> */}
                     <p className="description-about">
                       {" "}
                       Futjan founded in 2020 by a woman, whose main aim was to
                       build a local community where people refer to choose local
                       business and services and find everyhing, they need in
-                      their day-to-day life: a job , things, a place to live and
+                      their day-to-day life: a job, things, a place to live and
                       local food.
                       <br />
                       After covid-19 life completely changed, businesses
                       counting the costs and unemployment at high pace. This
-                      brought an idea od Futjan that provides a local platform
+                      brought an idea of Futjan that provides a local platform
                       for people to connect each other in need around a life
                       stage. It helps people find what they need most,
                       affordably and locally around

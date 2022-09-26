@@ -25,10 +25,8 @@ const Index = () => {
         style={{ margin: "30px 0" }}
       >
         <div className="main-container container">
-          <h3 className="about-title">
-            <i>Help Center</i>
-          </h3>
-          <div className="row" style={{ paddingBottom: "30px" }}>
+          <h3 className="about-title text-align-center">Futjan Help Center</h3>
+          <div className="row mt-4" style={{ paddingBottom: "30px" }}>
             <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <Accordion disableGutters={true}>
                 <AccordionSummary

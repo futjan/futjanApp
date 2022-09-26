@@ -38,10 +38,8 @@ const Index = () => {
         style={{ margin: "30px 0" }}
       >
         <div className="main-container container">
-          <h3 className="about-title">
-            <i>Terms of Use</i>
-          </h3>
-          <div className="row" style={{ paddingBottom: "30px" }}>
+          <h3 className="about-title text-align-center">Futjan Terms of Use</h3>
+          <div className="row mt-4" style={{ paddingBottom: "30px" }}>
             <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <Accordion
                 disableGutters={true}
@@ -384,23 +382,27 @@ const Index = () => {
                 }
               >
                 {comp === "basic" ? (
-                  <Typography variant="p">
+                  <Typography variant="p" display="block">
                     Terms of use updated on June 24th 2022. Please read
                     carefully and by using this platform you consent your
                     understanding and acceptance of these terms and conditions.
                     <br />
+                    <br />
                     These Terms of Use constitute a legally binding agreement
                     between you and FutJan.com. This applied on current users,
                     and upon acceptance for new users.
+                    <br />
                     <br />
                     Users accept these Terms of Use by clicking the "Register
                     Account" button when registering a FutJan account and by
                     otherwise accessing FutJan, including posting an ad; or as
                     otherwise indicated on FutJan.
                     <br />
+                    <br />
                     In the event of non-compliance with this terms of use,
                     FutJan has the right to limit or terminate your access or
                     usage rights to the platform immediately.
+                    <br />
                     <br />
                     Users are solely responsible for all information that submit
                     to FutJan and any consequences that may result from their
@@ -415,8 +417,8 @@ const Index = () => {
                     recommend that they exercise caution.
                     <br />
                     <br />
-                    By using platform and services of the FutJan you agree to
-                    these terms
+                    By using platform and <b>services</b> of the FutJan you
+                    agree to these terms
                   </Typography>
                 ) : null}
                 {comp === "Acceptance/Abusing" ? (

@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 export default function GeneralInfo() {
   return (
     <>
+      <h4>General Information</h4>
+      <br />
       <Typography variant="p">
         These Terms and the other policies posted on the Platform constitute the
         complete and exclusive understanding and agreement between you and

@@ -7,7 +7,9 @@ export default function Items() {
       <Typography variant="h4">
         A to Z list of items/services cannot be posted on FUTJAN
       </Typography>
+      <br />
       <Typography variant="h5">A</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -28,7 +30,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">B</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -41,7 +45,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">C</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Chemicals that are dangerous</Typography>
@@ -62,7 +68,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">D</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -93,7 +101,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">E</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -101,7 +111,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">F</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -115,7 +127,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">G</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -130,7 +144,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">H</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -146,7 +162,9 @@ export default function Items() {
           <Typography variant="p">3. Hacking services of any kind</Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">I</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -154,7 +172,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">J</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -163,13 +183,17 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">K</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Kits or vaccinations sell</Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">L</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Lottery tickets</Typography>
@@ -181,7 +205,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">M</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -195,7 +221,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">N</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -203,7 +231,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">O</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -212,7 +242,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">P</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -230,7 +262,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">Q</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -238,7 +272,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">R</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -246,7 +282,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">S</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Security tag removal items</Typography>
@@ -261,7 +299,9 @@ export default function Items() {
           <Typography variant="p">4. Surrogacy</Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">T</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -288,7 +328,9 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">U</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">
@@ -296,18 +338,28 @@ export default function Items() {
           </Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">V</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Votes to sell or buy</Typography>
         </li>
       </ul>
+      <br />
       <Typography variant="h5">W</Typography>
+      <br />
       <ul>
         <li>
           <Typography variant="p">1. Weapons or Knives of any kind</Typography>
         </li>
       </ul>
+      <br />
+      <p>
+        Note: We at FutJan tried to make above thorough list but if we find any
+        content inappropriate or interferes with well-being of the community we
+        will bound to ask you to take down the listing
+      </p>
     </>
   );
 }

@@ -204,10 +204,10 @@ const Header2 = () => {
                   : "header-cart-phone col-lg-3 col-md-3 col-sm-1 col-xs-1 d-flex m-0 p-0 justify-content-start"
               }
             >
-              <div className="megamenu-style-dev megamenu-dev d-flex justify-content-center align-items-end">
-                <div className="responsive">
-                  <nav className="navbar-default">
-                    <div className="container-megamenu horizontal">
+              <div className="megamenu-style-dev megamenu-dev d-flex justify-content-center align-items-end w-100">
+                <div className="responsive w-100">
+                  <nav className="navbar-default w-100">
+                    <div className="container-megamenu horizontal w-100">
                       <div className="navbar-header">
                         <div
                           type="button"
@@ -224,16 +224,19 @@ const Header2 = () => {
                           <span>Menu</span>
                         </div>
                       </div>
-                      <div className="megamenu-wrapper" id="megamenu-wrapper-2">
-                        <div className="megamenu-pattern">
-                          <div className="container">
+                      <div
+                        className="megamenu-wrapper w-100"
+                        id="megamenu-wrapper-2"
+                      >
+                        <div className="megamenu-pattern w-100">
+                          <div className="container w-100">
                             <ul
-                              className="megamenu d-flex justify-content-center align-items-center"
+                              className="megamenu d-flex justify-content-around align-items-center w-100"
                               data-transition="slide"
                               data-animationtime="500"
                             >
                               <li className="full-width menu-home with-sub-menu hover">
-                                <NavLink
+                                <Link
                                   className=" align-items-center justify-content-center d-flex flex-dir-col btn btn-primary header-post-free-ad-btn"
                                   to="/user-panel"
                                   state={{ active: "ADD" }}
@@ -245,10 +248,11 @@ const Header2 = () => {
                                   }
                                 >
                                   Post free ad
-                                </NavLink>
+                                </Link>
                               </li>
                               {auth.isAuthenticated !== true ? (
-                                <li className="full-width menu-home with-sub-menu hover d-block-xs d-none-sm">
+                                // <li className="full-width menu-home with-sub-menu hover d-block-xs d-none-sm">
+                                <li className="full-width menu-home with-sub-menu hover">
                                   <NavLink
                                     className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
                                     to="/login"
@@ -288,6 +292,7 @@ const Header2 = () => {
                                     aria-haspopup="true"
                                     onClick={handleMenu}
                                     color="inherit"
+                                    sx={{ color: "#fff" }}
                                   >
                                     <div className="clearfix align-items-center justify-content-center d-flex flex-dir-col line-heigh-2">
                                       <i className="fa fa-bars header-icon"></i>
@@ -424,7 +429,7 @@ const Header2 = () => {
             </div>
           </div>
         </div>
-        {auth.isAuthenticated !== true ? (
+        {/* {auth.isAuthenticated !== true ? (
           <div className="full-width menu-home with-sub-menu hover d-none-xs">
             <NavLink
               className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
@@ -442,7 +447,7 @@ const Header2 = () => {
               <strong>Login/Register</strong>
             </NavLink>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}

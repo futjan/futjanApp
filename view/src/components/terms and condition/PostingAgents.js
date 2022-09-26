@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 const PostingAgents = () => {
   return (
     <>
+      <h4>Posting Agents</h4>
+      <br />
       <Typography variant="p">
         As used herein, the term "Posting Agent" refers to a third-party agent,
         service, or intermediary that offers to post Content to the Service on

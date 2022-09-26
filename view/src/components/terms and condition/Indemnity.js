@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 const Indemnity = () => {
   return (
     <>
+      <h4>Indemnity</h4>
+      <br />
       <Typography variant="p">
         You agree to defend, indemnify and hold harmless FutJan, its officers,
         subsidiaries, affiliates, successors, assigns, directors, officers,

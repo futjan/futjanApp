@@ -3,7 +3,10 @@ import { Typography } from "@mui/material";
 export default function PrivacyPolicy() {
   return (
     <>
+      <h4>Privacy Policy</h4>
+      <br />
       <Typography variant="h5">Type of Information Collected</Typography>
+      <br />
       <Typography variant="p">
         When you visit the Platform, we may collect certain non-personal
         information such as your Internet Protocol ("IP") address, operating
@@ -34,12 +37,14 @@ export default function PrivacyPolicy() {
         of any changes or updates that you may provide to any information you
         provide that is collected by FutJan.
         <br />
+        <br />
         By using this Platform, you consent to share your geo-location data in
         order to publish information/advertisements of advertisements offered by
         users close to your location and vice-versa.
       </Typography>
+      <br />
       <Typography variant="h5">Cookies</Typography>
-
+      <br />
       <Typography variant="p">
         We may use cookies to manage our users’ sessions and to store
         preferences, tracking information, and language selection. Cookies may
@@ -59,7 +64,9 @@ export default function PrivacyPolicy() {
         in or using certain interactive features of the Platform, such as the
         FutJan Forum or Comments feature.
       </Typography>
+      <br />
       <Typography variant="h5">Third Parties</Typography>
+      <br />
       <Typography variant="p">
         We use third-party service providers to assist us in measuring purchases
         and sales on our Platform and generally improving our Platform and
@@ -108,12 +115,14 @@ export default function PrivacyPolicy() {
         to the Platform’s users based on their visit to the Platform and
         Third-Party Websites. For more information on the DART Cookie
         <br />
+        <br />
         see http://www.google.com/privacy_ads.html. You may opt-out of the use
         of the DART cookie by Google by visiting the Google Ad and Content
         Network Privacy Policy at http://www.google.com/privacy_ads.html. You
         may opt-out of targeting advertising for all NAI member ad networks by
-        <br />
         visiting: http://www.networkadvertising.org/. By publishing an ad on the
+        <br />
+        <br />
         Platform, you acknowledge and agree that the Content is public and
         accessible by any third party and that it may appear in search engine
         results (such as Yahoo!, MSN, Google, Altavista, and other search
@@ -125,7 +134,10 @@ export default function PrivacyPolicy() {
         FutJan is not liable for the information published in search results or
         by any Third-Party Website that carries FutJan postings.
       </Typography>
+      <br />
+
       <Typography variant="h5">How Your Information is used</Typography>
+      <br />
       <Typography variant="p">
         We may use the information provided by you to: (i) enforce our Terms of
         Use, monitor user activity, such as keyword searches or new postings,
@@ -139,7 +151,9 @@ export default function PrivacyPolicy() {
         information for as long as is required to fulfil our business objective,
         even after your account is terminated.
       </Typography>
+      <br />
       <Typography variant="h5">Protecting Your Personal Information</Typography>
+      <br />
       <Typography variant="p">
         You are a valued customer, and we recognize that protecting your privacy
         is important to you. For this reason, we are committed to protecting the
@@ -171,33 +185,36 @@ export default function PrivacyPolicy() {
         password, and all uses of your account, whether or not you have
         authorized such use.
       </Typography>
-
+      <br />
       <Typography variant="h5">
         Accessing and Modifying Personal Information and Communication
         Preferences
       </Typography>
+      <br />
       <Typography variant="p">
         You may access, remove, review, and/or make changes to the personal
-        information that you have provided to us by email support@futjan.com.
-        You need not register in order to post or respond to advertisements on
-        the Platform. If you register or respond to advertisements or posts on
-        the Platform or post any content on the Platform, we may send you
-        certain notifications, advertisements, promotions, surveys, text
-        messages, specials, and phone calls in relation to the Services. We may
-        also send you any legally required notifications and certain
-        notifications, including but not limited to, service-related notices or
-        notices regarding a change to any of our policies. For example, we may
-        send you a notice regarding server problems or scheduled maintenance to
-        the Platform. In order to opt-out of receiving these notices, you may
-        need to deactivate your account. You can opt-out of certain e-mail
-        communications from us, including our newsletters, advice on buying and
-        selling on the Platform, notifications that a user has commented on your
-        posting, and notifications that you can refresh your posting. We will
-        not change your preferences without your consent. You cannot opt-out of
-        receiving transactional communications from FutJan related to your
-        account.
+        information that you have provided to us by email{" "}
+        <b>support@futjan.com</b>. You need not register in order to post or
+        respond to advertisements on the Platform. If you register or respond to
+        advertisements or posts on the Platform or post any content on the
+        Platform, we may send you certain notifications, advertisements,
+        promotions, surveys, text messages, specials, and phone calls in
+        relation to the Services. We may also send you any legally required
+        notifications and certain notifications, including but not limited to,
+        service-related notices or notices regarding a change to any of our
+        policies. For example, we may send you a notice regarding server
+        problems or scheduled maintenance to the Platform. In order to opt-out
+        of receiving these notices, you may need to deactivate your account. You
+        can opt-out of certain e-mail communications from us, including our
+        newsletters, advice on buying and selling on the Platform, notifications
+        that a user has commented on your posting, and notifications that you
+        can refresh your posting. We will not change your preferences without
+        your consent. You cannot opt-out of receiving transactional
+        communications from FutJan related to your account.
       </Typography>
+      <br />
       <Typography variant="h5">Disclosures</Typography>
+      <br />
       <Typography variant="p">
         On rare occasions, we may be required to disclose your personal
         information due to legal or regulatory requirements. In such instances,
@@ -219,7 +236,9 @@ export default function PrivacyPolicy() {
         access to your personal information without your consent and we may send
         you a notice regarding this sale.
       </Typography>
+      <br />
       <Typography variant="h5">Notification of Changes</Typography>
+      <br />
       <Typography variant="p">
         We reserve the right to change these Terms from time to time, and at our
         sole discretion. We may send you a notice regarding material changes to
@@ -228,16 +247,20 @@ export default function PrivacyPolicy() {
         this information, you should be able to identify if the Terms have been
         updated recently.
       </Typography>
+      <br />
       <Typography variant="h5">Disputes</Typography>
+      <br />
       <Typography variant="p">
         Any disputes regarding your privacy are subject to the Terms, including
         but not limited to any provisions related to indemnification,
         limitations on damages, and choice of law and forum.
       </Typography>
+      <br />
       <Typography variant="h5">How to Contact Us</Typography>
+      <br />
       <Typography variant="p">
         If you have questions about this Privacy Policy, please contact Futjan
-        via email support@futjan.com.
+        via email<b> support@futjan.com</b>.
       </Typography>
     </>
   );

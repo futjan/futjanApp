@@ -3,15 +3,19 @@ import { Typography } from "@mui/material";
 export default function AcceptanceAndAbusing() {
   return (
     <>
-      <Typography variant="p">
+      <Typography variant="h4">Acceptance/Abusing FutJan</Typography>
+      <br />
+      <Typography variant="p" display="block" textAlign="justify">
         FutJan and its community work together to keep FutJan working properly
         and community safe. Please report problems, offensive content and policy
         breaches to us using the reporting system.
+        <br />
         <br />
         FutJan provide a collection of online resources which include classified
         advertisements (collectively, the "Service") on the website
         www.FutJan.com and corresponding and the mobile application of the
         platform (collectively, the "Platform").
+        <br />
         <br />
         The Platform and the Service are provided to you subject to these FutJan
         Terms of Use (these "Terms"). For the purpose of the Terms and wherever

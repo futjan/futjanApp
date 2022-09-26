@@ -5726,7 +5726,6 @@ ol {
 
 ol {
   counter-reset: item;
-  list-style-type: none;
   margin: 0 0 0 15px;
 }
 
@@ -8205,8 +8204,8 @@ span.fa-stack .fa-star.fa-stack-2x:before {
   vertical-align: top;
   text-transform: uppercase;
   cursor: pointer;
-                            margin: 0;
-                            font-weight: 600,
+  margin: 0;
+  font-weight: 600;
 }
 .product-detail .open-sidebar:hover,
 .product-listing .open-sidebar:hover {

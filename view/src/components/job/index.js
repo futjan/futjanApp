@@ -134,40 +134,65 @@ const Index = () => {
     setCategory(
       location.state && location.state.category ? location.state.category : ""
     );
+    // callJobsAPI
   }, [location.state && location.state.category]);
   // update subCategory State
   useEffect(() => {
-    setSubCategory(
-      location.state && location.state.subCategory
-        ? location.state.subCategory
-        : ""
-    );
-  }, [location.state && location.state.subCategory]);
+    if (location.state && location.state.category) {
+      setCategory(
+        location.state && location.state.category ? location.state.category : ""
+      );
+      setSubCategory(
+        location.state && location.state.subCategory
+          ? location.state.subCategory
+          : ""
+      );
+      callJobsAPI(
+        page,
+        limit,
+        sort,
+        location.state && location.state.category
+          ? location.state.category
+          : "",
+        location.state && location.state.subCategory
+          ? location.state.subCategory
+          : ""
+      );
+    }
+  }, [
+    location.state && location.state.subCategory,
+    location.state && location.state.category,
+  ]);
   // call getjobs api
   // const callJobsAPI = (page, lim, sortBy) => {
-  const callJobsAPI = debounce((page, lim, sortBy) => {
-    dispatch(
-      getJobs(
-        page,
-        lim,
-        sortBy,
-        title.length > 0 ? title.toLowerCase().trim() : "",
-        type.toLowerCase(),
-        category.toLowerCase(),
-        subCategory.toLowerCase(),
-        country !== null && country.name && country.name.length > 0
-          ? country.name.toLowerCase()
-          : "",
-        county !== null && county.name && county.name.length > 0
-          ? county.name.toLowerCase()
-          : "",
-        city !== null && city !== undefined && city.name && city.name.length > 0
-          ? city.name.toLowerCase()
-          : ""
-        // setSearchedCategory
-      )
-    );
-  });
+  const callJobsAPI = debounce(
+    (page, lim, sortBy, cate = category, subCate = subCategory) => {
+      dispatch(
+        getJobs(
+          page,
+          lim,
+          sortBy,
+          title.length > 0 ? title.toLowerCase().trim() : "",
+          type.toLowerCase(),
+          cate.toLowerCase(),
+          subCate.toLowerCase(),
+          country !== null && country.name && country.name.length > 0
+            ? country.name.toLowerCase()
+            : "",
+          county !== null && county.name && county.name.length > 0
+            ? county.name.toLowerCase()
+            : "",
+          city !== null &&
+            city !== undefined &&
+            city.name &&
+            city.name.length > 0
+            ? city.name.toLowerCase()
+            : ""
+          // setSearchedCategory
+        )
+      );
+    }
+  );
 
   // get Saved Alert
   const getSavedAlert = () => {

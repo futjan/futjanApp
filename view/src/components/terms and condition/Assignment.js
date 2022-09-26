@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 const Assignment = () => {
   return (
     <>
+      <h4>Assignment</h4>
+      <br />
       <Typography variant="p">
         These Terms, and any rights and licenses granted hereunder, may not be
         transferred or assigned by you but may be assigned by FutJan without

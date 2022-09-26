@@ -3,15 +3,18 @@ import { Typography } from "@mui/material";
 function Intellectual() {
   return (
     <>
+      <h4>Intellectual Property Rights</h4>
+      <br />
       <Typography variant="p">
         You acknowledge and agree that the materials on the Platform, other than
-        the User Content that you licensed under “Description of service and
-        content policy” of the Terms, including without limitation, the text,
-        software, scripts, graphics, photos, sounds, music, videos, interactive
-        features and the like ("Materials") and the trademarks, service marks
-        and logos contained therein ("Marks"), are owned by or licensed to
-        FutJan, and are subject to copyright and other intellectual property
-        rights under UK laws, foreign laws and international treaties and/or
+        the User Content that you licensed under{" "}
+        <b>“Description of service and content policy”</b> of the Terms,
+        including without limitation, the text, software, scripts, graphics,
+        photos, sounds, music, videos, interactive features and the like (
+        <b>"Materials"</b>) and the trademarks, service marks and logos
+        contained therein (<b>"Marks"</b>), are owned by or licensed to FutJan,
+        and are subject to copyright and other intellectual property rights
+        under UK laws, foreign laws and international treaties and/or
         conventions. In connection with the Services, the Platform may display
         certain trademarks belonging to third parties. Use of these trademarks
         may be subject to the license granted by third parties to FutJan. You

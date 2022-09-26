@@ -67,6 +67,13 @@ const SurplusBusinesses = () => {
   }, [state && state.title]);
 
   useEffect(() => {
+    if (state && state.type) {
+      setBusinessType(state.type);
+      callSurplusesAPI(page, limit, sort, state && state.type);
+    }
+  }, [state && state.type]);
+  console.log(state && state.type, "Business TYPE");
+  useEffect(() => {
     if (preset && preset._id) {
       setTitlePreset(preset.title_surplus);
       setCityPreset({
@@ -130,14 +137,14 @@ const SurplusBusinesses = () => {
   }, []);
 
   // call getSurplusesAction
-  const callSurplusesAPI = (page, lim, sortBy) => {
+  const callSurplusesAPI = (page, lim, sortBy, busType = businessType) => {
     dispatch(
       getSurpluses(
         page,
         lim,
         sortBy,
         title.length > 0 ? title.toLowerCase().trim() : "",
-        businessType.toLowerCase(),
+        busType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),
         country !== null && country.name && country.name.length > 0
