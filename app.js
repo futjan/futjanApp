@@ -23,6 +23,7 @@ const conversationRoutes = require("./routes/conversationRoutes");
 const messageRoutes = require("./routes/messageRoute");
 const favouriteRoutes = require("./routes/favouriteRoutes");
 const businessroutes = require("./routes/businessRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 // 1) GLOBAL MIDDLLEWARES
 // set security HTTP headers
 // app.use(
@@ -67,7 +68,7 @@ app.use("/api/v1/business", businessroutes);
 app.use("/api/v1/conversations", conversationRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/favourite", favouriteRoutes);
-
+app.use("/api/v1/contact", contactRoutes);
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("view/build"));

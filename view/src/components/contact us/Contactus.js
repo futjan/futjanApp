@@ -1,6 +1,32 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { createContact } from "../actions/contactAction";
+import Loader from "../../utils/Loader";
 const Contactus = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+
+  // get state from store
+  const contact = useSelector((state) => state.contact);
+  // initialize hook
+  const dispatch = useDispatch();
+
+  const createContactFunc = (e) => {
+    e.preventDefault();
+    const obj = {
+      name: name.toLowerCase(),
+      email: email.toLowerCase(),
+      description: description.toLowerCase(),
+    };
+    dispatch(createContact(obj, clearState));
+  };
+
+  const clearState = () => {
+    setName("");
+    setEmail("");
+    setDescription("");
+  };
   return (
     <div className="container">
       <div className="row">
@@ -8,7 +34,7 @@ const Contactus = () => {
           <div className="info-contact row">
             <div className="col-sm-6 col-xs-12 info-store">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d26081603.29442044!2d-95.677068!3d37.06250000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1642089667354!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4296073.924893443!2d78.04994088272002!3d22.73370361492016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2s!4v1664474130440!5m2!1sen!2s"
                 width="500"
                 height="350"
                 style={{ border: "0", marginTop: "30px" }}
@@ -16,16 +42,10 @@ const Contactus = () => {
                 loading="lazy"
                 id="map-canvas"
               ></iframe>
-              {/* <div id="map-canvas"></div> */}
             </div>
 
             <div className="col-sm-6 col-xs-12 contact-form">
-              <form
-                action="#"
-                method="post"
-                enctype="multipart/form-data"
-                className="form-horizontal"
-              >
+              <form className="form-horizontal">
                 <fieldset>
                   <legend>
                     <h2>Contact Form </h2>
@@ -37,8 +57,8 @@ const Contactus = () => {
                       <input
                         type="text"
                         name="name"
-                        value=""
-                        id="input-name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         className="form-control"
                         placeholder="Your Name *"
                       />
@@ -47,10 +67,10 @@ const Contactus = () => {
                   <div className="form-group required">
                     <div className="col-sm-12">
                       <input
-                        type="text"
+                        type="email"
                         name="email"
-                        value=""
-                        id="input-email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="form-control"
                         placeholder="E-Mail Address *"
                       />
@@ -61,7 +81,8 @@ const Contactus = () => {
                       <textarea
                         name="enquiry"
                         rows="10"
-                        id="input-enquiry"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder="Enquiry *"
                         className="form-control"
                       ></textarea>
@@ -70,7 +91,10 @@ const Contactus = () => {
                 </fieldset>
                 <div className="buttons">
                   <div className="pull-left">
-                    <button className="btn btn-info">
+                    <button
+                      className="btn btn-info"
+                      onClick={(e) => createContactFunc(e)}
+                    >
                       <span>Submit </span>
                     </button>
                   </div>
@@ -80,6 +104,7 @@ const Contactus = () => {
           </div>
         </div>
       </div>
+      {contact.loading === true ? <Loader /> : null}
     </div>
   );
 };

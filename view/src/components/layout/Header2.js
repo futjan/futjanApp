@@ -174,8 +174,11 @@ const Header2 = () => {
                             <div className="container-megamenu horizontal">
                               <div className="navbar-header">
                                 <div
-                                  type="button"
+                                  // type="button"
                                   id="show-megamenu"
+                                  style={{
+                                    color: "#000",
+                                  }}
                                   data-toggle="collapse"
                                   className="navbar-toggle"
                                   onClick={() => setState({ left: true })}
@@ -292,7 +295,7 @@ const Header2 = () => {
                                     aria-haspopup="true"
                                     onClick={handleMenu}
                                     color="inherit"
-                                    sx={{ color: "#fff" }}
+                                    sx={{ color: "#000" }}
                                   >
                                     <div className="clearfix align-items-center justify-content-center d-flex flex-dir-col line-heigh-2">
                                       <i className="fa fa-bars header-icon"></i>

@@ -12,6 +12,7 @@ import favouriteReducer from "./favouriteReducer";
 import currencyReducer from "./currencyReducer";
 import draftAdReducer from "./draftAdsReducer";
 import businessReducer from "./businessReducer";
+import contactReducer from "./contactReducer";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -29,4 +30,5 @@ export default combineReducers({
   favourite: favouriteReducer,
   currency: currencyReducer,
   draft: draftAdReducer,
+  contact: contactReducer,
 });
