@@ -2,9 +2,9 @@ import React from "react";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 import "./index utils/slider.css";
-import Slide1 from "../image/slide1.jpeg";
-import Slide2 from "../image/slide2.jpeg";
-import Slide3 from "../image/slide3.jpeg";
+import Slide1 from "../image/slide1.png";
+import Slide2 from "../image/slide2.png";
+import Slide3 from "../image/slide3.png";
 
 const Slider1 = () => {
   return (

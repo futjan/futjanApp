@@ -186,36 +186,6 @@ const AddSurplusBusiness = (props) => {
 
     dispatch(createSurplus(obj, clearState, setSuccess));
   };
-  // save Draft
-  // const saveDrafts = () => {
-  //   const date = new Date();
-  //   const obj = {
-  //     title: name.toLowerCase(),
-  //     company: company.toLowerCase(),
-  //     contact,
-  //     address: address.toLowerCase(),
-  //     postCode,
-  //     businessType: businessType.toLowerCase(),
-  //     description: description.toLowerCase(),
-  //     category: category.toLowerCase(),
-  //     city: city.name.toLowerCase(),
-  //     county: county.name.toLowerCase(),
-  //     country: country.name.toLowerCase(),
-  //     keyword: keyword.toLowerCase(),
-  //     website,
-  //     promoteType: promoteType.filter((type) => type.promote !== "ALL"),
-  //     originalPrice: (originalPrice * 1).toFixed(2),
-  //     offeredPrice: (offeredPrice * 1).toFixed(2),
-  //     currency,
-  //     discount:
-  //       offeredPrice > 0
-  //         ? Math.round(((originalPrice - offeredPrice) / originalPrice) * 100)
-  //         : 0,
-  //     draft_id: date.getTime(),
-  //     adType: "surplus",
-  //   };
-  //   dispatch(createDraft(obj));
-  // };
   // fileUploadHandler
   const uploadFilesHandler = (e) => {
     if (e.target.files) {
