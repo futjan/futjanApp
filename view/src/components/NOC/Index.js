@@ -4,13 +4,17 @@ import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
 import Loader from "../../utils/Loader";
+import { createNoc } from "../actions/reportAction";
 const Index = () => {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
-  const [featureRate, setFeatureRate] = useState(100);
+  const [owner, setOwner] = useState("");
+  const [emailAdPoster, setEmailAdPoster] = useState("");
+  const [emailFutjan, setEmailFutjan] = useState("");
+
   const [city, setCity] = useState({
     name: "",
     stateCode: "",
@@ -27,12 +31,48 @@ const Index = () => {
   });
   const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState({});
-
+  // initialize hook
+  const dispatch = useDispatch();
   const errorState = useSelector((state) => state.error);
-
+  const report = useSelector((state) => state.report);
   useEffect(() => {
     setErrors(errorState);
   }, [errorState]);
+
+  const createNocFunc = (e) => {
+    e.preventDefault();
+    const date = new Date();
+    const obj = {
+      title: name.toLowerCase(),
+      owner: owner.toLowerCase(),
+      contact,
+      address: address.toLowerCase(),
+      postCode,
+      city: city.name.toLowerCase(),
+      emailAdPoster: emailAdPoster.toLowerCase(),
+      emailFutjan: emailFutjan.toLowerCase(),
+      county: county.name.toLowerCase(),
+      country: country.name.toLowerCase(),
+      website: website.toLowerCase(),
+      noc_id: date.getTime(),
+    };
+    dispatch(createNoc(obj, clearState));
+  };
+
+  const clearState = () => {
+    setName("");
+    setContact("");
+    setAddress("");
+    setWebsite("");
+    setEmailAdPoster("");
+    setEmailFutjan("");
+    setPostCode("");
+    setCity({ name: "", stateCode: "", countryCode: "" });
+    setCountry({ name: "", isoCode: "", phonecode: "" });
+    setCounty({ name: "", isoCode: "" });
+    setErrors({});
+  };
+
   return (
     // <!-- Main Container  -->
     <div className="main-container container mt-6 mb-6 position-relative  p-6">
@@ -68,14 +108,42 @@ const Index = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-company"
                 >
-                  Name / Company
+                  Intellectual Property Owner:
                 </label>
                 <div className="col-sm-10">
                   <input
                     type="text"
-                    name="company"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
+                    name="owner"
+                    value={owner}
+                    onChange={(e) => setOwner(e.target.value)}
+                    placeholder="owner"
+                    id="input-company"
+                    className={
+                      errors && errors.validation && errors.validation.company
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.company && (
+                    <div className="invalid-feedback">
+                      {errors.validation.company}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-company"
+                >
+                  Name / Title
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="company"
                     id="input-company"
                     className={
@@ -235,6 +303,60 @@ const Index = () => {
                   className="col-sm-2 control-label"
                   htmlFor="input-website"
                 >
+                  Email (for correspondence with FutJan):
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="email"
+                    name="emailFutjan"
+                    value={emailFutjan}
+                    onChange={(e) => setEmailFutjan(e.target.value)}
+                    placeholder="email"
+                    className={
+                      errors && errors.validation && errors.validation.website
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.website && (
+                    <div className="invalid-feedback">
+                      {errors.validation.website}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Email (to be given to FutJan ad poster):
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="email"
+                    name="emailAdPoster"
+                    value={emailAdPoster}
+                    onChange={(e) => setEmailAdPoster(e.target.value)}
+                    placeholder="email"
+                    className={
+                      errors && errors.validation && errors.validation.website
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.website && (
+                    <div className="invalid-feedback">
+                      {errors.validation.website}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
                   website
                 </label>
                 <div className="col-sm-10">
@@ -258,32 +380,6 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <h4 className="post-ad-heading">Surplus Details</h4>
-              <div className="form-group required">
-                <label className="col-sm-2 control-label" htmlFor="input-name">
-                  Title Name
-                </label>
-                <div className="col-sm-10">
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Title Name"
-                    id="input-name"
-                    className={
-                      errors && errors.validation && errors.validation.title
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                  />
-                  {errors && errors.validation && errors.validation.title && (
-                    <div className="invalid-feedback">
-                      {errors.validation.title}
-                    </div>
-                  )}
-                </div>
-              </div>
             </fieldset>
 
             <div className="buttons">
@@ -291,16 +387,16 @@ const Index = () => {
                 {/* <Payment /> */}
                 <input
                   type="button"
-                  value="Post Free Ad"
+                  value="Submit"
                   className="btn btn-primary post-free-ad-btn"
-                  // onClick={(e) => createSurplusFunction(e)}
+                  onClick={(e) => createNocFunc(e)}
                 />
               </div>
             </div>
           </form>
         </div>
       </div>
-      {/* {surplus.loading === true ? <Loader /> : null} */}
+      {report.loading === true ? <Loader /> : null}
     </div>
   );
 };

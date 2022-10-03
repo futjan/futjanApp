@@ -53,6 +53,8 @@ export const PAYMENT_CHECKOUT = "PAYMENT_CHECKOUT";
 export const GET_REPORTS = "GET_REPORTS";
 export const GET_REPORT = "GET_REPORT";
 export const CREATE_REPORT = "CREATE_REPORT";
+export const CREATE_NOC = "CREATE_NOC";
+export const GET_NOC = "GET_NOC";
 export const SET_REPORT_LOADING = "SET_REPORT_LOADING";
 export const CLEAR_REPORT_LOADING = "CLEAR_REPORT_LOADING";
 // Admin

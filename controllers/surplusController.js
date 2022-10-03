@@ -27,7 +27,6 @@ exports.createSurplus = catchAsync(async (req, res, next) => {
     user: req.user._id.toString(),
     title: req.body.title,
     company: req.body.company,
-    contact: req.body.contac,
     contact: req.body.contact,
     address: req.body.address,
     postCode: req.body.postCode,

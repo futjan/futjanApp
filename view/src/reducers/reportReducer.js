@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   totalDocs: 0,
   result: 0,
+  noc: [],
 };
 export default function reportReducer(state = initialState, action) {
   switch (action.type) {

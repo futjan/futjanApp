@@ -1,5 +1,6 @@
 import * as Type from "./types";
 import axios from "axios";
+import { clearNotification, setNotification } from "./notificationAction";
 
 // @route                   POST /ap1/v1/report
 // @desc                    create report
@@ -60,6 +61,34 @@ export const getReports = (page, limit) => async (dispatch) => {
         type: Type.GET_REPORTS,
         payload: res.data,
       });
+    }
+  } catch (err) {
+    dispatch(clearLoading());
+    dispatch({
+      type: Type.GET_ERRORS,
+      payload: err.response.data,
+    });
+  }
+};
+
+// @route                   POST /ap1/v1/report/noc
+// @desc                    create noc
+// @access                  Private
+export const createNoc = (data, clearState) => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const res = await axios.post("/api/v1/report/noc", data);
+    if (res) {
+      dispatch(
+        setNotification(
+          `Your noc form is received. You will get reply soon`,
+          "success"
+        )
+      );
+      setTimeout(() => {
+        dispatch(clearNotification());
+      }, 5000);
+      clearState();
     }
   } catch (err) {
     dispatch(clearLoading());
