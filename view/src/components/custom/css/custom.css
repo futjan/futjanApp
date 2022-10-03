@@ -90,6 +90,9 @@
 .position-relative {
   position: relative;
 }
+.position-initial {
+  position: initial !important;
+}
 .top-0 {
   top: 0;
 }
@@ -1207,6 +1210,7 @@ input[type="number"] {
   width: 50%;
   margin: 0 auto;
   position: relative;
+  z-index: 3;
 }
 .new-design-ul li {
   z-index: 2;
@@ -1214,6 +1218,7 @@ input[type="number"] {
 .new-design-ul li:hover .sub-menu {
   display: block;
   opacity: 1;
+  /* width: 600px !important; */
 }
 .new-design-ul li .type-links:focus {
   background: #363f48 !important;

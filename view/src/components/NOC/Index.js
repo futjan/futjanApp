@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 import Countries from "../../utils/Countries";
 import County from "../../utils/County";
 import Cities from "../../utils/cities";
@@ -7,11 +8,12 @@ import Loader from "../../utils/Loader";
 import { createNoc } from "../actions/reportAction";
 const Index = () => {
   const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [postCode, setPostCode] = useState("");
   const [owner, setOwner] = useState("");
+  const [reason, setReason] = useState("");
+  const [item_id, setItem_id] = useState("");
   const [emailAdPoster, setEmailAdPoster] = useState("");
   const [emailFutjan, setEmailFutjan] = useState("");
 
@@ -54,7 +56,9 @@ const Index = () => {
       county: county.name.toLowerCase(),
       country: country.name.toLowerCase(),
       website: website.toLowerCase(),
-      noc_id: date.getTime(),
+      reason: reason.toLowerCase(),
+      item_id: item_id,
+      noc_id: date.getTime().toString(),
     };
     dispatch(createNoc(obj, clearState));
   };
@@ -67,10 +71,15 @@ const Index = () => {
     setEmailAdPoster("");
     setEmailFutjan("");
     setPostCode("");
+    setReason("");
+    setItem_id("");
     setCity({ name: "", stateCode: "", countryCode: "" });
     setCountry({ name: "", isoCode: "", phonecode: "" });
     setCounty({ name: "", isoCode: "" });
     setErrors({});
+    setReason("");
+    setOwner("");
+    setItem_id("");
   };
 
   return (
@@ -91,8 +100,6 @@ const Index = () => {
               <h4 className="post-ad-heading">
                 ATTN: FutJan Notice and Take down Program
               </h4>
-              {/* <legend></legend> */}
-              {/* <div className="col-sm-2"></div> */}
               {errors && errors.message && (
                 <div className="form-group">
                   <div className="col-sm-12">
@@ -119,14 +126,14 @@ const Index = () => {
                     placeholder="owner"
                     id="input-company"
                     className={
-                      errors && errors.validation && errors.validation.company
+                      errors && errors.validation && errors.validation.owner
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.company && (
+                  {errors && errors.validation && errors.validation.owner && (
                     <div className="invalid-feedback">
-                      {errors.validation.company}
+                      {errors.validation.owner}
                     </div>
                   )}
                 </div>
@@ -144,17 +151,17 @@ const Index = () => {
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="company"
+                    placeholder="name"
                     id="input-company"
                     className={
-                      errors && errors.validation && errors.validation.company
+                      errors && errors.validation && errors.validation.title
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.company && (
+                  {errors && errors.validation && errors.validation.title && (
                     <div className="invalid-feedback">
-                      {errors.validation.company}
+                      {errors.validation.title}
                     </div>
                   )}
                 </div>
@@ -313,16 +320,20 @@ const Index = () => {
                     onChange={(e) => setEmailFutjan(e.target.value)}
                     placeholder="email"
                     className={
-                      errors && errors.validation && errors.validation.website
+                      errors &&
+                      errors.validation &&
+                      errors.validation.emailFutjan
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.website && (
-                    <div className="invalid-feedback">
-                      {errors.validation.website}
-                    </div>
-                  )}
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.emailFutjan && (
+                      <div className="invalid-feedback">
+                        {errors.validation.emailFutjan}
+                      </div>
+                    )}
                 </div>
               </div>
               <div className="form-group">
@@ -340,16 +351,20 @@ const Index = () => {
                     onChange={(e) => setEmailAdPoster(e.target.value)}
                     placeholder="email"
                     className={
-                      errors && errors.validation && errors.validation.website
+                      errors &&
+                      errors.validation &&
+                      errors.validation.emailAdPoster
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.website && (
-                    <div className="invalid-feedback">
-                      {errors.validation.website}
-                    </div>
-                  )}
+                  {errors &&
+                    errors.validation &&
+                    errors.validation.emailAdPoster && (
+                      <div className="invalid-feedback">
+                        {errors.validation.emailAdPoster}
+                      </div>
+                    )}
                 </div>
               </div>
               <div className="form-group">
@@ -367,18 +382,101 @@ const Index = () => {
                     onChange={(e) => setWebsite(e.target.value)}
                     placeholder="website"
                     id="input-website"
+                    className="form-control"
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label required"
+                  htmlFor="input-website"
+                >
+                  Item id (Ad id)
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="item_id"
+                    value={item_id}
+                    onChange={(e) => setItem_id(e.target.value)}
+                    placeholder="Ad id"
+                    id="input-item_id"
                     className={
-                      errors && errors.validation && errors.validation.website
+                      errors && errors.validation && errors.validation.item_id
                         ? "form-control is-invalid"
                         : "form-control"
                     }
                   />
-                  {errors && errors.validation && errors.validation.website && (
+                  {errors && errors.validation && errors.validation.item_id && (
                     <div className="invalid-feedback">
-                      {errors.validation.website}
+                      {errors.validation.item_id}
                     </div>
                   )}
                 </div>
+              </div>
+              <div className="form-group">
+                <label
+                  className="col-sm-2 control-label"
+                  htmlFor="input-website"
+                >
+                  Reason
+                </label>
+                <div className="col-sm-10">
+                  <input
+                    type="text"
+                    name="reason"
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
+                    placeholder="reason"
+                    id="input-reason"
+                    className={
+                      errors && errors.validation && errors.validation.reason
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                  />
+                  {errors && errors.validation && errors.validation.reason && (
+                    <div className="invalid-feedback">
+                      {errors.validation.reason}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div>
+                <p>
+                  I, the undersigned, declare<b> UNDER PENALTY OF PERJURY </b>
+                  that:
+                </p>
+                <ul>
+                  <li>
+                    <p>
+                      {" "}
+                      I am the owner, or an agent authorised to act on behalf of
+                      the owner, of certain intellectual property rights (“IP
+                      Owner”);
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      {" "}
+                      I have good faith belief that the listings identified (by
+                      item number) above, offer items or contain materials that
+                      are not authorised by the IP Owner, its agent, or the law,
+                      and therefore infringe the IP Owner’s rights; and
+                    </p>
+                  </li>
+                  <li>
+                    <p> The information in this notice is accurate.</p>
+                  </li>
+                </ul>
+                <p>
+                  I understand that, when removing items from the site, FutJan
+                  will inform ad posters of the specific reason for the removal
+                  of their items. FutJan reserves the right to share, in
+                  accordance with applicable law, this completed Notice with the
+                  third party that originally posted the potentially infringing
+                  listing.
+                </p>
               </div>
             </fieldset>
 
@@ -396,7 +494,7 @@ const Index = () => {
           </form>
         </div>
       </div>
-      {report.loading === true ? <Loader /> : null}
+      {/* {report.loading === true ? <Loader /> : null} */}
     </div>
   );
 };

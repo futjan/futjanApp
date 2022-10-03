@@ -49,15 +49,23 @@ const NOCSchema = Schmea({
     type: String,
     required: [true, "email is required"],
   },
+  item_id: {
+    type: String,
+    required: [true, "Item id is required"],
+  },
+  reason: {
+    type: String,
+    required: [true, "Reason is required"],
+  },
   emailFutjan: {
     type: String,
     required: [true, "email is required"],
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "user",
-    required: [true, "noc must belong to a user"],
-  },
+  // user: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "user",
+  //   required: [true, "noc must belong to a user"],
+  // },
 
   deleted: {
     type: Boolean,

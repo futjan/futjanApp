@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 function Claims() {
   return (
@@ -18,7 +19,18 @@ function Claims() {
         intellectual property right or intellectual property right of the owner
         on whose behalf you are authorized to act, you may submit a notification
         to FutJan together with a request to FutJan to delete the relevant
-        Content in good faith in the claims of infringement form available here.
+        Content in good faith in the claims of infringement form available
+        <Link
+          to="/noc"
+          style={{
+            textDecoration: "underline",
+            color: "#3b5998",
+            fontWeight: "bold",
+            marginLeft: "4px",
+          }}
+        >
+          here
+        </Link>
       </Typography>
     </>
   );

@@ -459,20 +459,20 @@ const Header2 = () => {
         <div className="container">
           {/* <ul className="new-design-ul"> */}
           <ul className="row new-design-ul">
-            <li className="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <li className="col-lg-3 col-md-3 col-sm-3 col-xs-6 position-initial">
               <NavLink to="/job" className="type-links">
                 <i className="fa fa-briefcase"></i>
                 Jobs
               </NavLink>
               <HeaderJobType jobSeach={jobSeach} setJobSearch={setJobSearch} />
             </li>
-            <li className="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <li className="col-lg-3 col-md-3 col-sm-3 col-xs-6 position-initial">
               <NavLink to="/job-seeker" className="type-links">
                 <i className="fa fa-user"></i>
                 Job Seekers
               </NavLink>
             </li>
-            <li className="with-sub-menu col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <li className="with-sub-menu col-lg-3 col-md-3 col-sm-3 col-xs-6 position-initial">
               <NavLink
                 to="/surplus"
                 className="type-links"
@@ -483,7 +483,7 @@ const Header2 = () => {
               </NavLink>
               <HeaderSurplusType />
             </li>
-            <li className="with-sub-menu col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <li className=" col-lg-3 col-md-3 col-sm-3 col-xs-6 position-initial">
               <NavLink
                 to="/business"
                 className="type-links"
@@ -492,7 +492,6 @@ const Header2 = () => {
                 <i className="fa fa-th-large"></i>
                 Business
               </NavLink>
-              <HeaderSurplusType />
             </li>
           </ul>
         </div>

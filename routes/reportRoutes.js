@@ -13,7 +13,7 @@ router
   .post(
     authController.protect,
     reportController.validateNoc,
-    reportController.createNoc
+    reportController.NocCreate
   );
 router
   .route("/:id")

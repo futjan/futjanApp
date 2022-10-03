@@ -1,7 +1,7 @@
 const isEmpty = require("./is-empty");
 const Validator = require("validator");
 
-module.exports = function validateSurplus(data) {
+module.exports = function validateNocInput(data) {
   let errors = {};
 
   data.title = !isEmpty(data.title) ? data.title : "";
@@ -14,6 +14,8 @@ module.exports = function validateSurplus(data) {
   data.county = !isEmpty(data.county) ? data.county : "";
   data.emailFutjan = !isEmpty(data.emailFutjan) ? data.emailFutjan : "";
   data.emailAdPoster = !isEmpty(data.emailAdPoster) ? data.emailAdPoster : "";
+  data.reason = !isEmpty(data.reason) ? data.reason : "";
+  data.item_id = !isEmpty(data.item_id) ? data.item_id : "";
 
   if (Validator.isEmpty(data.title)) {
     errors.title = "title is required";
@@ -39,6 +41,12 @@ module.exports = function validateSurplus(data) {
   if (Validator.isEmpty(data.country)) {
     errors.country = "Country is required";
   }
+  if (Validator.isEmpty(data.reason)) {
+    errors.reason = "reason is required";
+  }
+  if (Validator.isEmpty(data.item_id)) {
+    errors.item_id = "item id is required";
+  }
   if (Validator.isEmpty(data.emailFutjan)) {
     errors.emailFutjan = "email is required";
   } else {
@@ -53,7 +61,6 @@ module.exports = function validateSurplus(data) {
       errors.emailAdPoster = "Email is invalid";
     }
   }
-
   return {
     errors,
     isValid: isEmpty(errors),
