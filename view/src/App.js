@@ -76,6 +76,7 @@ const SetPassword = lazy(() => import("./components/user/SetPassword"));
 const TermsAndCondition = lazy(() =>
   import("./components/terms and condition")
 );
+const NOC = lazy(() => import("./components/NOC/Index"));
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -278,7 +279,7 @@ const App = (props) => {
                 exact={true}
                 element={<JobDetail />}
               />
-
+              <Route path="/noc" exact={true} element={<NOC />} />
               <Route path="*" element={PageNotFound} />
             </Routes>
             <Footer />

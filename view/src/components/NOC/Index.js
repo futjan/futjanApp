@@ -1,4 +1,3 @@
-import React from "react";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Countries from "../../utils/Countries";
@@ -36,11 +35,11 @@ const Index = () => {
   }, [errorState]);
   return (
     // <!-- Main Container  -->
-    <div className="main-container container mt-6 position-relative">
+    <div className="main-container container mt-6 mb-6 position-relative  p-6">
       {/* {successMsgModal === true ? <SuccessMsg /> : null} */}
       <div className="row">
         <div id="content" className="col-md-11">
-          <h2 className="title m-0">Create Surplus with us</h2>
+          <h2 className="title m-0">NOTICE OF CLAIMED INFRINGEMENT</h2>
 
           <form
             action=""
@@ -49,7 +48,9 @@ const Index = () => {
             className="form-horizontal account-register clearfix"
           >
             <fieldset id="account">
-              <h4 className="post-ad-heading">Surplus Business Details</h4>
+              <h4 className="post-ad-heading">
+                ATTN: FutJan Notice and Take down Program
+              </h4>
               {/* <legend></legend> */}
               {/* <div className="col-sm-2"></div> */}
               {errors && errors.message && (
@@ -229,92 +230,6 @@ const Index = () => {
                   )}
                 </div>
               </div>
-
-              <div className="form-group required">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-businessType"
-                >
-                  Business Type
-                </label>
-                <div className="col-sm-10">
-                  <select
-                    className={
-                      errors &&
-                      errors.validation &&
-                      errors.validation.businessType
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                    onChange={(e) => setBusinessType(e.target.value)}
-                    value={businessType}
-                  >
-                    <option value="">Choose type</option>
-                    <option value="Bakery">Bakery</option>
-                    <option value="Beverage Shop">Beverage Shop</option>
-                    <option value="Convenience store">Convenience store</option>
-                    <option value="Cafe">Cafe</option>
-                    <option value="Fruit/Vegetable store">
-                      Fruit/Vegetable store
-                    </option>
-                    <option value="Hotel">Hotel</option>
-                    <option value="Pastry shop">Pastry shop</option>
-                    <option value="Producers/Manufacturers">
-                      Producers/Manufacturers
-                    </option>
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Supermarkets">Supermarkets</option>
-                    <option value="Takeaway">Takeaway</option>
-                    <option value="Wholesalers">Wholesalers</option>
-                    <option value="Cafe">Cafe</option>
-                    <option value="Other">Other </option>
-                  </select>
-
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.businessType && (
-                      <div className="invalid-feedback">
-                        {errors.validation.businessType}
-                      </div>
-                    )}
-                </div>
-              </div>
-
-              <div className="form-group required">
-                <label
-                  className="col-sm-2 control-label"
-                  htmlFor="input-category"
-                >
-                  Category
-                </label>
-
-                <div className="col-sm-10">
-                  <select
-                    className={
-                      errors && errors.validation && errors.validation.category
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                    onChange={(e) => setCategory(e.target.value)}
-                    value={category}
-                  >
-                    <option value="">Choose Category</option>
-                    <option value="Baked Goods">Baked Goods</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Meals">Meals</option>
-                    <option value="Other">Other</option>
-                  </select>
-
-                  {errors &&
-                    errors.validation &&
-                    errors.validation.category && (
-                      <div className="invalid-feedback">
-                        {errors.validation.category}
-                      </div>
-                    )}
-                </div>
-              </div>
-
               <div className="form-group">
                 <label
                   className="col-sm-2 control-label"
@@ -378,14 +293,14 @@ const Index = () => {
                   type="button"
                   value="Post Free Ad"
                   className="btn btn-primary post-free-ad-btn"
-                  onClick={(e) => createSurplusFunction(e)}
+                  // onClick={(e) => createSurplusFunction(e)}
                 />
               </div>
             </div>
           </form>
         </div>
       </div>
-      {surplus.loading === true ? <Loader /> : null}
+      {/* {surplus.loading === true ? <Loader /> : null} */}
     </div>
   );
 };
