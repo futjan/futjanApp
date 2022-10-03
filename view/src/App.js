@@ -279,7 +279,9 @@ const App = (props) => {
                 exact={true}
                 element={<JobDetail />}
               />
-              <Route path="/noc" exact={true} element={<NOC />} />
+              <Route path="/noc" exact={true} element={<PrivateRoute />}>
+                <Route path="/noc" exact={true} element={<NOC />} />
+              </Route>
               <Route path="*" element={PageNotFound} />
             </Routes>
             <Footer />
