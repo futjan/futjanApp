@@ -1,54 +1,75 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 // @mui
 import { styled } from "@mui/material/styles";
 import { Button, Typography, Container, Box } from "@mui/material";
 // components
 import Page from "../../adminpanel/components/Page";
-
+import "./style.css";
 // ----------------------------------------------------------------------
 
-const ContentStyle = styled("div")(({ theme }) => ({
-  maxWidth: 480,
-  margin: "auto",
-  minHeight: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  padding: theme.spacing(12, 0),
-}));
+// const ContentStyle = styled("div")(({ theme }) => ({
+//   maxWidth: 480,
+//   margin: "auto",
+//   minHeight: "100vh",
+//   display: "flex",
+//   justifyContent: "center",
+//   flexDirection: "column",
+//   padding: theme.spacing(12, 0),
+// }));
 
 // ----------------------------------------------------------------------
 
 export default function Page404() {
   return (
-    <Page title="404 Page Not Found">
-      <Container>
-        <ContentStyle sx={{ textAlign: "center", alignItems: "center" }}>
-          <Typography variant="h3" paragraph>
-            Sorry, page not found!
-          </Typography>
+    // <h1>404</h1>
+    <div className="not-found-page-container">
+      <h1>404 Error Page</h1>
 
-          <Typography sx={{ color: "text.secondary" }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
-            mistyped the URL? Be sure to check your spelling.
-          </Typography>
+      <section class="error-container">
+        <span class="four">
+          <span class="screen-reader-text">4</span>
+        </span>
+        <span class="zero">
+          <span class="screen-reader-text">0</span>
+        </span>
+        <span class="four">
+          <span class="screen-reader-text">4</span>
+        </span>
+      </section>
+      <div class="link-container">
+        <Link to="/" class="more-link">
+          Home
+        </Link>
+      </div>
+    </div>
+    // <Page title="404 Page Not Found">
+    //   <Container>
+    //     <ContentStyle sx={{ textAlign: "center", alignItems: "center" }}>
+    //       <Typography variant="h3" paragraph>
+    //         Sorry, page not found!
+    //       </Typography>
 
-          <Box
-            component="img"
-            src="/static/illustrations/illustration_404.svg"
-            sx={{ height: 260, mx: "auto", my: { xs: 5, sm: 10 } }}
-          />
+    //       <Typography sx={{ color: "text.secondary" }}>
+    //         Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
+    //         mistyped the URL? Be sure to check your spelling.
+    //       </Typography>
 
-          <Button
-            to="/"
-            size="large"
-            variant="contained"
-            component={RouterLink}
-          >
-            Go to Home
-          </Button>
-        </ContentStyle>
-      </Container>
-    </Page>
+    //       <Box
+    //         component="img"
+    //         src="/static/illustrations/illustration_404.svg"
+    //         sx={{ height: 260, mx: "auto", my: { xs: 5, sm: 10 } }}
+    //       />
+
+    //       <Button
+    //         to="/"
+    //         size="large"
+    //         variant="contained"
+    //         component={RouterLink}
+    //       >
+    //         Go to Home
+    //       </Button>
+    //     </ContentStyle>
+    //   </Container>
+    // </Page>
   );
 }

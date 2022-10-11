@@ -208,7 +208,7 @@ const Ad = (props) => {
                             capitalizeFirstLetter(props.job.city)}
                         </small>
                       </div>
-                      <div>
+                      <div style={{ height: "35px", lineHeight: "12px" }}>
                         <i className="fa fa-money"></i>
                         <small>
                           {props.job.minSalary * currency.rate > 0 &&

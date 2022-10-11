@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -191,44 +191,33 @@ const App = (props) => {
             {pathname === "/adminpanel" ? null : <Header2 />}
 
             <Routes>
-              <Route path="/login" exact={true} element={<Login />} />
-              <Route path="/signup" exact={true} element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Register />} />
 
-              <Route path="/" exact={true} element={<Index />} />
-              <Route path="/user-ads" exact={true} element={<UserAds />} />
-              <Route
-                path="/forget-password"
-                exact={true}
-                element={<ForgetPassword />}
-              />
+              <Route path="/" element={<Index />} />
+              <Route path="/user-ads" element={<UserAds />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
               <Route
                 path="/reset-password/:token"
-                exact={true}
                 element={<ResetPassword />}
               />
 
-              <Route
-                path="/set-password/:token"
-                exact={true}
-                element={<SetPassword />}
-              />
+              <Route path="/set-password/:token" element={<SetPassword />} />
 
-              <Route path="/about-us" exact={true} element={<Aboutus />} />
-              <Route path="/help-center" exact={true} element={<Help />} />
+              <Route path="/about-us" element={<Aboutus />} />
+              <Route path="/help-center" element={<Help />} />
               <Route
                 path="/term-and-condition"
-                exact={true}
                 element={<TermsAndCondition />}
               />
-              <Route path="/contact-us" exact={true} element={<Contactus />} />
+              <Route path="/contact-us" element={<Contactus />} />
 
-              <Route path="/job" exact={true} element={<Job />} />
+              <Route path="/job" element={<Job />} />
 
-              <Route path="/job-seeker" exact={true} element={<JobSeeker />} />
-              <Route path="/business" exact={true} element={<Businesses />} />
+              <Route path="/job-seeker" element={<JobSeeker />} />
+              <Route path="/business" element={<Businesses />} />
               <Route
                 path="/job-seeker-detail/:id"
-                exact={true}
                 element={<JobSeekerDetails />}
               />
 
@@ -237,31 +226,23 @@ const App = (props) => {
 
               <Route
                 path="/user-panel"
-                exact={true}
                 element={<PrivateRoute from="/user-panel" />}
               >
                 <Route
                   path="/user-panel"
-                  exact={true}
                   element={<UserPanel tab={tab} setTab={setTab} />}
                 />
                 <Route
                   path="/user-panel/change-password"
-                  exact={true}
                   element={<ChangePassword />}
                 />
               </Route>
 
               <Route
                 path="/adminpanel"
-                exact={true}
                 element={<PrivateRoute from="/adminpanel" />}
               >
-                <Route
-                  path="/adminpanel"
-                  exact={true}
-                  element={<AdminPanel />}
-                />
+                <Route path="/adminpanel" element={<AdminPanel />} />
               </Route>
 
               <Route
@@ -274,15 +255,13 @@ const App = (props) => {
                 exact
                 element={<DetailBusiness />}
               />
-              <Route
-                path="/job-detail/:id"
-                exact={true}
-                element={<JobDetail />}
-              />
-              <Route path="/noc" exact={true} element={<PrivateRoute />}>
-                <Route path="/noc" exact={true} element={<NOC />} />
+              <Route path="/job-detail/:id" element={<JobDetail />} />
+              <Route path="/noc" element={<PrivateRoute />}>
+                <Route path="/noc" element={<NOC />} />
               </Route>
-              <Route path="*" element={PageNotFound} />
+
+              <Route path="/404" element={<PageNotFound />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
             <Footer />
           </div>

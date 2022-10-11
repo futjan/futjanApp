@@ -37,7 +37,7 @@ const Footer = () => {
                         <div className="btn-group title-block">
                           <div className="popup-title page-heading">
                             <i className="fa fa-paper-plane-o"></i> Sign up to
-                            Newsletter
+                            newsletter for latest update
                           </div>
                           <div className="newsletter_promo">
                             And receive <span>$29</span>coupon for first
