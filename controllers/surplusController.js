@@ -96,6 +96,7 @@ exports.getAllCurrentUserSurplus = catchAsync(async (req, res, next) => {
     .pagination();
 
   const surpluses = await features.query;
+
   const totalDoc = await SurplusBusiness.find({
     user: req.user._id.toString(),
   }).countDocuments();

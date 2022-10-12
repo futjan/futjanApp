@@ -21,6 +21,7 @@ const AdsType = (props) => {
       <MenuItem value="surplus">Surplus</MenuItem>
       <MenuItem value="job">Job</MenuItem>
       <MenuItem value="jobseeker">Job Seeker</MenuItem>
+      <MenuItem value="business">business</MenuItem>
     </Select>
   );
 };

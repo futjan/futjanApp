@@ -1,3 +1,4 @@
+let MongooseObjectId = require("mongoose").Types.ObjectId;
 class APIFeature {
   constructor(query, queryString) {
     this.query = query;
@@ -22,7 +23,6 @@ class APIFeature {
         delete queryObj[el];
       }
     });
-
     // 2B) Advance filtering
     queryObj.deleted = false;
     let queryStr = JSON.stringify(queryObj);
@@ -32,14 +32,21 @@ class APIFeature {
       const obj = { ...JSON.parse(queryStr) };
       const title = obj.title;
       delete obj["title"];
-
-      this.query.find({ title: new RegExp(title, "i"), ...obj });
-      return this;
+      this.query = this.query.find({ title: new RegExp(title, "i"), ...obj });
     } else {
-      this.query.find(JSON.parse(queryStr));
-      return this;
+      if (Object.keys(JSON.parse(queryStr)).includes("user")) {
+        const userId = { user: JSON.parse(queryStr).user };
+        queryStr = JSON.parse(queryStr);
+        delete queryStr["user"];
+        userId.user = new MongooseObjectId(userId.user);
+
+        this.query = this.query.find({ user: userId.user, queryStr });
+      } else {
+        this.query = this.query.find(JSON.parse(queryStr));
+      }
     }
-    // return this;
+
+    return this;
   }
 
   sort() {

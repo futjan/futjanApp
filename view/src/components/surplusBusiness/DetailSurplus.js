@@ -553,10 +553,10 @@ function DetailSurplus() {
                                     value={review}
                                     onChange={(e) => setReview(e.target.value)}
                                   ></textarea>
-                                  <div className="help-block">
+                                  {/* <div className="help-block">
                                     <span className="text-danger">Note:</span>{" "}
                                     HTML is not translated!
-                                  </div>
+                                  </div> */}
                                 </div>
                               </div>
                               <div className="form-group required">

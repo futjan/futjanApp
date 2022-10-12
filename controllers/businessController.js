@@ -91,7 +91,7 @@ exports.getAllCurrentUserBusiness = catchAsync(async (req, res, next) => {
   }).countDocuments();
 
   // check surplus exist or not
-  if (!surpluses) {
+  if (!businesses) {
     return next(new AppError("business does not found", 404, undefined));
   }
 

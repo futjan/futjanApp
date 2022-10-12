@@ -4,7 +4,7 @@ import Preloader2 from "../../utils/Preloader2";
 const SurplusTable = lazy(() => import("./SurplusTable"));
 
 const JobTable = lazy(() => import("./JobTable"));
-
+const BusinessTable = lazy(() => import("./BusinessTable"));
 const JobSeekerTable = lazy(() => import("./JobSeekerTable"));
 
 const DraftAdsTable = lazy(() => import("./DraftAdsTable"));
@@ -87,6 +87,11 @@ const Surplus = (props) => {
             {add === "surplus" ? (
               <SurplusTable setTab={props.setTab} setId={props.setId} />
             ) : null}
+
+            {add === "business" ? (
+              <BusinessTable setTab={props.setTab} setId={props.setId} />
+            ) : null}
+
             {add === "job" ? (
               <JobTable setTab={props.setTab} setId={props.setId} />
             ) : null}

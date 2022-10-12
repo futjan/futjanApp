@@ -1101,15 +1101,9 @@ const AddJobSeeker = (props) => {
                                   }
                                   // label="Age"
                                 >
-                                  <MenuItem value={100}>
-                                    14 days - 100 INR
-                                  </MenuItem>
-                                  <MenuItem value={250}>
-                                    30 days - 250 INR
-                                  </MenuItem>
-                                  <MenuItem value={500}>
-                                    60 days - 500 INR
-                                  </MenuItem>
+                                  <MenuItem value={0}>14 days - 0 INR</MenuItem>
+                                  <MenuItem value={0}>30 days - 0 INR</MenuItem>
+                                  <MenuItem value={0}>60 days - 0 INR</MenuItem>
                                 </Select>
                               </FormControl>
                               {/* 14 days-INR 100 */}
@@ -1125,7 +1119,7 @@ const AddJobSeeker = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 150 INR
+                              7 days - 0 INR
                             </span>
                           ) : null}
 
@@ -1138,7 +1132,7 @@ const AddJobSeeker = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 350 INR
+                              7 days - 0 INR
                             </span>
                           ) : null}
                         </label>

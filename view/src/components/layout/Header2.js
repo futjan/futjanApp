@@ -8,6 +8,7 @@ import { Select } from "@mui/material";
 import ukFlag from "../image/flag/uk.png";
 import indianFlag from "../image/flag/india.png";
 import HeaderSurplusType from "./HeaderSurplusType";
+import HeaderBusinessType from "./HeaderBusinessType";
 import HeaderJobType from "./HeaderJobType";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -159,6 +160,17 @@ const Header2 = () => {
                         {adType === "jobseeker" ? (
                           <Link
                             to="/job-seeker"
+                            className="button-search btn btn-default btn-lg align-items-center justify-content-center d-flex"
+                            name="submit_search"
+                            state={{ title: title.toLowerCase() }}
+                          >
+                            <i className="fa fa-search"></i>
+                            <span className="hidden">Search</span>
+                          </Link>
+                        ) : null}
+                        {adType === "business" ? (
+                          <Link
+                            to="/business"
                             className="button-search btn btn-default btn-lg align-items-center justify-content-center d-flex"
                             name="submit_search"
                             state={{ title: title.toLowerCase() }}
@@ -432,29 +444,9 @@ const Header2 = () => {
             </div>
           </div>
         </div>
-        {/* {auth.isAuthenticated !== true ? (
-          <div className="full-width menu-home with-sub-menu hover d-none-xs">
-            <NavLink
-              className="clearfix align-items-center justify-content-center d-flex flex-dir-col"
-              to="/login"
-              state={{ from: location.pathname }}
-              onClick={() =>
-                closeSideNavBar(
-                  "megamenu-wrapper-2",
-                  "megamenu-wrapper-2-wrapper"
-                )
-              }
-            >
-              {" "}
-              <i className="fa fa-user header-icon"></i>
-              <strong>Login/Register</strong>
-            </NavLink>
-          </div>
-        ) : null} */}
       </div>
       {/* <!-- //Header center -->
     <!-- Heaader bottom --> */}
-
       <div className="header-bottom">
         <div className="container">
           {/* <ul className="new-design-ul"> */}
@@ -492,6 +484,7 @@ const Header2 = () => {
                 <i className="fa fa-th-large"></i>
                 Business
               </NavLink>
+              <HeaderBusinessType />
             </li>
           </ul>
         </div>

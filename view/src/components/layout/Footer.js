@@ -39,10 +39,10 @@ const Footer = () => {
                             <i className="fa fa-paper-plane-o"></i> Sign up to
                             newsletter for latest update
                           </div>
-                          <div className="newsletter_promo">
+                          {/* <div className="newsletter_promo">
                             And receive <span>$29</span>coupon for first
                             shopping
-                          </div>
+                          </div> */}
                         </div>
                         <div className="modcontent block_content">
                           <form

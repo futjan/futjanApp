@@ -111,7 +111,7 @@ const JobSeeker = () => {
                                           candidate &&
                                           candidate.rate * currency.rate
                                         ).toFixed(2)}
-                                    / {candidate.salaryType}
+                                    {/* / {candidate.salaryType} */}
                                   </span>
                                 </div>
                               </div>

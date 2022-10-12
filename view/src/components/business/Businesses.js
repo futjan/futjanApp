@@ -57,7 +57,7 @@ const Businesses = () => {
   useEffect(() => {
     if (state && state.title) {
       setTitle(state.title);
-      callBusinessAPI(page, limit, sort);
+      callBusinessAPI(page, limit, sort, state.title);
     }
   }, [state && state.title]);
   useEffect(() => {
@@ -124,13 +124,13 @@ const Businesses = () => {
   }, []);
 
   // call getBusinessesAction
-  const callBusinessAPI = (page, lim, sortBy) => {
+  const callBusinessAPI = (page, lim, sortBy, tit = title) => {
     dispatch(
       getBusinesses(
         page,
         lim,
         sortBy,
-        title.length > 0 ? title.toLowerCase().trim() : "",
+        tit.length > 0 ? tit.toLowerCase().trim() : "",
         businessType.toLowerCase(),
         country !== null && country.name && country.name.length > 0
           ? country.name.toLowerCase()

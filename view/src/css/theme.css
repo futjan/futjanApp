@@ -1599,7 +1599,7 @@ div.required .control-label:before {
   color: #f00;
   font-weight: bold;
   position: absolute;
-  left: 9px;
+  left: -7px;
 }
 /*******************************************************************
  ******                SO Framework: Sass Menu                 ******

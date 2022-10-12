@@ -62,14 +62,14 @@ const SurplusBusinesses = () => {
   useEffect(() => {
     if (state && state.title) {
       setTitle(state.title);
-      callSurplusesAPI(page, limit, sort);
+      callSurplusesAPI(page, limit, sort, state.title, "");
     }
   }, [state && state.title]);
 
   useEffect(() => {
     if (state && state.type) {
       setBusinessType(state.type);
-      callSurplusesAPI(page, limit, sort, state && state.type);
+      callSurplusesAPI(page, limit, sort, "", state && state.type);
     }
   }, [state && state.type]);
   console.log(state && state.type, "Business TYPE");
@@ -137,13 +137,19 @@ const SurplusBusinesses = () => {
   }, []);
 
   // call getSurplusesAction
-  const callSurplusesAPI = (page, lim, sortBy, busType = businessType) => {
+  const callSurplusesAPI = (
+    page,
+    lim,
+    sortBy,
+    tit = title,
+    busType = businessType
+  ) => {
     dispatch(
       getSurpluses(
         page,
         lim,
         sortBy,
-        title.length > 0 ? title.toLowerCase().trim() : "",
+        tit.length > 0 ? tit.toLowerCase().trim() : "",
         busType.toLowerCase(),
         category.toLowerCase(),
         keyword.toLowerCase(),

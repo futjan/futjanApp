@@ -18,7 +18,7 @@ router.route("/admin-only").get(businessController.getAdminBusiness);
 
 // surplus belongs to current user
 router
-  .route("/current-user-surplus")
+  .route("/current-user-business")
   .get(authController.protect, businessController.getAllCurrentUserBusiness);
 router.patch(
   "/activate",
