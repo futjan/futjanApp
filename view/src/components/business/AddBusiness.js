@@ -720,7 +720,7 @@ const AddBusiness = (props) => {
                   </div>
                 </div>
               </div>
-              <h4 className="post-ad-heading">Make your ad stand out!</h4>
+              <h4 className="post-ad-heading">Posting Ad is free currently for FutJan users</h4>
               <div className="form-group">
                 <div className="col-sm-12">
                   <label
@@ -803,7 +803,7 @@ const AddBusiness = (props) => {
                                 fontWeight: "600",
                               }}
                             >
-                              <FormControl
+                              {/* <FormControl
                                 variant="standard"
                                 sx={{ m: 1, minWidth: 130 }}
                               >
@@ -822,7 +822,7 @@ const AddBusiness = (props) => {
                                   </MenuItem>
                                   <MenuItem value={0}>60 days - 0 INR</MenuItem>
                                 </Select>
-                              </FormControl>
+                              </FormControl> */}
                               {/* 14 days-INR 100 */}
                             </span>
                           ) : null}
@@ -836,7 +836,7 @@ const AddBusiness = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 0 INR
+                              7 days - Free
                             </span>
                           ) : null}
 
@@ -849,7 +849,7 @@ const AddBusiness = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 0 INR
+                              7 days - Free
                             </span>
                           ) : null}
                         </label>
@@ -870,7 +870,8 @@ const AddBusiness = (props) => {
                   >
                     <span style={{ float: "left" }}>Total</span>
                     <span style={{ float: "right" }}>
-                      {promoteType.length > 0
+                      Free
+                      {/* {promoteType.length > 0
                         ? (promoteType.filter(
                             (type) => type.promote === "FEATURED"
                           ).length > 0
@@ -887,7 +888,7 @@ const AddBusiness = (props) => {
                             ? 350
                             : 0) +
                           " INR"
-                        : "Free"}
+                        : "Free"} */}
                     </span>
                   </div>
                   <label style={{ lineHeight: "16px" }}>
