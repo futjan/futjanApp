@@ -834,7 +834,7 @@ const AddJob = (props) => {
                               </span>
                             ) : null}
                             {type.promote === "FEATURED"
-                              ? "Have your Ad appear at the top of the category listings for 14, 30 or 60 days."
+                              ? "Have your Ad appear at the top of the category listings for 14 days."
                               : type.promote === "URGENT"
                               ? "Let people know you want to sell, rent or hire quickly"
                               : type.promote === "SPOTLIGHT"
@@ -863,13 +863,8 @@ const AddJob = (props) => {
                                   }
                                   // label="Age"
                                 >
-                                  <MenuItem value={0}>14 days - 0 INR</MenuItem>
-                                  <MenuItem value={250}>
-                                    30 days - 0 INR
-                                  </MenuItem>
-                                  <MenuItem value={500}>
-                                    60 days - 0 INR
-                                  </MenuItem>
+                                  <MenuItem value={0}>14 days - Free</MenuItem>
+                                  
                                 </Select>
                               </FormControl>
                               {/* 14 days-INR 100 */}
@@ -885,7 +880,7 @@ const AddJob = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 0 INR
+                              7 days - Free
                             </span>
                           ) : null}
 
@@ -898,7 +893,7 @@ const AddJob = (props) => {
                                 minWidth: "135px",
                               }}
                             >
-                              7 days - 0 INR
+                              7 days - Free
                             </span>
                           ) : null}
                         </label>
@@ -919,7 +914,8 @@ const AddJob = (props) => {
                   >
                     <span style={{ float: "left" }}>Total</span>
                     <span style={{ float: "right" }}>
-                      {promoteType.length > 0
+                    Free
+                     {/* {promoteType.length > 0
                         ? (promoteType.filter(
                             (type) => type.promote === "FEATURED"
                           ).length > 0
@@ -936,7 +932,7 @@ const AddJob = (props) => {
                             ? 350
                             : 0) +
                           " INR"
-                        : "Free"}
+                        : "Free"}*/}
                     </span>
                   </div>
                   <label style={{ lineHeight: "16px" }}>
