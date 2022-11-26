@@ -1065,7 +1065,7 @@ const AddJobSeeker = (props) => {
                                     ? "ad-type urgent"
                                     : type.promote === "SPOTLIGHT"
                                     ? "ad-type spotlight"
-                                    : "ad-type"
+                                   {/* : "ad-type"*/}
                                 }
                               >
                                 {type.promote}
@@ -1077,7 +1077,7 @@ const AddJobSeeker = (props) => {
                               ? "Let people know you want to sell, rent or hire quickly"
                               : type.promote === "SPOTLIGHT"
                               ? "Have your Ad seen on the Futjan homepage!"
-                              : "SELECT ALL"}
+                              {/*: "SELECT ALL" */}}
                             <span className="checkmark"></span>
                           </span>
                           {type.promote === "FEATURED" ? (
