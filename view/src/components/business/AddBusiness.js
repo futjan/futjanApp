@@ -803,7 +803,7 @@ const AddBusiness = (props) => {
                                 fontWeight: "600",
                               }}
                             >
-                              {/* <FormControl
+                              <FormControl
                                 variant="standard"
                                 sx={{ m: 1, minWidth: 130 }}
                               >
@@ -816,13 +816,10 @@ const AddBusiness = (props) => {
                                   }
                                   // label="Age"
                                 >
-                                  <MenuItem value={0}>14 days - 0 INR</MenuItem>
-                                  <MenuItem value={250}>
-                                    30 days - 0 INR
-                                  </MenuItem>
-                                  <MenuItem value={0}>60 days - 0 INR</MenuItem>
+                                  <MenuItem value={0}>14 days - Free</MenuItem>
+                                  
                                 </Select>
-                              </FormControl> */}
+                              </FormControl>
                               {/* 14 days-INR 100 */}
                             </span>
                           ) : null}
