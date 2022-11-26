@@ -1088,7 +1088,7 @@ const AddJobSeeker = (props) => {
                                 fontWeight: "600",
                               }}
                             >
-                             /*  <FormControl
+                             <FormControl
                                 variant="standard"
                                 sx={{ m: 1, minWidth: 130 }}
                               >
@@ -1101,12 +1101,10 @@ const AddJobSeeker = (props) => {
                                   }
                                   // label="Age"
                                 >
-                                  <MenuItem value={0}>14 days - 0 INR</MenuItem>
-                                  <MenuItem value={0}>30 days - 0 INR</MenuItem>
-                                  <MenuItem value={0}>60 days - 0 INR</MenuItem>
+                                  <MenuItem value={0}>14 days - Free</MenuItem>
                                 </Select>
-                              </FormControl>*/
-                              { 14 days- Free }
+                              </FormControl>
+                              {/* 14 days- Free */}
                             </span>
                           ) : null}
 
