@@ -26,7 +26,7 @@ const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
   { promote: "SPOTLIGHT", numberSort: 3 },
-  { promote: "ALL", numberSort: 4 },
+  // { promote: "ALL", numberSort: 4 },
 ];
 const EditJob = (props) => {
   const [errors, setErrors] = useState({});
@@ -129,34 +129,36 @@ const EditJob = (props) => {
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
-    if (checked !== true) {
-      if (value.promote === "ALL") {
-        setPromoteType([]);
-      } else {
-        const tempArr = promoteType.filter(
-          (promote) => promote.promote !== value.promote
-        );
-        setPromoteType([...tempArr]);
-      }
-    } else {
-      if (value.promote === "ALL") {
-        setPromoteType([
-          { promote: "FEATURED", numberSort: 1 },
-          { promote: "URGENT", numberSort: 2 },
-          { promote: "SPOTLIGHT", numberSort: 3 },
-          { promote: "ALL", numberSort: 4 },
-        ]);
-      } else {
-        const tempArr = [...promoteType];
-        tempArr.push(value);
+    if(checked !== true) setPromoteType([]); else setPromoteType([value]);
 
-        setPromoteType([
-          ...tempArr.filter((value, index, self) => {
-            return self.indexOf(value) === index;
-          }),
-        ]);
-      }
-    }
+    // if (checked !== true) {
+    //   if (value.promote === "ALL") {
+    //     setPromoteType([]);
+    //   } else {
+    //     const tempArr = promoteType.filter(
+    //       (promote) => promote.promote !== value.promote
+    //     );
+    //     setPromoteType([...tempArr]);
+    //   }
+    // } else {
+    //   if (value.promote === "ALL") {
+    //     setPromoteType([
+    //       { promote: "FEATURED", numberSort: 1 },
+    //       { promote: "URGENT", numberSort: 2 },
+    //       { promote: "SPOTLIGHT", numberSort: 3 },
+    //       { promote: "ALL", numberSort: 4 },
+    //     ]);
+    //   } else {
+    //     const tempArr = [...promoteType];
+    //     tempArr.push(value);
+
+    //     setPromoteType([
+    //       ...tempArr.filter((value, index, self) => {
+    //         return self.indexOf(value) === index;
+    //       }),
+    //     ]);
+    //   }
+    // }
   };
 
   // create job function

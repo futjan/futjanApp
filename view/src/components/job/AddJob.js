@@ -20,7 +20,7 @@ const adpromotionType = [
   { promote: "FEATURED", numberSort: 1 },
   { promote: "URGENT", numberSort: 2 },
   { promote: "SPOTLIGHT", numberSort: 3 },
-  { promote: "ALL", numberSort: 4 },
+  //{ promote: "ALL", numberSort: 4 },
 ];
 const draftId = new Date();
 const AddJob = (props) => {
@@ -155,34 +155,36 @@ const AddJob = (props) => {
 
   // handle promotion checkBox
   const promoteCheckBoxHandler = (checked, value) => {
-    if (checked !== true) {
-      if (value.promote === "ALL") {
-        setPromoteType([]);
-      } else {
-        const tempArr = promoteType.filter(
-          (promote) => promote.promote !== value.promote
-        );
-        setPromoteType([...tempArr]);
-      }
-    } else {
-      if (value.promote === "ALL") {
-        setPromoteType([
-          { promote: "FEATURED", numberSort: 1 },
-          { promote: "URGENT", numberSort: 2 },
-          { promote: "SPOTLIGHT", numberSort: 3 },
-          { promote: "ALL", numberSort: 4 },
-        ]);
-      } else {
-        const tempArr = [...promoteType];
-        tempArr.push(value);
+    if(checked !== true) setPromoteType([]); else setPromoteType([value]);
 
-        setPromoteType([
-          ...tempArr.filter((value, index, self) => {
-            return self.indexOf(value) === index;
-          }),
-        ]);
-      }
-    }
+    // if (checked !== true) {
+    //   if (value.promote === "ALL") {
+    //     setPromoteType([]);
+    //   } else {
+    //     const tempArr = promoteType.filter(
+    //       (promote) => promote.promote !== value.promote
+    //     );
+    //     setPromoteType([...tempArr]);
+    //   }
+    // } else {
+    //   if (value.promote === "ALL") {
+    //     setPromoteType([
+    //       { promote: "FEATURED", numberSort: 1 },
+    //       { promote: "URGENT", numberSort: 2 },
+    //       { promote: "SPOTLIGHT", numberSort: 3 },
+    //       { promote: "ALL", numberSort: 4 },
+    //     ]);
+    //   } else {
+    //     const tempArr = [...promoteType];
+    //     tempArr.push(value);
+
+    //     setPromoteType([
+    //       ...tempArr.filter((value, index, self) => {
+    //         return self.indexOf(value) === index;
+    //       }),
+    //     ]);
+    //   }
+    // }
   };
 
   // create job function
@@ -767,7 +769,7 @@ const AddJob = (props) => {
                   )}
                 </div>
               </div>
-              <h4 className="post-ad-heading">Make your ad stand out!</h4>
+              <h4 className="post-ad-heading">Posting Ad is free currently for FutJan users.</h4>
               <div className="form-group">
                 <div className="col-sm-12">
                   <label
