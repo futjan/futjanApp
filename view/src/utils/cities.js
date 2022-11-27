@@ -4,6 +4,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { City } from "country-state-city";
 import "./customCss.css";
 const Cities = (props) => {
+  const [city, setCity] = useState({
+    name: "",
+    stateCode: "",
+    countryCode: "",
+  });
   const [options, setOptions] = useState([]);
 
   // useEffect
@@ -16,11 +21,6 @@ const Cities = (props) => {
       props.county.name
     ) {
       setOptions([
-        // {
-        //   name: "",
-        //   stateCode: "",
-        //   countryCode: "",
-        // },
         ...City.getCitiesOfState(
           props.country && props.country.isoCode,
           props.county && props.county.isoCode
@@ -36,60 +36,26 @@ const Cities = (props) => {
       setOptions([]);
     }
   }, [props && props.country, props && props.county]);
-  switch (options.length) {
-    case 0:
-      return (
-        <input
-          type="text"
-          name="city"
-          value={props.city.name}
-          onChange={(e) =>
-            props.setCity({
-              name: e.target.value,
-              stateCode: "",
-              countryCode: "",
-            })
-          }
-          placeholder="city"
-          id="input-website"
-          className={
-            props.errors &&
-            props.errors.validation &&
-            props.errors.validation.city
-              ? "form-control is-invalid"
-              : "form-control"
-          }
-        />
-      );
-    default:
-      return (
-        <Autocomplete
-          className="form-control"
-          disablePortal={true}
-          options={options}
-          getOptionLabel={(option) => (option ? option.name : "")}
-          value={props.city}
-          onChange={(e, value) => {
-            if (value === null) {
-              props.setCity({
-                name: "",
-                stateCode: "",
-                countryCode: "",
-              });
-            } else {
-              props.setCity(value);
-            }
-          }}
-          isOptionEqualToValue={(option, value) => {
-            return option.name === value.name;
-          }}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} placeholder="Choose City" />
-          )}
-        />
-      );
-  }
+  return (
+    <Autocomplete
+      className="form-control"
+      disablePortal
+      id="combo-box-demo"
+      options={options}
+      getOptionLabel={(option) => (option ? option.name : "")}
+      value={props.city}
+      onChange={(e, value) => {
+        props.setCity(value);
+      }}
+      isOptionEqualToValue={(option, value) => {
+        return option.name === value.name;
+      }}
+      sx={{ width: 300 }}
+      renderInput={(params) => (
+        <TextField {...params} placeholder="Choose City" />
+      )}
+    />
+  );
 };
 
-export default React.memo(Cities);
+export default Cities;
