@@ -1233,16 +1233,19 @@ input[type="number"] {
   display: none;
   opacity: 0;
   z-index: 9999;
-  box-shadow: rgb(0 0 0 / 15%) 0px 15px 20px;
+  /* box-shadow: rgb(0 0 0 / 15%) 0px 15px 20px; */
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   position: absolute;
   min-height: 200px;
-  max-height: 390px;
+  max-height: 550px;
   overflow: auto;
   left: 0px;
   width: 130%;
   background: rgb(255, 255, 255);
   padding: 20px;
   /* margin-top: 10px; */
+  box-sizing: content-box;
+  border-radius: 10px;
 }
 .new-design-ul li .sub-menu ul li {
   padding: 0 !important;
@@ -1258,9 +1261,16 @@ input[type="number"] {
   color: #3c3241;
   font-weight: 600;
   font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 .new-design-ul li .sub-menu ul li a:hover {
   text-decoration: underline;
+  overflow: hidden !important;
+  text-overflow: clip;
+  background-color: #f5f5f5;
+  border-radius: 5px;
 }
 .new-design-ul li .type-links {
   width: 85px !important;
